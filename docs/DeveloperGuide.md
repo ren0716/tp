@@ -3,7 +3,7 @@ layout: page
 title: Developer Guide
 ---
 * Table of Contents
-{:toc}
+  {:toc}
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -229,13 +229,13 @@ The following activity diagram summarizes what happens when a user executes a ne
 **Aspect: How undo & redo executes:**
 
 * **Alternative 1 (current choice):** Saves the entire address book.
-  * Pros: Easy to implement.
-  * Cons: May have performance issues in terms of memory usage.
+    * Pros: Easy to implement.
+    * Cons: May have performance issues in terms of memory usage.
 
 * **Alternative 2:** Individual command knows how to undo/redo by
   itself.
-  * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-  * Cons: We must ensure that the implementation of each individual command are correct.
+    * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+    * Cons: We must ensure that the implementation of each individual command are correct.
 
 _{more aspects and alternatives to be added}_
 
@@ -262,56 +262,239 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
-* has a need to manage a significant number of contacts
+* tuition centre tutors
+* teaching a wide range of subjects and student levels
+* manage students with volatile environment (may sign up or quit midway)
 * prefer desktop apps over other types
 * can type fast
 * prefers typing to mouse interactions
 * is reasonably comfortable using CLI apps
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+**Value proposition**: Tutors often struggle to manage multiple students across different classes, especially when enrollment changes frequently. TutorTrack provides an integrated way to manage both classes and students by:
+
+* Linking each class to its list of enrolled students
+* Linking each student to their list of assignments
 
 
 ### User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                     | So that I can…​                                                        |
-| -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
-| `* * *`  | new user                                   | see usage instructions         | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person               |                                                                        |
-| `* * *`  | user                                       | delete a person                | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name          | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details   | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name           | locate a person easily                                                 |
+| Priority | As a …​                           | I want to …​                                                 | So that I can…​                                                                                   |
+|----------|-----------------------------------|--------------------------------------------------------------|---------------------------------------------------------------------------------------------------|
+| `* * *`  | private tutor                     | add a student to my list                                     | I can keep track of who I am teaching.                                                            |
+| `* * *`  | private tutor                     | delete a student from my current list                        | I don’t have clutter from students I no longer teach.                                             |
+| `* * *`  | private tutor                     | add a class to a student                                     | I can keep track of which class a student belongs to. Class info includes subject and class time. |
+| `* * *`  | private tutor                     | delete a class to a student                                  | I can remove a class from a student if they quit/graduate.                                        |
+| `* * *`  | private tutor                     | see a list of all active students                            | I can review all my students at a glance.                                                         |
+| `* * *`  | private tutor                     | add an assignment to each student in a class                 | I can assign each student in a class an assignment                                                |
+| `* * *`  | private tutor                     | delete an assignment from each student in a class            | I can remove the homework or practice tasks a student has completed                               |
+| `* * *`  | private tutor                     | exit the app safely with data saved                          | I can resume work later without losing progress.                                                  |
+| `* * *`  | private tutor                     | find students by name                                        | I can get a student's information easily                                                          |
+| `* * * ` | organised private tutor           | filter students by class                                     | I can check students enrolled in a class                                                          |
+| `* *`    | private tutor                     | record notes for a tutoring session for a particular student | I can review what topics were covered and where the student struggled.                            |
+| `* *`    | private tutor                     | edit a student's name/subject/contact                        | I can edit a mistake I did/update any changes in student information                              |
+| `* *`    | private tutor                     | add a grade to a completed assignment                        | I can track the student’s performance across assignments.                                         |
+| `* *`    | private tutor                     | search for a student by partial name or subject              | I can quickly retrieve details even if I do not remember exact spellings.                         |
+| `* *`    | private tutor                     | mark an assignment as completed                              | I can differentiate between pending and finished work.                                            |
+| `* *`    | private tutor                     | undo my last action                                          | I can recover from mistakes quickly                                                               |
+| `* *`    | private tutor                     | tag students with labels                                     | I can group and filter them by specific keywords                                                  |
+| `* *`    | private tutor                     | add recurring sessions for a student                         | I can avoid re-entering the same lesson schedule every week                                       |
+| `* *`    | private tutor                     | secure my account with a password                            | I can keep personal info of my students private                                                   |
+| `* *`    | busy private tutor                | filter students by day                                       | I can check which student has active classes on a particular day                                  |
+| `* *`    | busy private tutor                | receive a warning before deleting a student or assignment    | I can prevent accidental loss of important information                                            |
+| `* *`    | beginner user of the app          | see the app populated with sample data                       | I can play around with the data and familiarise myself with the app's features                    |
+| `* *`    | beginner user of the app          | be shown where my commands went wrong                        | I can understand which commands to use properly                                                   |
+| `* *`    | beginner user of the app          | see a list of commands to use on the app                     | I can try out every command and get myself familiarised with the app                              |
+| `* *`    | organised private tutor           | delete/archive students without active class                 | I can reduce clutter                                                                              |
+| `* *`    | organised private tutor           | add due dates to assignments                                 | I can ensure my students submit their assignments on time                                         |
+| `* *`    | organised private tutor           | see the latest edits to my list                              | I can keep track of where I last left off                                                         |
+| `* *`    | organised private tutor           | filter by students who haven't paid for the previous month   | I can save time on tracking finances                                                              |
+| `* *`    | organised private tutor           | link multiple subjects to one student                        | I can manage students I teach in more than one subject.                                           |
+| `* *`    | expert user of the app            | create shortcuts for usual commands                          | I can save time                                                                                   |
+| `* *`    | expert user of the app            | export my student details to a CSV file                      | I can back up or share the data in a standard format                                              |
+| `* *`    | user ready to start using the app | clear all current data on the app                            | I can start anew with my own personal data                                                        |
+| `* `     | busy private tutor                | delete/archive a class                                       | I can remove the tagged class from all students                                                   |
 
 *{More to be added}*
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+**Use case: Add a person**
 
-**Use case: Delete a person**
+**Primary Actor:** Private Tutor
+**Goal:** Add a new student to track lessons and assignments.
+
+**Preconditions**
+* TutorTrack is running
+* The tutor has the student’s name, phone number (SG format), and level.
+
+**Minimal Guarantees**
+* No partial/unknown student is created.
+
+**Success Guarantees**
+* New student appears in the student list with saved details.
 
 **MSS**
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  Tutor initiates "add student" with information about \
+    * Name
+    * Phone Number
+    * Level
+2. System validates details and checks for duplicates.
+3. System creates the student and saves data.
+4. System shows a success message and highlights the new student.
 
-    Use case ends.
+Use case ends.
 
 **Extensions**
 
-* 2a. The list is empty.
+* 1a. Missing or malformed details
+    * 1a1. System shows specific validation errors and requests corrections.
+    * 1a2. Tutor corrects input.
 
-  Use case ends.
+      Use case resumes at step 2
 
-* 3a. The given index is invalid.
+* 2a. Duplicate (same name + same phone)
+    * 2a1. System rejects and shows “student already exists”.
+      Use case ends.
 
-    * 3a1. AddressBook shows an error message.
+* 3a. Storage write fails
+    * 3a1. System rolls back creation and shows a failure message.
+      Use case ends.
 
-      Use case resumes at step 2.
+**Use case: Delete a person**
+
+**Primary Actor:** Private Tutor
+**Goal:** Remove a student who is no longer being taught.
+
+**Preconditions**
+* At least one student is displayed (full or filtered list).
+
+**Minimal Guarantees**
+* No data corruption; list remains consistent.
+
+**Success Guarantees**
+* The target student is removed from the storage and the list.
+
+**MSS**
+1. Tutor deletes a student from the list based on the index.
+2. System validates the selected entry and requests confirmation.
+3. Tutor confirms.
+4. System removes the student and related records from storage.
+5. System shows a success message and updates the list.
+
+Use case ends.
+
+**Extensions**
+
+* 1a. Invalid selection (index out of bounds or no item)
+    * 1a1. System shows an error and keeps list unchanged. \
+      Use case ends.
+
+* 3a. Storage write fails
+    * 3a1. System restores the student and shows a failure message. \
+      Use case ends.
+
+**Use case: Add Class to Student**
+
+**Primary Actor:** Private Tutor  
+**Goal:** Add a class (subject \+ time) for a specific student.
+
+**Preconditions:**
+* At least one student is displayed.
+* Subject and time are known.
+
+**Minimal Guarantees:**
+* No partial class is attached.
+
+**Success Guarantees:**
+* Student shows the new class in their class list; data is saved to storage.
+
+**MSS:**
+1. Tutor adds class to student.
+2. System validates format and requests confirmation.
+3. Tutor confirms.
+4. System adds the class to the student and saves data.
+5. System shows success and updates the student’s details.
+
+Use case ends.
+
+**Extensions:**
+* 2a. Missing/invalid subject or time
+    * 2a1. System shows an error and keeps the list unchanged.  
+      Use case resumes from step 1\.
+
+* 3a. Duplicate class (same class & time)
+    * 3a1. System shows an error and keeps the list unchanged.  
+      Use case ends.
+
+* 4a. Storage write fails:
+    * 4a1. System removes class from the student and shows a failure message.  
+      Use case ends.
+
+**Use Case: Delete Class from Student**
+
+**Primary Actor:** Private Tutor  
+**Goal:** Remove a class (subject \+ time) from a student.
+
+**Preconditions:**
+* The student exists and has at least one class.
+
+**Minimal Guarantees:**
+* No data corruption; other classes remain.
+
+**Success Guarantees:**
+* The specific class is removed and the change is saved.
+
+**MSS:**
+1. Tutor deletes class from student.
+2. System validates and requests confirmation.
+3. Tutor confirms.
+4. System removes the class and saves data.
+5. System shows success and updates the student’s details.
+
+Use case ends.
+
+**Extensions:**
+* 2a. Missing/invalid class identification
+    * 2a1. System shows an error and keeps the list unchanged.  
+      Use case resumes from step 1\.
+
+* 3a. Class not found
+    * 3a1. System shows an error and keeps the list unchanged.  
+      Use case ends.
+
+* 4a. Storage write fails
+    * 4a1. System adds back class from the student and shows a failure message.  
+      Use case ends.
+
+**Use Case: View All Active Students**
+
+**Primary Actor:** Private Tutor
+**Goal:** See the complete list of currently stored students.
+
+**Preconditions**
+* TutorTrack is running.
+
+**Minimal Guarantees**
+* System shows the current list state (even if empty).
+
+**Success Guarantees**
+* All active students are displayed.
+
+**MSS**
+1. Tutor initiates “list students”.
+2. System retrieves and displays all students.
+
+   Use case ends.
+
+**Extensions**
+* 2a. No students exist
+    * 2a1. System shows “no records” message.
+
+      Use Case Ends
+
 
 *{More to be added}*
 
@@ -367,15 +550,15 @@ testers are expected to do more *exploratory* testing.
 
 1. Initial launch
 
-   1. Download the jar file and copy into an empty folder
+    1. Download the jar file and copy into an empty folder
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+    1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
 1. Saving window preferences
 
-   1. Resize the window to an optimum size. Move the window to a different location. Close the window.
+    1. Resize the window to an optimum size. Move the window to a different location. Close the window.
 
-   1. Re-launch the app by double-clicking the jar file.<br>
+    1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
 1. _{ more test cases …​ }_
@@ -384,16 +567,16 @@ testers are expected to do more *exploratory* testing.
 
 1. Deleting a person while all persons are being shown
 
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 
-   1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+    1. Test case: `delete 1`<br>
+       Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 
-   1. Test case: `delete 0`<br>
-      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+    1. Test case: `delete 0`<br>
+       Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
 
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
-      Expected: Similar to previous.
+    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
+       Expected: Similar to previous.
 
 1. _{ more test cases …​ }_
 
@@ -401,6 +584,6 @@ testers are expected to do more *exploratory* testing.
 
 1. Dealing with missing/corrupted data files
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+    1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
 
 1. _{ more test cases …​ }_
