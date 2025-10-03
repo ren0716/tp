@@ -340,7 +340,17 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 ### Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
-* **Private contact detail**: A contact detail that is not meant to be shared with others
+* **Student**: A core entity in TutorTrack representing an **individual learner**, with an academic level, parent contact, classes, and assignments.
+* **Assignment**: A **task linked to a student**, containing a title, description, subject, due date, and completion status.
+* **Class**: A **scheduled lesson** that groups students and assignments, associated with a subject and a time.
+* **Level**: The **academic year** of a student, limited to **Secondary 1 – 4**.
+* **PhoneNumber** : The parent’s **contact number** associated with a student, restricted to **Singapore format (+65XXXXXXXX)**.
+* **Subject**: The **academic subject** linked to a class or assignment (e.g. _Physics_, _English_).
+* **Duplicate student**: A student with the **same name and phone number** as an existing student.
+* **Filtered list**: A **subset of the student list** shown after running commands such as `find` or `class`.
+* **Command format**: The **syntax** a user must follow when entering commands (e.g., `add n/NAME p/PHONE_NUMBER l/LEVEL`).
+* **Valid command format error**: An **error message** displayed when the command syntax does not follow the required format (e.g., missing parameters).
+* **Storage file**: The file **`data/tutortrack.json`**, where TutorTrack **saves and loads all data**.
 
 --------------------------------------------------------------------------------------------------------------------
 
