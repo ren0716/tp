@@ -11,7 +11,7 @@ monitor student progress, and save time on administrative tasks.
 * This project is based on the AddressBook-Level3 project created by the [SE-EDU initiative](https://se-education.org).
 
 ## Features
-- **Add Students**: Easily add new students to your database with their contact details.
+- **Add Students**: Easily add new students to your database with their contact details and education level.
 - **Manage Classes**: Create and manage classes, assign students to classes.
 - **Track Assignments**: Keep track of assignments given to students and their submission status.
 - **Search Functionality**: Quickly find students or classes using search commands.
