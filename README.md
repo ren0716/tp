@@ -1,5 +1,6 @@
 [![Java CI](https://github.com/AY2526S1-CS2103T-F14b-3/tp/actions/workflows/gradle.yml/badge.svg)](https://github.com/AY2526S1-CS2103T-F14b-3/tp/actions/workflows/gradle.yml)
 
+=======
 # TutorTrack
 ![Ui](docs/images/Ui.png)
 
