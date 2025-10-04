@@ -398,7 +398,7 @@ Use case ends.
 
 **Use case: Add Class to Student**
 
-**Primary Actor:** Private Tutor  
+**Primary Actor:** Private Tutor
 **Goal:** Add a class (subject \+ time) for a specific student.
 
 **Preconditions:**
@@ -422,20 +422,20 @@ Use case ends.
 
 **Extensions:**
 * 2a. Missing/invalid subject or time
-  * 2a1. System shows an error and keeps the list unchanged.  
+  * 2a1. System shows an error and keeps the list unchanged.
     Use case resumes from step 1\.
 
 * 3a. Duplicate class (same class & time)
-  * 3a1. System shows an error and keeps the list unchanged.  
+  * 3a1. System shows an error and keeps the list unchanged.
     Use case ends.
 
 * 4a. Storage write fails:
-  * 4a1. System removes class from the student and shows a failure message.  
+  * 4a1. System removes class from the student and shows a failure message.
     Use case ends.
 
 **Use Case: Delete Class from Student**
 
-**Primary Actor:** Private Tutor  
+**Primary Actor:** Private Tutor
 **Goal:** Remove a class (subject \+ time) from a student.
 
 **Preconditions:**
@@ -458,15 +458,15 @@ Use case ends.
 
 **Extensions:**
 * 2a. Missing/invalid class identification
-  * 2a1. System shows an error and keeps the list unchanged.  
+  * 2a1. System shows an error and keeps the list unchanged.
     Use case resumes from step 1\.
 
 * 3a. Class not found
-  * 3a1. System shows an error and keeps the list unchanged.  
+  * 3a1. System shows an error and keeps the list unchanged.
     Use case ends.
 
 * 4a. Storage write fails
-  * 4a1. System adds back class from the student and shows a failure message.  
+  * 4a1. System adds back class from the student and shows a failure message.
     Use case ends.
 
 **Use Case: View All Active Students**
