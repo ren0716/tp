@@ -97,5 +97,9 @@ public class ClassGroup {
 
         return sb.toString();
     }
+
+    public void markAssignment(String assignment, String range) {}
+
+    public void unmarkAssignment(String assignment, String range) {}
 }
 
