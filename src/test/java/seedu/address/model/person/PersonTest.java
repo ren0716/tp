@@ -1,8 +1,6 @@
 package seedu.address.model.person;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
@@ -84,6 +82,23 @@ public class PersonTest {
         editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
         assertFalse(ALICE.equals(editedAlice));
     }
+
+    @Test
+    public void hashCode_sameData_sameHash() {
+        Person person1 = new PersonBuilder(ALICE).build();
+        Person person2 = new PersonBuilder(ALICE).build();
+
+        assertEquals(person1.hashCode(), person2.hashCode());
+    }
+
+    @Test
+    public void hashCode_differentData_differentHash() {
+        Person person1 = new PersonBuilder(ALICE).build();
+        Person person2 = new PersonBuilder(BOB).build();
+
+        assertNotEquals(person1.hashCode(), person2.hashCode());
+    }
+
 
     @Test
     public void toStringMethod() {
