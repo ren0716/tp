@@ -98,8 +98,21 @@ public class ClassGroup {
         return sb.toString();
     }
 
+    public boolean isSameClassGroup(ClassGroup otherClassGroup) {
+        if (otherClassGroup == this) {
+            return true;
+        }
+
+        return otherClassGroup != null
+                && otherClassGroup.getTimeSlot().equals(this.getTimeSlot());
+    }
+
     public void markAssignment(String assignment, String range) {}
 
     public void unmarkAssignment(String assignment, String range) {}
+
+    public TimeSlot getTimeSlot() {
+        return timeSlot;
+    }
 }
 
