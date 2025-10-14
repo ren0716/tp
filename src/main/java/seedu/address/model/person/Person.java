@@ -21,17 +21,17 @@ public class Person {
     private final Phone phone;
 
     // Data fields
-    private final Address address;
+    private final Level level;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, address, tags);
+    public Person(Name name, Phone phone, Level level, Set<Tag> tags) {
+        requireAllNonNull(name, phone, level, tags);
         this.name = name;
         this.phone = phone;
-        this.address = address;
+        this.level = level;
         this.tags.addAll(tags);
     }
 
@@ -43,8 +43,8 @@ public class Person {
         return phone;
     }
 
-    public Address getAddress() {
-        return address;
+    public Level getLevel() {
+        return level;
     }
 
     /**
@@ -86,14 +86,14 @@ public class Person {
         Person otherPerson = (Person) other;
         return name.equals(otherPerson.name)
                 && phone.equals(otherPerson.phone)
-                && address.equals(otherPerson.address)
+                && level.equals(otherPerson.level)
                 && tags.equals(otherPerson.tags);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, address, tags);
+        return Objects.hash(name, phone, level, tags);
     }
 
     @Override
@@ -101,7 +101,7 @@ public class Person {
         return new ToStringBuilder(this)
                 .add("name", name)
                 .add("phone", phone)
-                .add("address", address)
+                .add("level", level)
                 .add("tags", tags)
                 .toString();
     }
