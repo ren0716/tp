@@ -6,12 +6,15 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.Person;
+import seedu.address.model.classgroup.ClassGroup;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
-    /** {@code Predicate} that always evaluate to true */
+    /**
+     * {@code Predicate} that always evaluate to true
+     */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
     /**
@@ -49,7 +52,9 @@ public interface Model {
      */
     void setAddressBook(ReadOnlyAddressBook addressBook);
 
-    /** Returns the AddressBook */
+    /**
+     * Returns the AddressBook
+     */
     ReadOnlyAddressBook getAddressBook();
 
     /**
@@ -76,12 +81,47 @@ public interface Model {
      */
     void setPerson(Person target, Person editedPerson);
 
-    /** Returns an unmodifiable view of the filtered person list */
+    /**
+     * Returns an unmodifiable view of the filtered person list
+     */
     ObservableList<Person> getFilteredPersonList();
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+
+// ========== ClassGroup Methods ==========
+
+    /**
+     * Returns true if a class group with the same identity as {@code classGroup} exists.
+     */
+    boolean hasClassGroup(ClassGroup classGroup);
+
+    /**
+     * Adds the given class group.
+     * {@code classGroup} must not already exist.
+     */
+    void addClassGroup(ClassGroup classGroup);
+
+    /**
+     * Deletes the given class group.
+     * The class group must exist.
+     */
+    void deleteClassGroup(ClassGroup classGroup);
+
+    /**
+     * Replaces the class group {@code target} with {@code editedClassGroup}.
+     * {@code target} must exist.
+     * The identity of {@code editedClassGroup} must not be the same as another existing class group.
+     */
+    void setClassGroup(ClassGroup target, ClassGroup editedClassGroup);
+
+    /**
+     * Returns an unmodifiable view of the class group list.
+     */
+    ObservableList<ClassGroup> getClassGroupList();
 }

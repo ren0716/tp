@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.classgroup.ClassGroup;
 import seedu.address.model.person.Person;
 
 /**
@@ -127,6 +128,37 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
     }
+
+    //=========== ClassGroup Management =======================================================================
+
+    @Override
+    public boolean hasClassGroup(ClassGroup classGroup) {
+        requireNonNull(classGroup);
+        return addressBook.hasClassGroup(classGroup);
+    }
+
+    @Override
+    public void addClassGroup(ClassGroup classGroup) {
+        addressBook.addClassGroup(classGroup);
+        // Optionally: update UI filters here if you filter class groups
+    }
+
+    @Override
+    public void deleteClassGroup(ClassGroup classGroup) {
+        addressBook.deleteClassGroup(classGroup);
+    }
+
+    @Override
+    public void setClassGroup(ClassGroup target, ClassGroup editedClassGroup) {
+        requireAllNonNull(target, editedClassGroup);
+        addressBook.setClassGroup(target, editedClassGroup);
+    }
+
+    @Override
+    public ObservableList<ClassGroup> getClassGroupList() {
+        return addressBook.getClassGroupList();
+    }
+
 
     @Override
     public boolean equals(Object other) {
