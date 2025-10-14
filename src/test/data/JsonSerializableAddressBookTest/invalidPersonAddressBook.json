@@ -2,6 +2,6 @@
   "persons": [ {
     "name": "Hans Muster",
     "phone": "948242@4",
-    "address": "4th street"
+    "level": "1"
   } ]
 }
