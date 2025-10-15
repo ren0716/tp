@@ -60,7 +60,7 @@ public class EditPersonDescriptorTest {
                 + editPersonDescriptor.getPhone().orElse(null) + ", level="
                 + editPersonDescriptor.getLevel().orElse(null) + ", tags="
                 + editPersonDescriptor.getTags().orElse(null) + ", assignments="
-                + editPersonDescriptor.getAssignments().orElse(null) +"}";
+                + editPersonDescriptor.getAssignments().orElse(null) + "}";
         assertEquals(expected, editPersonDescriptor.toString());
     }
 }
