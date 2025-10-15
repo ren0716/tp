@@ -8,6 +8,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.assignment.Assignment;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -23,16 +24,19 @@ public class Person {
     // Data fields
     private final Level level;
     private final Set<Tag> tags = new HashSet<>();
+    private final Set<Assignment> assignments = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Level level, Set<Tag> tags) {
+    public Person(Name name, Phone phone, Level level, Set<Tag> tags, Set<Assignment> assignments) {
         requireAllNonNull(name, phone, level, tags);
         this.name = name;
         this.phone = phone;
         this.level = level;
         this.tags.addAll(tags);
+        this.assignments.addAll(assignments);
+
     }
 
     public Name getName() {
@@ -53,6 +57,14 @@ public class Person {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    /**
+     * Returns an immutable assignment set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Set<Assignment> getAssignments() {
+        return Collections.unmodifiableSet(assignments);
     }
 
     /**
@@ -87,13 +99,14 @@ public class Person {
         return name.equals(otherPerson.name)
                 && phone.equals(otherPerson.phone)
                 && level.equals(otherPerson.level)
-                && tags.equals(otherPerson.tags);
+                && tags.equals(otherPerson.tags)
+                && assignments.equals(otherPerson.assignments);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, level, tags);
+        return Objects.hash(name, phone, level, tags, assignments);
     }
 
     @Override
@@ -103,6 +116,7 @@ public class Person {
                 .add("phone", phone)
                 .add("level", level)
                 .add("tags", tags)
+                .add("assignments", assignments)
                 .toString();
     }
 

@@ -9,6 +9,7 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.assignment.Assignment;
 import seedu.address.model.person.Level;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
@@ -104,5 +105,32 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a {@code String assignment} into a {@code Assignment}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code assignment} is invalid.
+     */
+    public static Assignment parseAssignment(String assignment) throws ParseException {
+        requireNonNull(assignment);
+        String trimmedAssignment = assignment.trim();
+        if (!Assignment.isValidAssignmentName(trimmedAssignment)) {
+            throw new ParseException(Assignment.MESSAGE_CONSTRAINTS);
+        }
+        return new Assignment(trimmedAssignment);
+    }
+
+    /**
+     * Parses {@code Collection<String> assignments} into a {@code Set<Assignments>}.
+     */
+    public static Set<Assignment> parseAssignments(Collection<String> assignments) throws ParseException {
+        requireNonNull(assignments);
+        final Set<Assignment> assignmentSet = new HashSet<>();
+        for (String assignmentName : assignments) {
+            assignmentSet.add(parseAssignment(assignmentName));
+        }
+        return assignmentSet;
     }
 }
