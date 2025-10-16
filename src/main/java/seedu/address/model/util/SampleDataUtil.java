@@ -58,7 +58,6 @@ public class SampleDataUtil {
      */
     public static Set<String> getClassGroup(String... strings) {
         return Arrays.stream(strings)
-                .map(String::new)
                 .collect(Collectors.toSet());
     }
 

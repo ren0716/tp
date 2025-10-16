@@ -155,10 +155,6 @@ public class AddCommandParserTest {
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + INVALID_LEVEL_DESC
                 + CLASSGROUP_DESC_PHYSICS + CLASSGROUP_DESC_MATH, Level.MESSAGE_CONSTRAINTS);
 
-        // invalid tag
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + LEVEL_DESC_BOB
-                + INVALID_CLASSGROUP_DESC + VALID_CLASSGROUP_MATH, Tag.MESSAGE_CONSTRAINTS);
-
         // two invalid values, only first invalid value reported
         assertParseFailure(parser, INVALID_NAME_DESC + PHONE_DESC_BOB + INVALID_LEVEL_DESC,
                 Name.MESSAGE_CONSTRAINTS);

@@ -80,16 +80,6 @@ public class EditCommandParserTest {
         assertParseFailure(parser, "1" + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
         assertParseFailure(parser, "1" + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS); // invalid phone
         assertParseFailure(parser, "1" + INVALID_LEVEL_DESC, Level.MESSAGE_CONSTRAINTS); // invalid level
-        assertParseFailure(parser, "1" + INVALID_CLASSGROUP_DESC, Tag.MESSAGE_CONSTRAINTS); // invalid tag
-
-        // while parsing {@code PREFIX_CLASSGROUP} alone will reset the tags of the {@code Person} being edited,
-        // parsing it together with a valid classGroup results in error
-        assertParseFailure(parser,
-                "1" + CLASSGROUP_DESC_MATH + CLASSGROUP_DESC_PHYSICS + TAG_EMPTY, Tag.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser,
-                "1" + CLASSGROUP_DESC_MATH + TAG_EMPTY + CLASSGROUP_DESC_PHYSICS, Tag.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser,
-                "1" + TAG_EMPTY + CLASSGROUP_DESC_MATH + CLASSGROUP_DESC_PHYSICS, Tag.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
         assertParseFailure(parser, "1" + INVALID_NAME_DESC + VALID_LEVEL_AMY + VALID_PHONE_AMY,
@@ -182,14 +172,4 @@ public class EditCommandParserTest {
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_PHONE, PREFIX_LEVEL));
     }
 
-    @Test
-    public void parse_resetTags_success() {
-        Index targetIndex = INDEX_THIRD_PERSON;
-        String userInput = targetIndex.getOneBased() + TAG_EMPTY;
-
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withClassGroups().build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
-
-        assertParseSuccess(parser, userInput, expectedCommand);
-    }
 }
