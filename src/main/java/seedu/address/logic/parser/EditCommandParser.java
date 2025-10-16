@@ -94,8 +94,8 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (assignments.isEmpty()) {
             return Optional.empty();
         }
-        Collection<String> assignmentSet = assignments.size() == 1 &&
-                assignments.contains("") ? Collections.emptySet() : assignments;
+        Collection<String> assignmentSet = assignments.size() == 1
+                && assignments.contains("") ? Collections.emptySet() : assignments;
         return Optional.of(ParserUtil.parseAssignments(assignmentSet));
     }
 

@@ -42,8 +42,8 @@ public class AddAssignmentCommandParser implements Parser<AddAssignmentCommand> 
 
         AddAssignmentDescriptor addAssignmentDescriptor = new AddAssignmentDescriptor();
 
-        parseAssignmentsForEdit(argMultimap.getAllValues(PREFIX_ASSIGNMENT)).
-                ifPresent(addAssignmentDescriptor::setAssignments);
+        parseAssignmentsForEdit(argMultimap.getAllValues(PREFIX_ASSIGNMENT))
+                .ifPresent(addAssignmentDescriptor::setAssignments);
 
         if (!addAssignmentDescriptor.isAssignmentAdded()) {
             throw new ParseException(AddAssignmentCommand.MESSAGE_ASSIGNMENT_NOT_ADDED);
