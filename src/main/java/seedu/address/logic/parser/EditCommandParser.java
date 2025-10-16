@@ -17,6 +17,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.assignment.Assignment;
+
 
 /**
  * Parses input arguments and creates a new EditCommand object
@@ -55,8 +57,13 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argMultimap.getValue(PREFIX_LEVEL).isPresent()) {
             editPersonDescriptor.setLevel(ParserUtil.parseLevel(argMultimap.getValue(PREFIX_LEVEL).get()));
         }
+
         parseClassGroupsForEdit(argMultimap.getAllValues(PREFIX_CLASSGROUP))
                 .ifPresent(editPersonDescriptor::setClassGroups);
+
+        parseAssignmentsForEdit(argMultimap.getAllValues(PREFIX_ASSIGNMENT))
+                .ifPresent(editPersonDescriptor::setAssignments);
+
 
         if (!editPersonDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
@@ -80,6 +87,22 @@ public class EditCommandParser implements Parser<EditCommand> {
                 ? Collections.emptySet()
                 : classGroups;
         return Optional.of(ParserUtil.parseClassGroups(classSet));
+    }
+
+    /**
+     * Parses {@code Collection<String> assignments} into a {@code Set<Assignment>} if {@code assignments} is non-empty.
+     * If {@code assignments} contain only one element which is an empty string, it will be parsed into a
+     * {@code Set<Assignment>} containing zero tags.
+     */
+    private Optional<Set<Assignment>> parseAssignmentsForEdit(Collection<String> assignments) throws ParseException {
+        assert assignments != null;
+
+        if (assignments.isEmpty()) {
+            return Optional.empty();
+        }
+        Collection<String> assignmentSet = assignments.size() == 1
+                && assignments.contains("") ? Collections.emptySet() : assignments;
+        return Optional.of(ParserUtil.parseAssignments(assignmentSet));
     }
 
 }
