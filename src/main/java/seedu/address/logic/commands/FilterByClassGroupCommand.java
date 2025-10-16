@@ -19,7 +19,7 @@ public class FilterByClassGroupCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons who are in a certain class group"
             + "and displays them as a list with index numbers.\n"
             + "Parameters: " + PREFIX_CLASSGROUP + "CLASS_NAME "
-            + "Example: " + COMMAND_WORD + " " + PREFIX_CLASSGROUP + "Math-1000 " ;
+            + "Example: " + COMMAND_WORD + " " + PREFIX_CLASSGROUP + "Math-1000";
 
     private final StudentInClassGroupPredicate predicate;
 
