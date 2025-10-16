@@ -28,12 +28,12 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Level level, Set<String> ClassGroups, Set<Assignment> assignments) {
-        requireAllNonNull(name, phone, level, ClassGroups);
+    public Person(Name name, Phone phone, Level level, Set<String> classGroups, Set<Assignment> assignments) {
+        requireAllNonNull(name, phone, level, classGroups);
         this.name = name;
         this.phone = phone;
         this.level = level;
-        this.classGroups.addAll(ClassGroups);
+        this.classGroups.addAll(classGroups);
         this.assignments.addAll(assignments);
 
     }
