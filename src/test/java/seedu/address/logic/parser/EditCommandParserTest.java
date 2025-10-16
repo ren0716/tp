@@ -3,7 +3,6 @@ package seedu.address.logic.parser;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.CLASSGROUP_DESC_MATH;
 import static seedu.address.logic.commands.CommandTestUtil.CLASSGROUP_DESC_PHYSICS;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_CLASSGROUP_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_LEVEL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
