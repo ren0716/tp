@@ -20,6 +20,7 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.assignment.Assignment;
+import seedu.address.model.classgroup.ClassGroup;
 import seedu.address.model.person.Level;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -121,14 +122,14 @@ public class AddAssignmentCommand extends Command {
         Name updatedName = personToEdit.getName();
         Phone updatedPhone = personToEdit.getPhone();
         Level updatedLevel = personToEdit.getLevel();
-        Set<Tag> updatedTags = personToEdit.getTags();
+        Set<String> updatedClassGroup = personToEdit.getClassGroups();
         Set<Assignment> updatedAssignments = Stream.concat(
                 personToEdit.getAssignments().stream(),
                 addAssignmentDescriptor.getAssignments().orElse(Set.of()).stream()
         ).collect(Collectors.toSet());
 
 
-        return new Person(updatedName, updatedPhone, updatedLevel, updatedTags, updatedAssignments);
+        return new Person(updatedName, updatedPhone, updatedLevel, updatedClassGroup, updatedAssignments);
     }
 
     @Override

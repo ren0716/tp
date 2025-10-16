@@ -121,8 +121,7 @@ public class DeleteAssignmentCommand extends Command {
         Name updatedName = personToEdit.getName();
         Phone updatedPhone = personToEdit.getPhone();
         Level updatedLevel = personToEdit.getLevel();
-        Set<Tag> updatedTags = personToEdit.getTags();
-
+        Set<String> updatedClassGroup = personToEdit.getClassGroups();
         Set<Assignment> allAssignments = new HashSet<>(personToEdit.getAssignments());
         Set<Assignment> toDelete = findDeletableAssignments(personToEdit, deleteAssignmentDescriptor);
         Set<Assignment> nonExistent = findNonExistentAssignments(personToEdit, deleteAssignmentDescriptor);
@@ -138,7 +137,7 @@ public class DeleteAssignmentCommand extends Command {
         Set<Assignment> updatedAssignments = new HashSet<>(allAssignments);
         updatedAssignments.removeAll(toDelete);
 
-        return new Person(updatedName, updatedPhone, updatedLevel, updatedTags, updatedAssignments);
+        return new Person(updatedName, updatedPhone, updatedLevel, updatedClassGroup, updatedAssignments);
     }
 
     @Override

@@ -97,9 +97,9 @@ public class EditCommand extends Command {
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Level updatedLevel = editPersonDescriptor.getLevel().orElse(personToEdit.getLevel());
 
-        Set<String> updatedClassGroups = new HashSet<>();
-        updatedClassGroups.addAll(personToEdit.getClassGroups());
-        editPersonDescriptor.getClassGroups().ifPresent(updatedClassGroups :: addAll);
+        Set<String> updatedClassGroups = editPersonDescriptor
+                .getClassGroups()
+                .orElse(personToEdit.getClassGroups());
 
         Set<Assignment> updatedAssignments = editPersonDescriptor
                 .getAssignments()

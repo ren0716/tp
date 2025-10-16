@@ -64,7 +64,6 @@ public class EditCommandParser implements Parser<EditCommand> {
         parseAssignmentsForEdit(argMultimap.getAllValues(PREFIX_ASSIGNMENT))
                 .ifPresent(editPersonDescriptor::setAssignments);
 
-
         if (!editPersonDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
         }
