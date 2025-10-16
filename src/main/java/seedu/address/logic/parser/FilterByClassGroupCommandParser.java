@@ -13,18 +13,17 @@ import seedu.address.logic.commands.FilterByClassGroupCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.StudentInClassGroupPredicate;
 /**
- * Parses input arguments and creates a new FindCommand object
+ * Parses input arguments and creates a new FindCommand objec
  */
 public class FilterByClassGroupCommandParser implements Parser<FilterByClassGroupCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the FindCommand
      * and returns a FindCommand object for execution.
-     * @throws ParseException if the user input does not conform the expected format
+     * @throws ParseException if the user input does not conform the expected forma
      */
     public FilterByClassGroupCommand parse(String args) throws ParseException {
-        requireNonNull(args);
-        
+    requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(
                         args, PREFIX_CLASSGROUP);
@@ -47,5 +46,4 @@ public class FilterByClassGroupCommandParser implements Parser<FilterByClassGrou
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
-
 }
