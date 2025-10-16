@@ -47,6 +47,10 @@ public class Assignment {
         return assignmentName.equals(otherAssignment.assignmentName);
     }
 
+    public String getAssignmentName() {
+        return assignmentName;
+    }
+
     @Override
     public int hashCode() {
         return assignmentName.hashCode();
