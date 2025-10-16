@@ -2,7 +2,11 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSGROUP;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LEVEL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -51,7 +55,8 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argMultimap.getValue(PREFIX_LEVEL).isPresent()) {
             editPersonDescriptor.setLevel(ParserUtil.parseLevel(argMultimap.getValue(PREFIX_LEVEL).get()));
         }
-        parseClassGroupsForEdit(argMultimap.getAllValues(PREFIX_CLASSGROUP)).ifPresent(editPersonDescriptor::setClassGroups);
+        parseClassGroupsForEdit(argMultimap.getAllValues(PREFIX_CLASSGROUP))
+                .ifPresent(editPersonDescriptor::setClassGroups);
 
         if (!editPersonDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
@@ -71,7 +76,9 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (classGroups.isEmpty()) {
             return Optional.empty();
         }
-        Collection<String> classSet = classGroups.size() == 1 && classGroups.contains("") ? Collections.emptySet() : classGroups;
+        Collection<String> classSet = classGroups.size() == 1 && classGroups.contains("")
+                ? Collections.emptySet()
+                : classGroups;
         return Optional.of(ParserUtil.parseClassGroups(classSet));
     }
 

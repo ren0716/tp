@@ -22,7 +22,7 @@ public class Person {
 
     // Data fields
     private final Level level;
-    private final Set<String> ClassGroups = new HashSet<>();
+    private final Set<String> classGroups = new HashSet<>();
     private final Set<Assignment> assignments = new HashSet<>();
 
     /**
@@ -33,7 +33,7 @@ public class Person {
         this.name = name;
         this.phone = phone;
         this.level = level;
-        this.ClassGroups.addAll(ClassGroups);
+        this.classGroups.addAll(ClassGroups);
         this.assignments.addAll(assignments);
 
     }
@@ -55,7 +55,7 @@ public class Person {
      * if modification is attempted.
      */
     public Set<String> getClassGroups() {
-        return Collections.unmodifiableSet(ClassGroups);
+        return Collections.unmodifiableSet(classGroups);
     }
 
     /**
@@ -98,14 +98,14 @@ public class Person {
         return name.equals(otherPerson.name)
                 && phone.equals(otherPerson.phone)
                 && level.equals(otherPerson.level)
-                && ClassGroups.equals(otherPerson.ClassGroups)
+                && classGroups.equals(otherPerson.classGroups)
                 && assignments.equals(otherPerson.assignments);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, level, ClassGroups, assignments);
+        return Objects.hash(name, phone, level, classGroups, assignments);
     }
 
     @Override
@@ -114,7 +114,7 @@ public class Person {
                 .add("name", name)
                 .add("phone", phone)
                 .add("level", level)
-                .add("classes", ClassGroups)
+                .add("classes", classGroups)
                 .add("assignments", assignments)
                 .toString();
     }
