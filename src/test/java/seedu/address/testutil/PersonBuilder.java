@@ -3,6 +3,7 @@ package seedu.address.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.address.model.assignment.Assignment;
 import seedu.address.model.person.Level;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -23,6 +24,7 @@ public class PersonBuilder {
     private Phone phone;
     private Level level;
     private Set<Tag> tags;
+    private Set<Assignment> assignments;
 
     /**
      * Creates a {@code PersonBuilder} with the default details.
@@ -32,6 +34,7 @@ public class PersonBuilder {
         phone = new Phone(DEFAULT_PHONE);
         level = new Level(DEFAULT_LEVEL);
         tags = new HashSet<>();
+        assignments = new HashSet<>();
     }
 
     /**
@@ -42,6 +45,7 @@ public class PersonBuilder {
         phone = personToCopy.getPhone();
         level = personToCopy.getLevel();
         tags = new HashSet<>(personToCopy.getTags());
+        assignments = new HashSet<>(personToCopy.getAssignments());
     }
 
     /**
@@ -57,6 +61,15 @@ public class PersonBuilder {
      */
     public PersonBuilder withTags(String ... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
+        return this;
+    }
+
+    /**
+     * Parses the {@code assignments} into a {@code Set<Assignment>} and set it to the {@code Person} that we are
+     * building.
+     */
+    public PersonBuilder withAssignments(String ... assignments) {
+        this.assignments = SampleDataUtil.getAssignmentSet(assignments);
         return this;
     }
 
@@ -77,7 +90,7 @@ public class PersonBuilder {
     }
 
     public Person build() {
-        return new Person(name, phone, level, tags);
+        return new Person(name, phone, level, tags, assignments);
     }
 
 }

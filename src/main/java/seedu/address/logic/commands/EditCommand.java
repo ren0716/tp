@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LEVEL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -20,6 +21,7 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.assignment.Assignment;
 import seedu.address.model.person.Level;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -40,7 +42,8 @@ public class EditCommand extends Command {
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_LEVEL + "LEVEL] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "[" + PREFIX_TAG + "TAG]..."
+            + "[" + PREFIX_ASSIGNMENT + "ASSIGNMENT]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 ";
 
@@ -95,8 +98,11 @@ public class EditCommand extends Command {
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Level updatedLevel = editPersonDescriptor.getLevel().orElse(personToEdit.getLevel());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
+        Set<Assignment> updatedAssignments = editPersonDescriptor
+                .getAssignments()
+                .orElse(personToEdit.getAssignments());
 
-        return new Person(updatedName, updatedPhone, updatedLevel, updatedTags);
+        return new Person(updatedName, updatedPhone, updatedLevel, updatedTags, updatedAssignments);
     }
 
     @Override
@@ -132,6 +138,7 @@ public class EditCommand extends Command {
         private Phone phone;
         private Level level;
         private Set<Tag> tags;
+        private Set<Assignment> assignments;
 
         public EditPersonDescriptor() {}
 
@@ -144,13 +151,14 @@ public class EditCommand extends Command {
             setPhone(toCopy.phone);
             setLevel(toCopy.level);
             setTags(toCopy.tags);
+            setAssignments(toCopy.assignments);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, level, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, level, tags, assignments);
         }
 
         public void setName(Name name) {
@@ -194,6 +202,23 @@ public class EditCommand extends Command {
             return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
         }
 
+        /**
+         * Sets {@code assignments} to this object's {@code assignments}.
+         * A defensive copy of {@code assignments} is used internally.
+         */
+        public void setAssignments(Set<Assignment> assignments) {
+            this.assignments = (assignments != null) ? new HashSet<>(assignments) : null;
+        }
+
+        /**
+         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
+         * if modification is attempted.
+         * Returns {@code Optional#empty()} if {@code assignments} is null.
+         */
+        public Optional<Set<Assignment>> getAssignments() {
+            return (assignments != null) ? Optional.of(Collections.unmodifiableSet(assignments)) : Optional.empty();
+        }
+
         @Override
         public boolean equals(Object other) {
             if (other == this) {
@@ -209,7 +234,8 @@ public class EditCommand extends Command {
             return Objects.equals(name, otherEditPersonDescriptor.name)
                     && Objects.equals(phone, otherEditPersonDescriptor.phone)
                     && Objects.equals(level, otherEditPersonDescriptor.level)
-                    && Objects.equals(tags, otherEditPersonDescriptor.tags);
+                    && Objects.equals(tags, otherEditPersonDescriptor.tags)
+                    && Objects.equals(assignments, otherEditPersonDescriptor.assignments);
         }
 
         @Override
@@ -219,6 +245,7 @@ public class EditCommand extends Command {
                     .add("phone", phone)
                     .add("level", level)
                     .add("tags", tags)
+                    .add("assignments", assignments)
                     .toString();
         }
     }
