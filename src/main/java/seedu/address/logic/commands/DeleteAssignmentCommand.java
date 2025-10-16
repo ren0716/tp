@@ -11,7 +11,6 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
@@ -27,13 +26,13 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
- * Adds assignment(s) to an existing person in the address book.
+ * Deletes assignment(s) from an existing person in the address book.
  */
-public class AddAssignmentCommand extends Command {
+public class DeleteAssignmentCommand extends Command {
 
-    public static final String COMMAND_WORD = "assign";
+    public static final String COMMAND_WORD = "unassign";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Add Assignment(s) to the person identified "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Delete assignment(s) from the person identified "
             + "by the index number used in the displayed person list. \n"
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_ASSIGNMENT + "ASSIGNMENT "
@@ -42,24 +41,24 @@ public class AddAssignmentCommand extends Command {
             + PREFIX_ASSIGNMENT + "ScienceTopic2 "
             + PREFIX_ASSIGNMENT + "MathHW1";
 
-    public static final String MESSAGE_ADD_ASSIGNMENT_SUCCESS = "Added assignment(s) to: %1$s";
-    public static final String MESSAGE_ASSIGNMENT_NOT_ADDED = "At least one assignment to add must be provided.";
-    public static final String MESSAGE_DUPLICATE_ASSIGNMENT = "Duplicate assignment(s): %s";
+    public static final String MESSAGE_DELETE_ASSIGNMENT_SUCCESS = "Deleted assignment(s) from: %1$s";
+    public static final String MESSAGE_ASSIGNMENT_NOT_DELETED = "At least one assignment to delete must be provided.";
+    public static final String MESSAGE_ASSIGNMENT_NOT_EXIST = "Cannot delete non-existent assignment(s): %s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
 
     private final Index index;
-    private final AddAssignmentDescriptor addAssignmentDescriptor;
+    private final DeleteAssignmentDescriptor deleteAssignmentDescriptor;
 
     /**
      * @param index of the person in the filtered person list to add assignment to
-     * @param addAssignmentDescriptor details to add assignment to the person with
+     * @param deleteAssignmentDescriptor details to add assignment to the person with
      */
-    public AddAssignmentCommand(Index index, AddAssignmentDescriptor addAssignmentDescriptor) {
+    public DeleteAssignmentCommand(Index index, DeleteAssignmentDescriptor deleteAssignmentDescriptor) {
         requireNonNull(index);
-        requireNonNull(addAssignmentDescriptor);
+        requireNonNull(deleteAssignmentDescriptor);
 
         this.index = index;
-        this.addAssignmentDescriptor = new AddAssignmentDescriptor(addAssignmentDescriptor);
+        this.deleteAssignmentDescriptor = new DeleteAssignmentDescriptor(deleteAssignmentDescriptor);
     }
 
     @Override
@@ -73,22 +72,12 @@ public class AddAssignmentCommand extends Command {
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
 
-        if (addAssignmentDescriptor.getAssignments().isEmpty()
-                || addAssignmentDescriptor.getAssignments().get().isEmpty()) {
-            throw new CommandException(MESSAGE_ASSIGNMENT_NOT_ADDED);
+        if (!deleteAssignmentDescriptor.isAssignmentDeleted()
+                || deleteAssignmentDescriptor.getAssignments().get().isEmpty()) {
+            throw new CommandException(MESSAGE_ASSIGNMENT_NOT_DELETED);
         }
 
-        Set<Assignment> duplicates = findDuplicateAssignments(personToEdit, addAssignmentDescriptor);
-        if (!duplicates.isEmpty()) {
-            String duplicateNames = duplicates.stream()
-                    .map(Assignment::getAssignmentName)
-                    .sorted()
-                    .collect(Collectors.joining(", "));
-            throw new CommandException(String.format(MESSAGE_DUPLICATE_ASSIGNMENT, duplicateNames));
-        }
-
-
-        Person editedPerson = createEditedPerson(personToEdit, addAssignmentDescriptor);
+        Person editedPerson = createEditedPerson(personToEdit, deleteAssignmentDescriptor);
 
         if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
@@ -96,37 +85,58 @@ public class AddAssignmentCommand extends Command {
 
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_ADD_ASSIGNMENT_SUCCESS, Messages.format(editedPerson)));
+        return new CommandResult(String.format(MESSAGE_DELETE_ASSIGNMENT_SUCCESS, Messages.format(editedPerson)));
     }
 
     /**
-     * Finds and returns the set of duplicate assignments between the given {@code Person}'s
-     * existing assignments and those specified in the {@code AddAssignmentDescriptor}.
+     * Returns the intersection of the person's current assignments and those requested for deletion.
      */
-    private static Set<Assignment> findDuplicateAssignments(Person person, AddAssignmentDescriptor desc) {
+    private static Set<Assignment> findDeletableAssignments(Person person, DeleteAssignmentDescriptor desc) {
         Set<Assignment> newAssignments = desc.getAssignments().orElse(Set.of());
-        // Intersect: existing ∩ new
         return person.getAssignments().stream()
                 .filter(newAssignments::contains)
                 .collect(Collectors.toSet());
     }
 
     /**
-     * Creates and returns a {@code Person} with the details of {@code personToEdit}
-     * edited with {@code addAssignmentDescriptor}.
+     * Returns assignments requested for deletion that do not exist on the person.
      */
-    private static Person createEditedPerson(Person personToEdit, AddAssignmentDescriptor addAssignmentDescriptor) {
+    private static Set<Assignment> findNonExistentAssignments(Person person, DeleteAssignmentDescriptor desc) {
+        Set<Assignment> requested = desc.getAssignments().orElse(Set.of());
+        Set<Assignment> existing = person.getAssignments();
+        return requested.stream()
+                .filter(a -> !existing.contains(a))
+                .collect(Collectors.toSet());
+    }
+
+    /**
+     * Creates and returns a {@code Person} with the details of {@code personToEdit}
+     * edited with {@code deleteAssignmentDescriptor}.
+     */
+    private static Person createEditedPerson(Person personToEdit, DeleteAssignmentDescriptor deleteAssignmentDescriptor)
+            throws CommandException {
+
         assert personToEdit != null;
 
         Name updatedName = personToEdit.getName();
         Phone updatedPhone = personToEdit.getPhone();
         Level updatedLevel = personToEdit.getLevel();
         Set<Tag> updatedTags = personToEdit.getTags();
-        Set<Assignment> updatedAssignments = Stream.concat(
-                personToEdit.getAssignments().stream(),
-                addAssignmentDescriptor.getAssignments().orElse(Set.of()).stream()
-        ).collect(Collectors.toSet());
 
+        Set<Assignment> allAssignments = new HashSet<>(personToEdit.getAssignments());
+        Set<Assignment> toDelete = findDeletableAssignments(personToEdit, deleteAssignmentDescriptor);
+        Set<Assignment> nonExistent = findNonExistentAssignments(personToEdit, deleteAssignmentDescriptor);
+
+        if (!nonExistent.isEmpty()) {
+            String missingNames = nonExistent.stream()
+                    .map(Assignment::getAssignmentName)
+                    .sorted()
+                    .collect(Collectors.joining(", "));
+            throw new CommandException(String.format(MESSAGE_ASSIGNMENT_NOT_EXIST, missingNames));
+        }
+
+        Set<Assignment> updatedAssignments = new HashSet<>(allAssignments);
+        updatedAssignments.removeAll(toDelete);
 
         return new Person(updatedName, updatedPhone, updatedLevel, updatedTags, updatedAssignments);
     }
@@ -138,43 +148,43 @@ public class AddAssignmentCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof AddAssignmentCommand)) {
+        if (!(other instanceof DeleteAssignmentCommand)) {
             return false;
         }
 
-        AddAssignmentCommand otherAddAssignmentCommand = (AddAssignmentCommand) other;
-        return index.equals(otherAddAssignmentCommand.index)
-                && addAssignmentDescriptor.equals(otherAddAssignmentCommand.addAssignmentDescriptor);
+        DeleteAssignmentCommand otherDeleteAssignmentCommand = (DeleteAssignmentCommand) other;
+        return index.equals(otherDeleteAssignmentCommand.index)
+                && deleteAssignmentDescriptor.equals(otherDeleteAssignmentCommand.deleteAssignmentDescriptor);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
                 .add("index", index)
-                .add("addAssignmentDescriptor", addAssignmentDescriptor)
+                .add("deleteAssignmentDescriptor", deleteAssignmentDescriptor)
                 .toString();
     }
 
     /**
-     * Stores the details to allocate assignment to the person with. All other fields will remain unchanged.
+     * Stores the details of assignment(s) to delete from the person. All other fields will remain unchanged.
      */
-    public static class AddAssignmentDescriptor {
+    public static class DeleteAssignmentDescriptor {
         private Set<Assignment> assignments;
 
-        public AddAssignmentDescriptor() {}
+        public DeleteAssignmentDescriptor() {}
 
         /**
          * Copy constructor.
          * A defensive copy of {@code assignments} is used internally.
          */
-        public AddAssignmentDescriptor(AddAssignmentDescriptor toCopy) {
+        public DeleteAssignmentDescriptor(DeleteAssignmentDescriptor toCopy) {
             setAssignments(toCopy.assignments);
         }
 
         /**
-         * Returns true if at least one assignment is added.
+         * Returns true if at least one assignment is set to be deleted.
          */
-        public boolean isAssignmentAdded() {
+        public boolean isAssignmentDeleted() {
             return CollectionUtil.isAnyNonNull(assignments);
         }
 
@@ -202,12 +212,12 @@ public class AddAssignmentCommand extends Command {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof AddAssignmentDescriptor)) {
+            if (!(other instanceof DeleteAssignmentDescriptor)) {
                 return false;
             }
 
-            AddAssignmentDescriptor otherAddAssignmentDescriptor = (AddAssignmentDescriptor) other;
-            return Objects.equals(assignments, otherAddAssignmentDescriptor.assignments);
+            DeleteAssignmentDescriptor otherDeleteAssignmentDescriptor = (DeleteAssignmentDescriptor) other;
+            return Objects.equals(assignments, otherDeleteAssignmentDescriptor.assignments);
         }
 
         @Override
