@@ -5,10 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CLASSGROUP_PHYSICS;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_LEVEL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
 import org.junit.jupiter.api.Test;
 
@@ -48,7 +48,7 @@ public class EditPersonDescriptorTest {
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different tags -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withTags(VALID_TAG_HUSBAND).build();
+        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withClassGroups(VALID_CLASSGROUP_PHYSICS).build();
         assertFalse(DESC_AMY.equals(editedAmy));
     }
 
@@ -58,8 +58,8 @@ public class EditPersonDescriptorTest {
         String expected = EditPersonDescriptor.class.getCanonicalName() + "{name="
                 + editPersonDescriptor.getName().orElse(null) + ", phone="
                 + editPersonDescriptor.getPhone().orElse(null) + ", level="
-                + editPersonDescriptor.getLevel().orElse(null) + ", tags="
-                + editPersonDescriptor.getTags().orElse(null) + ", assignments="
+                + editPersonDescriptor.getLevel().orElse(null) + ", classes="
+                + editPersonDescriptor.getClassGroups().orElse(null) + ", assignments="
                 + editPersonDescriptor.getAssignments().orElse(null) + "}";
         assertEquals(expected, editPersonDescriptor.toString());
     }

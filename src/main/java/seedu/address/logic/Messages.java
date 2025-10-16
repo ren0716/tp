@@ -41,8 +41,8 @@ public class Messages {
                 .append(person.getPhone())
                 .append("; Level: ")
                 .append(person.getLevel())
-                .append("; Tags: ");
-        person.getTags().forEach(builder::append);
+                .append("; classes: ");
+        person.getClassGroups().forEach(builder::append);
         builder.append("; Assignments: ");
         person.getAssignments().forEach(builder::append);
         return builder.toString();

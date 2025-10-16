@@ -11,7 +11,6 @@ import seedu.address.model.person.Level;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
@@ -21,27 +20,27 @@ public class SampleDataUtil {
         return new Person[] {
             new Person(new Name("Alex Yeoh"), new Phone("87438807"),
                 new Level("1"),
-                getTagSet("friends"),
+                getClassGroup("Physics-1800"),
                 getAssignmentSet("Math Homework", "Science Project")),
             new Person(new Name("Bernice Yu"), new Phone("99272758"),
                 new Level("2"),
-                getTagSet("colleagues", "friends"),
+                getClassGroup("Physics-1800", "Math-2000"),
                 getAssignmentSet("English Essay")),
             new Person(new Name("Charlotte Oliveiro"), new Phone("93210283"),
                 new Level("3"),
-                getTagSet("neighbours"),
+                getClassGroup("Chem-1200"),
                 getAssignmentSet("History Presentation", "Art Portfolio")),
             new Person(new Name("David Li"), new Phone("91031282"),
                 new Level("4"),
-                getTagSet("family"),
+                getClassGroup("Chem-1300"),
                 getAssignmentSet("Geography Report")),
             new Person(new Name("Irfan Ibrahim"), new Phone("92492021"),
                 new Level("1"),
-                getTagSet("classmates"),
+                getClassGroup("Math-2000"),
                 getAssignmentSet("Computer Science Lab")),
             new Person(new Name("Roy Balakrishnan"), new Phone("92624417"),
                 new Level("2"),
-                getTagSet("colleagues"),
+                getClassGroup("Math-2000"),
                 getAssignmentSet("Physics Experiment"))
         };
     }
@@ -55,11 +54,11 @@ public class SampleDataUtil {
     }
 
     /**
-     * Returns a tag set containing the list of strings given.
+     * Returns a classGroup set containing the list of strings given.
      */
-    public static Set<Tag> getTagSet(String... strings) {
+    public static Set<String> getClassGroup(String... strings) {
         return Arrays.stream(strings)
-                .map(Tag::new)
+                .map(String::new)
                 .collect(Collectors.toSet());
     }
 
