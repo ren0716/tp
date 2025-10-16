@@ -17,7 +17,7 @@ public class StudentInClassGroupPredicate implements Predicate<Person> {
 
     @Override
     public boolean test(Person person) {
-        return person.getClassGroups().contains(String classGroup);
+        return person.getClassGroups().contains(classGroup);
     }
 
     @Override

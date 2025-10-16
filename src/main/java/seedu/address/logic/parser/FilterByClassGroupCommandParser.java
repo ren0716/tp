@@ -1,13 +1,17 @@
 package seedu.address.logic.parser;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import java.util.Arrays;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSGROUP;
+
+import java.util.Iterator;
+import java.util.Set;
+import java.util.stream.Stream;
 
 import seedu.address.logic.commands.FilterByClassGroupCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
-
+import seedu.address.model.person.StudentInClassGroupPredicate;
 /**
  * Parses input arguments and creates a new FindCommand object
  */
@@ -25,7 +29,7 @@ public class FilterByClassGroupCommandParser implements Parser<FilterByClassGrou
                 ArgumentTokenizer.tokenize(
                         args, PREFIX_CLASSGROUP);
 
-        if (!arePrefixesPresent(argMultimap, REFIX_CLASSGROUP)
+        if (!arePrefixesPresent(argMultimap, PREFIX_CLASSGROUP)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterByClassGroupCommand.MESSAGE_USAGE));
         }
@@ -37,7 +41,11 @@ public class FilterByClassGroupCommandParser implements Parser<FilterByClassGrou
 
         Iterator<String> i = classGroups.iterator();
         String classGroup = i.next();
-        return new FilterByClassGroupCommand(classGroup);
+        return new FilterByClassGroupCommand(new StudentInClassGroupPredicate(classGroup));
+    }
+
+    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
 }

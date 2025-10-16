@@ -1,17 +1,18 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSGROUP;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.model.Model;
-import seedu.address.model.person.StudentInClassGroupPredicatePredicate;
+import seedu.address.model.person.StudentInClassGroupPredicate;
 
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
-public class FilterByClassCommand extends Command {
+public class FilterByClassGroupCommand extends Command {
 
     public static final String COMMAND_WORD = "filter";
 
@@ -20,9 +21,9 @@ public class FilterByClassCommand extends Command {
             + "Parameters: " + PREFIX_CLASSGROUP + "CLASS_NAME "
             + "Example: " + COMMAND_WORD + " " + PREFIX_CLASSGROUP + "Math-1000 " ;
 
-    private final StudentInClassGroupPredicatePredicate predicate;
+    private final StudentInClassGroupPredicate predicate;
 
-    public FilterByClassCommand(StudentInClassGroupPredicatePredicate predicate) {
+    public FilterByClassGroupCommand(StudentInClassGroupPredicate predicate) {
         this.predicate = predicate;
     }
 
@@ -41,12 +42,12 @@ public class FilterByClassCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof FilterByClassCommand)) {
+        if (!(other instanceof FilterByClassGroupCommand)) {
             return false;
         }
 
-        FindCommand otherFilterByClassCommand = (FilterByClassCommand) other;
-        return predicate.equals(otherFilterByClassCommand.predicate);
+        FilterByClassGroupCommand otherFilterByClassGroupCommand = (FilterByClassGroupCommand) other;
+        return predicate.equals(otherFilterByClassGroupCommand.predicate);
     }
 
     @Override
