@@ -19,8 +19,11 @@ import seedu.address.model.assignment.Assignment;
  * Parses input arguments and creates a new AddAssignmentCommand object
  */
 public class AddAssignmentCommandParser implements Parser<AddAssignmentCommand> {
+
     /**
-     * Parses the given {@code String} of arguments in the context of the AddAssignmentCommand * and returns an AddAssignmentCommand object for execution. * @throws ParseException if the user input does not conform the expected format
+     * Parses the given {@code String} of arguments in the context of the AddAssignmentCommand
+     * and returns an AddAssignmentCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
      */
     public AddAssignmentCommand parse(String args) throws ParseException {
         requireNonNull(args);
@@ -42,7 +45,9 @@ public class AddAssignmentCommandParser implements Parser<AddAssignmentCommand> 
     }
 
     /**
-     * Parses {@code Collection<String> assignments} into a {@code Set<Assignment>} if {@code assignments} is non-empty. * If {@code assignments} contain only one element which is an empty string, it will be parsed into a * {@code Set<Assignment>} containing zero assignments.
+     * Parses {@code Collection<String> assignments} into a {@code Set<Assignment>} if {@code assignments} is non-empty.
+     * If {@code assignments} contain only one element which is an empty string, it will be parsed into a
+     * {@code Set<Assignment>} containing zero assignments.
      */
     private Optional<Set<Assignment>> parseAssignmentsForEdit(Collection<String> assignments) throws ParseException {
         assert assignments != null;

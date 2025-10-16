@@ -22,10 +22,9 @@ import seedu.address.model.person.Level;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
 
 /**
- * Deletes class(es) from an existing person in the address book.
+ * Deletes class group(s) from a specific person in the address book.
  */
 public class DeleteClassCommand extends Command {
 
@@ -48,14 +47,26 @@ public class DeleteClassCommand extends Command {
     private final Index index;
     private final DeleteClassDescriptor deleteClassDescriptor;
 
+    /**
+     * Creates a DeleteClassCommand.
+     *
+     * @param index Index of the person in the filtered list.
+     * @param deleteClassDescriptor Descriptor containing classes to be deleted.
+     */
     public DeleteClassCommand(Index index, DeleteClassDescriptor deleteClassDescriptor) {
         requireNonNull(index);
         requireNonNull(deleteClassDescriptor);
-
         this.index = index;
         this.deleteClassDescriptor = new DeleteClassDescriptor(deleteClassDescriptor);
     }
 
+    /**
+     * Executes the command to remove class group(s) from the person at the specified index.
+     *
+     * @param model The model containing the address book.
+     * @return A CommandResult with the outcome message.
+     * @throws CommandException If the index is invalid or if class group deletions are invalid.
+     */
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
@@ -83,6 +94,13 @@ public class DeleteClassCommand extends Command {
         return new CommandResult(String.format(MESSAGE_DELETE_CLASS_SUCCESS, Messages.format(editedPerson)));
     }
 
+    /**
+     * Returns the subset of class groups that can be deleted from the given person.
+     *
+     * @param person The person to check.
+     * @param desc The descriptor with requested class deletions.
+     * @return A set of deletable class group names.
+     */
     private static Set<String> findDeletableClasses(Person person, DeleteClassDescriptor desc) {
         Set<String> requested = desc.getClassGroups().orElse(Set.of());
         return person.getClassGroups().stream()
@@ -90,6 +108,13 @@ public class DeleteClassCommand extends Command {
                 .collect(Collectors.toSet());
     }
 
+    /**
+     * Returns the subset of requested class groups that do not exist in the person.
+     *
+     * @param person The person to check.
+     * @param desc The descriptor with requested class deletions.
+     * @return A set of non-existent class group names.
+     */
     private static Set<String> findNonExistentClasses(Person person, DeleteClassDescriptor desc) {
         Set<String> requested = desc.getClassGroups().orElse(Set.of());
         Set<String> existing = person.getClassGroups();
@@ -98,6 +123,14 @@ public class DeleteClassCommand extends Command {
                 .collect(Collectors.toSet());
     }
 
+    /**
+     * Returns a new {@code Person} with the specified class groups removed.
+     *
+     * @param personToEdit The original person.
+     * @param deleteClassDescriptor The descriptor specifying class groups to delete.
+     * @return The edited person with updated class groups.
+     * @throws CommandException If any of the specified class groups do not exist on the person.
+     */
     private static Person createEditedPerson(Person personToEdit, DeleteClassDescriptor deleteClassDescriptor)
             throws CommandException {
 
@@ -122,7 +155,7 @@ public class DeleteClassCommand extends Command {
                 updatedPhone,
                 updatedLevel,
                 currentClasses,
-                personToEdit.getAssignments() // if assignments still exist
+                personToEdit.getAssignments()
         );
     }
 
@@ -150,25 +183,49 @@ public class DeleteClassCommand extends Command {
     }
 
     /**
-     * Descriptor for deleting class(es) from a person.
+     * Stores the details of class group(s) to delete from the person.
+     * All other fields will remain unchanged.
      */
     public static class DeleteClassDescriptor {
         private Set<String> classGroups;
 
+        /**
+         * Constructs an empty descriptor.
+         */
         public DeleteClassDescriptor() {}
 
+        /**
+         * Constructs a copy of the given descriptor.
+         *
+         * @param toCopy The descriptor to copy.
+         */
         public DeleteClassDescriptor(DeleteClassDescriptor toCopy) {
             setClassGroups(toCopy.classGroups);
         }
 
+        /**
+         * Returns true if at least one class group is specified for deletion.
+         *
+         * @return True if class groups are to be deleted.
+         */
         public boolean isClassDeleted() {
             return CollectionUtil.isAnyNonNull(classGroups);
         }
 
+        /**
+         * Sets the class groups to be deleted.
+         *
+         * @param classGroups The set of class groups to delete.
+         */
         public void setClassGroups(Set<String> classGroups) {
             this.classGroups = (classGroups != null) ? new HashSet<>(classGroups) : null;
         }
 
+        /**
+         * Returns an unmodifiable set of class groups to be deleted.
+         *
+         * @return Optional of the class group set.
+         */
         public Optional<Set<String>> getClassGroups() {
             return (classGroups != null)
                     ? Optional.of(Collections.unmodifiableSet(classGroups))
@@ -197,3 +254,4 @@ public class DeleteClassCommand extends Command {
         }
     }
 }
+
