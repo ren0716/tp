@@ -8,7 +8,6 @@ import seedu.address.model.person.Level;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
 /**
@@ -23,7 +22,7 @@ public class PersonBuilder {
     private Name name;
     private Phone phone;
     private Level level;
-    private Set<Tag> tags;
+    private Set<String> classGroups;
     private Set<Assignment> assignments;
 
     /**
@@ -33,7 +32,7 @@ public class PersonBuilder {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
         level = new Level(DEFAULT_LEVEL);
-        tags = new HashSet<>();
+        classGroups = new HashSet<>();
         assignments = new HashSet<>();
     }
 
@@ -44,7 +43,7 @@ public class PersonBuilder {
         name = personToCopy.getName();
         phone = personToCopy.getPhone();
         level = personToCopy.getLevel();
-        tags = new HashSet<>(personToCopy.getTags());
+        classGroups = new HashSet<>(personToCopy.getClassGroups());
         assignments = new HashSet<>(personToCopy.getAssignments());
     }
 
@@ -57,10 +56,10 @@ public class PersonBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
+     * Parses the {@code classGroups} into a {@code Set<String>} and set it to the {@code Person} that we are building.
      */
-    public PersonBuilder withTags(String ... tags) {
-        this.tags = SampleDataUtil.getTagSet(tags);
+    public PersonBuilder withClassGroups(String ... classGroups) {
+        this.classGroups = SampleDataUtil.getClassGroup(classGroups);
         return this;
     }
 
@@ -90,7 +89,7 @@ public class PersonBuilder {
     }
 
     public Person build() {
-        return new Person(name, phone, level, tags, assignments);
+        return new Person(name, phone, level, classGroups, assignments);
     }
 
 }

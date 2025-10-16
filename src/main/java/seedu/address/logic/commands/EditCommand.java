@@ -2,10 +2,10 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSGROUP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LEVEL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.Collections;
@@ -26,7 +26,6 @@ import seedu.address.model.person.Level;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
 
 /**
  * Edits the details of an existing person in the address book.
@@ -42,7 +41,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_LEVEL + "LEVEL] "
-            + "[" + PREFIX_TAG + "TAG]..."
+            + "[" + PREFIX_CLASSGROUP + "CLASSES]..."
             + "[" + PREFIX_ASSIGNMENT + "ASSIGNMENT]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 ";
@@ -97,12 +96,16 @@ public class EditCommand extends Command {
         Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Level updatedLevel = editPersonDescriptor.getLevel().orElse(personToEdit.getLevel());
-        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
+
+        Set<String> updatedClassGroups = editPersonDescriptor
+                .getClassGroups()
+                .orElse(personToEdit.getClassGroups());
+
         Set<Assignment> updatedAssignments = editPersonDescriptor
                 .getAssignments()
                 .orElse(personToEdit.getAssignments());
 
-        return new Person(updatedName, updatedPhone, updatedLevel, updatedTags, updatedAssignments);
+        return new Person(updatedName, updatedPhone, updatedLevel, updatedClassGroups, updatedAssignments);
     }
 
     @Override
@@ -137,7 +140,7 @@ public class EditCommand extends Command {
         private Name name;
         private Phone phone;
         private Level level;
-        private Set<Tag> tags;
+        private Set<String> classGroups;
         private Set<Assignment> assignments;
 
         public EditPersonDescriptor() {}
@@ -150,7 +153,7 @@ public class EditCommand extends Command {
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setLevel(toCopy.level);
-            setTags(toCopy.tags);
+            setClassGroups(toCopy.classGroups);
             setAssignments(toCopy.assignments);
         }
 
@@ -158,7 +161,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, level, tags, assignments);
+            return CollectionUtil.isAnyNonNull(name, phone, level, classGroups, assignments);
         }
 
         public void setName(Name name) {
@@ -186,20 +189,20 @@ public class EditCommand extends Command {
         }
 
         /**
-         * Sets {@code tags} to this object's {@code tags}.
-         * A defensive copy of {@code tags} is used internally.
+         * Sets {@code classGroups} to this object's {@code classGroups}.
+         * A defensive copy of {@code classGroups} is used internally.
          */
-        public void setTags(Set<Tag> tags) {
-            this.tags = (tags != null) ? new HashSet<>(tags) : null;
+        public void setClassGroups(Set<String> classGroups) {
+            this.classGroups = (classGroups != null) ? new HashSet<>(classGroups) : null;
         }
 
         /**
-         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
+         * Returns an unmodifiable classGroup set, which throws {@code UnsupportedOperationException}
          * if modification is attempted.
-         * Returns {@code Optional#empty()} if {@code tags} is null.
+         * Returns {@code Optional#empty()} if {@code classGroup} is null.
          */
-        public Optional<Set<Tag>> getTags() {
-            return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
+        public Optional<Set<String>> getClassGroups() {
+            return (classGroups != null) ? Optional.of(Collections.unmodifiableSet(classGroups)) : Optional.empty();
         }
 
         /**
@@ -234,7 +237,7 @@ public class EditCommand extends Command {
             return Objects.equals(name, otherEditPersonDescriptor.name)
                     && Objects.equals(phone, otherEditPersonDescriptor.phone)
                     && Objects.equals(level, otherEditPersonDescriptor.level)
-                    && Objects.equals(tags, otherEditPersonDescriptor.tags)
+                    && Objects.equals(classGroups, otherEditPersonDescriptor.classGroups)
                     && Objects.equals(assignments, otherEditPersonDescriptor.assignments);
         }
 
@@ -244,7 +247,7 @@ public class EditCommand extends Command {
                     .add("name", name)
                     .add("phone", phone)
                     .add("level", level)
-                    .add("tags", tags)
+                    .add("classes", classGroups)
                     .add("assignments", assignments)
                     .toString();
         }

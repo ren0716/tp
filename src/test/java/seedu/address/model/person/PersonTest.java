@@ -4,10 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CLASSGROUP_PHYSICS;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_LEVEL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BOB;
@@ -21,7 +21,7 @@ public class PersonTest {
     @Test
     public void asObservableList_modifyList_throwsUnsupportedOperationException() {
         Person person = new PersonBuilder().build();
-        assertThrows(UnsupportedOperationException.class, () -> person.getTags().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> person.getClassGroups().remove(0));
     }
 
     @Test
@@ -34,7 +34,7 @@ public class PersonTest {
 
         // same name, all other attributes different -> returns true
         Person editedAlice = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB)
-                .withLevel(VALID_LEVEL_BOB).withTags(VALID_TAG_HUSBAND).build();
+                .withLevel(VALID_LEVEL_BOB).withClassGroups(VALID_CLASSGROUP_PHYSICS).build();
         assertTrue(ALICE.isSamePerson(editedAlice));
 
         // different name, all other attributes same -> returns false
@@ -81,8 +81,8 @@ public class PersonTest {
         editedAlice = new PersonBuilder(ALICE).withLevel(VALID_LEVEL_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
-        // different tags -> returns false
-        editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
+        // different classGroup -> returns false
+        editedAlice = new PersonBuilder(ALICE).withClassGroups(VALID_CLASSGROUP_PHYSICS).build();
         assertFalse(ALICE.equals(editedAlice));
     }
 
@@ -106,8 +106,8 @@ public class PersonTest {
     @Test
     public void toStringMethod() {
         String expected = Person.class.getCanonicalName() + "{name=" + ALICE.getName() + ", phone=" + ALICE.getPhone()
-               + ", level=" + ALICE.getLevel() + ", tags=" + ALICE.getTags() + ", assignments=" + ALICE.getAssignments()
-               + "}";
+                + ", level=" + ALICE.getLevel() + ", classes=" + ALICE.getClassGroups()
+                + ", assignments=" + ALICE.getAssignments() + "}";
         assertEquals(expected, ALICE.toString());
     }
 }

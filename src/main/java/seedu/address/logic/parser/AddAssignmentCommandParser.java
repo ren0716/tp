@@ -27,28 +27,20 @@ public class AddAssignmentCommandParser implements Parser<AddAssignmentCommand> 
      */
     public AddAssignmentCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(
-                        args, PREFIX_ASSIGNMENT);
-
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_ASSIGNMENT);
         Index index;
-
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    AddAssignmentCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddAssignmentCommand.MESSAGE_USAGE),
+                    pe);
         }
-
         AddAssignmentDescriptor addAssignmentDescriptor = new AddAssignmentDescriptor();
-
-        parseAssignmentsForEdit(argMultimap.getAllValues(PREFIX_ASSIGNMENT))
-                .ifPresent(addAssignmentDescriptor::setAssignments);
-
+        parseAssignmentsForEdit(argMultimap.getAllValues(PREFIX_ASSIGNMENT)).ifPresent(
+                addAssignmentDescriptor::setAssignments);
         if (!addAssignmentDescriptor.isAssignmentAdded()) {
             throw new ParseException(AddAssignmentCommand.MESSAGE_ASSIGNMENT_NOT_ADDED);
         }
-
         return new AddAssignmentCommand(index, addAssignmentDescriptor);
     }
 
@@ -59,13 +51,11 @@ public class AddAssignmentCommandParser implements Parser<AddAssignmentCommand> 
      */
     private Optional<Set<Assignment>> parseAssignmentsForEdit(Collection<String> assignments) throws ParseException {
         assert assignments != null;
-
         if (assignments.isEmpty()) {
             return Optional.empty();
         }
-        Collection<String> assignmentSet =
-                assignments.size() == 1 && assignments.contains("") ? Collections.emptySet() : assignments;
+        Collection<String> assignmentSet = assignments.size() == 1 && assignments.contains(
+                "") ? Collections.emptySet() : assignments;
         return Optional.of(ParserUtil.parseAssignments(assignmentSet));
     }
-
 }

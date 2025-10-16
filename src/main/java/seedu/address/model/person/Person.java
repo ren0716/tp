@@ -9,7 +9,6 @@ import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.assignment.Assignment;
-import seedu.address.model.tag.Tag;
 
 /**
  * Represents a Person in the address book.
@@ -23,18 +22,18 @@ public class Person {
 
     // Data fields
     private final Level level;
-    private final Set<Tag> tags = new HashSet<>();
+    private final Set<String> classGroups = new HashSet<>();
     private final Set<Assignment> assignments = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Level level, Set<Tag> tags, Set<Assignment> assignments) {
-        requireAllNonNull(name, phone, level, tags);
+    public Person(Name name, Phone phone, Level level, Set<String> classGroups, Set<Assignment> assignments) {
+        requireAllNonNull(name, phone, level, classGroups);
         this.name = name;
         this.phone = phone;
         this.level = level;
-        this.tags.addAll(tags);
+        this.classGroups.addAll(classGroups);
         this.assignments.addAll(assignments);
 
     }
@@ -52,11 +51,11 @@ public class Person {
     }
 
     /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
+     * Returns an immutable classGroup set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags);
+    public Set<String> getClassGroups() {
+        return Collections.unmodifiableSet(classGroups);
     }
 
     /**
@@ -99,14 +98,14 @@ public class Person {
         return name.equals(otherPerson.name)
                 && phone.equals(otherPerson.phone)
                 && level.equals(otherPerson.level)
-                && tags.equals(otherPerson.tags)
+                && classGroups.equals(otherPerson.classGroups)
                 && assignments.equals(otherPerson.assignments);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, level, tags, assignments);
+        return Objects.hash(name, phone, level, classGroups, assignments);
     }
 
     @Override
@@ -115,7 +114,7 @@ public class Person {
                 .add("name", name)
                 .add("phone", phone)
                 .add("level", level)
-                .add("tags", tags)
+                .add("classes", classGroups)
                 .add("assignments", assignments)
                 .toString();
     }
