@@ -14,8 +14,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.model.assignment.Assignment;
-import seedu.address.model.classgroup.ClassGroup;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 public class EditPersonDescriptorTest {
