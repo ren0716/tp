@@ -141,6 +141,7 @@ public class DeleteClassCommand extends Command {
         Name updatedName = personToEdit.getName();
         Phone updatedPhone = personToEdit.getPhone();
         Level updatedLevel = personToEdit.getLevel();
+        Set<Assignment> updatedAssignments = personToEdit.getAssignments();
         Set<ClassGroup> currentClasses = new HashSet<>(personToEdit.getClassGroups());
         Set<ClassGroup> toDelete = findDeletableClasses(personToEdit, deleteClassDescriptor);
         Set<ClassGroup> nonExistent = findNonExistentClasses(personToEdit, deleteClassDescriptor);
@@ -160,7 +161,7 @@ public class DeleteClassCommand extends Command {
                 updatedPhone,
                 updatedLevel,
                 currentClasses,
-                personToEdit.getAssignments()
+                updatedAssignments
         );
     }
 
