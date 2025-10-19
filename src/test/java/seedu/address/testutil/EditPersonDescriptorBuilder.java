@@ -5,6 +5,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.model.assignment.Assignment;
+import seedu.address.model.classgroup.ClassGroup;
 import seedu.address.model.person.Level;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -61,11 +63,21 @@ public class EditPersonDescriptorBuilder {
     }
 
     /**
+     * Parses the {@code assignment} into a {@code Set<Assignment>} and set it to the {@code EditPersonDescriptor}
+     * that we are building.
+     */
+    public EditPersonDescriptorBuilder withAssignment(Assignment... assignment) {
+        Set<Assignment> assignments = Stream.of(assignment).collect(Collectors.toSet());
+        descriptor.setAssignments(assignments);
+        return this;
+    }
+
+    /**
      * Parses the {@code classGroups} into a {@code Set<String>} and set it to the {@code EditPersonDescriptor}
      * that we are building.
      */
-    public EditPersonDescriptorBuilder withClassGroups(String... classGroups) {
-        Set<String> classes = Stream.of(classGroups).collect(Collectors.toSet());
+    public EditPersonDescriptorBuilder withClassGroups(ClassGroup... classGroups) {
+        Set<ClassGroup> classes = Stream.of(classGroups).collect(Collectors.toSet());
         descriptor.setClassGroups(classes);
         return this;
     }

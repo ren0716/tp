@@ -13,6 +13,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.model.assignment.Assignment;
+import seedu.address.model.classgroup.ClassGroup;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 public class EditPersonDescriptorTest {
@@ -48,7 +50,13 @@ public class EditPersonDescriptorTest {
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different tags -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withClassGroups(VALID_CLASSGROUP_PHYSICS).build();
+        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withClassGroups(new Assignment(VALID_ASSIGNMENT_MATH))
+                .build();
+        assertFalse(DESC_AMY.equals(editedAmy));
+
+        // different tags -> returns false
+        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withClassGroups(new ClassGroup(VALID_CLASSGROUP_PHYSICS))
+                .build();
         assertFalse(DESC_AMY.equals(editedAmy));
     }
 

@@ -31,8 +31,10 @@ public class CommandTestUtil {
     public static final String VALID_PHONE_BOB = "22222222";
     public static final String VALID_LEVEL_AMY = "1";
     public static final String VALID_LEVEL_BOB = "2";
-    public static final String VALID_CLASSGROUP_PHYSICS = "Physics-1800";
-    public static final String VALID_CLASSGROUP_MATH = "Math-2000";
+    public static final String VALID_ASSIGNMENT_PHYSICS = "Physics-1800";
+    public static final String VALID_ASSIGNMENT_MATH = "Math-2000";
+    public static final String VALID_CLASSGROUP_PHYSICS = "Physics 2PM";
+    public static final String VALID_CLASSGROUP_MATH = "Math 3PM";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;

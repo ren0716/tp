@@ -8,6 +8,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.classgroup.ClassGroup;
 import seedu.address.model.assignment.Assignment;
 
 /**
@@ -22,13 +23,13 @@ public class Person {
 
     // Data fields
     private final Level level;
-    private final Set<String> classGroups = new HashSet<>();
+    private final Set<ClassGroup> classGroups = new HashSet<>();
     private final Set<Assignment> assignments = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Level level, Set<String> classGroups, Set<Assignment> assignments) {
+    public Person(Name name, Phone phone, Level level, Set<ClassGroup> classGroups, Set<Assignment> assignments) {
         requireAllNonNull(name, phone, level, classGroups);
         this.name = name;
         this.phone = phone;
@@ -54,7 +55,7 @@ public class Person {
      * Returns an immutable classGroup set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
-    public Set<String> getClassGroups() {
+    public Set<ClassGroup> getClassGroups() {
         return Collections.unmodifiableSet(classGroups);
     }
 
