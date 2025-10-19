@@ -41,7 +41,7 @@ public class AddAssignmentCommand extends Command {
             + PREFIX_ASSIGNMENT + "ScienceTopic2 "
             + PREFIX_ASSIGNMENT + "MathHW1";
 
-    public static final String MESSAGE_ADD_ASSIGNMENT_SUCCESS = "Added assignment(s) to: %1$s";
+    public static final String MESSAGE_SUCCESS = "Added assignment(s) to: %1$s";
     public static final String MESSAGE_ASSIGNMENT_NOT_ADDED = "At least one assignment to add must be provided.";
     public static final String MESSAGE_DUPLICATE_ASSIGNMENT = "Duplicate assignment(s): %s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
@@ -95,7 +95,7 @@ public class AddAssignmentCommand extends Command {
 
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_ADD_ASSIGNMENT_SUCCESS, Messages.format(editedPerson)));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(editedPerson)));
     }
 
     /**
