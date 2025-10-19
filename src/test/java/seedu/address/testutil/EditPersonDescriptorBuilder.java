@@ -11,6 +11,7 @@ import seedu.address.model.person.Level;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.tag.Tag;
 
 /**
  * A utility class to help with building EditPersonDescriptor objects.
@@ -63,12 +64,12 @@ public class EditPersonDescriptorBuilder {
     }
 
     /**
-     * Parses the {@code assignment} into a {@code Set<Assignment>} and set it to the {@code EditPersonDescriptor}
+     * Parses the {@code assignments} into a {@code Set<Assignment>} and set it to the {@code EditPersonDescriptor}
      * that we are building.
      */
-    public EditPersonDescriptorBuilder withAssignment(Assignment... assignment) {
-        Set<Assignment> assignments = Stream.of(assignment).collect(Collectors.toSet());
-        descriptor.setAssignments(assignments);
+    public EditPersonDescriptorBuilder withAssignment(String... assignments) {
+        Set<Assignment> assignmentSet = Stream.of(assignments).map(Assignment::new).collect(Collectors.toSet());
+        descriptor.setAssignments(assignmentSet);
         return this;
     }
 
@@ -76,8 +77,8 @@ public class EditPersonDescriptorBuilder {
      * Parses the {@code classGroups} into a {@code Set<String>} and set it to the {@code EditPersonDescriptor}
      * that we are building.
      */
-    public EditPersonDescriptorBuilder withClassGroups(ClassGroup... classGroups) {
-        Set<ClassGroup> classes = Stream.of(classGroups).collect(Collectors.toSet());
+    public EditPersonDescriptorBuilder withClassGroups(String... classGroups) {
+        Set<ClassGroup> classes = Stream.of(classGroups).map(ClassGroup::new).collect(Collectors.toSet());
         descriptor.setClassGroups(classes);
         return this;
     }

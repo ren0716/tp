@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ASSIGNMENT_MATH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CLASSGROUP_PHYSICS;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_LEVEL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
@@ -50,13 +51,11 @@ public class EditPersonDescriptorTest {
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different tags -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withClassGroups(new Assignment(VALID_ASSIGNMENT_MATH))
-                .build();
+        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withClassGroups(VALID_ASSIGNMENT_MATH).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different tags -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withClassGroups(new ClassGroup(VALID_CLASSGROUP_PHYSICS))
-                .build();
+        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withClassGroups(VALID_CLASSGROUP_PHYSICS).build();
         assertFalse(DESC_AMY.equals(editedAmy));
     }
 

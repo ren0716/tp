@@ -9,6 +9,7 @@ import java.util.Set;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.model.classgroup.ClassGroup;
 import seedu.address.model.person.Person;
 
 /**
@@ -32,7 +33,7 @@ public class PersonUtil {
         sb.append(PREFIX_PHONE + person.getPhone().value + " ");
         sb.append(PREFIX_LEVEL + person.getLevel().value + " ");
         person.getClassGroups().stream().forEach(
-            s -> sb.append(PREFIX_CLASSGROUP + s + " ")
+            s -> sb.append(PREFIX_CLASSGROUP + s.getClassGroupName() + " ")
         );
         return sb.toString();
     }
@@ -46,11 +47,14 @@ public class PersonUtil {
         descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
         descriptor.getLevel().ifPresent(level -> sb.append(PREFIX_LEVEL).append(level.value).append(" "));
         if (descriptor.getClassGroups().isPresent()) {
-            Set<String> classGroups = descriptor.getClassGroups().get();
+            Set<ClassGroup> classGroups = descriptor.getClassGroups().get();
             if (classGroups.isEmpty()) {
                 sb.append(PREFIX_CLASSGROUP);
             } else {
-                classGroups.forEach(s -> sb.append(PREFIX_CLASSGROUP).append(s).append(" "));
+                classGroups.forEach(s -> sb
+                        .append(PREFIX_CLASSGROUP)
+                        .append(s.getClassGroupName())
+                        .append(" "));
             }
         }
         return sb.toString();

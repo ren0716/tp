@@ -52,8 +52,8 @@ public class PersonCard extends UiPart<Region> {
         phone.setText(person.getPhone().value);
         level.setText(person.getLevel().toString());
         person.getClassGroups().stream()
-                .sorted(Comparator.comparing(classGroup -> classGroup))
-                .forEach(classGroup -> classGroups.getChildren().add(new Label(classGroup)));
+                .sorted(Comparator.comparing(classGroup -> classGroup.classGroupName))
+                .forEach(classGroup -> classGroups.getChildren().add(new Label(classGroup.classGroupName)));
         person.getAssignments().stream()
                 .sorted(Comparator.comparing(assignment -> assignment.assignmentName))
                 .forEach(assignment -> assignments.getChildren().add(new Label(assignment.assignmentName)));

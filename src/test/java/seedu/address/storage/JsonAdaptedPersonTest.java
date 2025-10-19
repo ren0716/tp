@@ -26,7 +26,8 @@ public class JsonAdaptedPersonTest {
     private static final String VALID_NAME = BENSON.getName().toString();
     private static final String VALID_PHONE = BENSON.getPhone().toString();
     private static final String VALID_LEVEL = BENSON.getLevel().toString();
-    private static final List<String> VALID_CLASSGROUP = BENSON.getClassGroups().stream()
+    private static final List<JsonAdaptedClassGroup> VALID_CLASSGROUP = BENSON.getClassGroups().stream()
+            .map(JsonAdaptedClassGroup::new)
             .collect(Collectors.toList());
     private static final List<JsonAdaptedAssignment> VALID_ASSIGNMENTS = BENSON.getAssignments().stream()
             .map(JsonAdaptedAssignment::new)
@@ -88,8 +89,8 @@ public class JsonAdaptedPersonTest {
 
     @Test
     public void toModelType_invalidTags_throwsIllegalValueException() {
-        List<String> invalidClassGroups = new ArrayList<>(VALID_CLASSGROUP);
-        invalidClassGroups.add(INVALID_CLASSGROUP);
+        List<JsonAdaptedClassGroup> invalidClassGroups = new ArrayList<>(VALID_CLASSGROUP);
+        invalidClassGroups.add(new JsonAdaptedClassGroup(INVALID_CLASSGROUP));
         JsonAdaptedPerson person =
                 new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_LEVEL, invalidClassGroups, VALID_ASSIGNMENTS);
         assertThrows(IllegalValueException.class, person::toModelType);
