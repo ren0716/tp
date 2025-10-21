@@ -36,7 +36,9 @@ public class PersonListPanel extends UiPart<Region> {
         @Override
         protected void updateItem(Person person, boolean empty) {
             super.updateItem(person, empty);
-            logger.info("Updating cell for index " + getIndex() + ", empty: " + empty + ", person: " + (person == null ? "null" : person.getName()));
+            String personName = person == null ? "null" : person.getName().fullName;
+            logger.info(String.format("Updating cell for index %d, empty: %b, person: %s",
+                    getIndex(), empty, personName));
 
             if (empty || person == null) {
                 setGraphic(null);

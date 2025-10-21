@@ -42,7 +42,7 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private FlowPane assignments;
 
-        /**
+    /**
      * Creates a {@code PersonCode} with the given {@code Person} and index to display.
      */
     public PersonCard(Person person, int displayedIndex) {
@@ -55,14 +55,11 @@ public class PersonCard extends UiPart<Region> {
         person.getClassGroups().stream()
                 .sorted(Comparator.comparing(classGroup -> classGroup))
                 .forEach(classGroup -> classGroups.getChildren().add(new Label(classGroup)));
-
-        // Add assignments with proper styling
         person.getAssignments().stream()
                 .sorted(Comparator.comparing(assignment -> assignment.assignmentName))
                 .forEach(assignment -> {
                     Label container = new Label();
                     javafx.scene.text.Text text = new javafx.scene.text.Text(assignment.getAssignmentName());
-                    
                     if (assignment.isMarked()) {
                         text.setStrikethrough(true);
                         text.setFill(javafx.scene.paint.Color.GRAY);
@@ -71,7 +68,6 @@ public class PersonCard extends UiPart<Region> {
                         text.setFill(javafx.scene.paint.Color.WHITE);
                         container.setStyle("-fx-padding: 2;");
                     }
-                    
                     container.setGraphic(text);
                     container.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
                     assignments.getChildren().add(container);

@@ -95,5 +95,4 @@ public class CommandResult {
                 .add("needsUiRefresh", needsUiRefresh)
                 .toString();
     }
-
 }
