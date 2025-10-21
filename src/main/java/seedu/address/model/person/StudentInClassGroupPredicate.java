@@ -29,9 +29,9 @@ public class StudentInClassGroupPredicate implements Predicate<Person> {
      */
     @Override
     public boolean test(Person person) {
-        // Treats cg as String, update when ClassGroup is created
         return person.getClassGroups().stream()
-                .anyMatch(cg -> cg.equalsIgnoreCase(classGroup));
+                .map(classGroup -> classGroup.getClassGroupName())
+                .anyMatch(name -> name.equalsIgnoreCase(this.classGroup));
     }
 
     /**

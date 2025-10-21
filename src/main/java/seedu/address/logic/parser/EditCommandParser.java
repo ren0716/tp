@@ -18,6 +18,7 @@ import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.assignment.Assignment;
+import seedu.address.model.classgroup.ClassGroup;
 
 
 /**
@@ -72,11 +73,11 @@ public class EditCommandParser implements Parser<EditCommand> {
     }
 
     /**
-     * Parses {@code Collection<String> classGroups} into a {@code Set<String>} if {@code classGroups} is non-empty.
+     * Parses {@code Collection<String> classGroups} into a {@code Set<ClassGroup>} if {@code classGroups} is non-empty.
      * If {@code classGroup} contain only one element which is an empty string, it will be parsed into a
-     * {@code Set<String>} containing zero class groups.
+     * {@code Set<ClassGroup>} containing zero class groups.
      */
-    private Optional<Set<String>> parseClassGroupsForEdit(Collection<String> classGroups) throws ParseException {
+    private Optional<Set<ClassGroup>> parseClassGroupsForEdit(Collection<String> classGroups) throws ParseException {
         assert classGroups != null;
 
         if (classGroups.isEmpty()) {

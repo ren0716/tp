@@ -1,5 +1,7 @@
 package seedu.address.testutil;
 
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ASSIGNMENT_MATH;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ASSIGNMENT_PHYSICS;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CLASSGROUP_MATH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CLASSGROUP_PHYSICS;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_LEVEL_AMY;
@@ -48,9 +50,11 @@ public class TypicalPersons {
 
     // Manually added - Person's details found in {@code CommandTestUtil}
     public static final Person AMY = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
-            .withLevel(VALID_LEVEL_AMY).withClassGroups(VALID_CLASSGROUP_MATH).build();
+            .withLevel(VALID_LEVEL_AMY).withAssignments(VALID_ASSIGNMENT_MATH)
+            .withClassGroups(VALID_CLASSGROUP_MATH).build();
     public static final Person BOB = new PersonBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
-            .withLevel(VALID_LEVEL_BOB).withClassGroups(VALID_CLASSGROUP_PHYSICS, VALID_CLASSGROUP_MATH)
+            .withLevel(VALID_LEVEL_BOB).withAssignments(VALID_ASSIGNMENT_PHYSICS, VALID_ASSIGNMENT_MATH)
+            .withClassGroups(VALID_CLASSGROUP_PHYSICS, VALID_CLASSGROUP_MATH)
             .build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER

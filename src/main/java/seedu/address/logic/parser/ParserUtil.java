@@ -10,6 +10,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.assignment.Assignment;
+import seedu.address.model.classgroup.ClassGroup;
 import seedu.address.model.person.Level;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
@@ -80,15 +81,30 @@ public class ParserUtil {
     }
 
     /**
-     *  Parses {@code Collection<String> classGroups} into a {@code Set<String>}.
+     * Parses a {@code String classGroup} into a {@code ClassGroup}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code assignment} is invalid.
      */
-    public static Set<String> parseClassGroups(Collection<String> classes) throws ParseException {
-        requireNonNull(classes);
-        final Set<String> classSet = new HashSet<>();
-        for (String className : classes) {
-            classSet.add(className);
+    public static ClassGroup parseClassGroup(String classGroup) throws ParseException {
+        requireNonNull(classGroup);
+        String trimmedClassGroup = classGroup.trim();
+        if (!ClassGroup.isValidClassGroupName(trimmedClassGroup)) {
+            throw new ParseException(ClassGroup.MESSAGE_CONSTRAINTS);
         }
-        return classSet;
+        return new ClassGroup(trimmedClassGroup);
+    }
+
+    /**
+     * Parses {@code Collection<String> assignments} into a {@code Set<ClassGroup>}.
+     */
+    public static Set<ClassGroup> parseClassGroups(Collection<String> classGroups) throws ParseException {
+        requireNonNull(classGroups);
+        final Set<ClassGroup> classGroupSet = new HashSet<>();
+        for (String classGroupName : classGroups) {
+            classGroupSet.add(parseClassGroup(classGroupName));
+        }
+        return classGroupSet;
     }
 
     /**
