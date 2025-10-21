@@ -26,7 +26,6 @@ public class AddCommand extends Command {
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
             + PREFIX_LEVEL + "LEVEL "
-            + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_CLASSGROUP + "CLASS]... "
             + "[" + PREFIX_ASSIGNMENT + "ASSIGNMENT]... \n"
             + "Example: " + COMMAND_WORD + " "
