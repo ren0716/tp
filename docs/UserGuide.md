@@ -269,10 +269,16 @@ _Details coming soon ..._
 
 Action | Format, Examples
 --------|------------------
-**Add** | `add n/NAME p/PHONE_NUMBER a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-**Clear** | `clear`
-**Delete** | `delete INDEX`<br> e.g., `delete 3`
-**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
-**Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
+**Add** | `add n/NAME p/PHONE_NUMBER l/LEVEL [c/CLASS]…​ [a/ASSIGNMENT]…​` <br> e.g., `add n/John Doe p/98765432 l/2 c/Chemistry-1400 a/Assignment 1`
 **List** | `list`
+**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [l/LEVEL] [c/CLASS]…​ [a/ASSIGNMENT]…​`<br> e.g., `edit 1 p/91234567`
+**Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find John`
+**Delete** | `delete INDEX`<br> e.g., `delete 3`
+**Assign** | `assign INDEX a/ASSIGNMENT [a/ASSIGNMENT]...`<br> e.g., `assign 1 a/MathHW1 a/ScienceTopic2`
+**Unassign** | `unassign INDEX a/ASSIGNMENT [a/ASSIGNMENT]...`<br> e.g., `unassign 1 a/MathHW1`
+**Add Class** | `addclass INDEX c/CLASS [c/CLASS]...`<br> e.g., `addclass 1 c/Math-1000 c/Physics-2000`
+**Delete Class** | `deleteclass INDEX c/CLASS [c/CLASS]...`<br> e.g., `deleteclass 1 c/Math-1000`
+**Filter** | `filter c/CLASS`<br> e.g., `filter c/Math-1000`
+**Clear** | `clear`
 **Help** | `help`
+**Exit** | `exit`
