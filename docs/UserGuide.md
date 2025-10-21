@@ -204,6 +204,21 @@ Examples:
 * `list` followed by `deleteclass 1 c/Math-1000 c/Physics-2000` deletes two classes from the 1st student in the address book.
 * `find John` followed by `deleteclass 2 c/Chemistry-1400` deletes a class from the 2nd student in the results of the `find` command.
 
+### Filtering students by class: `filter`
+
+Finds and lists all students who are in the specified class group.
+
+Format: `filter c/CLASS`
+
+* Filters students by the specified class group.
+* The search is case-insensitive. e.g., `math-1000` will match `Math-1000`
+* Only one class can be specified at a time.
+* Only students with an exact match to the class name will be shown.
+
+Examples:
+* `filter c/Math-1000` displays all students enrolled in the Math-1000 class.
+* `filter c/Chemistry-1400` displays all students enrolled in the Chemistry-1400 class.
+
 
 ### Clearing all entries : `clear`
 
