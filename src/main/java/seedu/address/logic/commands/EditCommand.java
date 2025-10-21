@@ -22,6 +22,7 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.assignment.Assignment;
+import seedu.address.model.classgroup.ClassGroup;
 import seedu.address.model.person.Level;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -97,7 +98,7 @@ public class EditCommand extends Command {
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Level updatedLevel = editPersonDescriptor.getLevel().orElse(personToEdit.getLevel());
 
-        Set<String> updatedClassGroups = editPersonDescriptor
+        Set<ClassGroup> updatedClassGroups = editPersonDescriptor
                 .getClassGroups()
                 .orElse(personToEdit.getClassGroups());
 
@@ -140,7 +141,7 @@ public class EditCommand extends Command {
         private Name name;
         private Phone phone;
         private Level level;
-        private Set<String> classGroups;
+        private Set<ClassGroup> classGroups;
         private Set<Assignment> assignments;
 
         public EditPersonDescriptor() {}
@@ -192,7 +193,7 @@ public class EditCommand extends Command {
          * Sets {@code classGroups} to this object's {@code classGroups}.
          * A defensive copy of {@code classGroups} is used internally.
          */
-        public void setClassGroups(Set<String> classGroups) {
+        public void setClassGroups(Set<ClassGroup> classGroups) {
             this.classGroups = (classGroups != null) ? new HashSet<>(classGroups) : null;
         }
 
@@ -201,7 +202,7 @@ public class EditCommand extends Command {
          * if modification is attempted.
          * Returns {@code Optional#empty()} if {@code classGroup} is null.
          */
-        public Optional<Set<String>> getClassGroups() {
+        public Optional<Set<ClassGroup>> getClassGroups() {
             return (classGroups != null) ? Optional.of(Collections.unmodifiableSet(classGroups)) : Optional.empty();
         }
 

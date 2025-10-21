@@ -13,6 +13,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeleteClassCommand;
 import seedu.address.logic.commands.DeleteClassCommand.DeleteClassDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.classgroup.ClassGroup;
 
 /**
  * Parses input arguments and creates a new DeleteClassCommand object
@@ -50,10 +51,10 @@ public class DeleteClassCommandParser implements Parser<DeleteClassCommand> {
     }
 
     /**
-     * Parses {@code Collection<String> classGroups} into a {@code Set<String>} if non-empty.
+     * Parses {@code Collection<String> classGroups} into a {@code Set<ClassGroup>} if non-empty.
      * If it contains only one element which is an empty string, it will be parsed into an empty set.
      */
-    private Optional<Set<String>> parseClassGroupsForEdit(Collection<String> classGroups) throws ParseException {
+    private Optional<Set<ClassGroup>> parseClassGroupsForEdit(Collection<String> classGroups) throws ParseException {
         assert classGroups != null;
 
         if (classGroups.isEmpty()) {
