@@ -9,5 +9,5 @@
       "z" : 99
     }
   },
-  "tutorTrackFilePath" : "tutortrack.json"
+  "addressBookFilePath" : "addressbook.json"
 }
