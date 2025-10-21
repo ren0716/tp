@@ -103,12 +103,12 @@ Format: `edit INDEX [n/NAME] [p/PHONE_NUMBER] [l/LEVEL] [c/CLASS]…​ [a/ASSIG
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing classes/assignments, the existing classes/assignments of the student will be removed i.e adding of classes/assignments is not cumulative.
-* You can remove all the person’s classes/assignments by typing `c/`/ `a/` without
+* You can remove all the student’s classes/assignments by typing `c/`/ `a/` without
     specifying any classes/assignments after it.
 
 Examples:
 *  `edit 1 p/91234567 ` Edits the phone number of the 1st student to be `91234567`.
-*  `edit 2 n/Betsy Crower a/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing assignments.
+*  `edit 2 n/Betsy Crower a/` Edits the name of the 2nd student to be `Betsy Crower` and clears all existing assignments.
 
 ### Locating students by name: `find`
 
@@ -184,6 +184,9 @@ Format: `addclass INDEX c/CLASS [c/CLASS]...`
 * The index refers to the index number shown in the displayed student list.
 * The index **must be a positive integer** 1, 2, 3, …​
 * At least one class must be provided.
+* Class names must be alphanumeric and may contain spaces or hyphens.
+* Class names must start with an alphanumeric character (letter or digit).
+* Duplicate classes will not be added.
 
 Examples:
 * `list` followed by `addclass 1 c/Math-1000 c/Physics-2000` adds two classes to the 1st student in the address book.
@@ -199,6 +202,9 @@ Format: `deleteclass INDEX c/CLASS [c/CLASS]...`
 * The index refers to the index number shown in the displayed student list.
 * The index **must be a positive integer** 1, 2, 3, …​
 * At least one class must be provided.
+* Class names must be alphanumeric and may contain spaces or hyphens.
+* Class names must start with an alphanumeric character (letter or digit).
+* Only classes that exist for the student can be deleted.
 
 Examples:
 * `list` followed by `deleteclass 1 c/Math-1000 c/Physics-2000` deletes two classes from the 1st student in the address book.
