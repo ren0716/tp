@@ -30,7 +30,7 @@ public class MarkAssignmentCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "a/ASSIGNMENT_NAME\n"
             + "Example: " + COMMAND_WORD + " 1" + " a/Physics-1800\n";
-    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Marked Assignment %1$s of %2$s";
+    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Marked assignment %1$s of %2$s";
 
     private static final Logger logger = LogsCenter.getLogger(MarkAssignmentCommand.class);
 

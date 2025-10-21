@@ -2,6 +2,7 @@ package seedu.address.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.assignment.Assignment;
@@ -12,13 +13,24 @@ import seedu.address.model.assignment.Assignment;
 class JsonAdaptedAssignment {
 
     private final String assignmentName;
+    private final boolean isMarked;
 
     /**
-     * Constructs a {@code JsonAdaptedAssignment} with the given {@code assignmentName}.
+     * Constructs a {@code JsonAdaptedAssignment} with the given values.
      */
     @JsonCreator
-    public JsonAdaptedAssignment(String assignmentName) {
+    public JsonAdaptedAssignment(
+            @JsonProperty("name") String assignmentName,
+            @JsonProperty("marked") Boolean isMarked) {
         this.assignmentName = assignmentName;
+        this.isMarked = isMarked != null ? isMarked : false; // Default to unmarked if not specified
+    }
+
+    /**
+     * Constructor for backward compatibility with old data format
+     */
+    public JsonAdaptedAssignment(String assignmentName) {
+        this(assignmentName, false);
     }
 
     /**
@@ -26,11 +38,23 @@ class JsonAdaptedAssignment {
      */
     public JsonAdaptedAssignment(Assignment source) {
         assignmentName = source.assignmentName;
+        isMarked = source.isMarked();
     }
 
-    @JsonValue
     public String getAssignmentName() {
         return assignmentName;
+    }
+
+    public boolean isMarked() {
+        return isMarked;
+    }
+
+    /**
+     * Returns a JSON object containing both the assignment name and marked status.
+     */
+    @JsonValue
+    public JsonAdaptedAssignmentWrapper toJsonObject() {
+        return new JsonAdaptedAssignmentWrapper(this);
     }
 
     /**
@@ -42,7 +66,11 @@ class JsonAdaptedAssignment {
         if (!Assignment.isValidAssignmentName(assignmentName)) {
             throw new IllegalValueException(Assignment.MESSAGE_CONSTRAINTS);
         }
-        return new Assignment(assignmentName);
+        Assignment assignment = new Assignment(assignmentName);
+        if (isMarked) {
+            assignment.mark();
+        }
+        return assignment;
     }
 
 }
