@@ -9,7 +9,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class ClassGroup {
 
-    public static final String MESSAGE_CONSTRAINTS = "Class group names should be alphanumeric and may contain spaces or hyphens";
+    public static final String MESSAGE_CONSTRAINTS =
+            "Class group names should be alphanumeric and may contain spaces or hyphens";
     // Allow alphanumeric characters, spaces and hyphens; must contain at least one alphanumeric character
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} \\-]*";
 
