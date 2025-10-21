@@ -1,0 +1,223 @@
+package seedu.address.logic.commands;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ASSIGNMENT_MATH;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ASSIGNMENT_PHYSICS;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CLASSGROUP_MATH;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CLASSGROUP_PHYSICS;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.address.model.AddressBook;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.UserPrefs;
+import seedu.address.model.assignment.Assignment;
+import seedu.address.model.person.Person;
+import seedu.address.testutil.PersonBuilder;
+
+/**
+ * Contains integration tests (interaction with the Model) and unit tests for AssignAllCommand.
+ */
+public class AssignAllCommandTest {
+
+    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+
+    @Test
+    public void execute_assignToClassGroup_success() {
+        // Setup: Add students with Math class
+        Model modelWithMathClass = new ModelManager(new AddressBook(), new UserPrefs());
+        Person alice = new PersonBuilder().withName("Alice").withPhone("91234567")
+                .withLevel("1").withClassGroups(VALID_CLASSGROUP_MATH).build();
+        Person bob = new PersonBuilder().withName("Bob").withPhone("92345678")
+                .withLevel("2").withClassGroups(VALID_CLASSGROUP_MATH).build();
+        modelWithMathClass.addPerson(alice);
+        modelWithMathClass.addPerson(bob);
+
+        Assignment assignment = new Assignment(VALID_ASSIGNMENT_MATH);
+        AssignAllCommand command = new AssignAllCommand(VALID_CLASSGROUP_MATH, assignment);
+
+        String expectedMessage = String.format(AssignAllCommand.MESSAGE_SUCCESS,
+                VALID_ASSIGNMENT_MATH, 2, VALID_CLASSGROUP_MATH);
+
+        Model expectedModel = new ModelManager(new AddressBook(), new UserPrefs());
+        Person aliceWithAssignment = new PersonBuilder(alice).withAssignments(VALID_ASSIGNMENT_MATH).build();
+        Person bobWithAssignment = new PersonBuilder(bob).withAssignments(VALID_ASSIGNMENT_MATH).build();
+        expectedModel.addPerson(aliceWithAssignment);
+        expectedModel.addPerson(bobWithAssignment);
+
+        assertCommandSuccess(command, modelWithMathClass, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_assignToOneStudentInClass_success() {
+        // Setup: Add one student with Physics class
+        Model modelWithPhysicsClass = new ModelManager(new AddressBook(), new UserPrefs());
+        Person charlie = new PersonBuilder().withName("Charlie").withPhone("93456789")
+                .withLevel("3").withClassGroups(VALID_CLASSGROUP_PHYSICS).build();
+        modelWithPhysicsClass.addPerson(charlie);
+
+        Assignment assignment = new Assignment(VALID_ASSIGNMENT_PHYSICS);
+        AssignAllCommand command = new AssignAllCommand(VALID_CLASSGROUP_PHYSICS, assignment);
+
+        String expectedMessage = String.format(AssignAllCommand.MESSAGE_SUCCESS,
+                VALID_ASSIGNMENT_PHYSICS, 1, VALID_CLASSGROUP_PHYSICS);
+
+        Model expectedModel = new ModelManager(new AddressBook(), new UserPrefs());
+        Person charlieWithAssignment = new PersonBuilder(charlie).withAssignments(VALID_ASSIGNMENT_PHYSICS).build();
+        expectedModel.addPerson(charlieWithAssignment);
+
+        assertCommandSuccess(command, modelWithPhysicsClass, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_assignToMultipleClassStudents_success() {
+        // Setup: Add students, some with Math class, some without
+        Model modelWithMixedClasses = new ModelManager(new AddressBook(), new UserPrefs());
+        Person alice = new PersonBuilder().withName("Alice").withPhone("91234567")
+                .withLevel("1").withClassGroups(VALID_CLASSGROUP_MATH).build();
+        Person bob = new PersonBuilder().withName("Bob").withPhone("92345678")
+                .withLevel("2").withClassGroups(VALID_CLASSGROUP_PHYSICS).build();
+        Person charlie = new PersonBuilder().withName("Charlie").withPhone("93456789")
+                .withLevel("3").withClassGroups(VALID_CLASSGROUP_MATH).build();
+        modelWithMixedClasses.addPerson(alice);
+        modelWithMixedClasses.addPerson(bob);
+        modelWithMixedClasses.addPerson(charlie);
+
+        Assignment assignment = new Assignment(VALID_ASSIGNMENT_MATH);
+        AssignAllCommand command = new AssignAllCommand(VALID_CLASSGROUP_MATH, assignment);
+
+        // Only Alice and Charlie should get the assignment (they have Math class)
+        String expectedMessage = String.format(AssignAllCommand.MESSAGE_SUCCESS,
+                VALID_ASSIGNMENT_MATH, 2, VALID_CLASSGROUP_MATH);
+
+        Model expectedModel = new ModelManager(new AddressBook(), new UserPrefs());
+        Person aliceWithAssignment = new PersonBuilder(alice).withAssignments(VALID_ASSIGNMENT_MATH).build();
+        Person charlieWithAssignment = new PersonBuilder(charlie).withAssignments(VALID_ASSIGNMENT_MATH).build();
+        expectedModel.addPerson(aliceWithAssignment);
+        expectedModel.addPerson(bob); // Bob doesn't have Math class, so no assignment
+        expectedModel.addPerson(charlieWithAssignment);
+
+        assertCommandSuccess(command, modelWithMixedClasses, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_studentAlreadyHasAssignment_skipsStudent() {
+        // Setup: Add student with Math class and already has the assignment
+        Model modelWithAssignment = new ModelManager(new AddressBook(), new UserPrefs());
+        Person alice = new PersonBuilder().withName("Alice").withPhone("91234567")
+                .withLevel("1").withClassGroups(VALID_CLASSGROUP_MATH)
+                .withAssignments(VALID_ASSIGNMENT_MATH).build();
+        Person bob = new PersonBuilder().withName("Bob").withPhone("92345678")
+                .withLevel("2").withClassGroups(VALID_CLASSGROUP_MATH).build();
+        modelWithAssignment.addPerson(alice);
+        modelWithAssignment.addPerson(bob);
+
+        Assignment assignment = new Assignment(VALID_ASSIGNMENT_MATH);
+        AssignAllCommand command = new AssignAllCommand(VALID_CLASSGROUP_MATH, assignment);
+
+        // Only Bob should get the assignment (Alice already has it)
+        String expectedMessage = String.format(AssignAllCommand.MESSAGE_SUCCESS,
+                VALID_ASSIGNMENT_MATH, 1, VALID_CLASSGROUP_MATH);
+
+        Model expectedModel = new ModelManager(new AddressBook(), new UserPrefs());
+        Person bobWithAssignment = new PersonBuilder(bob).withAssignments(VALID_ASSIGNMENT_MATH).build();
+        expectedModel.addPerson(alice); // Alice already has assignment
+        expectedModel.addPerson(bobWithAssignment);
+
+        assertCommandSuccess(command, modelWithAssignment, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_noStudentsInClass_throwsCommandException() {
+        // Setup: Empty model or students without the specified class
+        Model emptyModel = new ModelManager(new AddressBook(), new UserPrefs());
+        Person alice = new PersonBuilder().withName("Alice").withPhone("91234567")
+                .withLevel("1").withClassGroups(VALID_CLASSGROUP_PHYSICS).build();
+        emptyModel.addPerson(alice);
+
+        Assignment assignment = new Assignment(VALID_ASSIGNMENT_MATH);
+        AssignAllCommand command = new AssignAllCommand(VALID_CLASSGROUP_MATH, assignment);
+
+        assertCommandFailure(command, emptyModel,
+                String.format(AssignAllCommand.MESSAGE_NO_STUDENTS_FOUND, VALID_CLASSGROUP_MATH));
+    }
+
+    @Test
+    public void execute_emptyAddressBook_throwsCommandException() {
+        Model emptyModel = new ModelManager(new AddressBook(), new UserPrefs());
+        Assignment assignment = new Assignment(VALID_ASSIGNMENT_MATH);
+        AssignAllCommand command = new AssignAllCommand(VALID_CLASSGROUP_MATH, assignment);
+
+        assertCommandFailure(command, emptyModel,
+                String.format(AssignAllCommand.MESSAGE_NO_STUDENTS_FOUND, VALID_CLASSGROUP_MATH));
+    }
+
+    @Test
+    public void execute_caseInsensitiveClassGroupMatch_success() {
+        // Setup: Add student with "Math 3PM" class
+        Model modelWithMathClass = new ModelManager(new AddressBook(), new UserPrefs());
+        Person alice = new PersonBuilder().withName("Alice").withPhone("91234567")
+                .withLevel("1").withClassGroups("Math 3PM").build();
+        modelWithMathClass.addPerson(alice);
+
+        Assignment assignment = new Assignment(VALID_ASSIGNMENT_MATH);
+        // Use different case for class group name
+        AssignAllCommand command = new AssignAllCommand("math 3pm", assignment);
+
+        String expectedMessage = String.format(AssignAllCommand.MESSAGE_SUCCESS,
+                VALID_ASSIGNMENT_MATH, 1, "math 3pm");
+
+        Model expectedModel = new ModelManager(new AddressBook(), new UserPrefs());
+        Person aliceWithAssignment = new PersonBuilder(alice).withAssignments(VALID_ASSIGNMENT_MATH).build();
+        expectedModel.addPerson(aliceWithAssignment);
+
+        assertCommandSuccess(command, modelWithMathClass, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void equals() {
+        Assignment mathAssignment = new Assignment(VALID_ASSIGNMENT_MATH);
+        Assignment physicsAssignment = new Assignment(VALID_ASSIGNMENT_PHYSICS);
+
+        AssignAllCommand assignMathToMathClass = new AssignAllCommand(VALID_CLASSGROUP_MATH, mathAssignment);
+        AssignAllCommand assignMathToPhysicsClass = new AssignAllCommand(VALID_CLASSGROUP_PHYSICS, mathAssignment);
+        AssignAllCommand assignPhysicsToMathClass = new AssignAllCommand(VALID_CLASSGROUP_MATH, physicsAssignment);
+
+        // same object -> returns true
+        assertTrue(assignMathToMathClass.equals(assignMathToMathClass));
+
+        // same values -> returns true
+        AssignAllCommand assignMathToMathClassCopy = new AssignAllCommand(VALID_CLASSGROUP_MATH, mathAssignment);
+        assertTrue(assignMathToMathClass.equals(assignMathToMathClassCopy));
+
+        // different types -> returns false
+        assertFalse(assignMathToMathClass.equals(1));
+
+        // null -> returns false
+        assertFalse(assignMathToMathClass.equals(null));
+
+        // different class group -> returns false
+        assertFalse(assignMathToMathClass.equals(assignMathToPhysicsClass));
+
+        // different assignment -> returns false
+        assertFalse(assignMathToMathClass.equals(assignPhysicsToMathClass));
+    }
+
+    @Test
+    public void toStringMethod() {
+        Assignment assignment = new Assignment(VALID_ASSIGNMENT_MATH);
+        AssignAllCommand command = new AssignAllCommand(VALID_CLASSGROUP_MATH, assignment);
+
+        String expected = AssignAllCommand.class.getCanonicalName()
+                + "{classGroupName=" + VALID_CLASSGROUP_MATH
+                + ", assignment=" + assignment + "}";
+        assertEquals(expected, command.toString());
+    }
+}
+
