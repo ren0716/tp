@@ -142,6 +142,23 @@ Examples:
 * `list` followed by `delete 2` deletes the 2nd student in the address book.
 * `find Betsy` followed by `delete 1` deletes the 1st student in the results of the `find` command.
 
+
+### Adding assignment(s) to a student: `assign`
+
+Adds one or more assignments to the specified student in TutorTrack.
+
+Format: `assign INDEX a/ASSIGNMENT [a/ASSIGNMENT]...`
+
+* Adds assignment(s) to the student at the specified `INDEX`.
+* The index refers to the index number shown in the displayed student list.
+* The index **must be a positive integer** 1, 2, 3, …​
+* At least one assignment must be provided.
+* Duplicate assignments will not be added.
+
+Examples:
+* `list` followed by `assign 1 a/MathHW1 a/ScienceTopic2` adds two assignments to the 1st student in the address book.
+* `find John` followed by `assign 2 a/ProjectDraft` adds an assignment to the 2nd student in the results of the `find` command.
+
 ### Clearing all entries : `clear`
 
 Clears all entries from the address book.
