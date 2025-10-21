@@ -228,7 +228,8 @@ public class DeleteClassCommandTest {
 
         DeleteClassCommand deleteMathFromFirstCommand = new DeleteClassCommand(INDEX_FIRST_PERSON, mathDescriptor);
         DeleteClassCommand deleteMathFromSecondCommand = new DeleteClassCommand(INDEX_SECOND_PERSON, mathDescriptor);
-        DeleteClassCommand deletePhysicsFromFirstCommand = new DeleteClassCommand(INDEX_FIRST_PERSON, physicsDescriptor);
+        DeleteClassCommand deletePhysicsFromFirstCommand = new DeleteClassCommand(INDEX_FIRST_PERSON,
+                physicsDescriptor);
 
         // same object -> returns true
         assertTrue(deleteMathFromFirstCommand.equals(deleteMathFromFirstCommand));
