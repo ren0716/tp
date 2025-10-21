@@ -125,7 +125,7 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 
 Examples:
 * `find John` returns `john` and `John Doe`
-* `find alex david` returns `alex`, `john`<br>
+* `find alex john` returns `alex`, `john`<br>
   ![result for 'find alex john'](images/findAlexJohnResult.png)
 
 ### Deleting a person : `delete`
