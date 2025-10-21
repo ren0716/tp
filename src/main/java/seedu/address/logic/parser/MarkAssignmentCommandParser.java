@@ -29,26 +29,48 @@ public class MarkAssignmentCommandParser implements Parser<MarkAssignmentCommand
     @Override
     public MarkAssignmentCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_ASSIGNMENT);
+        ArgumentMultimap argMultimap = tokenizeArguments(args);
 
-        Index index;
+        Index index = parseIndexFromPreamble(argMultimap);
+        Assignment assignment = parseAssignmentValue(argMultimap);
+
+        return new MarkAssignmentCommand(index, assignment);
+    }
+
+    /**
+     * Tokenizes the raw argument string using the assignment prefix.
+     */
+    private ArgumentMultimap tokenizeArguments(String args) {
+        return ArgumentTokenizer.tokenize(args, PREFIX_ASSIGNMENT);
+    }
+
+    /**
+     * Parses and returns the index from the preamble portion of the tokenized arguments.
+     *
+     * @throws ParseException if the index is invalid
+     */
+    private Index parseIndexFromPreamble(ArgumentMultimap argMultimap) throws ParseException {
         try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
+            return ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     MarkAssignmentCommand.MESSAGE_USAGE), pe);
         }
+    }
 
+    /**
+     * Extracts, validates and parses the assignment value from the tokenized arguments.
+     *
+     * @throws ParseException if the assignment value is missing or invalid
+     */
+    private Assignment parseAssignmentValue(ArgumentMultimap argMultimap) throws ParseException {
         Optional<String> assignmentValue = argMultimap.getValue(PREFIX_ASSIGNMENT);
         if (assignmentValue.isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     MarkAssignmentCommand.MESSAGE_USAGE));
         }
 
-        Assignment assignment = ParserUtil.parseAssignment(assignmentValue.get());
-
-        return new MarkAssignmentCommand(index, assignment);
+        return ParserUtil.parseAssignment(assignmentValue.get());
     }
 
 }

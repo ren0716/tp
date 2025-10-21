@@ -5,7 +5,9 @@ import static java.util.Objects.requireNonNull;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
@@ -27,9 +29,10 @@ public class MarkAssignmentCommand extends Command {
             + "used in the displayed person list and the assignment name.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "a/ASSIGNMENT_NAME\n"
-            + "Example: " + COMMAND_WORD + " 1" + " a/ Physics 1800\n";
-
+            + "Example: " + COMMAND_WORD + " 1" + " a/Physics-1800\n";
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Marked Assignment %1$s of %2$s";
+
+    private static final Logger logger = LogsCenter.getLogger(MarkAssignmentCommand.class);
 
     private final Index targetIndex;
     private final Assignment assignment;
@@ -66,7 +69,7 @@ public class MarkAssignmentCommand extends Command {
         Person personToMark = getPersonToMark(lastShownList);
 
         Set<Assignment> personAssignments = getPersonAssignmentSet(personToMark);
-        ensureAssignmentExists(personAssignments);
+        ensureAssignmentExists(personAssignments, personToMark);
 
         Assignment marked = findAndMarkAssignment(personAssignments);
 
@@ -97,10 +100,32 @@ public class MarkAssignmentCommand extends Command {
      *
      * @throws CommandException if the assignment is not present
      */
-    private void ensureAssignmentExists(Set<Assignment> assignments) throws CommandException {
+    private void ensureAssignmentExists(Set<Assignment> assignments, Person person) throws CommandException {
         if (!assignments.contains(assignment)) {
+            // Log helpful debug info to aid troubleshooting
+            logger.warning(() -> String.format(
+                    "Person %s (index %d) does not have assignment '%s'. Person assignments: %s",
+                    person.getName(), targetIndex.getZeroBased(), assignment.getAssignmentName(),
+                    assignmentsToString(assignments)));
             throw new CommandException(Messages.MESSAGE_INVALID_ASSIGNMENT_IN_PERSON);
         }
+    }
+
+    /**
+     * Returns a compact string representation of the given assignments set for logging.
+     */
+    private String assignmentsToString(Set<Assignment> assignments) {
+        StringBuilder sb = new StringBuilder();
+        sb.append('[');
+        Iterator<Assignment> it = assignments.iterator();
+        while (it.hasNext()) {
+            sb.append(it.next().getAssignmentName());
+            if (it.hasNext()) {
+                sb.append(", ");
+            }
+        }
+        sb.append(']');
+        return sb.toString();
     }
 
     /**
