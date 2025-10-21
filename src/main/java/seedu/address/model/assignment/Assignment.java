@@ -13,6 +13,7 @@ public class Assignment {
     public static final String VALIDATION_REGEX = "\\p{Alnum}+";
 
     public final String assignmentName;
+    private boolean isMarked = false;
 
     /**
      * Constructs a {@code Assignment}.
@@ -31,6 +32,14 @@ public class Assignment {
     public static boolean isValidAssignmentName(String test) {
         //return test.matches(VALIDATION_REGEX);
         return true;
+    }
+
+    public void mark() {
+        this.isMarked = true;
+    }
+
+    public void unmark() {
+        this.isMarked = false;
     }
 
     @Override
