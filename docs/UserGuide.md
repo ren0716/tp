@@ -189,6 +189,21 @@ Examples:
 * `list` followed by `addclass 1 c/Math-1000 c/Physics-2000` adds two classes to the 1st student in the address book.
 * `find John` followed by `addclass 2 c/Chemistry-1400` adds a class to the 2nd student in the results of the `find` command.
 
+### Deleting class(es) from a student: `deleteclass`
+
+Deletes one or more classes from the specified student in TutorTrack.
+
+Format: `deleteclass INDEX c/CLASS [c/CLASS]...`
+
+* Deletes class(es) from the student at the specified `INDEX`.
+* The index refers to the index number shown in the displayed student list.
+* The index **must be a positive integer** 1, 2, 3, …​
+* At least one class must be provided.
+
+Examples:
+* `list` followed by `deleteclass 1 c/Math-1000 c/Physics-2000` deletes two classes from the 1st student in the address book.
+* `find John` followed by `deleteclass 2 c/Chemistry-1400` deletes a class from the 2nd student in the results of the `find` command.
+
 
 ### Clearing all entries : `clear`
 
