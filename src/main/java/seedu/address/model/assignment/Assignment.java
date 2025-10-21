@@ -42,6 +42,13 @@ public class Assignment {
         this.isMarked = false;
     }
 
+    /**
+     * Returns true if the assignment has been marked as completed.
+     */
+    public boolean isMarked() {
+        return isMarked;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {

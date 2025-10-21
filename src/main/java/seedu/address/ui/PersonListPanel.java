@@ -36,14 +36,27 @@ public class PersonListPanel extends UiPart<Region> {
         @Override
         protected void updateItem(Person person, boolean empty) {
             super.updateItem(person, empty);
+            logger.info("Updating cell for index " + getIndex() + ", empty: " + empty + ", person: " + (person == null ? "null" : person.getName()));
 
             if (empty || person == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new PersonCard(person, getIndex() + 1).getRoot());
+                // Always create a new PersonCard to ensure fresh state
+                PersonCard card = new PersonCard(person, getIndex() + 1);
+                setGraphic(card.getRoot());
+                logger.info("Created new PersonCard for " + person.getName());
             }
         }
+    }
+
+    /**
+     * Refreshes all person cards to update their assignment display
+     */
+    public void refreshAll() {
+        logger.info("Refreshing all person cards in PersonListPanel");
+        // Force the ListView to refresh all its cells
+        personListView.refresh();
     }
 
 }

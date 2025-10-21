@@ -73,7 +73,7 @@ public class MarkAssignmentCommand extends Command {
 
         Assignment marked = findAndMarkAssignment(personAssignments);
 
-        return new CommandResult(formatSuccessMessage(marked, personToMark));
+        return new CommandResult(formatSuccessMessage(marked, personToMark), true);
     }
 
     /**
