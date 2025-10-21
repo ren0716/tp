@@ -87,13 +87,13 @@ Examples:
 * `add n/John Doe p/98765432 l/2`
 * `add n/Betsy Crowe a/Assignment 1 p/1234567 c/Chemistry-1400`
 
-### Listing all persons : `list`
+### Listing all students : `list`
 
-Shows a list of all persons in the address book.
+Shows a list of all students in the address book.
 
 Format: `list`
 
-### Editing a person : `edit`
+### Editing a student : `edit`
 
 Edits an existing student in the address book.
 
@@ -173,6 +173,21 @@ Format: `unassign INDEX a/ASSIGNMENT [a/ASSIGNMENT]...`
 Examples:
 * `list` followed by `unassign 1 a/MathHW1 a/ScienceTopic2` deletes two assignments from the 1st student in the address book.
 * `find John` followed by `unassign 2 a/ProjectDraft` deletes an assignment from the 2nd student in the results of the `find` command.
+
+### Adding class(es) to a student: `addclass`
+
+Adds one or more classes to the specified student in TutorTrack.
+
+Format: `addclass INDEX c/CLASS [c/CLASS]...`
+
+* Adds class(es) to the student at the specified `INDEX`.
+* The index refers to the index number shown in the displayed student list.
+* The index **must be a positive integer** 1, 2, 3, …​
+* At least one class must be provided.
+
+Examples:
+* `list` followed by `addclass 1 c/Math-1000 c/Physics-2000` adds two classes to the 1st student in the address book.
+* `find John` followed by `addclass 2 c/Chemistry-1400` adds a class to the 2nd student in the results of the `find` command.
 
 
 ### Clearing all entries : `clear`
