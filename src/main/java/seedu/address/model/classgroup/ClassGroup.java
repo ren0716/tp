@@ -40,11 +40,11 @@ public class ClassGroup {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof seedu.address.model.classgroup.ClassGroup)) {
+        if (!(other instanceof ClassGroup)) {
             return false;
         }
 
-        seedu.address.model.classgroup.ClassGroup otherClassGroup = (seedu.address.model.classgroup.ClassGroup) other;
+        ClassGroup otherClassGroup = (ClassGroup) other;
         return classGroupName.equals(otherClassGroup.classGroupName);
     }
 
