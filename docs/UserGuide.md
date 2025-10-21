@@ -68,7 +68,7 @@ TutorTrack is a **desktop app for managing contacts, optimized for use via the C
 
 Shows a message explaining how to access the help page.
 
-![help message](images/helpMessage.png)
+![help message](images/helpMessageNew.png)
 
 Format: `help`
 
