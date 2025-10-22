@@ -7,20 +7,20 @@ import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.MarkAssignmentCommand;
+import seedu.address.logic.commands.UnmarkAssignmentCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.assignment.Assignment;
 import seedu.address.testutil.AssignmentBuilder;
 
 /**
- * Unit tests for {@code MarkAssignmentCommandParser}.
+ * Contains unit tests for {@link UnmarkAssignmentCommandParser}.
  */
-public class MarkAssignmentCommandParserTest {
+public class UnmarkAssignmentCommandParserTest {
 
-    private final MarkAssignmentCommandParser parser = new MarkAssignmentCommandParser();
+    private final UnmarkAssignmentCommandParser parser = new UnmarkAssignmentCommandParser();
 
     /**
-     * Tests that a valid input string is successfully parsed into a {@code MarkAssignmentCommand}.
+     * Tests that a valid input string is successfully parsed into a {@code UnmarkAssignmentCommand}.
      */
     @Test
     public void parse_validInput_success() {
@@ -31,7 +31,7 @@ public class MarkAssignmentCommandParserTest {
         try {
             var command = parser.parse(userInput);
             // Split the long line into two lines to satisfy checkstyle
-            var expectedCommand = new MarkAssignmentCommand(
+            var expectedCommand = new UnmarkAssignmentCommand(
                     expectedIndex, expectedAssignment);
             assertEquals(expectedCommand, command);
         } catch (ParseException pe) {
@@ -46,8 +46,8 @@ public class MarkAssignmentCommandParserTest {
     public void parse_missingAssignment_throwsParseException() {
         String userInput = "1"; // Missing assignment prefix
         String expectedMessage = String.format(
-            MESSAGE_INVALID_COMMAND_FORMAT,
-            MarkAssignmentCommand.MESSAGE_USAGE
+                MESSAGE_INVALID_COMMAND_FORMAT,
+                UnmarkAssignmentCommand.MESSAGE_USAGE
         );
         assertParseFailure(parser, userInput, expectedMessage);
     }
@@ -59,8 +59,8 @@ public class MarkAssignmentCommandParserTest {
     public void parse_invalidIndex_throwsParseException() {
         String userInput = "a a/Physics-1800"; // 'a' is not a valid index
         String expectedMessage = String.format(
-            MESSAGE_INVALID_COMMAND_FORMAT,
-            MarkAssignmentCommand.MESSAGE_USAGE
+                MESSAGE_INVALID_COMMAND_FORMAT,
+                UnmarkAssignmentCommand.MESSAGE_USAGE
         );
         assertParseFailure(parser, userInput, expectedMessage);
     }
@@ -72,7 +72,7 @@ public class MarkAssignmentCommandParserTest {
      * @param userInput the input string to parse
      * @param expectedMessage the expected error message
      */
-    private void assertParseFailure(MarkAssignmentCommandParser parser, String userInput, String expectedMessage) {
+    private void assertParseFailure(UnmarkAssignmentCommandParser parser, String userInput, String expectedMessage) {
         try {
             parser.parse(userInput);
             fail("The expected ParseException was not thrown.");

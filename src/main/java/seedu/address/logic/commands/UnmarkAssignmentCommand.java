@@ -1,10 +1,10 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.Messages.ALREADY_MARKED;
+import static seedu.address.logic.Messages.ALREADY_UNMARKED;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_ASSIGNMENT_IN_PERSON;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
-import static seedu.address.logic.Messages.MESSAGE_MARK_PERSON_SUCCESS;
+import static seedu.address.logic.Messages.MESSAGE_UNMARK_PERSON_SUCCESS;
 
 import java.util.Iterator;
 import java.util.List;
@@ -21,42 +21,42 @@ import seedu.address.model.person.Person;
 
 
 /**
- * Sets a student's assignment status as marked
+ * Resets a student's assignment status as unmarked
  */
-public class MarkAssignmentCommand extends Command {
+public class UnmarkAssignmentCommand extends Command {
 
-    public static final String COMMAND_WORD = "mark";
+    public static final String COMMAND_WORD = "unmark";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Marks the assignment of the student identified by the index number"
+            + ": Unmarks the assignment of the student identified by the index number"
             + "used in the displayed person list and the assignment name.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "a/ASSIGNMENT_NAME\n"
             + "Example: " + COMMAND_WORD + " 1" + " a/Physics-1800\n";
 
-    private static final Logger logger = LogsCenter.getLogger(MarkAssignmentCommand.class);
+    private static final Logger logger = LogsCenter.getLogger(UnmarkAssignmentCommand.class);
 
     private final Index targetIndex;
     private final Assignment assignment;
 
     /**
-     * Creates a MarkAssignmentCommand.
+     * Creates a UnmarkAssignmentCommand.
      *
      * @param targetIndex index of the student in the displayed list
-     * @param assignment assignment to mark
+     * @param assignment assignment to unmark
      */
-    public MarkAssignmentCommand(Index targetIndex, Assignment assignment) {
+    public UnmarkAssignmentCommand(Index targetIndex, Assignment assignment) {
         this.targetIndex = targetIndex;
         this.assignment = assignment;
     }
 
     /**
-     * Executes the mark assignment command.
+     * Executes the unmark assignment command.
      *
      * Steps:
      * 1. Validate and fetch the target person from the displayed list.
      * 2. Retrieve the person's assignment set and validate the requested assignment exists.
-     * 3. Find the matching assignment instance, mark it as completed, and
+     * 3. Find the matching assignment instance, unmark it as not completed, and
      *    return a formatted success message.
      *
      * @param model the model which provides access to the displayed person list and persistence
@@ -68,18 +68,18 @@ public class MarkAssignmentCommand extends Command {
         requireNonNull(model);
 
         List<Person> lastShownList = model.getFilteredPersonList();
-        Person personToMark = getPersonToMark(lastShownList);
+        Person personToUnmark = getPersonToUnmark(lastShownList);
 
-        Set<Assignment> personAssignments = getPersonAssignmentSet(personToMark);
-        ensureAssignmentExists(personAssignments, personToMark);
+        Set<Assignment> personAssignments = getPersonAssignmentSet(personToUnmark);
+        ensureAssignmentExists(personAssignments, personToUnmark);
 
         // Create a new mutable set with all assignments
         Set<Assignment> updatedAssignments = createUpdatedAssignmentSet(personAssignments);
-        Assignment markedAssignment = findAndMarkAssignment(updatedAssignments);
+        Assignment markedAssignment = findAndUnmarkAssignment(updatedAssignments);
 
         // Create updated person with new assignments
-        Person updatedPerson = personToMark.withAssignments(updatedAssignments);
-        model.setPerson(personToMark, updatedPerson);
+        Person updatedPerson = personToUnmark.withAssignments(updatedAssignments);
+        model.setPerson(personToUnmark, updatedPerson);
 
         return new CommandResult(formatSuccessMessage(markedAssignment, updatedPerson));
     }
@@ -89,7 +89,7 @@ public class MarkAssignmentCommand extends Command {
      *
      * @throws CommandException if the index is out of bounds
      */
-    private Person getPersonToMark(List<Person> lastShownList) throws CommandException {
+    private Person getPersonToUnmark(List<Person> lastShownList) throws CommandException {
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
@@ -144,13 +144,13 @@ public class MarkAssignmentCommand extends Command {
     }
 
     /**
-     * Finds the matching Assignment instance in the given set and marks it.
+     * Finds the matching Assignment instance in the given set and unmarks it.
      *
      * @param assignments the set of assignments to search
-     * @return the Assignment instance that was marked, or null if none matched (should not happen when validated)
-     * @throws CommandException if the assignment is already marked
+     * @return the Assignment instance that was unmarked, or null if none matched (should not happen when validated)
+     * @throws CommandException if the assignment is already unmarked
      */
-    private Assignment findAndMarkAssignment(Set<Assignment> assignments) throws CommandException {
+    private Assignment findAndUnmarkAssignment(Set<Assignment> assignments) throws CommandException {
         Assignment match = assignments.stream()
                 .filter(a -> a.getAssignmentName().equals(assignment.getAssignmentName()))
                 .findFirst()
@@ -161,21 +161,21 @@ public class MarkAssignmentCommand extends Command {
             return null;
         }
 
-        if (match.isMarked()) {
-            throw new CommandException(ALREADY_MARKED);
+        if (!match.isMarked()) {
+            throw new CommandException(ALREADY_UNMARKED);
         }
 
-        Assignment markedAssignment = match.mark();
+        Assignment unmarkedAssignment = match.unmark();
         assignments.remove(match);
-        assignments.add(markedAssignment);
-        return markedAssignment;
+        assignments.add(unmarkedAssignment);
+        return unmarkedAssignment;
     }
 
     /**
-     * Formats the user-visible success message after marking an assignment.
+     * Formats the user-visible success message after unmarking an assignment.
      */
     private String formatSuccessMessage(Assignment a, Person p) {
-        return String.format(MESSAGE_MARK_PERSON_SUCCESS, a.getAssignmentName(), p.getName());
+        return String.format(MESSAGE_UNMARK_PERSON_SUCCESS, a.getAssignmentName(), p.getName());
     }
 
     @Override
@@ -185,12 +185,12 @@ public class MarkAssignmentCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof MarkAssignmentCommand)) {
+        if (!(other instanceof UnmarkAssignmentCommand)) {
             return false;
         }
 
-        MarkAssignmentCommand otherMarkAssignmentCommand = (MarkAssignmentCommand) other;
-        return targetIndex.equals(otherMarkAssignmentCommand.targetIndex);
+        UnmarkAssignmentCommand otherUnmarkAssignmentCommand = (UnmarkAssignmentCommand) other;
+        return targetIndex.equals(otherUnmarkAssignmentCommand.targetIndex);
     }
 
     @Override
@@ -200,4 +200,5 @@ public class MarkAssignmentCommand extends Command {
                 .add("assignment", assignment)
                 .toString();
     }
+
 }

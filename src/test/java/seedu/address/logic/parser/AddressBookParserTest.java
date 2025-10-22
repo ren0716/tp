@@ -22,9 +22,13 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.MarkAssignmentCommand;
+import seedu.address.logic.commands.UnmarkAssignmentCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.assignment.Assignment;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.testutil.AssignmentBuilder;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
@@ -35,9 +39,20 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_mark() throws Exception {
-        DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new DeleteCommand(INDEX_FIRST_PERSON), command);
+        Assignment assignment = new AssignmentBuilder().withName("Assignment1").build();
+        MarkAssignmentCommand command = (MarkAssignmentCommand) parser.parseCommand(
+                MarkAssignmentCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased()
+                        + " a/Assignment1");
+        assertEquals(new MarkAssignmentCommand(INDEX_FIRST_PERSON, assignment), command);
+    }
+
+    @Test
+    public void parseCommand_unmark() throws Exception {
+        Assignment assignment = new AssignmentBuilder().withName("Assignment1").build();
+        UnmarkAssignmentCommand command = (UnmarkAssignmentCommand) parser.parseCommand(
+                UnmarkAssignmentCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased()
+                        + " a/Assignment1");
+        assertEquals(new UnmarkAssignmentCommand(INDEX_FIRST_PERSON, assignment), command);
     }
 
     @Test
