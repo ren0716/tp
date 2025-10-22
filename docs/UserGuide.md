@@ -87,28 +87,43 @@ Examples:
 * `add n/John Doe p/98765432 l/2`
 * `add n/Betsy Crowe a/Assignment 1 p/1234567 c/Chemistry-1400`
 
-### Listing all persons : `list`
+### Deleting a student : `delete`
 
-Shows a list of all persons in the address book.
+Deletes the specified student from TutorTrack.
+
+Format: `delete INDEX`
+
+* Deletes the student at the specified `INDEX`.
+* The index refers to the index number shown in the displayed student list.
+* The index **must be a positive integer** 1, 2, 3, …​
+
+Examples:
+* `list` followed by `delete 2` deletes the 2nd student in the address book.
+* `find Betsy` followed by `delete 1` deletes the 1st student in the results of the `find` command.
+
+
+### Listing all students : `list`
+
+Shows a list of all students in the address book.
 
 Format: `list`
 
-### Editing a person : `edit`
+### Editing a student : `edit`
 
-Edits an existing person in the address book.
+Edits an existing student in the address book.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [a/ADDRESS] [t/TAG]…​`
+Format: `edit INDEX [n/NAME] [p/PHONE_NUMBER] [l/LEVEL] [c/CLASS]…​ [a/ASSIGNMENT]…​`
 
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
+* Edits the student at the specified `INDEX`. The index refers to the index number shown in the displayed student list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person’s tags by typing `t/` without
-    specifying any tags after it.
+* When editing classes/assignments, the existing classes/assignments of the student will be removed i.e adding of classes/assignments is not cumulative.
+* You can remove all the student’s classes/assignments by typing `c/`/ `a/` without
+    specifying any classes/assignments after it.
 
 Examples:
-*  `edit 1 p/91234567 ` Edits the phone number of the 1st person to be `91234567`.
-*  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+*  `edit 1 p/91234567 ` Edits the phone number of the 1st student to be `91234567`.
+*  `edit 2 n/Betsy Crower a/` Edits the name of the 2nd student to be `Betsy Crower` and clears all existing assignments.
 
 ### Locating students by name: `find`
 
@@ -128,19 +143,88 @@ Examples:
 * `find alex john` returns `alex`, `john`<br>
   ![result for 'find alex john'](images/findAlexJohnResult.png)
 
-### Deleting a student : `delete`
+### Adding assignment(s) to a student: `assign`
 
-Deletes the specified student from TutorTrack.
+Adds one or more assignments to the specified student in TutorTrack.
 
-Format: `delete INDEX`
+Format: `assign INDEX a/ASSIGNMENT [a/ASSIGNMENT]...`
 
-* Deletes the student at the specified `INDEX`.
+* Adds assignment(s) to the student at the specified `INDEX`.
 * The index refers to the index number shown in the displayed student list.
 * The index **must be a positive integer** 1, 2, 3, …​
+* At least one assignment must be provided.
+* Duplicate assignments will not be added.
 
 Examples:
-* `list` followed by `delete 2` deletes the 2nd student in the address book.
-* `find Betsy` followed by `delete 1` deletes the 1st student in the results of the `find` command.
+* `list` followed by `assign 1 a/MathHW1 a/ScienceTopic2` adds two assignments to the 1st student in the address book.
+* `find John` followed by `assign 2 a/ProjectDraft` adds an assignment to the 2nd student in the results of the `find` command.
+
+### Deleting assignment(s) from a student: `unassign`
+
+Deletes one or more assignments from the specified student in TutorTrack.
+
+Format: `unassign INDEX a/ASSIGNMENT [a/ASSIGNMENT]...`
+
+* Deletes assignment(s) from the student at the specified `INDEX`.
+* The index refers to the index number shown in the displayed student list.
+* The index **must be a positive integer** 1, 2, 3, …​
+* At least one assignment must be provided.
+
+Examples:
+* `list` followed by `unassign 1 a/MathHW1 a/ScienceTopic2` deletes two assignments from the 1st student in the address book.
+* `find John` followed by `unassign 2 a/ProjectDraft` deletes an assignment from the 2nd student in the results of the `find` command.
+
+### Adding class(es) to a student: `addclass`
+
+Adds one or more classes to the specified student in TutorTrack.
+
+Format: `addclass INDEX c/CLASS [c/CLASS]...`
+
+* Adds class(es) to the student at the specified `INDEX`.
+* The index refers to the index number shown in the displayed student list.
+* The index **must be a positive integer** 1, 2, 3, …​
+* At least one class must be provided.
+* Class names must be alphanumeric and may contain spaces or hyphens.
+* Class names must start with an alphanumeric character (letter or digit).
+* Duplicate classes will not be added.
+
+Examples:
+* `list` followed by `addclass 1 c/Math-1000 c/Physics-2000` adds two classes to the 1st student in the address book.
+* `find John` followed by `addclass 2 c/Chemistry-1400` adds a class to the 2nd student in the results of the `find` command.
+
+### Deleting class(es) from a student: `deleteclass`
+
+Deletes one or more classes from the specified student in TutorTrack.
+
+Format: `deleteclass INDEX c/CLASS [c/CLASS]...`
+
+* Deletes class(es) from the student at the specified `INDEX`.
+* The index refers to the index number shown in the displayed student list.
+* The index **must be a positive integer** 1, 2, 3, …​
+* At least one class must be provided.
+* Class names must be alphanumeric and may contain spaces or hyphens.
+* Class names must start with an alphanumeric character (letter or digit).
+* Only classes that exist for the student can be deleted.
+
+Examples:
+* `list` followed by `deleteclass 1 c/Math-1000 c/Physics-2000` deletes two classes from the 1st student in the address book.
+* `find John` followed by `deleteclass 2 c/Chemistry-1400` deletes a class from the 2nd student in the results of the `find` command.
+
+### Filtering students by class: `filter`
+
+Finds and lists all students who are in the specified class group.
+
+Format: `filter c/CLASS`
+
+* Filters students by the specified class group.
+* The search is case-insensitive. e.g., `math-1000` will match `Math-1000`
+* Only one class can be specified at a time.
+* Only students with an exact match to the class name will be shown.
+
+Examples:
+* `filter c/Math-1000` displays all students enrolled in the Math-1000 class.
+* `filter c/Chemistry-1400` displays all students enrolled in the Chemistry-1400 class.
+
 
 ### Clearing all entries : `clear`
 
@@ -156,27 +240,23 @@ Format: `exit`
 
 ### Saving the data
 
-AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+TutorTrack data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
 ### Editing the data file
 
-AddressBook data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
+TutorTrack data are saved automatically as a JSON file `[JAR file location]/data/tutortrack.json`. Advanced users are welcome to update data directly by editing that data file.
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
-Furthermore, certain edits can cause the AddressBook to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
+If your changes to the data file makes its format invalid, TutorTrack will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
+Furthermore, certain edits can cause the TutorTrack to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </div>
-
-### Archiving data files `[coming in v2.0]`
-
-_Details coming soon ..._
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder.
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous TutorTrack home folder.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -191,10 +271,16 @@ _Details coming soon ..._
 
 Action | Format, Examples
 --------|------------------
-**Add** | `add n/NAME p/PHONE_NUMBER a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-**Clear** | `clear`
-**Delete** | `delete INDEX`<br> e.g., `delete 3`
-**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
-**Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
+**Add** | `add n/NAME p/PHONE_NUMBER l/LEVEL [c/CLASS]…​ [a/ASSIGNMENT]…​` <br> e.g., `add n/John Doe p/98765432 l/2 c/Chemistry-1400 a/Assignment 1`
 **List** | `list`
+**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [l/LEVEL] [c/CLASS]…​ [a/ASSIGNMENT]…​`<br> e.g., `edit 1 p/91234567`
+**Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find John`
+**Delete** | `delete INDEX`<br> e.g., `delete 3`
+**Assign** | `assign INDEX a/ASSIGNMENT [a/ASSIGNMENT]...`<br> e.g., `assign 1 a/MathHW1 a/ScienceTopic2`
+**Unassign** | `unassign INDEX a/ASSIGNMENT [a/ASSIGNMENT]...`<br> e.g., `unassign 1 a/MathHW1`
+**Add Class** | `addclass INDEX c/CLASS [c/CLASS]...`<br> e.g., `addclass 1 c/Math-1000 c/Physics-2000`
+**Delete Class** | `deleteclass INDEX c/CLASS [c/CLASS]...`<br> e.g., `deleteclass 1 c/Math-1000`
+**Filter** | `filter c/CLASS`<br> e.g., `filter c/Math-1000`
+**Clear** | `clear`
 **Help** | `help`
+**Exit** | `exit`

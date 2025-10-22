@@ -83,7 +83,7 @@ public class AddAssignmentCommandTest {
     @Test
     public void execute_invalidPersonIndex_failure() {
         Index outOfBounds = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
-        Assignment assignment = new AssignmentBuilder().withName("HW_OUT").build();
+        Assignment assignment = new AssignmentBuilder().withName("HW-OUT").build();
         AddAssignmentCommand.AddAssignmentDescriptor descriptor = new AddAssignmentCommand.AddAssignmentDescriptor();
         descriptor.setAssignments(Set.of(assignment));
         AddAssignmentCommand command = new AddAssignmentCommand(outOfBounds, descriptor);
@@ -154,7 +154,7 @@ public class AddAssignmentCommandTest {
      */
     @Test
     public void descriptorToStringMethod() {
-        Assignment assignment = new AssignmentBuilder().withName("Math_HW").build();
+        Assignment assignment = new AssignmentBuilder().withName("Math-HW").build();
         AddAssignmentCommand.AddAssignmentDescriptor descriptor = new AddAssignmentCommand.AddAssignmentDescriptor();
         descriptor.setAssignments(Set.of(assignment));
 

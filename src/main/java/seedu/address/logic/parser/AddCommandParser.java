@@ -13,6 +13,7 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.assignment.Assignment;
+import seedu.address.model.classgroup.ClassGroup;
 import seedu.address.model.person.Level;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -42,7 +43,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Level level = ParserUtil.parseLevel(argMultimap.getValue(PREFIX_LEVEL).get());
-        Set<String> classGroups = ParserUtil.parseClassGroups(argMultimap.getAllValues(PREFIX_CLASSGROUP));
+        Set<ClassGroup> classGroups = ParserUtil.parseClassGroups(argMultimap.getAllValues(PREFIX_CLASSGROUP));
         Set<Assignment> assignmentList = ParserUtil.parseAssignments(argMultimap.getAllValues(PREFIX_ASSIGNMENT));
 
         Person person = new Person(name, phone, level, classGroups, assignmentList);
