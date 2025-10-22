@@ -52,13 +52,4 @@ public class PersonListPanel extends UiPart<Region> {
         }
     }
 
-    /**
-     * Refreshes all person cards to update their assignment display
-     */
-    public void refreshAll() {
-        logger.info("Refreshing all person cards in PersonListPanel");
-        // Force the ListView to refresh all its cells
-        personListView.refresh();
-    }
-
 }

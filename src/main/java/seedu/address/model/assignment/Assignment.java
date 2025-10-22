@@ -10,8 +10,10 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Assignment {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Assignment names should contain alphanumeric characters, hyphens and spaces only";
-    public static final String VALIDATION_REGEX = "^[\\p{Alnum} -]+$";
+            "Assignment names should be alphanumeric and may contain spaces or hyphens";
+    // Allow alphanumeric characters, spaces and hyphens; must contain at least one alphanumeric character
+    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} \\-]*";
+
 
     public final String assignmentName;
     private final boolean isMarked;

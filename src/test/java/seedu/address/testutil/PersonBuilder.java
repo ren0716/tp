@@ -16,7 +16,7 @@ import seedu.address.model.util.SampleDataUtil;
  */
 public class PersonBuilder {
 
-    public static final String DEFAULT_NAME = "Amy Bee";
+    public static final String DEFAULT_NAME = "amy bee";
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_LEVEL = "2";
 
