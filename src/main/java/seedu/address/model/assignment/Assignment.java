@@ -9,8 +9,10 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Assignment {
 
-    public static final String MESSAGE_CONSTRAINTS = "Assignment names should be alphanumeric";
-    public static final String VALIDATION_REGEX = "\\p{Alnum}+";
+    public static final String MESSAGE_CONSTRAINTS =
+            "Assignment names should be alphanumeric and may contain spaces or hyphens";
+    // Allow alphanumeric characters, spaces and hyphens; must contain at least one alphanumeric character
+    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} \\-]*";
 
     public final String assignmentName;
 
@@ -29,8 +31,7 @@ public class Assignment {
      * Returns true if a given string is a valid assignment name.
      */
     public static boolean isValidAssignmentName(String test) {
-        //return test.matches(VALIDATION_REGEX);
-        return true;
+        return test.matches(VALIDATION_REGEX);
     }
 
     @Override
