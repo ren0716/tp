@@ -359,7 +359,7 @@
 #assignments .label {
     -fx-text-fill: white;
     -fx-background-color: #FFA500;
-    -fx-padding: 1 3 1 3;
+    -fx-padding: 2;
     -fx-border-radius: 2;
     -fx-background-radius: 2;
     -fx-font-size: 11;

@@ -66,7 +66,6 @@ public class PersonCard extends UiPart<Region> {
                     } else {
                         text.setFill(javafx.scene.paint.Color.WHITE);
                     }
-                    container.setStyle("-fx-padding: 2;");
                     container.setGraphic(text);
                     container.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
                     assignments.getChildren().add(container);
