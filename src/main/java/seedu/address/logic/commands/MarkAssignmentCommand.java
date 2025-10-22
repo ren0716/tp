@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.Messages.MESSAGE_DELETE_PERSON_SUCCESS;
 
 import java.util.Iterator;
 import java.util.List;
@@ -30,7 +31,6 @@ public class MarkAssignmentCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "a/ASSIGNMENT_NAME\n"
             + "Example: " + COMMAND_WORD + " 1" + " a/Physics-1800\n";
-    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Marked assignment %1$s of %2$s";
 
     private static final Logger logger = LogsCenter.getLogger(MarkAssignmentCommand.class);
 
@@ -71,9 +71,15 @@ public class MarkAssignmentCommand extends Command {
         Set<Assignment> personAssignments = getPersonAssignmentSet(personToMark);
         ensureAssignmentExists(personAssignments, personToMark);
 
-        Assignment marked = findAndMarkAssignment(personAssignments);
+        // Create a new mutable set with all assignments
+        Set<Assignment> updatedAssignments = createUpdatedAssignmentSet(personAssignments);
+        Assignment markedAssignment = findAndMarkAssignment(updatedAssignments);
 
-        return new CommandResult(formatSuccessMessage(marked, personToMark), true);
+        // Create updated person with new assignments
+        Person updatedPerson = personToMark.withAssignments(updatedAssignments);
+        model.setPerson(personToMark, updatedPerson);
+
+        return new CommandResult(formatSuccessMessage(markedAssignment, updatedPerson), true);
     }
 
     /**
@@ -129,17 +135,24 @@ public class MarkAssignmentCommand extends Command {
     }
 
     /**
+     * Creates a new mutable set of assignments with the same contents as the input set.
+     */
+    private Set<Assignment> createUpdatedAssignmentSet(Set<Assignment> originalAssignments) {
+        return new java.util.HashSet<>(originalAssignments);
+    }
+
+    /**
      * Finds the matching Assignment instance in the given set and marks it.
      *
      * @return the Assignment instance that was marked, or null if none matched (should not happen when validated)
      */
     private Assignment findAndMarkAssignment(Set<Assignment> assignments) {
-        Iterator<Assignment> iter = assignments.iterator();
-        while (iter.hasNext()) {
-            Assignment a = iter.next();
+        for (Assignment a : assignments) {
             if (a.getAssignmentName().equals(assignment.getAssignmentName())) {
-                a.mark();
-                return a;
+                Assignment markedAssignment = a.mark();
+                assignments.remove(a);
+                assignments.add(markedAssignment);
+                return markedAssignment;
             }
         }
         // should not reach here because ensureAssignmentExists was called before

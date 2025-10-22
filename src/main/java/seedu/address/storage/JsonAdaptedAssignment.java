@@ -1,5 +1,7 @@
 package seedu.address.storage;
 
+import static java.util.Objects.requireNonNull;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
@@ -37,7 +39,8 @@ class JsonAdaptedAssignment {
      * Converts a given {@code Assignment} into this class for Jackson use.
      */
     public JsonAdaptedAssignment(Assignment source) {
-        assignmentName = source.assignmentName;
+        requireNonNull(source);
+        assignmentName = source.getAssignmentName();
         isMarked = source.isMarked();
     }
 
@@ -66,11 +69,7 @@ class JsonAdaptedAssignment {
         if (!Assignment.isValidAssignmentName(assignmentName)) {
             throw new IllegalValueException(Assignment.MESSAGE_CONSTRAINTS);
         }
-        Assignment assignment = new Assignment(assignmentName);
-        if (isMarked) {
-            assignment.mark();
-        }
-        return assignment;
+        return new Assignment(assignmentName, isMarked); // Use the constructor that takes both name and marked status
     }
 
 }

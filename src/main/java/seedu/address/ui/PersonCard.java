@@ -63,34 +63,13 @@ public class PersonCard extends UiPart<Region> {
                     if (assignment.isMarked()) {
                         text.setStrikethrough(true);
                         text.setFill(javafx.scene.paint.Color.GRAY);
-                        container.setStyle("-fx-padding: 2;");
                     } else {
                         text.setFill(javafx.scene.paint.Color.WHITE);
-                        container.setStyle("-fx-padding: 2;");
                     }
+                    container.setStyle("-fx-padding: 2;");
                     container.setGraphic(text);
                     container.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
                     assignments.getChildren().add(container);
-                });
-    }
-
-    /**
-     * Updates the assignment labels to reflect their current state (marked/unmarked).
-     */
-    public void refreshAssignments() {
-        assignments.getChildren().clear();
-        person.getAssignments().stream()
-                .sorted(Comparator.comparing(assignment -> assignment.assignmentName))
-                .forEach(assignment -> {
-                    javafx.scene.text.Text text = new javafx.scene.text.Text(assignment.getAssignmentName());
-                    if (assignment.isMarked()) {
-                        text.setStrikethrough(true);
-                        text.setStyle("-fx-fill: #808080;"); // Gray color for marked assignments
-                    }
-                    Label label = new Label();
-                    label.setGraphic(text);
-                    label.setContentDisplay(javafx.scene.control.ContentDisplay.GRAPHIC_ONLY);
-                    assignments.getChildren().add(label);
                 });
     }
 }
