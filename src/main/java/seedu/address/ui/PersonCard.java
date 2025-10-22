@@ -3,6 +3,7 @@ package seedu.address.ui;
 import java.util.Comparator;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
@@ -56,6 +57,18 @@ public class PersonCard extends UiPart<Region> {
                 .forEach(classGroup -> classGroups.getChildren().add(new Label(classGroup.classGroupName)));
         person.getAssignments().stream()
                 .sorted(Comparator.comparing(assignment -> assignment.assignmentName))
-                .forEach(assignment -> assignments.getChildren().add(new Label(assignment.assignmentName)));
+                .forEach(assignment -> {
+                    Label container = new Label();
+                    javafx.scene.text.Text text = new javafx.scene.text.Text(assignment.getAssignmentName());
+                    if (assignment.isMarked()) {
+                        text.setStrikethrough(true);
+                        text.setFill(javafx.scene.paint.Color.GRAY);
+                    } else {
+                        text.setFill(javafx.scene.paint.Color.WHITE);
+                    }
+                    container.setGraphic(text);
+                    container.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+                    assignments.getChildren().add(container);
+                });
     }
 }
