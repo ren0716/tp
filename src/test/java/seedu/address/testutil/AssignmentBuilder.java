@@ -10,9 +10,14 @@ public class AssignmentBuilder {
     public static final String DEFAULT_NAME = "Assignment1";
 
     private String name;
+    private boolean isMarked;
 
+    /**
+     * Creates a new {@code AssignmentBuilder} with default values.
+     */
     public AssignmentBuilder() {
         name = DEFAULT_NAME;
+        isMarked = false;
     }
 
     /**
@@ -20,6 +25,7 @@ public class AssignmentBuilder {
      */
     public AssignmentBuilder(Assignment assignment) {
         name = assignment.getAssignmentName();
+        isMarked = assignment.isMarked();
     }
 
     /**
@@ -31,12 +37,17 @@ public class AssignmentBuilder {
     }
 
     /**
+     * Sets the marked status of the {@code Assignment} that we are building.
+     */
+    public AssignmentBuilder withMarkedStatus(boolean isMarked) {
+        this.isMarked = isMarked;
+        return this;
+    }
+
+    /**
      * Builds and returns an {@code Assignment} instance.
-     *
-     * Note: If your Assignment constructor requires more fields, add corresponding builder methods
-     * and pass them into the constructor here.
      */
     public Assignment build() {
-        return new Assignment(name);
+        return new Assignment(name, isMarked);
     }
 }
