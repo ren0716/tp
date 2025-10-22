@@ -18,6 +18,8 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.assignment.Assignment;
+import seedu.address.model.classgroup.ClassGroup;
 import seedu.address.model.person.Level;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -36,8 +38,8 @@ public class DeleteClassCommand extends Command {
             + PREFIX_CLASSGROUP + "CLASS_NAME "
             + "[" + PREFIX_CLASSGROUP + "CLASS_NAME]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_CLASSGROUP + "Math-1000 "
-            + PREFIX_CLASSGROUP + "Physics-2000";
+            + PREFIX_CLASSGROUP + "Math2PM "
+            + PREFIX_CLASSGROUP + "Physics3PM";
 
     public static final String MESSAGE_DELETE_CLASS_SUCCESS = "Deleted class(es) from: %1$s";
     public static final String MESSAGE_CLASS_NOT_PROVIDED = "At least one class to delete must be provided.";
@@ -99,10 +101,10 @@ public class DeleteClassCommand extends Command {
      *
      * @param person The person to check.
      * @param desc The descriptor with requested class deletions.
-     * @return A set of deletable class group names.
+     * @return A set of deletable class group.
      */
-    private static Set<String> findDeletableClasses(Person person, DeleteClassDescriptor desc) {
-        Set<String> requested = desc.getClassGroups().orElse(Set.of());
+    private static Set<ClassGroup> findDeletableClasses(Person person, DeleteClassDescriptor desc) {
+        Set<ClassGroup> requested = desc.getClassGroups().orElse(Set.of());
         return person.getClassGroups().stream()
                 .filter(requested::contains)
                 .collect(Collectors.toSet());
@@ -115,9 +117,9 @@ public class DeleteClassCommand extends Command {
      * @param desc The descriptor with requested class deletions.
      * @return A set of non-existent class group names.
      */
-    private static Set<String> findNonExistentClasses(Person person, DeleteClassDescriptor desc) {
-        Set<String> requested = desc.getClassGroups().orElse(Set.of());
-        Set<String> existing = person.getClassGroups();
+    private static Set<ClassGroup> findNonExistentClasses(Person person, DeleteClassDescriptor desc) {
+        Set<ClassGroup> requested = desc.getClassGroups().orElse(Set.of());
+        Set<ClassGroup> existing = person.getClassGroups();
         return requested.stream()
                 .filter(c -> !existing.contains(c))
                 .collect(Collectors.toSet());
@@ -139,12 +141,16 @@ public class DeleteClassCommand extends Command {
         Name updatedName = personToEdit.getName();
         Phone updatedPhone = personToEdit.getPhone();
         Level updatedLevel = personToEdit.getLevel();
-        Set<String> currentClasses = new HashSet<>(personToEdit.getClassGroups());
-        Set<String> toDelete = findDeletableClasses(personToEdit, deleteClassDescriptor);
-        Set<String> nonExistent = findNonExistentClasses(personToEdit, deleteClassDescriptor);
+        Set<Assignment> updatedAssignments = personToEdit.getAssignments();
+        Set<ClassGroup> currentClasses = new HashSet<>(personToEdit.getClassGroups());
+        Set<ClassGroup> toDelete = findDeletableClasses(personToEdit, deleteClassDescriptor);
+        Set<ClassGroup> nonExistent = findNonExistentClasses(personToEdit, deleteClassDescriptor);
 
         if (!nonExistent.isEmpty()) {
-            String missingNames = nonExistent.stream().sorted().collect(Collectors.joining(", "));
+            String missingNames = nonExistent.stream()
+                    .map(ClassGroup::getClassGroupName)
+                    .sorted()
+                    .collect(Collectors.joining(", "));
             throw new CommandException(String.format(MESSAGE_CLASS_NOT_FOUND, missingNames));
         }
 
@@ -155,7 +161,7 @@ public class DeleteClassCommand extends Command {
                 updatedPhone,
                 updatedLevel,
                 currentClasses,
-                personToEdit.getAssignments()
+                updatedAssignments
         );
     }
 
@@ -187,7 +193,7 @@ public class DeleteClassCommand extends Command {
      * All other fields will remain unchanged.
      */
     public static class DeleteClassDescriptor {
-        private Set<String> classGroups;
+        private Set<ClassGroup> classGroups;
 
         /**
          * Constructs an empty descriptor.
@@ -217,7 +223,7 @@ public class DeleteClassCommand extends Command {
          *
          * @param classGroups The set of class groups to delete.
          */
-        public void setClassGroups(Set<String> classGroups) {
+        public void setClassGroups(Set<ClassGroup> classGroups) {
             this.classGroups = (classGroups != null) ? new HashSet<>(classGroups) : null;
         }
 
@@ -226,7 +232,7 @@ public class DeleteClassCommand extends Command {
          *
          * @return Optional of the class group set.
          */
-        public Optional<Set<String>> getClassGroups() {
+        public Optional<Set<ClassGroup>> getClassGroups() {
             return (classGroups != null)
                     ? Optional.of(Collections.unmodifiableSet(classGroups))
                     : Optional.empty();

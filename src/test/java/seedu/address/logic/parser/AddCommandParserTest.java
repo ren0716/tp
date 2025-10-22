@@ -42,7 +42,8 @@ public class AddCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Person expectedPerson = new PersonBuilder(BOB).withClassGroups(VALID_CLASSGROUP_MATH).build();
+        Person expectedPerson = new PersonBuilder(BOB).withClassGroups(VALID_CLASSGROUP_MATH)
+                .withAssignments().build();
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + PHONE_DESC_BOB
@@ -52,7 +53,7 @@ public class AddCommandParserTest {
         // multiple classGroups - all accepted
         Person expectedPersonMultipleClassGroups = new PersonBuilder(BOB)
                 .withClassGroups(VALID_CLASSGROUP_MATH, VALID_CLASSGROUP_PHYSICS)
-                .build();
+                .withAssignments().build();
         assertParseSuccess(parser,
                 NAME_DESC_BOB + PHONE_DESC_BOB + LEVEL_DESC_BOB + CLASSGROUP_DESC_PHYSICS + CLASSGROUP_DESC_MATH,
                 new AddCommand(expectedPersonMultipleClassGroups));
@@ -112,8 +113,8 @@ public class AddCommandParserTest {
 
     @Test
     public void parse_optionalFieldsMissing_success() {
-        // zero tags
-        Person expectedPerson = new PersonBuilder(AMY).withClassGroups().build();
+        // zero class groups and zero assignments
+        Person expectedPerson = new PersonBuilder(AMY).withClassGroups().withAssignments().build();
         assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + LEVEL_DESC_AMY,
                 new AddCommand(expectedPerson));
     }

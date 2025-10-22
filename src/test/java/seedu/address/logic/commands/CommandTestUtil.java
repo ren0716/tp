@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSGROUP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LEVEL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -31,8 +32,10 @@ public class CommandTestUtil {
     public static final String VALID_PHONE_BOB = "22222222";
     public static final String VALID_LEVEL_AMY = "1";
     public static final String VALID_LEVEL_BOB = "2";
-    public static final String VALID_CLASSGROUP_PHYSICS = "Physics-1800";
-    public static final String VALID_CLASSGROUP_MATH = "Math-2000";
+    public static final String VALID_ASSIGNMENT_PHYSICS = "Physics1800";
+    public static final String VALID_ASSIGNMENT_MATH = "Math2000";
+    public static final String VALID_CLASSGROUP_PHYSICS = "Physics 2PM";
+    public static final String VALID_CLASSGROUP_MATH = "Math 3PM";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -45,6 +48,7 @@ public class CommandTestUtil {
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_LEVEL_DESC = " " + PREFIX_LEVEL; // empty string not allowed for addresses
+    public static final String INVALID_ASSIGNMENT_DESC = " " + PREFIX_ASSIGNMENT; // empty string not allowed
     public static final String INVALID_CLASSGROUP_DESC = " " + PREFIX_CLASSGROUP; // empty string not allowed
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

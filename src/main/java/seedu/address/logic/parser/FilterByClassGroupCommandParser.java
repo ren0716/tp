@@ -10,6 +10,7 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.FilterByClassGroupCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.classgroup.ClassGroup;
 import seedu.address.model.person.StudentInClassGroupPredicate;
 /**
  * Parses input arguments and creates a new {@link FilterByClassGroupCommand} object.
@@ -32,7 +33,7 @@ public class FilterByClassGroupCommandParser implements Parser<FilterByClassGrou
                     FilterByClassGroupCommand.MESSAGE_USAGE));
         }
 
-        Set<String> classGroups = ParserUtil
+        Set<ClassGroup> classGroups = ParserUtil
             .parseClassGroups(argMultimap.getAllValues(PREFIX_CLASSGROUP));
 
         if (classGroups.size() != 1) {
@@ -40,9 +41,10 @@ public class FilterByClassGroupCommandParser implements Parser<FilterByClassGrou
                 FilterByClassGroupCommand.MESSAGE_USAGE));
         }
 
-        Iterator<String> i = classGroups.iterator();
-        String classGroup = i.next();
-        return new FilterByClassGroupCommand(new StudentInClassGroupPredicate(classGroup));
+        Iterator<ClassGroup> i = classGroups.iterator();
+        ClassGroup classGroup = i.next();
+        String classGroupName = classGroup.getClassGroupName();
+        return new FilterByClassGroupCommand(new StudentInClassGroupPredicate(classGroupName));
     }
 
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {

@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.assignment.Assignment;
+import seedu.address.model.classgroup.ClassGroup;
 import seedu.address.model.person.Level;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -56,8 +57,9 @@ public class SampleDataUtil {
     /**
      * Returns a classGroup set containing the list of strings given.
      */
-    public static Set<String> getClassGroup(String... strings) {
+    public static Set<ClassGroup> getClassGroup(String... strings) {
         return Arrays.stream(strings)
+                .map(ClassGroup::new)
                 .collect(Collectors.toSet());
     }
 

@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.model.assignment.Assignment;
+import seedu.address.model.classgroup.ClassGroup;
 import seedu.address.model.person.Level;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -22,7 +23,7 @@ public class PersonBuilder {
     private Name name;
     private Phone phone;
     private Level level;
-    private Set<String> classGroups;
+    private Set<ClassGroup> classGroups;
     private Set<Assignment> assignments;
 
     /**
