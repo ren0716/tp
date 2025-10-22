@@ -38,19 +38,20 @@ public class AddressBookParser {
 
     /**
      * Parses user input into command for execution.
-     *
+     * The input is normalized to lowercase before parsing, ensuring case-insensitive command recognition.
      * @param userInput full user input string
-     * @return the command based on the user input
+     * @return the command based on the lowercase form of user input
      * @throws ParseException if the user input does not conform the expected format
      */
     public Command parseCommand(String userInput) throws ParseException {
-        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
+        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim().toLowerCase());
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
+        assert(arguments.equals(arguments.toLowerCase())); //all arguments should be lowercase at this stage
 
         // Note to developers: Change the log level in config.json to enable lower level (i.e., FINE, FINER and lower)
         // log messages such as the one below.
