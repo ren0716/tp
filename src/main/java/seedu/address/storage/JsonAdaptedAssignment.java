@@ -44,6 +44,24 @@ class JsonAdaptedAssignment {
         isMarked = source.isMarked();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof JsonAdaptedAssignment)) {
+            return false;
+        }
+        JsonAdaptedAssignment that = (JsonAdaptedAssignment) o;
+        return isMarked == that.isMarked
+                && java.util.Objects.equals(assignmentName, that.assignmentName);
+    }
+
+    @Override
+    public int hashCode() {
+        return java.util.Objects.hash(assignmentName, isMarked);
+    }
+
     public String getAssignmentName() {
         return assignmentName;
     }
