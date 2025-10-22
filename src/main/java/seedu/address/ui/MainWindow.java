@@ -186,11 +186,6 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
-            if (commandResult.isNeedsUiRefresh()) {
-                logger.info("Command result indicates UI refresh needed");
-                personListPanel.refreshAll();
-            }
-
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("An error occurred while executing command: " + commandText);

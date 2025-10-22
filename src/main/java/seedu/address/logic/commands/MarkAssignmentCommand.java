@@ -79,7 +79,7 @@ public class MarkAssignmentCommand extends Command {
         Person updatedPerson = personToMark.withAssignments(updatedAssignments);
         model.setPerson(personToMark, updatedPerson);
 
-        return new CommandResult(formatSuccessMessage(markedAssignment, updatedPerson), true);
+        return new CommandResult(formatSuccessMessage(markedAssignment, updatedPerson));
     }
 
     /**
