@@ -38,7 +38,9 @@ public class AssignAllCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Assigned assignment '%1$s' to %2$d student(s) in class '%3$s'";
     public static final String MESSAGE_NO_STUDENTS_FOUND = "No students found in class group: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
+    public static final String MESSAGE_ALREADY_ASSIGNED =
+            "All students in class '%1$s' already have the assignment '%2$s' assigned";
 
     private final String classGroupName;
     private final Assignment assignment;
@@ -85,6 +87,12 @@ public class AssignAllCommand extends Command {
                 model.setPerson(person, editedPerson);
                 assignedCount++;
             }
+        }
+
+        // If all students already have the assignment, output error message
+        if (assignedCount == 0) {
+            throw new CommandException(String.format(MESSAGE_ALREADY_ASSIGNED,
+                    assignment.getAssignmentName(), classGroupName));
         }
 
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);

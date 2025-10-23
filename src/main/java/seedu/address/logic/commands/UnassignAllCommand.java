@@ -40,6 +40,7 @@ public class UnassignAllCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Unassigned assignment '%1$s' from %2$d student(s) in class '%3$s'";
     public static final String MESSAGE_NO_STUDENTS_FOUND = "No students found in class group: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_ASSIGNMENT_NOT_FOUND = "Assignment '%1$s' not found in class group: %2$s";
 
     private final String classGroupName;
     private final Assignment assignment;
@@ -96,6 +97,12 @@ public class UnassignAllCommand extends Command {
                 model.setPerson(person, editedPerson);
                 unassignedCount++;
             }
+        }
+
+        // If no students had the assignment, output error message
+        if (unassignedCount == 0) {
+            throw new CommandException(String.format(MESSAGE_ASSIGNMENT_NOT_FOUND,
+                    assignment.getAssignmentName(), classGroupName));
         }
 
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
