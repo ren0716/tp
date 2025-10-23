@@ -20,7 +20,10 @@ public class Messages {
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Multiple values specified for the following single-valued field(s): ";
     public static final String MESSAGE_INVALID_ASSIGNMENT_IN_PERSON = "Person does not have the assignment";
-    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Marked assignment %1$s of %2$s";
+    public static final String MESSAGE_MARK_PERSON_SUCCESS = "Marked assignment %1$s of %2$s";
+    public static final String ALREADY_MARKED = "Assignment is already marked";
+    public static final String MESSAGE_UNMARK_PERSON_SUCCESS = "Unmarked assignment %1$s of %2$s";
+    public static final String ALREADY_UNMARKED = "Assignment is already unmarked";
     /**
      * Returns an error message indicating the duplicate prefixes.
      */
