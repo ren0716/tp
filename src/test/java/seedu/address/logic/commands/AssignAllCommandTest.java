@@ -28,6 +28,10 @@ public class AssignAllCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
+    /**
+     * Tests that assigning an assignment to all students in a class group succeeds.
+     * Verifies that the assignment is added to all students enrolled in the specified class.
+     */
     @Test
     public void execute_assignToClassGroup_success() {
         // Setup: Add students with Math class
@@ -54,6 +58,10 @@ public class AssignAllCommandTest {
         assertCommandSuccess(command, modelWithMathClass, expectedMessage, expectedModel);
     }
 
+    /**
+     * Tests that assigning an assignment to a single student in a class succeeds.
+     * Verifies that the command works correctly when only one student is enrolled in the class.
+     */
     @Test
     public void execute_assignToOneStudentInClass_success() {
         // Setup: Add one student with Physics class
@@ -75,6 +83,10 @@ public class AssignAllCommandTest {
         assertCommandSuccess(command, modelWithPhysicsClass, expectedMessage, expectedModel);
     }
 
+    /**
+     * Tests that assigning an assignment to multiple students in a class succeeds.
+     * Verifies that only students enrolled in the specified class receive the assignment.
+     */
     @Test
     public void execute_assignToMultipleClassStudents_success() {
         // Setup: Add students, some with Math class, some without
@@ -106,6 +118,10 @@ public class AssignAllCommandTest {
         assertCommandSuccess(command, modelWithMixedClasses, expectedMessage, expectedModel);
     }
 
+    /**
+     * Tests that assigning an assignment skips students who already have the assignment.
+     * Verifies that students who already possess the assignment are not reassigned it.
+     */
     @Test
     public void execute_studentAlreadyHasAssignment_skipsStudent() {
         // Setup: Add student with Math class and already has the assignment
@@ -133,6 +149,34 @@ public class AssignAllCommandTest {
         assertCommandSuccess(command, modelWithAssignment, expectedMessage, expectedModel);
     }
 
+    /**
+     * Tests that assigning an assignment already assigned to all student of the class throws a CommandException.
+     * Verifies that the command fails when all students in the specified class have the assignment.
+     */
+    @Test
+    public void execute_assignmentsAlreadyAssignedToAllStudents_throwsCommandException() {
+        // Setup: Add students with Math class who already have the assignment
+        Model modelAllHaveAssignment = new ModelManager(new AddressBook(), new UserPrefs());
+        Person alice = new PersonBuilder().withName("Alice").withPhone("91234567")
+                .withLevel("1").withClassGroups(VALID_CLASSGROUP_MATH)
+                .withAssignments(VALID_ASSIGNMENT_MATH).build();
+        Person bob = new PersonBuilder().withName("Bob").withPhone("92345678")
+                .withLevel("2").withClassGroups(VALID_CLASSGROUP_MATH)
+                .withAssignments(VALID_ASSIGNMENT_MATH).build();
+        modelAllHaveAssignment.addPerson(alice);
+        modelAllHaveAssignment.addPerson(bob);
+
+        Assignment assignment = new Assignment(VALID_ASSIGNMENT_MATH);
+        AssignAllCommand command = new AssignAllCommand(VALID_CLASSGROUP_MATH, assignment);
+
+        assertCommandFailure(command, modelAllHaveAssignment,
+                String.format(AssignAllCommand.MESSAGE_ALREADY_ASSIGNED, VALID_ASSIGNMENT_MATH, VALID_CLASSGROUP_MATH));
+    }
+
+    /**
+     * Tests that unassigning from a non-existent class group throws a CommandException.
+     * Verifies that the command fails when no students are enrolled in the specified class.
+     */
     @Test
     public void execute_noStudentsInClass_throwsCommandException() {
         // Setup: Empty model or students without the specified class
@@ -148,6 +192,10 @@ public class AssignAllCommandTest {
                 String.format(AssignAllCommand.MESSAGE_NO_STUDENTS_FOUND, VALID_CLASSGROUP_MATH));
     }
 
+    /**
+     * Tests that assigning to an empty address book throws a CommandException.
+     * Verifies that the command fails when there are no students in the address book.
+     */
     @Test
     public void execute_emptyAddressBook_throwsCommandException() {
         Model emptyModel = new ModelManager(new AddressBook(), new UserPrefs());
@@ -158,6 +206,10 @@ public class AssignAllCommandTest {
                 String.format(AssignAllCommand.MESSAGE_NO_STUDENTS_FOUND, VALID_CLASSGROUP_MATH));
     }
 
+    /**
+     * Tests that class group name matching is case-insensitive.
+     * Verifies that "math 3pm" matches students enrolled in "Math 3PM".
+     */
     @Test
     public void execute_caseInsensitiveClassGroupMatch_success() {
         // Setup: Add student with "Math 3PM" class
@@ -180,6 +232,11 @@ public class AssignAllCommandTest {
         assertCommandSuccess(command, modelWithMathClass, expectedMessage, expectedModel);
     }
 
+    /**
+     * Tests the equals method for AssignAllCommand.
+     * Verifies correct equality behavior for same objects, same values, different types,
+     * null values, different class groups, and different assignments.
+     */
     @Test
     public void equals() {
         Assignment mathAssignment = new Assignment(VALID_ASSIGNMENT_MATH);
@@ -209,6 +266,10 @@ public class AssignAllCommandTest {
         assertFalse(assignMathToMathClass.equals(assignPhysicsToMathClass));
     }
 
+    /**
+     * Tests the toString method for AssignAllCommand.
+     * Verifies that the string representation includes the class group name and assignment details.
+     */
     @Test
     public void toStringMethod() {
         Assignment assignment = new Assignment(VALID_ASSIGNMENT_MATH);
