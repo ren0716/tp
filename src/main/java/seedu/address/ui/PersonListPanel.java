@@ -36,12 +36,18 @@ public class PersonListPanel extends UiPart<Region> {
         @Override
         protected void updateItem(Person person, boolean empty) {
             super.updateItem(person, empty);
+            String personName = person == null ? "null" : person.getName().fullName;
+            logger.info(String.format("Updating cell for index %d, empty: %b, person: %s",
+                    getIndex(), empty, personName));
 
             if (empty || person == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new PersonCard(person, getIndex() + 1).getRoot());
+                // Always create a new PersonCard to ensure fresh state
+                PersonCard card = new PersonCard(person, getIndex() + 1);
+                setGraphic(card.getRoot());
+                logger.info("Created new PersonCard for " + person.getName());
             }
         }
     }

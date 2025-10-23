@@ -76,8 +76,13 @@ public class Person {
             return true;
         }
 
-        return otherPerson != null
-                && otherPerson.getName().equals(getName());
+        // instanceof handles nulls
+        if (otherPerson == null) {
+            return false;
+        }
+
+        return name.equals(otherPerson.name)
+                && phone.equals(otherPerson.phone);
     }
 
     /**
@@ -118,6 +123,15 @@ public class Person {
                 .add("classes", classGroups)
                 .add("assignments", assignments)
                 .toString();
+    }
+
+    /**
+     * Returns a new Person with the same attributes as this person but with the given assignments.
+     * @param newAssignments The new set of assignments
+     * @return A new Person instance with updated assignments
+     */
+    public Person withAssignments(Set<Assignment> newAssignments) {
+        return new Person(this.name, this.phone, this.level, this.classGroups, newAssignments);
     }
 
 }
