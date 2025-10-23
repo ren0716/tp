@@ -23,8 +23,8 @@ import seedu.address.logic.commands.FilterByClassGroupCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.UnassignAllCommand;
 import seedu.address.logic.commands.MarkAssignmentCommand;
+import seedu.address.logic.commands.UnassignAllCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
