@@ -133,6 +133,30 @@ public class AssignAllCommandTest {
         assertCommandSuccess(command, modelWithAssignment, expectedMessage, expectedModel);
     }
 
+    /**
+     * Tests that assigning an assignment already assigned to all student of the class throws a CommandException.
+     * Verifies that the command fails when all students in the specified class have the assignment.
+     */
+    @Test
+    public void execute_assignmentsAlreadyAssignedToAllStudents_throwsCommandException() {
+        // Setup: Add students with Math class who already have the assignment
+        Model modelAllHaveAssignment = new ModelManager(new AddressBook(), new UserPrefs());
+        Person alice = new PersonBuilder().withName("Alice").withPhone("91234567")
+                .withLevel("1").withClassGroups(VALID_CLASSGROUP_MATH)
+                .withAssignments(VALID_ASSIGNMENT_MATH).build();
+        Person bob = new PersonBuilder().withName("Bob").withPhone("92345678")
+                .withLevel("2").withClassGroups(VALID_CLASSGROUP_MATH)
+                .withAssignments(VALID_ASSIGNMENT_MATH).build();
+        modelAllHaveAssignment.addPerson(alice);
+        modelAllHaveAssignment.addPerson(bob);
+
+        Assignment assignment = new Assignment(VALID_ASSIGNMENT_MATH);
+        AssignAllCommand command = new AssignAllCommand(VALID_CLASSGROUP_MATH, assignment);
+
+        assertCommandFailure(command, modelAllHaveAssignment,
+                String.format(AssignAllCommand.MESSAGE_ALREADY_ASSIGNED, VALID_ASSIGNMENT_MATH, VALID_CLASSGROUP_MATH));
+    }
+
     @Test
     public void execute_noStudentsInClass_throwsCommandException() {
         // Setup: Empty model or students without the specified class

@@ -156,6 +156,29 @@ public class UnassignAllCommandTest {
     }
 
     /**
+     * Tests that unassigning an assignment not present in any student of the class throws a CommandException.
+     * Verifies that the command fails when no students in the specified class have the assignment.
+     */
+    @Test
+    public void execute_noStudentsWithAssignmentInClass_throwsCommandException() {
+        // Students with the specified class but without the assignment
+        Model modelWithoutAssignment = new ModelManager(new AddressBook(), new UserPrefs());
+        Person alice = new PersonBuilder().withName("Alice").withPhone("91234567")
+                .withLevel("1").withClassGroups(VALID_CLASSGROUP_MATH).build();
+        Person bob = new PersonBuilder().withName("Bob").withPhone("92345678")
+                .withLevel("2").withClassGroups(VALID_CLASSGROUP_MATH).build();
+        modelWithoutAssignment.addPerson(alice);
+        modelWithoutAssignment.addPerson(bob);
+
+        Assignment assignment = new Assignment(VALID_ASSIGNMENT_MATH);
+        UnassignAllCommand command = new UnassignAllCommand(VALID_CLASSGROUP_MATH, assignment);
+
+        assertCommandFailure(command, modelWithoutAssignment,
+                String.format(UnassignAllCommand.MESSAGE_ASSIGNMENT_NOT_FOUND,
+                        VALID_ASSIGNMENT_MATH, VALID_CLASSGROUP_MATH));
+    }
+
+    /**
      * Tests that unassigning from a non-existent class group throws a CommandException.
      * Verifies that the command fails when no students are enrolled in the specified class.
      */
