@@ -3,8 +3,6 @@ package seedu.address.model.assignment;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import seedu.address.model.classgroup.ClassGroup;
-
 /**
  * Represents an Assignment in the address book.
  * Guarantees: immutable; name is valid as declared in {@link #isValidAssignmentName(String)}
@@ -18,7 +16,6 @@ public class Assignment {
 
 
     public final String assignmentName;
-    public final ClassGroup classGroup;
     private final boolean isMarked;
 
     /**
