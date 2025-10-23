@@ -17,18 +17,18 @@ import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.TypicalPersons;
 
 /**
- * Contains integration tests (interaction with the Model) and unit tests for {@code MarkAssignmentCommand}.
- * Tests include scenarios for successful marking, handling of invalid index, absence of the specified assignment,
+ * Contains integration tests (interaction with the Model) and unit tests for {@code UnmarkAssignmentCommand}.
+ * Tests include scenarios for successful unmarking, handling of invalid index, absence of the specified assignment,
  * and equality checks.
  */
-public class MarkAssignmentCommandTest {
+public class UnmarkAssignmentCommandTest {
 
     /**
-     * Tests that executing a valid MarkAssignmentCommand marks the assignment and updates the person's assignments.
+     * Tests that executing a valid UnmarkAssignmentCommand unmarks the assignment and updates the person's assignments.
      */
     @Test
     public void execute_validAssignment_success() {
-        // Prepare a typical model and a person with the assignment to be marked
+        // Prepare a typical model and a person with the assignment to be unmarked
         Assignment assignment = new AssignmentBuilder().withName("Physics-1800").build();
         Person originalPerson = TypicalPersons.getTypicalAddressBook().getPersonList().get(0);
         Person personWithAssignment = new PersonBuilder(originalPerson)
@@ -40,12 +40,19 @@ public class MarkAssignmentCommandTest {
         model.setPerson(originalPerson, personWithAssignment);
 
         Index targetIndex = Index.fromOneBased(1);
-        MarkAssignmentCommand command = new MarkAssignmentCommand(targetIndex, assignment);
 
+        MarkAssignmentCommand markCommand = new MarkAssignmentCommand(targetIndex, assignment);
+        try {
+            markCommand.execute(model);
+        } catch (CommandException ce) {
+            throw new AssertionError("Setup for unmarking failed.", ce);
+        }
+
+        UnmarkAssignmentCommand command = new UnmarkAssignmentCommand(targetIndex, assignment);
         try {
             var result = command.execute(model);
-            String expectedMessage = String.format(seedu.address.logic.Messages.MESSAGE_MARK_PERSON_SUCCESS,
-                                                     assignment.getAssignmentName(), personWithAssignment.getName());
+            String expectedMessage = String.format(seedu.address.logic.Messages.MESSAGE_UNMARK_PERSON_SUCCESS,
+                    assignment.getAssignmentName(), personWithAssignment.getName());
             assertEquals(expectedMessage, result.getFeedbackToUser());
         } catch (CommandException ce) {
             throw new AssertionError("Execution of command should not fail.", ce);
@@ -60,7 +67,7 @@ public class MarkAssignmentCommandTest {
         Model model = new ModelManager(TypicalPersons.getTypicalAddressBook(), new UserPrefs());
         Index outOfBoundsIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
         Assignment assignment = new AssignmentBuilder().withName("Physics-1800").build();
-        MarkAssignmentCommand command = new MarkAssignmentCommand(outOfBoundsIndex, assignment);
+        UnmarkAssignmentCommand command = new UnmarkAssignmentCommand(outOfBoundsIndex, assignment);
 
         assertCommandFailure(command, model, seedu.address.logic.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
@@ -81,20 +88,20 @@ public class MarkAssignmentCommandTest {
         model.setPerson(person, updatedPerson);
 
         Assignment assignment = new AssignmentBuilder().withName("Physics-1800").build();
-        MarkAssignmentCommand command = new MarkAssignmentCommand(Index.fromOneBased(1), assignment);
+        UnmarkAssignmentCommand command = new UnmarkAssignmentCommand(Index.fromOneBased(1), assignment);
 
         assertCommandFailure(command, model, seedu.address.logic.Messages.MESSAGE_INVALID_ASSIGNMENT_IN_PERSON);
     }
 
     /**
-     * Tests the {@code equals} method of {@code MarkAssignmentCommand}.
+     * Tests the {@code equals} method of {@code UnmarkAssignmentCommand}.
      */
     @Test
     public void equals() {
         Assignment assignment = new AssignmentBuilder().withName("Physics-1800").build();
-        MarkAssignmentCommand command1 = new MarkAssignmentCommand(Index.fromOneBased(1), assignment);
-        MarkAssignmentCommand command2 = new MarkAssignmentCommand(Index.fromOneBased(1), assignment);
-        MarkAssignmentCommand command3 = new MarkAssignmentCommand(Index.fromOneBased(2), assignment);
+        UnmarkAssignmentCommand command1 = new UnmarkAssignmentCommand(Index.fromOneBased(1), assignment);
+        UnmarkAssignmentCommand command2 = new UnmarkAssignmentCommand(Index.fromOneBased(1), assignment);
+        UnmarkAssignmentCommand command3 = new UnmarkAssignmentCommand(Index.fromOneBased(2), assignment);
 
         // same object -> returns true
         assertEquals(command1, command1);
@@ -115,7 +122,7 @@ public class MarkAssignmentCommandTest {
      * @param model the model on which the command is executed
      * @param expectedMessage the expected error message
      */
-    private void assertCommandFailure(MarkAssignmentCommand command, Model model, String expectedMessage) {
+    private void assertCommandFailure(UnmarkAssignmentCommand command, Model model, String expectedMessage) {
         try {
             command.execute(model);
             throw new AssertionError("Expected a CommandException to be thrown.");
