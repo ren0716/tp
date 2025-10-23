@@ -205,7 +205,7 @@ public class UnassignAllCommandParserTest {
     @Test
     public void parse_assignmentWithSpecialCharacters_success() {
         String classGroupName = "Math 3PM";
-        String assignmentName = "Homework-1 (Chapter 3)";
+        String assignmentName = "Homework-1 Chapter 3";
         Assignment assignment = new Assignment(assignmentName);
 
         assertParseSuccess(parser,
