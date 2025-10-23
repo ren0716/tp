@@ -7,9 +7,11 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -42,6 +44,8 @@ public class AssignAllCommand extends Command {
     public static final String MESSAGE_ALREADY_ASSIGNED =
             "All students in class '%1$s' already have the assignment '%2$s' assigned";
 
+    private static final Logger logger = LogsCenter.getLogger(AssignAllCommand.class);
+
     private final String classGroupName;
     private final Assignment assignment;
 
@@ -62,6 +66,9 @@ public class AssignAllCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        logger.info("Executing AssignAllCommand for class group: " + classGroupName
+                + ", assignment: " + assignment.getAssignmentName());
+
         List<Person> fullList = model.getAddressBook().getPersonList();
 
         // Filter students who have the specified class group
@@ -69,7 +76,11 @@ public class AssignAllCommand extends Command {
                 .filter(person -> hasClassGroup(person, classGroupName))
                 .collect(Collectors.toList());
 
+        logger.fine(() -> String.format("Found %d student(s) in class group '%s'",
+                studentsInClass.size(), classGroupName));
+
         if (studentsInClass.isEmpty()) {
+            logger.warning("No students found in class group: " + classGroupName);
             throw new CommandException(String.format(MESSAGE_NO_STUDENTS_FOUND, classGroupName));
         }
 
@@ -81,21 +92,36 @@ public class AssignAllCommand extends Command {
                 Person editedPerson = createPersonWithAssignment(person, assignment);
 
                 if (!person.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
+                    logger.severe(() -> String.format("Duplicate person detected while assigning to %s",
+                            person.getName()));
                     throw new CommandException(MESSAGE_DUPLICATE_PERSON);
                 }
 
                 model.setPerson(person, editedPerson);
                 assignedCount++;
+                logger.fine(() -> String.format("Assigned '%s' to %s",
+                        assignment.getAssignmentName(), person.getName()));
+            } else {
+                logger.fine(() -> String.format("%s already has assignment '%s'",
+                        person.getName(), assignment.getAssignmentName()));
             }
         }
 
         // If all students already have the assignment, output error message
         if (assignedCount == 0) {
+            logger.warning(() -> String.format(
+                    "All students in class '%s' already have assignment '%s'",
+                    classGroupName, assignment.getAssignmentName()));
             throw new CommandException(String.format(MESSAGE_ALREADY_ASSIGNED,
                     assignment.getAssignmentName(), classGroupName));
         }
 
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+
+        final int finalAssignedCount = assignedCount;
+        logger.info(() -> String.format("Successfully assigned '%s' to %d student(s) in class '%s'",
+                assignment.getAssignmentName(), finalAssignedCount, classGroupName));
+
         return new CommandResult(String.format(MESSAGE_SUCCESS,
                 assignment.getAssignmentName(), assignedCount, classGroupName));
     }
@@ -158,4 +184,3 @@ public class AssignAllCommand extends Command {
                 .toString();
     }
 }
-
