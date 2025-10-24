@@ -31,8 +31,8 @@ public class AssignAllCommandParser implements Parser<AssignAllCommand> {
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CLASSGROUP, PREFIX_ASSIGNMENT);
 
-        String classGroupName = argMultimap.getValue(PREFIX_CLASSGROUP).get().trim();
-        String assignmentName = argMultimap.getValue(PREFIX_ASSIGNMENT).get().trim();
+        String classGroupName = argMultimap.getValue(PREFIX_CLASSGROUP).get().trim().toLowerCase();
+        String assignmentName = argMultimap.getValue(PREFIX_ASSIGNMENT).get().trim().toLowerCase();
 
         if (classGroupName.isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AssignAllCommand.MESSAGE_USAGE));
@@ -42,7 +42,7 @@ public class AssignAllCommandParser implements Parser<AssignAllCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AssignAllCommand.MESSAGE_USAGE));
         }
 
-        Assignment assignment = ParserUtil.parseAssignment(assignmentName);
+        Assignment assignment = ParserUtil.parseAssignment(assignmentName, classGroupName);
 
         return new AssignAllCommand(classGroupName, assignment);
     }
@@ -55,4 +55,3 @@ public class AssignAllCommandParser implements Parser<AssignAllCommand> {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 }
-

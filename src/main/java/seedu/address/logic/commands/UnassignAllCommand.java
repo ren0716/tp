@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -80,7 +81,7 @@ public class UnassignAllCommand extends Command {
                 .collect(Collectors.toList());
 
         if (studentsInClass.isEmpty()) {
-            throw new CommandException(String.format(MESSAGE_NO_STUDENTS_FOUND, classGroupName));
+            throw new CommandException(String.format(MESSAGE_NO_STUDENTS_FOUND, StringUtil.toTitleCase(classGroupName)));
         }
 
         int unassignedCount = 0;
@@ -102,7 +103,7 @@ public class UnassignAllCommand extends Command {
         // If no students had the assignment, output error message
         if (unassignedCount == 0) {
             throw new CommandException(String.format(MESSAGE_ASSIGNMENT_NOT_FOUND,
-                    assignment.getAssignmentName(), classGroupName));
+                    StringUtil.toTitleCase(assignment.getAssignmentName()), StringUtil.toTitleCase(classGroupName)));
         }
 
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);

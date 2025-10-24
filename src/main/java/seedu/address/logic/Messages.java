@@ -4,6 +4,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.model.assignment.Assignment;
 import seedu.address.model.person.Person;
@@ -41,7 +42,7 @@ public class Messages {
      */
     public static String format(Person person) {
         final StringBuilder builder = new StringBuilder();
-        builder.append(person.getName())
+        builder.append(StringUtil.toTitleCase(person.getName().fullName))
                 .append("; Phone: ")
                 .append(person.getPhone())
                 .append("; Level: ")
@@ -49,15 +50,20 @@ public class Messages {
                 .append("; Classes: ");
         // join ClassGroups with ", " between entries
         String classGroups = person.getClassGroups().stream()
-                .map(Object::toString)
+                .map(cg -> StringUtil.toTitleCase(cg.classGroupName))
                 .collect(Collectors.joining(", "));
         builder.append(classGroups);
-        builder.append("; Assignments: ");
-        // join Assignments with ", "
-        String assignments = person.getAssignments().stream()
-                .map(Assignment::getAssignmentName)
-                .collect(Collectors.joining(", "));
-        builder.append(assignments);
+        
+        // Only show assignments if the person has any
+        if (!person.getAssignments().isEmpty()) {
+            builder.append("; Assignments: ");
+            // join Assignments with ", "
+            String assignments = person.getAssignments().stream()
+                    .map(assignment -> StringUtil.toTitleCase(assignment.getAssignmentName()))
+                    .collect(Collectors.joining(", "));
+            builder.append(assignments);
+        }
+        
         return builder.toString();
     }
 

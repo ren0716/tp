@@ -152,6 +152,55 @@ public class DeleteClassCommandTest {
     }
 
     @Test
+    public void execute_deleteClassWithAssignments_assignmentsAlsoDeleted() {
+        Person personToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+
+        // Add a class with assignments
+        Person personWithClassAndAssignments = new PersonBuilder(personToEdit)
+                .withClassGroups(VALID_CLASSGROUP_MATH)
+                .withAssignments(VALID_CLASSGROUP_MATH, "homework1")
+                .build();
+        model.setPerson(personToEdit, personWithClassAndAssignments);
+
+        // Verify that the person has the class and assignment before deletion
+        assertTrue(personWithClassAndAssignments.getClassGroups().contains(new ClassGroup(VALID_CLASSGROUP_MATH)));
+        assertFalse(personWithClassAndAssignments.getAssignments().isEmpty());
+
+        // Delete the class
+        Set<ClassGroup> classesToDelete = new HashSet<>();
+        classesToDelete.add(new ClassGroup(VALID_CLASSGROUP_MATH));
+
+        DeleteClassDescriptor descriptor = new DeleteClassDescriptor();
+        descriptor.setClassGroups(classesToDelete);
+        DeleteClassCommand deleteClassCommand = new DeleteClassCommand(INDEX_FIRST_PERSON, descriptor);
+
+        // The edited person should have no classes and no assignments
+        Person editedPerson = new PersonBuilder(personWithClassAndAssignments)
+                .withClassGroups()
+                .build();
+        // Clear assignments by building a new person with the base properties
+        editedPerson = new Person(
+                editedPerson.getName(),
+                editedPerson.getPhone(),
+                editedPerson.getLevel(),
+                editedPerson.getClassGroups(),
+                new HashSet<>()
+        );
+
+        String expectedMessage = String.format(DeleteClassCommand.MESSAGE_DELETE_CLASS_SUCCESS,
+                Messages.format(editedPerson));
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.setPerson(personWithClassAndAssignments, editedPerson);
+
+        assertCommandSuccess(deleteClassCommand, model, expectedMessage, expectedModel);
+        
+        // Verify that assignments were actually deleted
+        Person actualEditedPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        assertTrue(actualEditedPerson.getAssignments().isEmpty());
+    }
+
+    @Test
     public void execute_nonExistentClass_throwsCommandException() {
         Person personToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
 

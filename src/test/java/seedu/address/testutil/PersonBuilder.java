@@ -66,10 +66,28 @@ public class PersonBuilder {
 
     /**
      * Parses the {@code assignments} into a {@code Set<Assignment>} and set it to the {@code Person} that we are
-     * building.
+     * building. The first parameter is the class group name, followed by assignment names.
      */
-    public PersonBuilder withAssignments(String ... assignments) {
-        this.assignments = SampleDataUtil.getAssignmentSet(assignments);
+    public PersonBuilder withAssignments(String classGroupName, String ... assignments) {
+        this.assignments = SampleDataUtil.getAssignmentSet(classGroupName, assignments);
+        return this;
+    }
+
+    /**
+     * Parses the {@code assignments} into a {@code Set<Assignment>} using a default class group.
+     * This is a convenience method for tests that don't care about the specific class group.
+     */
+    public PersonBuilder withAssignmentsUsingDefaultClass(String ... assignments) {
+        // Use a default class group for backward compatibility with existing tests
+        this.assignments = SampleDataUtil.getAssignmentSet("default-class", assignments);
+        return this;
+    }
+
+    /**
+     * Clears all assignments for the person being built.
+     */
+    public PersonBuilder withoutAssignments() {
+        this.assignments = new HashSet<>();
         return this;
     }
 

@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSGROUP;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.Collections;
@@ -35,9 +36,11 @@ public class DeleteAssignmentCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Delete assignment(s) from the person identified "
             + "by the index number used in the displayed person list. \n"
             + "Parameters: INDEX (must be a positive integer) "
+            + PREFIX_CLASSGROUP + "CLASS_GROUP "
             + PREFIX_ASSIGNMENT + "ASSIGNMENT "
             + "[" + PREFIX_ASSIGNMENT + "ASSIGNMENT]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
+            + PREFIX_CLASSGROUP + "Math 3PM "
             + PREFIX_ASSIGNMENT + "ScienceTopic2 "
             + PREFIX_ASSIGNMENT + "MathHW1";
 

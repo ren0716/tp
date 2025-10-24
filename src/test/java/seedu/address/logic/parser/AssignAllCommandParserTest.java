@@ -27,47 +27,47 @@ public class AssignAllCommandParserTest {
     public void parse_allFieldsPresent_success() {
         String classGroup = VALID_CLASSGROUP_MATH;
         String assignmentName = VALID_ASSIGNMENT_MATH;
-        Assignment expectedAssignment = new Assignment(assignmentName);
+        Assignment expectedAssignment = new Assignment(assignmentName.toLowerCase(), classGroup.toLowerCase());
 
         // standard input
         assertParseSuccess(parser,
                 " " + PREFIX_CLASSGROUP + classGroup + " " + PREFIX_ASSIGNMENT + assignmentName,
-                new AssignAllCommand(classGroup, expectedAssignment));
+                new AssignAllCommand(classGroup.toLowerCase(), expectedAssignment));
 
         // whitespace in between
         assertParseSuccess(parser,
                 "  " + PREFIX_CLASSGROUP + classGroup + "   " + PREFIX_ASSIGNMENT + assignmentName,
-                new AssignAllCommand(classGroup, expectedAssignment));
+                new AssignAllCommand(classGroup.toLowerCase(), expectedAssignment));
 
         // different class group and assignment
         String physicsClass = VALID_CLASSGROUP_PHYSICS;
         String physicsAssignment = VALID_ASSIGNMENT_PHYSICS;
-        Assignment expectedPhysicsAssignment = new Assignment(physicsAssignment);
+        Assignment expectedPhysicsAssignment = new Assignment(physicsAssignment.toLowerCase(), physicsClass.toLowerCase());
         assertParseSuccess(parser,
                 " " + PREFIX_CLASSGROUP + physicsClass + " " + PREFIX_ASSIGNMENT + physicsAssignment,
-                new AssignAllCommand(physicsClass, expectedPhysicsAssignment));
+                new AssignAllCommand(physicsClass.toLowerCase(), expectedPhysicsAssignment));
     }
 
     @Test
     public void parse_classGroupWithSpaces_success() {
         String classGroupWithSpaces = "Math 3PM";
         String assignmentName = VALID_ASSIGNMENT_MATH;
-        Assignment expectedAssignment = new Assignment(assignmentName);
+        Assignment expectedAssignment = new Assignment(assignmentName.toLowerCase(), classGroupWithSpaces.toLowerCase());
 
         assertParseSuccess(parser,
                 " " + PREFIX_CLASSGROUP + classGroupWithSpaces + " " + PREFIX_ASSIGNMENT + assignmentName,
-                new AssignAllCommand(classGroupWithSpaces, expectedAssignment));
+                new AssignAllCommand(classGroupWithSpaces.toLowerCase(), expectedAssignment));
     }
 
     @Test
     public void parse_assignmentWithSpaces_success() {
         String classGroup = VALID_CLASSGROUP_MATH;
         String assignmentWithSpaces = "Homework 1";
-        Assignment expectedAssignment = new Assignment(assignmentWithSpaces);
+        Assignment expectedAssignment = new Assignment(assignmentWithSpaces.toLowerCase(), classGroup.toLowerCase());
 
         assertParseSuccess(parser,
                 " " + PREFIX_CLASSGROUP + classGroup + " " + PREFIX_ASSIGNMENT + assignmentWithSpaces,
-                new AssignAllCommand(classGroup, expectedAssignment));
+                new AssignAllCommand(classGroup.toLowerCase(), expectedAssignment));
     }
 
     @Test
@@ -172,34 +172,34 @@ public class AssignAllCommandParserTest {
         // assignment prefix before class group prefix should still work
         String classGroup = VALID_CLASSGROUP_MATH;
         String assignmentName = VALID_ASSIGNMENT_MATH;
-        Assignment expectedAssignment = new Assignment(assignmentName);
+        Assignment expectedAssignment = new Assignment(assignmentName.toLowerCase(), classGroup.toLowerCase());
 
         assertParseSuccess(parser,
                 " " + PREFIX_ASSIGNMENT + assignmentName + " " + PREFIX_CLASSGROUP + classGroup,
-                new AssignAllCommand(classGroup, expectedAssignment));
+                new AssignAllCommand(classGroup.toLowerCase(), expectedAssignment));
     }
 
     @Test
     public void parse_trailingWhitespace_success() {
         String classGroup = VALID_CLASSGROUP_MATH;
         String assignmentName = VALID_ASSIGNMENT_MATH;
-        Assignment expectedAssignment = new Assignment(assignmentName);
+        Assignment expectedAssignment = new Assignment(assignmentName.toLowerCase(), classGroup.toLowerCase());
 
         // trailing whitespace should be trimmed
         assertParseSuccess(parser,
                 " " + PREFIX_CLASSGROUP + classGroup + "  " + PREFIX_ASSIGNMENT + assignmentName + "   ",
-                new AssignAllCommand(classGroup, expectedAssignment));
+                new AssignAllCommand(classGroup.toLowerCase(), expectedAssignment));
     }
 
     @Test
     public void parse_leadingWhitespace_success() {
         String classGroup = VALID_CLASSGROUP_MATH;
         String assignmentName = VALID_ASSIGNMENT_MATH;
-        Assignment expectedAssignment = new Assignment(assignmentName);
+        Assignment expectedAssignment = new Assignment(assignmentName.toLowerCase(), classGroup.toLowerCase());
 
         // leading whitespace should be handled
         assertParseSuccess(parser,
                 "   " + PREFIX_CLASSGROUP + classGroup + " " + PREFIX_ASSIGNMENT + assignmentName,
-                new AssignAllCommand(classGroup, expectedAssignment));
+                new AssignAllCommand(classGroup.toLowerCase(), expectedAssignment));
     }
 }

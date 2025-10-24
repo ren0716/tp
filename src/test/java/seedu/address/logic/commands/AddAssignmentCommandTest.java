@@ -38,16 +38,27 @@ public class AddAssignmentCommandTest {
     @Test
     public void execute_addAssignment_success() throws Exception {
         Person personToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        Assignment validAssignment = new AssignmentBuilder().withName("HW1").build();
+
+        // Ensure the person has the class group that the assignment belongs to
+        String classGroup = "test-class";
+        Person personWithClassGroup = new PersonBuilder(personToEdit)
+                .withClassGroups(classGroup)
+                .build();
+        model.setPerson(personToEdit, personWithClassGroup);
+
+        Assignment validAssignment = new AssignmentBuilder()
+                .withName("HW1")
+                .withClassGroup(classGroup)
+                .build();
         AddAssignmentCommand.AddAssignmentDescriptor descriptor = new AddAssignmentCommand.AddAssignmentDescriptor();
         descriptor.setAssignments(Set.of(validAssignment));
         AddAssignmentCommand command = new AddAssignmentCommand(INDEX_FIRST_PERSON, descriptor);
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        Person editedPerson = new PersonBuilder(personToEdit)
-                .withAssignments(validAssignment.getAssignmentName())
+        Person editedPerson = new PersonBuilder(personWithClassGroup)
+                .withAssignments(classGroup, validAssignment.getAssignmentName())
                 .build();
-        expectedModel.setPerson(personToEdit, editedPerson);
+        expectedModel.setPerson(personWithClassGroup, editedPerson);
 
         String expectedMessage = String.format(AddAssignmentCommand.MESSAGE_SUCCESS,
                 Messages.format(editedPerson));
@@ -62,9 +73,19 @@ public class AddAssignmentCommandTest {
      */
     @Test
     public void execute_duplicateAssignment_failure() {
-        Assignment duplicate = new AssignmentBuilder().withName("EXISTING").build();
+        String classGroup = "default-class";
+        Assignment duplicate = new AssignmentBuilder()
+                .withName("EXISTING")
+                .withClassGroup(classGroup)
+                .build();
+        
         Person original = model.getFilteredPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
-        Person withAssignment = new PersonBuilder(original).withAssignments(duplicate.getAssignmentName()).build();
+        
+        // Add the class group and assignment to the person
+        Person withAssignment = new PersonBuilder(original)
+                .withClassGroups(classGroup)
+                .withAssignments(classGroup, duplicate.getAssignmentName())
+                .build();
         model.setPerson(original, withAssignment);
 
         AddAssignmentCommand.AddAssignmentDescriptor descriptor = new AddAssignmentCommand.AddAssignmentDescriptor();
@@ -73,6 +94,27 @@ public class AddAssignmentCommandTest {
 
         assertCommandFailure(command, model, String.format(
                 AddAssignmentCommand.MESSAGE_DUPLICATE_ASSIGNMENT, duplicate.getAssignmentName()));
+    }
+
+    /**
+     * Tests that attempting to add an assignment with a class group the student doesn't belong to fails.
+     * Verifies that the command throws an exception when the student is not enrolled in the
+     * class group specified for the assignment.
+     */
+    @Test
+    public void execute_studentNotInClassGroup_failure() {
+        Person personToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        // Create an assignment with a class group the student doesn't have
+        Assignment assignmentWithInvalidClass = new AssignmentBuilder()
+                .withName("HW1")
+                .withClassGroup("nonexistent-class")
+                .build();
+        AddAssignmentCommand.AddAssignmentDescriptor descriptor = new AddAssignmentCommand.AddAssignmentDescriptor();
+        descriptor.setAssignments(Set.of(assignmentWithInvalidClass));
+        AddAssignmentCommand command = new AddAssignmentCommand(INDEX_FIRST_PERSON, descriptor);
+
+        assertCommandFailure(command, model, String.format(
+                AddAssignmentCommand.MESSAGE_STUDENT_NOT_IN_CLASS_GROUP, "nonexistent-class"));
     }
 
     /**

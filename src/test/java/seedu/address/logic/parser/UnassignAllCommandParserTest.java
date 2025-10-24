@@ -28,17 +28,17 @@ public class UnassignAllCommandParserTest {
     public void parse_allFieldsPresent_success() {
         String classGroupName = "Math 3PM";
         String assignmentName = "Homework1";
-        Assignment assignment = new Assignment(assignmentName);
+        Assignment assignment = new Assignment(assignmentName.toLowerCase(), classGroupName.toLowerCase());
 
         // Valid input with both prefixes
         assertParseSuccess(parser,
                 " " + PREFIX_CLASSGROUP + classGroupName + " " + PREFIX_ASSIGNMENT + assignmentName,
-                new UnassignAllCommand(classGroupName, assignment));
+                new UnassignAllCommand(classGroupName.toLowerCase(), assignment));
 
         // Valid input with prefixes in different order
         assertParseSuccess(parser,
                 " " + PREFIX_ASSIGNMENT + assignmentName + " " + PREFIX_CLASSGROUP + classGroupName,
-                new UnassignAllCommand(classGroupName, assignment));
+                new UnassignAllCommand(classGroupName.toLowerCase(), assignment));
     }
 
     /**
@@ -49,12 +49,12 @@ public class UnassignAllCommandParserTest {
     public void parse_extraWhitespace_success() {
         String classGroupName = "Math 3PM";
         String assignmentName = "Homework1";
-        Assignment assignment = new Assignment(assignmentName);
+        Assignment assignment = new Assignment(assignmentName.toLowerCase(), classGroupName.toLowerCase());
 
         // Extra spaces before and after values
         assertParseSuccess(parser,
                 " " + PREFIX_CLASSGROUP + "  " + classGroupName + "  " + PREFIX_ASSIGNMENT + "  " + assignmentName,
-                new UnassignAllCommand(classGroupName, assignment));
+                new UnassignAllCommand(classGroupName.toLowerCase(), assignment));
     }
 
     /**
@@ -189,13 +189,13 @@ public class UnassignAllCommandParserTest {
      */
     @Test
     public void parse_classGroupWithSpecialCharacters_success() {
-        String classGroupName = "Math-3PM (Advanced)";
+        String classGroupName = "Math-3PM-Advanced";
         String assignmentName = "Homework1";
-        Assignment assignment = new Assignment(assignmentName);
+        Assignment assignment = new Assignment(assignmentName.toLowerCase(), classGroupName.toLowerCase());
 
         assertParseSuccess(parser,
                 " " + PREFIX_CLASSGROUP + classGroupName + " " + PREFIX_ASSIGNMENT + assignmentName,
-                new UnassignAllCommand(classGroupName, assignment));
+                new UnassignAllCommand(classGroupName.toLowerCase(), assignment));
     }
 
     /**
@@ -206,11 +206,11 @@ public class UnassignAllCommandParserTest {
     public void parse_assignmentWithSpecialCharacters_success() {
         String classGroupName = "Math 3PM";
         String assignmentName = "Homework-1 Chapter 3";
-        Assignment assignment = new Assignment(assignmentName);
+        Assignment assignment = new Assignment(assignmentName.toLowerCase(), classGroupName.toLowerCase());
 
         assertParseSuccess(parser,
                 " " + PREFIX_CLASSGROUP + classGroupName + " " + PREFIX_ASSIGNMENT + assignmentName,
-                new UnassignAllCommand(classGroupName, assignment));
+                new UnassignAllCommand(classGroupName.toLowerCase(), assignment));
     }
 
     /**
@@ -221,11 +221,11 @@ public class UnassignAllCommandParserTest {
     public void parse_numericClassGroup_success() {
         String classGroupName = "Math101";
         String assignmentName = "Assignment1";
-        Assignment assignment = new Assignment(assignmentName);
+        Assignment assignment = new Assignment(assignmentName.toLowerCase(), classGroupName.toLowerCase());
 
         assertParseSuccess(parser,
                 " " + PREFIX_CLASSGROUP + classGroupName + " " + PREFIX_ASSIGNMENT + assignmentName,
-                new UnassignAllCommand(classGroupName, assignment));
+                new UnassignAllCommand(classGroupName.toLowerCase(), assignment));
     }
 
     /**
@@ -236,10 +236,10 @@ public class UnassignAllCommandParserTest {
     public void parse_numericAssignment_success() {
         String classGroupName = "Math 3PM";
         String assignmentName = "123";
-        Assignment assignment = new Assignment(assignmentName);
+        Assignment assignment = new Assignment(assignmentName.toLowerCase(), classGroupName.toLowerCase());
 
         assertParseSuccess(parser,
                 " " + PREFIX_CLASSGROUP + classGroupName + " " + PREFIX_ASSIGNMENT + assignmentName,
-                new UnassignAllCommand(classGroupName, assignment));
+                new UnassignAllCommand(classGroupName.toLowerCase(), assignment));
     }
 }

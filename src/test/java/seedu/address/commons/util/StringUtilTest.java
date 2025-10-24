@@ -140,4 +140,64 @@ public class StringUtilTest {
         assertThrows(NullPointerException.class, () -> StringUtil.getDetails(null));
     }
 
+    //---------------- Tests for toTitleCase --------------------------------------
+
+    @Test
+    public void toTitleCase_nullInput_returnsNull() {
+        assertTrue(StringUtil.toTitleCase(null) == null);
+    }
+
+    @Test
+    public void toTitleCase_emptyString_returnsEmptyString() {
+        assertTrue(StringUtil.toTitleCase("").equals(""));
+    }
+
+    @Test
+    public void toTitleCase_singleWord_correctResult() {
+        // Single lowercase word
+        assertTrue(StringUtil.toTitleCase("hello").equals("Hello"));
+        
+        // Single uppercase word
+        assertTrue(StringUtil.toTitleCase("HELLO").equals("HELLO"));
+        
+        // Already in title case
+        assertTrue(StringUtil.toTitleCase("Hello").equals("Hello"));
+    }
+
+    @Test
+    public void toTitleCase_multipleWords_correctResult() {
+        // Multiple lowercase words
+        assertTrue(StringUtil.toTitleCase("john doe").equals("John Doe"));
+        
+        // Multiple words with mixed case
+        assertTrue(StringUtil.toTitleCase("jOhN dOe").equals("JOhN DOe"));
+        
+        // Words with hyphens
+        assertTrue(StringUtil.toTitleCase("math-homework").equals("Math-Homework"));
+        
+        // Multiple spaces
+        assertTrue(StringUtil.toTitleCase("hello  world").equals("Hello  World"));
+    }
+
+    @Test
+    public void toTitleCase_wordsWithHyphens_correctResult() {
+        // Hyphenated words
+        assertTrue(StringUtil.toTitleCase("physics-1800").equals("Physics-1800"));
+        
+        // Multiple hyphens
+        assertTrue(StringUtil.toTitleCase("test-case-example").equals("Test-Case-Example"));
+    }
+
+    @Test
+    public void toTitleCase_mixedContent_correctResult() {
+        // Numbers and letters
+        assertTrue(StringUtil.toTitleCase("assignment1").equals("Assignment1"));
+        
+        // Special characters at start
+        assertTrue(StringUtil.toTitleCase(" leading space").equals(" Leading Space"));
+        
+        // Trailing whitespace
+        assertTrue(StringUtil.toTitleCase("trailing space ").equals("Trailing Space "));
+    }
+
 }

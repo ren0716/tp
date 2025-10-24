@@ -39,19 +39,21 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_mark() throws Exception {
-        Assignment assignment = new AssignmentBuilder().withName("Assignment1").build();
+        Assignment assignment = new AssignmentBuilder().withName("Assignment1")
+                .withClassGroup("Math-2000").build();
         MarkAssignmentCommand command = (MarkAssignmentCommand) parser.parseCommand(
                 MarkAssignmentCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased()
-                        + " a/Assignment1");
+                        + " c/Math-2000 a/Assignment1");
         assertEquals(new MarkAssignmentCommand(INDEX_FIRST_PERSON, assignment), command);
     }
 
     @Test
     public void parseCommand_unmark() throws Exception {
-        Assignment assignment = new AssignmentBuilder().withName("Assignment1").build();
+        Assignment assignment = new AssignmentBuilder().withName("Assignment1")
+                .withClassGroup("Math-2000").build();
         UnmarkAssignmentCommand command = (UnmarkAssignmentCommand) parser.parseCommand(
                 UnmarkAssignmentCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased()
-                        + " a/Assignment1");
+                        + " c/Math-2000 a/Assignment1");
         assertEquals(new UnmarkAssignmentCommand(INDEX_FIRST_PERSON, assignment), command);
     }
 
@@ -78,7 +80,12 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_edit() throws Exception {
         Person person = new PersonBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
+        // Create descriptor with only name, phone, and level (without class groups)
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder()
+                .withName(person.getName().fullName)
+                .withPhone(person.getPhone().value)
+                .withLevel(person.getLevel().value)
+                .build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
         assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);

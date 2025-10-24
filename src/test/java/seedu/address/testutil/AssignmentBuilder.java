@@ -7,9 +7,11 @@ import seedu.address.model.assignment.Assignment;
  */
 public class AssignmentBuilder {
 
-    public static final String DEFAULT_NAME = "Assignment1";
+    public static final String DEFAULT_NAME = "assignment1";
+    public static final String DEFAULT_CLASS_GROUP = "default-class";
 
     private String name;
+    private String classGroup;
     private boolean isMarked;
 
     /**
@@ -17,6 +19,7 @@ public class AssignmentBuilder {
      */
     public AssignmentBuilder() {
         name = DEFAULT_NAME;
+        classGroup = DEFAULT_CLASS_GROUP;
         isMarked = false;
     }
 
@@ -25,6 +28,7 @@ public class AssignmentBuilder {
      */
     public AssignmentBuilder(Assignment assignment) {
         name = assignment.getAssignmentName();
+        classGroup = assignment.classGroupName;
         isMarked = assignment.isMarked();
     }
 
@@ -33,6 +37,14 @@ public class AssignmentBuilder {
      */
     public AssignmentBuilder withName(String name) {
         this.name = name;
+        return this;
+    }
+
+    /**
+     * Sets the class group of the {@code Assignment} that we are building.
+     */
+    public AssignmentBuilder withClassGroup(String classGroup) {
+        this.classGroup = classGroup;
         return this;
     }
 
@@ -48,6 +60,6 @@ public class AssignmentBuilder {
      * Builds and returns an {@code Assignment} instance.
      */
     public Assignment build() {
-        return new Assignment(name, isMarked);
+        return new Assignment(name, classGroup, isMarked);
     }
 }

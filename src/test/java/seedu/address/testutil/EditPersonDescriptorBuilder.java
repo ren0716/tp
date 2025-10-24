@@ -67,7 +67,21 @@ public class EditPersonDescriptorBuilder {
      * that we are building.
      */
     public EditPersonDescriptorBuilder withAssignment(String... assignments) {
-        Set<Assignment> assignmentSet = Stream.of(assignments).map(Assignment::new).collect(Collectors.toSet());
+        Set<Assignment> assignmentSet = Stream.of(assignments)
+                .map(a -> new Assignment(a, "default-class"))
+                .collect(Collectors.toSet());
+        descriptor.setAssignments(assignmentSet);
+        return this;
+    }
+
+    /**
+     * Parses the {@code assignments} into a {@code Set<Assignment>} with the specified class group
+     * and set it to the {@code EditPersonDescriptor} that we are building.
+     */
+    public EditPersonDescriptorBuilder withAssignment(String classGroup, String... assignments) {
+        Set<Assignment> assignmentSet = Stream.of(assignments)
+                .map(a -> new Assignment(a, classGroup))
+                .collect(Collectors.toSet());
         descriptor.setAssignments(assignmentSet);
         return this;
     }

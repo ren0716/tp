@@ -21,28 +21,28 @@ public class SampleDataUtil {
         return new Person[] {
             new Person(new Name("Alex Yeoh"), new Phone("87438807"),
                 new Level("1"),
-                getClassGroup("Physics-1800"),
-                getAssignmentSet("Math Homework", "Science Project")),
+                getClassGroup("physics-1800"),
+                getAssignmentSet("physics-1800", "math homework", "science project")),
             new Person(new Name("Bernice Yu"), new Phone("99272758"),
                 new Level("2"),
-                getClassGroup("Physics-1800", "Math-2000"),
-                getAssignmentSet("English Essay")),
+                getClassGroup("physics-1800", "math-2000"),
+                getAssignmentSet("physics-1800", "english essay")),
             new Person(new Name("Charlotte Oliveiro"), new Phone("93210283"),
                 new Level("3"),
-                getClassGroup("Chem-1200"),
-                getAssignmentSet("History Presentation", "Art Portfolio")),
+                getClassGroup("chem-1200"),
+                getAssignmentSet("chem-1200", "history presentation", "art portfolio")),
             new Person(new Name("David Li"), new Phone("91031282"),
                 new Level("4"),
-                getClassGroup("Chem-1300"),
-                getAssignmentSet("Geography Report")),
+                getClassGroup("chem-1300"),
+                getAssignmentSet("chem-1300", "geography report")),
             new Person(new Name("Irfan Ibrahim"), new Phone("92492021"),
                 new Level("1"),
-                getClassGroup("Math-2000"),
-                getAssignmentSet("Computer Science Lab")),
+                getClassGroup("math-2000"),
+                getAssignmentSet("math-2000", "computer science lab")),
             new Person(new Name("Roy Balakrishnan"), new Phone("92624417"),
                 new Level("2"),
-                getClassGroup("Math-2000"),
-                getAssignmentSet("Physics Experiment"))
+                getClassGroup("math-2000"),
+                getAssignmentSet("math-2000", "physics experiment"))
         };
     }
 
@@ -65,10 +65,11 @@ public class SampleDataUtil {
 
     /**
      * Returns an assignment set containing the list of strings given.
+     * The first string is the class group name, and the rest are assignment names.
      */
-    public static Set<Assignment> getAssignmentSet(String... strings) {
-        return Arrays.stream(strings)
-                .map(Assignment::new)
+    public static Set<Assignment> getAssignmentSet(String classGroupName, String... assignmentNames) {
+        return Arrays.stream(assignmentNames)
+                .map(assignmentName -> new Assignment(assignmentName, classGroupName))
                 .collect(Collectors.toSet());
     }
 

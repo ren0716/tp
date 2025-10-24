@@ -13,6 +13,7 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.util.StringUtil;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -38,22 +39,22 @@ public class UnassignAllCommandTest {
         Model modelWithMathClass = new ModelManager(new AddressBook(), new UserPrefs());
         Person alice = new PersonBuilder().withName("Alice").withPhone("91234567")
                 .withLevel("1").withClassGroups(VALID_CLASSGROUP_MATH)
-                .withAssignments(VALID_ASSIGNMENT_MATH).build();
+                .withAssignments(VALID_CLASSGROUP_MATH, VALID_ASSIGNMENT_MATH).build();
         Person bob = new PersonBuilder().withName("Bob").withPhone("92345678")
                 .withLevel("2").withClassGroups(VALID_CLASSGROUP_MATH)
-                .withAssignments(VALID_ASSIGNMENT_MATH).build();
+                .withAssignments(VALID_CLASSGROUP_MATH, VALID_ASSIGNMENT_MATH).build();
         modelWithMathClass.addPerson(alice);
         modelWithMathClass.addPerson(bob);
 
-        Assignment assignment = new Assignment(VALID_ASSIGNMENT_MATH);
-        UnassignAllCommand command = new UnassignAllCommand(VALID_CLASSGROUP_MATH, assignment);
+        Assignment assignment = new Assignment(VALID_ASSIGNMENT_MATH.toLowerCase(), VALID_CLASSGROUP_MATH.toLowerCase());
+        UnassignAllCommand command = new UnassignAllCommand(VALID_CLASSGROUP_MATH.toLowerCase(), assignment);
 
         String expectedMessage = String.format(UnassignAllCommand.MESSAGE_SUCCESS,
-                VALID_ASSIGNMENT_MATH, 2, VALID_CLASSGROUP_MATH);
+                VALID_ASSIGNMENT_MATH.toLowerCase(), 2, VALID_CLASSGROUP_MATH.toLowerCase());
 
         Model expectedModel = new ModelManager(new AddressBook(), new UserPrefs());
-        Person aliceWithoutAssignment = new PersonBuilder(alice).withAssignments().build();
-        Person bobWithoutAssignment = new PersonBuilder(bob).withAssignments().build();
+        Person aliceWithoutAssignment = new PersonBuilder(alice).withoutAssignments().build();
+        Person bobWithoutAssignment = new PersonBuilder(bob).withoutAssignments().build();
         expectedModel.addPerson(aliceWithoutAssignment);
         expectedModel.addPerson(bobWithoutAssignment);
 
@@ -70,17 +71,17 @@ public class UnassignAllCommandTest {
         Model modelWithPhysicsClass = new ModelManager(new AddressBook(), new UserPrefs());
         Person charlie = new PersonBuilder().withName("Charlie").withPhone("93456789")
                 .withLevel("3").withClassGroups(VALID_CLASSGROUP_PHYSICS)
-                .withAssignments(VALID_ASSIGNMENT_PHYSICS).build();
+                .withAssignments(VALID_CLASSGROUP_PHYSICS, VALID_ASSIGNMENT_PHYSICS).build();
         modelWithPhysicsClass.addPerson(charlie);
 
-        Assignment assignment = new Assignment(VALID_ASSIGNMENT_PHYSICS);
-        UnassignAllCommand command = new UnassignAllCommand(VALID_CLASSGROUP_PHYSICS, assignment);
+        Assignment assignment = new Assignment(VALID_ASSIGNMENT_PHYSICS.toLowerCase(), VALID_CLASSGROUP_PHYSICS.toLowerCase());
+        UnassignAllCommand command = new UnassignAllCommand(VALID_CLASSGROUP_PHYSICS.toLowerCase(), assignment);
 
         String expectedMessage = String.format(UnassignAllCommand.MESSAGE_SUCCESS,
-                VALID_ASSIGNMENT_PHYSICS, 1, VALID_CLASSGROUP_PHYSICS);
+                VALID_ASSIGNMENT_PHYSICS.toLowerCase(), 1, VALID_CLASSGROUP_PHYSICS.toLowerCase());
 
         Model expectedModel = new ModelManager(new AddressBook(), new UserPrefs());
-        Person charlieWithoutAssignment = new PersonBuilder(charlie).withAssignments().build();
+        Person charlieWithoutAssignment = new PersonBuilder(charlie).withoutAssignments().build();
         expectedModel.addPerson(charlieWithoutAssignment);
 
         assertCommandSuccess(command, modelWithPhysicsClass, expectedMessage, expectedModel);
@@ -96,27 +97,27 @@ public class UnassignAllCommandTest {
         Model modelWithMixedClasses = new ModelManager(new AddressBook(), new UserPrefs());
         Person alice = new PersonBuilder().withName("Alice").withPhone("91234567")
                 .withLevel("1").withClassGroups(VALID_CLASSGROUP_MATH)
-                .withAssignments(VALID_ASSIGNMENT_MATH).build();
+                .withAssignments(VALID_CLASSGROUP_MATH, VALID_ASSIGNMENT_MATH).build();
         Person bob = new PersonBuilder().withName("Bob").withPhone("92345678")
                 .withLevel("2").withClassGroups(VALID_CLASSGROUP_PHYSICS)
-                .withAssignments(VALID_ASSIGNMENT_MATH).build();
+                .withAssignments(VALID_CLASSGROUP_PHYSICS, VALID_ASSIGNMENT_MATH).build();
         Person charlie = new PersonBuilder().withName("Charlie").withPhone("93456789")
                 .withLevel("3").withClassGroups(VALID_CLASSGROUP_MATH)
-                .withAssignments(VALID_ASSIGNMENT_MATH).build();
+                .withAssignments(VALID_CLASSGROUP_MATH, VALID_ASSIGNMENT_MATH).build();
         modelWithMixedClasses.addPerson(alice);
         modelWithMixedClasses.addPerson(bob);
         modelWithMixedClasses.addPerson(charlie);
 
-        Assignment assignment = new Assignment(VALID_ASSIGNMENT_MATH);
-        UnassignAllCommand command = new UnassignAllCommand(VALID_CLASSGROUP_MATH, assignment);
+        Assignment assignment = new Assignment(VALID_ASSIGNMENT_MATH.toLowerCase(), VALID_CLASSGROUP_MATH.toLowerCase());
+        UnassignAllCommand command = new UnassignAllCommand(VALID_CLASSGROUP_MATH.toLowerCase(), assignment);
 
         // Only Alice and Charlie should have assignment removed (they have Math class)
         String expectedMessage = String.format(UnassignAllCommand.MESSAGE_SUCCESS,
-                VALID_ASSIGNMENT_MATH, 2, VALID_CLASSGROUP_MATH);
+                VALID_ASSIGNMENT_MATH.toLowerCase(), 2, VALID_CLASSGROUP_MATH.toLowerCase());
 
         Model expectedModel = new ModelManager(new AddressBook(), new UserPrefs());
-        Person aliceWithoutAssignment = new PersonBuilder(alice).withAssignments().build();
-        Person charlieWithoutAssignment = new PersonBuilder(charlie).withAssignments().build();
+        Person aliceWithoutAssignment = new PersonBuilder(alice).withoutAssignments().build();
+        Person charlieWithoutAssignment = new PersonBuilder(charlie).withoutAssignments().build();
         expectedModel.addPerson(aliceWithoutAssignment);
         expectedModel.addPerson(bob); // Bob doesn't have Math class, so assignment remains
         expectedModel.addPerson(charlieWithoutAssignment);
@@ -136,19 +137,19 @@ public class UnassignAllCommandTest {
                 .withLevel("1").withClassGroups(VALID_CLASSGROUP_MATH).build();
         Person bob = new PersonBuilder().withName("Bob").withPhone("92345678")
                 .withLevel("2").withClassGroups(VALID_CLASSGROUP_MATH)
-                .withAssignments(VALID_ASSIGNMENT_MATH).build();
+                .withAssignments(VALID_CLASSGROUP_MATH, VALID_ASSIGNMENT_MATH).build();
         modelWithPartialAssignment.addPerson(alice);
         modelWithPartialAssignment.addPerson(bob);
 
-        Assignment assignment = new Assignment(VALID_ASSIGNMENT_MATH);
-        UnassignAllCommand command = new UnassignAllCommand(VALID_CLASSGROUP_MATH, assignment);
+        Assignment assignment = new Assignment(VALID_ASSIGNMENT_MATH.toLowerCase(), VALID_CLASSGROUP_MATH.toLowerCase());
+        UnassignAllCommand command = new UnassignAllCommand(VALID_CLASSGROUP_MATH.toLowerCase(), assignment);
 
         // Only Bob should have the assignment removed (Alice doesn't have it)
         String expectedMessage = String.format(UnassignAllCommand.MESSAGE_SUCCESS,
-                VALID_ASSIGNMENT_MATH, 1, VALID_CLASSGROUP_MATH);
+                VALID_ASSIGNMENT_MATH.toLowerCase(), 1, VALID_CLASSGROUP_MATH.toLowerCase());
 
         Model expectedModel = new ModelManager(new AddressBook(), new UserPrefs());
-        Person bobWithoutAssignment = new PersonBuilder(bob).withAssignments().build();
+        Person bobWithoutAssignment = new PersonBuilder(bob).withoutAssignments().build();
         expectedModel.addPerson(alice); // Alice doesn't have assignment
         expectedModel.addPerson(bobWithoutAssignment);
 
@@ -170,12 +171,13 @@ public class UnassignAllCommandTest {
         modelWithoutAssignment.addPerson(alice);
         modelWithoutAssignment.addPerson(bob);
 
-        Assignment assignment = new Assignment(VALID_ASSIGNMENT_MATH);
-        UnassignAllCommand command = new UnassignAllCommand(VALID_CLASSGROUP_MATH, assignment);
+        Assignment assignment = new Assignment(VALID_ASSIGNMENT_MATH.toLowerCase(), VALID_CLASSGROUP_MATH.toLowerCase());
+        UnassignAllCommand command = new UnassignAllCommand(VALID_CLASSGROUP_MATH.toLowerCase(), assignment);
 
         assertCommandFailure(command, modelWithoutAssignment,
                 String.format(UnassignAllCommand.MESSAGE_ASSIGNMENT_NOT_FOUND,
-                        VALID_ASSIGNMENT_MATH, VALID_CLASSGROUP_MATH));
+                        StringUtil.toTitleCase(VALID_ASSIGNMENT_MATH.toLowerCase()),
+                        StringUtil.toTitleCase(VALID_CLASSGROUP_MATH.toLowerCase())));
     }
 
     /**
@@ -188,14 +190,15 @@ public class UnassignAllCommandTest {
         Model modelWithoutMathClass = new ModelManager(new AddressBook(), new UserPrefs());
         Person alice = new PersonBuilder().withName("Alice").withPhone("91234567")
                 .withLevel("1").withClassGroups(VALID_CLASSGROUP_PHYSICS)
-                .withAssignments(VALID_ASSIGNMENT_MATH).build();
+                .withAssignments(VALID_CLASSGROUP_PHYSICS, VALID_ASSIGNMENT_MATH).build();
         modelWithoutMathClass.addPerson(alice);
 
-        Assignment assignment = new Assignment(VALID_ASSIGNMENT_MATH);
-        UnassignAllCommand command = new UnassignAllCommand(VALID_CLASSGROUP_MATH, assignment);
+        Assignment assignment = new Assignment(VALID_ASSIGNMENT_MATH.toLowerCase(), VALID_CLASSGROUP_MATH.toLowerCase());
+        UnassignAllCommand command = new UnassignAllCommand(VALID_CLASSGROUP_MATH.toLowerCase(), assignment);
 
         assertCommandFailure(command, modelWithoutMathClass,
-                String.format(UnassignAllCommand.MESSAGE_NO_STUDENTS_FOUND, VALID_CLASSGROUP_MATH));
+                String.format(UnassignAllCommand.MESSAGE_NO_STUDENTS_FOUND,
+                        StringUtil.toTitleCase(VALID_CLASSGROUP_MATH.toLowerCase())));
     }
 
     /**
@@ -205,11 +208,12 @@ public class UnassignAllCommandTest {
     @Test
     public void execute_emptyAddressBook_throwsCommandException() {
         Model emptyModel = new ModelManager(new AddressBook(), new UserPrefs());
-        Assignment assignment = new Assignment(VALID_ASSIGNMENT_MATH);
-        UnassignAllCommand command = new UnassignAllCommand(VALID_CLASSGROUP_MATH, assignment);
+        Assignment assignment = new Assignment(VALID_ASSIGNMENT_MATH.toLowerCase(), VALID_CLASSGROUP_MATH.toLowerCase());
+        UnassignAllCommand command = new UnassignAllCommand(VALID_CLASSGROUP_MATH.toLowerCase(), assignment);
 
         assertCommandFailure(command, emptyModel,
-                String.format(UnassignAllCommand.MESSAGE_NO_STUDENTS_FOUND, VALID_CLASSGROUP_MATH));
+                String.format(UnassignAllCommand.MESSAGE_NO_STUDENTS_FOUND,
+                        StringUtil.toTitleCase(VALID_CLASSGROUP_MATH.toLowerCase())));
     }
 
     /**
@@ -222,18 +226,18 @@ public class UnassignAllCommandTest {
         Model modelWithMathClass = new ModelManager(new AddressBook(), new UserPrefs());
         Person alice = new PersonBuilder().withName("Alice").withPhone("91234567")
                 .withLevel("1").withClassGroups("Math 3PM")
-                .withAssignments(VALID_ASSIGNMENT_MATH).build();
+                .withAssignments("Math 3PM", VALID_ASSIGNMENT_MATH).build();
         modelWithMathClass.addPerson(alice);
 
-        Assignment assignment = new Assignment(VALID_ASSIGNMENT_MATH);
+        Assignment assignment = new Assignment(VALID_ASSIGNMENT_MATH.toLowerCase(), "math 3pm");
         // Use different case for class group name
         UnassignAllCommand command = new UnassignAllCommand("math 3pm", assignment);
 
         String expectedMessage = String.format(UnassignAllCommand.MESSAGE_SUCCESS,
-                VALID_ASSIGNMENT_MATH, 1, "math 3pm");
+                VALID_ASSIGNMENT_MATH.toLowerCase(), 1, "math 3pm");
 
         Model expectedModel = new ModelManager(new AddressBook(), new UserPrefs());
-        Person aliceWithoutAssignment = new PersonBuilder(alice).withAssignments().build();
+        Person aliceWithoutAssignment = new PersonBuilder(alice).withoutAssignments().build();
         expectedModel.addPerson(aliceWithoutAssignment);
 
         assertCommandSuccess(command, modelWithMathClass, expectedMessage, expectedModel);
@@ -246,8 +250,8 @@ public class UnassignAllCommandTest {
      */
     @Test
     public void equals() {
-        Assignment mathAssignment = new Assignment(VALID_ASSIGNMENT_MATH);
-        Assignment physicsAssignment = new Assignment(VALID_ASSIGNMENT_PHYSICS);
+        Assignment mathAssignment = new Assignment(VALID_ASSIGNMENT_MATH, VALID_CLASSGROUP_MATH);
+        Assignment physicsAssignment = new Assignment(VALID_ASSIGNMENT_PHYSICS, VALID_CLASSGROUP_PHYSICS);
 
         UnassignAllCommand unassignMathFromMathClass = new UnassignAllCommand(VALID_CLASSGROUP_MATH, mathAssignment);
         UnassignAllCommand unassignMathFromPhysicsClass = new UnassignAllCommand(VALID_CLASSGROUP_PHYSICS,
@@ -282,7 +286,7 @@ public class UnassignAllCommandTest {
      */
     @Test
     public void toStringMethod() {
-        Assignment assignment = new Assignment(VALID_ASSIGNMENT_MATH);
+        Assignment assignment = new Assignment(VALID_ASSIGNMENT_MATH, VALID_CLASSGROUP_MATH);
         UnassignAllCommand command = new UnassignAllCommand(VALID_CLASSGROUP_MATH, assignment);
 
         String expected = UnassignAllCommand.class.getCanonicalName()
