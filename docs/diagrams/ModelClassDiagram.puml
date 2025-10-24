@@ -18,6 +18,7 @@ Class Address
 Class Name
 Class Phone
 Class Tag
+Class Assignment
 
 Class I #FFFFFF
 }
@@ -40,12 +41,14 @@ Person *--> Name
 Person *--> Phone
 Person *--> Address
 Person *--> "*" Tag
+Person *--> "*" Assignment
 
 Person -[hidden]up--> I
 UniquePersonList -[hidden]right-> I
 
 Name -[hidden]right-> Phone
 Phone -[hidden]right-> Address
+Tag -[hidden]right-> Assignment
 
 ModelManager --> "~* filtered" Person
 @enduml
