@@ -78,9 +78,9 @@ public class AddAssignmentCommandTest {
                 .withName("EXISTING")
                 .withClassGroup(classGroup)
                 .build();
-        
+
         Person original = model.getFilteredPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
-        
+
         // Add the class group and assignment to the person
         Person withAssignment = new PersonBuilder(original)
                 .withClassGroups(classGroup)

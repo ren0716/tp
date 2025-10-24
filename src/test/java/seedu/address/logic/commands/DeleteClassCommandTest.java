@@ -194,7 +194,7 @@ public class DeleteClassCommandTest {
         expectedModel.setPerson(personWithClassAndAssignments, editedPerson);
 
         assertCommandSuccess(deleteClassCommand, model, expectedMessage, expectedModel);
-        
+
         // Verify that assignments were actually deleted
         Person actualEditedPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         assertTrue(actualEditedPerson.getAssignments().isEmpty());

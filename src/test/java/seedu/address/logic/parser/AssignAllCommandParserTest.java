@@ -42,7 +42,8 @@ public class AssignAllCommandParserTest {
         // different class group and assignment
         String physicsClass = VALID_CLASSGROUP_PHYSICS;
         String physicsAssignment = VALID_ASSIGNMENT_PHYSICS;
-        Assignment expectedPhysicsAssignment = new Assignment(physicsAssignment.toLowerCase(), physicsClass.toLowerCase());
+        Assignment expectedPhysicsAssignment =
+                new Assignment(physicsAssignment.toLowerCase(), physicsClass.toLowerCase());
         assertParseSuccess(parser,
                 " " + PREFIX_CLASSGROUP + physicsClass + " " + PREFIX_ASSIGNMENT + physicsAssignment,
                 new AssignAllCommand(physicsClass.toLowerCase(), expectedPhysicsAssignment));
@@ -52,7 +53,8 @@ public class AssignAllCommandParserTest {
     public void parse_classGroupWithSpaces_success() {
         String classGroupWithSpaces = "Math 3PM";
         String assignmentName = VALID_ASSIGNMENT_MATH;
-        Assignment expectedAssignment = new Assignment(assignmentName.toLowerCase(), classGroupWithSpaces.toLowerCase());
+        Assignment expectedAssignment =
+                new Assignment(assignmentName.toLowerCase(), classGroupWithSpaces.toLowerCase());
 
         assertParseSuccess(parser,
                 " " + PREFIX_CLASSGROUP + classGroupWithSpaces + " " + PREFIX_ASSIGNMENT + assignmentName,

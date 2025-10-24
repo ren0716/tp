@@ -46,7 +46,8 @@ public class UnassignAllCommandTest {
         modelWithMathClass.addPerson(alice);
         modelWithMathClass.addPerson(bob);
 
-        Assignment assignment = new Assignment(VALID_ASSIGNMENT_MATH.toLowerCase(), VALID_CLASSGROUP_MATH.toLowerCase());
+        Assignment assignment = new Assignment(VALID_ASSIGNMENT_MATH.toLowerCase(),
+                VALID_CLASSGROUP_MATH.toLowerCase());
         UnassignAllCommand command = new UnassignAllCommand(VALID_CLASSGROUP_MATH.toLowerCase(), assignment);
 
         String expectedMessage = String.format(UnassignAllCommand.MESSAGE_SUCCESS,
@@ -74,7 +75,8 @@ public class UnassignAllCommandTest {
                 .withAssignments(VALID_CLASSGROUP_PHYSICS, VALID_ASSIGNMENT_PHYSICS).build();
         modelWithPhysicsClass.addPerson(charlie);
 
-        Assignment assignment = new Assignment(VALID_ASSIGNMENT_PHYSICS.toLowerCase(), VALID_CLASSGROUP_PHYSICS.toLowerCase());
+        Assignment assignment = new Assignment(VALID_ASSIGNMENT_PHYSICS.toLowerCase(),
+                VALID_CLASSGROUP_PHYSICS.toLowerCase());
         UnassignAllCommand command = new UnassignAllCommand(VALID_CLASSGROUP_PHYSICS.toLowerCase(), assignment);
 
         String expectedMessage = String.format(UnassignAllCommand.MESSAGE_SUCCESS,
@@ -108,7 +110,8 @@ public class UnassignAllCommandTest {
         modelWithMixedClasses.addPerson(bob);
         modelWithMixedClasses.addPerson(charlie);
 
-        Assignment assignment = new Assignment(VALID_ASSIGNMENT_MATH.toLowerCase(), VALID_CLASSGROUP_MATH.toLowerCase());
+        Assignment assignment = new Assignment(VALID_ASSIGNMENT_MATH.toLowerCase(),
+                VALID_CLASSGROUP_MATH.toLowerCase());
         UnassignAllCommand command = new UnassignAllCommand(VALID_CLASSGROUP_MATH.toLowerCase(), assignment);
 
         // Only Alice and Charlie should have assignment removed (they have Math class)
@@ -141,7 +144,8 @@ public class UnassignAllCommandTest {
         modelWithPartialAssignment.addPerson(alice);
         modelWithPartialAssignment.addPerson(bob);
 
-        Assignment assignment = new Assignment(VALID_ASSIGNMENT_MATH.toLowerCase(), VALID_CLASSGROUP_MATH.toLowerCase());
+        Assignment assignment = new Assignment(VALID_ASSIGNMENT_MATH.toLowerCase(),
+                VALID_CLASSGROUP_MATH.toLowerCase());
         UnassignAllCommand command = new UnassignAllCommand(VALID_CLASSGROUP_MATH.toLowerCase(), assignment);
 
         // Only Bob should have the assignment removed (Alice doesn't have it)
@@ -171,7 +175,8 @@ public class UnassignAllCommandTest {
         modelWithoutAssignment.addPerson(alice);
         modelWithoutAssignment.addPerson(bob);
 
-        Assignment assignment = new Assignment(VALID_ASSIGNMENT_MATH.toLowerCase(), VALID_CLASSGROUP_MATH.toLowerCase());
+        Assignment assignment = new Assignment(VALID_ASSIGNMENT_MATH.toLowerCase(),
+                VALID_CLASSGROUP_MATH.toLowerCase());
         UnassignAllCommand command = new UnassignAllCommand(VALID_CLASSGROUP_MATH.toLowerCase(), assignment);
 
         assertCommandFailure(command, modelWithoutAssignment,
@@ -193,7 +198,8 @@ public class UnassignAllCommandTest {
                 .withAssignments(VALID_CLASSGROUP_PHYSICS, VALID_ASSIGNMENT_MATH).build();
         modelWithoutMathClass.addPerson(alice);
 
-        Assignment assignment = new Assignment(VALID_ASSIGNMENT_MATH.toLowerCase(), VALID_CLASSGROUP_MATH.toLowerCase());
+        Assignment assignment = new Assignment(VALID_ASSIGNMENT_MATH.toLowerCase(),
+                VALID_CLASSGROUP_MATH.toLowerCase());
         UnassignAllCommand command = new UnassignAllCommand(VALID_CLASSGROUP_MATH.toLowerCase(), assignment);
 
         assertCommandFailure(command, modelWithoutMathClass,
@@ -208,7 +214,8 @@ public class UnassignAllCommandTest {
     @Test
     public void execute_emptyAddressBook_throwsCommandException() {
         Model emptyModel = new ModelManager(new AddressBook(), new UserPrefs());
-        Assignment assignment = new Assignment(VALID_ASSIGNMENT_MATH.toLowerCase(), VALID_CLASSGROUP_MATH.toLowerCase());
+        Assignment assignment = new Assignment(VALID_ASSIGNMENT_MATH.toLowerCase(),
+                VALID_CLASSGROUP_MATH.toLowerCase());
         UnassignAllCommand command = new UnassignAllCommand(VALID_CLASSGROUP_MATH.toLowerCase(), assignment);
 
         assertCommandFailure(command, emptyModel,

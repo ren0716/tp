@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
@@ -15,7 +16,6 @@ import seedu.address.model.person.Person;
 import seedu.address.testutil.AssignmentBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.TypicalPersons;
-import seedu.address.commons.util.StringUtil;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for {@code MarkAssignmentCommand}.
