@@ -9,6 +9,11 @@ import seedu.address.model.Model;
 public abstract class Command {
 
     /**
+     * Returns the word that triggers this command
+     */
+    public abstract String getCommandWord();
+
+    /**
      * Executes the command and returns the result message.
      *
      * @param model {@code Model} which the command should operate on.

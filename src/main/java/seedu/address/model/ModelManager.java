@@ -100,14 +100,12 @@ public class ModelManager implements Model {
     public void deletePerson(Person target) {
 
         addressBook.removePerson(target);
-        commit();
     }
 
     @Override
     public void addPerson(Person person) {
         addressBook.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        commit();
     }
 
     @Override
@@ -115,7 +113,6 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedPerson);
 
         addressBook.setPerson(target, editedPerson);
-        commit();
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -169,5 +166,4 @@ public class ModelManager implements Model {
         ReadOnlyAddressBook next = this.versions.redo();
         setAddressBook(next);
     }
-
 }

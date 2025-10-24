@@ -21,4 +21,9 @@ public class ClearCommand extends Command {
         model.commit();
         return new CommandResult(MESSAGE_SUCCESS);
     }
+
+    @Override
+    public String getCommandWord() {
+        return COMMAND_WORD;
+    }
 }

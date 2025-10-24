@@ -34,17 +34,17 @@ public class VersionedAddressBookTest {
 
     @Test
     public void constructor() {
-        assertEquals(1, versionedAddressBook.getUndoStack().size());
+        assertEquals(1, versionedAddressBook.getVersionStack().size());
         assertEquals(0, versionedAddressBook.getRedoStack().size());
-        assertEquals(addressBookState1, versionedAddressBook.getUndoStack().peek());
+        assertEquals(addressBookState1, versionedAddressBook.getVersionStack().peek());
     }
 
     @Test
     public void commit_validState_success() {
         versionedAddressBook.commit(addressBookState2);
 
-        assertEquals(2, versionedAddressBook.getUndoStack().size());
-        assertEquals(addressBookState2, versionedAddressBook.getUndoStack().peek());
+        assertEquals(2, versionedAddressBook.getVersionStack().size());
+        assertEquals(addressBookState2, versionedAddressBook.getVersionStack().peek());
         assertEquals(0, versionedAddressBook.getRedoStack().size());
     }
 
@@ -60,8 +60,8 @@ public class VersionedAddressBookTest {
         versionedAddressBook.commit(addressBookState3);
 
         assertEquals(0, versionedAddressBook.getRedoStack().size());
-        assertEquals(2, versionedAddressBook.getUndoStack().size());
-        assertEquals(addressBookState3, versionedAddressBook.getUndoStack().peek());
+        assertEquals(2, versionedAddressBook.getVersionStack().size());
+        assertEquals(addressBookState3, versionedAddressBook.getVersionStack().peek());
     }
 
     @Test
@@ -77,7 +77,7 @@ public class VersionedAddressBookTest {
         ReadOnlyAddressBook result = versionedAddressBook.undo();
 
         assertEquals(addressBookState2, result);
-        assertEquals(2, versionedAddressBook.getUndoStack().size());
+        assertEquals(2, versionedAddressBook.getVersionStack().size());
         assertEquals(1, versionedAddressBook.getRedoStack().size());
         assertEquals(addressBookState3, versionedAddressBook.getRedoStack().peek());
     }
@@ -90,12 +90,12 @@ public class VersionedAddressBookTest {
         // First undo
         ReadOnlyAddressBook result1 = versionedAddressBook.undo();
         assertEquals(addressBookState2, result1);
-        assertEquals(2, versionedAddressBook.getUndoStack().size());
+        assertEquals(2, versionedAddressBook.getVersionStack().size());
 
         // Second undo
         ReadOnlyAddressBook result2 = versionedAddressBook.undo();
         assertEquals(addressBookState1, result2);
-        assertEquals(1, versionedAddressBook.getUndoStack().size());
+        assertEquals(1, versionedAddressBook.getVersionStack().size());
         assertEquals(2, versionedAddressBook.getRedoStack().size());
     }
 
@@ -123,7 +123,7 @@ public class VersionedAddressBookTest {
         ReadOnlyAddressBook result = versionedAddressBook.redo();
 
         assertEquals(addressBookState2, result);
-        assertEquals(2, versionedAddressBook.getUndoStack().size());
+        assertEquals(2, versionedAddressBook.getVersionStack().size());
         assertEquals(0, versionedAddressBook.getRedoStack().size());
     }
 
@@ -137,12 +137,12 @@ public class VersionedAddressBookTest {
         // First redo
         ReadOnlyAddressBook result1 = versionedAddressBook.redo();
         assertEquals(addressBookState2, result1);
-        assertEquals(2, versionedAddressBook.getUndoStack().size());
+        assertEquals(2, versionedAddressBook.getVersionStack().size());
 
         // Second redo
         ReadOnlyAddressBook result2 = versionedAddressBook.redo();
         assertEquals(addressBookState3, result2);
-        assertEquals(3, versionedAddressBook.getUndoStack().size());
+        assertEquals(3, versionedAddressBook.getVersionStack().size());
         assertEquals(0, versionedAddressBook.getRedoStack().size());
     }
 
@@ -161,10 +161,10 @@ public class VersionedAddressBookTest {
         // the stack is directly returned and can be modified
         versionedAddressBook.commit(addressBookState2);
 
-        int originalSize = versionedAddressBook.getUndoStack().size();
-        versionedAddressBook.getUndoStack().push(addressBookState3);
+        int originalSize = versionedAddressBook.getVersionStack().size();
+        versionedAddressBook.getVersionStack().push(addressBookState3);
 
-        assertEquals(originalSize + 1, versionedAddressBook.getUndoStack().size());
+        assertEquals(originalSize + 1, versionedAddressBook.getVersionStack().size());
     }
 
     @Test
@@ -187,7 +187,7 @@ public class VersionedAddressBookTest {
         // Undo twice
         versionedAddressBook.undo();
         versionedAddressBook.undo();
-        assertEquals(addressBookState1, versionedAddressBook.getUndoStack().peek());
+        assertEquals(addressBookState1, versionedAddressBook.getVersionStack().peek());
 
         // Redo once
         ReadOnlyAddressBook redoResult = versionedAddressBook.redo();

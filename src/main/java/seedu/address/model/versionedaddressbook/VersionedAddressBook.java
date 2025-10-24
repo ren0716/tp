@@ -6,83 +6,91 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 
 /**
- * Tracks the history of address book states to support undo and redo operations.
- * Version history is reset when the application is closed and does not persist across sessions.
+ * A {@code VersionedAddressBook} maintains a history of {@link ReadOnlyAddressBook} states
+ * to support undo and redo operations within a single application session.
+ * <p>
+ * Version history is <b>not persisted</b> between sessions; it is reset when the application closes.
  */
 public class VersionedAddressBook extends AddressBook {
-    private final Stack<ReadOnlyAddressBook> undoStack;
+
+    private final Stack<ReadOnlyAddressBook> versionStack;
     private final Stack<ReadOnlyAddressBook> redoStack;
 
     /**
-     * Creates a VersionedAddressBook with the given initial address book data.
-     * The initial data becomes the first state in the version history.
+     * Constructs a {@code VersionedAddressBook} with the given initial address book data.
+     * The initial state is recorded as the first version in the history.
      *
-     * @param initialData The initial address book state to track.
+     * @param initialData the initial {@link ReadOnlyAddressBook} state to track
      */
     public VersionedAddressBook(ReadOnlyAddressBook initialData) {
-        this.undoStack = new Stack<>();
-        this.undoStack.add(initialData);
+        this.versionStack = new Stack<>();
+        this.versionStack.add(initialData);
         this.redoStack = new Stack<>();
     }
 
     /**
-     * Saves the current address book state to version history.
-     * Clears any redo history when a new commit is made.
+     * Commits the specified address book state as a new version in the history.
+     * <p>
+     * Clears any redo history when a new commit is made, as redo states are only
+     * valid immediately after an undo.
      *
-     * @param updated The updated address book state to save.
+     * @param updated the new {@link ReadOnlyAddressBook} state to record
      */
     public void commit(ReadOnlyAddressBook updated) {
-        this.undoStack.add(updated);
+        this.versionStack.add(updated);
         this.redoStack.clear();
     }
 
     /**
-     * Reverts to the previous address book state.
-     * The current state is saved to redo history.
+     * Reverts the address book to its previous committed state.
+     * <p>
+     * The current state is pushed to the redo stack, allowing it to be restored later via {@link #redo()}.
      *
-     * @return The previous address book state.
-     * @throws NoPreviousCommitException If no previous version exists in the current session.
+     * @return the previous {@link ReadOnlyAddressBook} state
+     * @throws NoPreviousCommitException if there is no earlier version to revert to
      */
     public ReadOnlyAddressBook undo() throws NoPreviousCommitException {
-        if (this.undoStack.size() <= 1) {
+        if (this.versionStack.size() <= 1) {
             throw new NoPreviousCommitException();
         }
-        this.redoStack.add(undoStack.peek());
-        this.undoStack.pop();
-        return undoStack.peek();
+        this.redoStack.add(versionStack.peek());
+        this.versionStack.pop();
+        return versionStack.peek();
     }
 
     /**
-     * Restores the address book state that was undone by the most recent undo command.
-     * Only available immediately after an undo operation.
+     * Restores the most recently undone address book state.
+     * <p>
+     * This operation can only be performed immediately after an {@link #undo()} call.
      *
-     * @return The restored address book state.
-     * @throws NoPreviousUndoException If no undone version exists in the current session.
+     * @return the restored {@link ReadOnlyAddressBook} state
+     * @throws NoPreviousUndoException if there is no undone version to restore
      */
     public ReadOnlyAddressBook redo() throws NoPreviousUndoException {
         if (this.redoStack.isEmpty()) {
             throw new NoPreviousUndoException();
         }
         ReadOnlyAddressBook targetVersion = this.redoStack.pop();
-        this.undoStack.add(targetVersion);
+        this.versionStack.add(targetVersion);
         return targetVersion;
     }
 
     /**
-     * Returns the stack containing the undo history.
+     * Returns the stack containing all committed address book versions.
      *
-     * @return The undo stack.
+     * @return the version history stack
      */
-    public Stack<ReadOnlyAddressBook> getUndoStack() {
-        return undoStack;
+    public Stack<ReadOnlyAddressBook> getVersionStack() {
+        return versionStack;
     }
 
     /**
-     * Returns the stack containing the redo history.
+     * Returns the stack containing address book states that can be redone.
      *
-     * @return The redo stack.
+     * @return the redo history stack
      */
     public Stack<ReadOnlyAddressBook> getRedoStack() {
         return redoStack;
     }
+
 }

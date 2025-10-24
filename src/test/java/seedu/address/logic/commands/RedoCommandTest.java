@@ -25,6 +25,7 @@ public class RedoCommandTest {
         // Make a change
         Person personToAdd = new PersonBuilder().build();
         model.addPerson(personToAdd);
+        model.commit();
         expectedModel.addPerson(personToAdd);
 
         // Undo the change
@@ -48,10 +49,12 @@ public class RedoCommandTest {
 
         // Make a change and undo it
         model.addPerson(new PersonBuilder().build());
+        model.commit();
         model.undo();
 
         // Make a new change (this should clear redo history)
         model.addPerson(new PersonBuilder().withName("Alice").build());
+        model.commit();
 
         // Redo should fail because redo history was cleared
         assertCommandFailure(new RedoCommand(), model, new NoPreviousUndoException().getMessage());
@@ -67,12 +70,14 @@ public class RedoCommandTest {
 
         // Make first change
         model.addPerson(personToAdd);
+        model.commit();
         expectedAfterFirstRedo.addPerson(personToAdd);
         expectedAfterSecondRedo.addPerson(personToAdd);
 
         // Make second change
         Person personToDelete = model.getFilteredPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
         model.deletePerson(personToDelete);
+        model.commit();
         expectedAfterSecondRedo.deletePerson(
                 expectedAfterSecondRedo.getFilteredPersonList().get(INDEX_SECOND_PERSON.getZeroBased())
         );
