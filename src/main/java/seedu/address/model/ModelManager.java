@@ -81,7 +81,9 @@ public class ModelManager implements Model {
     //=========== AddressBook ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {this.addressBook.resetData(addressBook);}
+    public void setAddressBook(ReadOnlyAddressBook addressBook) {
+        this.addressBook.resetData(addressBook);
+    }
 
     @Override
     public ReadOnlyAddressBook getAddressBook() {
@@ -160,6 +162,12 @@ public class ModelManager implements Model {
     @Override
     public void commit() {
         this.versions.commit(new AddressBook(getAddressBook()));
+    }
+
+    @Override
+    public void redo() {
+        ReadOnlyAddressBook next = this.versions.redo();
+        setAddressBook(next);
     }
 
 }

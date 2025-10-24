@@ -94,4 +94,9 @@ public interface Model {
      * Commits current address book data into versioned address book
      */
     void commit();
+
+    /**
+     * Restores the address book data that was undone by the most recent undo command
+     */
+    void redo();
 }
