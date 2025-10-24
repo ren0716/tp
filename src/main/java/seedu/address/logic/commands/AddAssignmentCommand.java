@@ -49,9 +49,7 @@ public class AddAssignmentCommand extends Command {
     public static final String MESSAGE_ASSIGNMENT_NOT_ADDED = "At least one assignment to add must be provided.";
     public static final String MESSAGE_DUPLICATE_ASSIGNMENT = "Duplicate assignment(s): %s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
-    public static final String MESSAGE_STUDENT_NOT_IN_CLASS_GROUP = 
-            "Student does not belong to the class group: %s";
-
+    public static final String MESSAGE_STUDENT_NOT_IN_CLASS_GROUP = "Student does not belong to the class group: %s";
     private final Index index;
     private final AddAssignmentDescriptor addAssignmentDescriptor;
 
@@ -109,21 +107,21 @@ public class AddAssignmentCommand extends Command {
 
     /**
      * Validates that the student belongs to all class groups specified in the assignments.
-     * 
+     *
      * @param person The person to validate
      * @param desc The descriptor containing the assignments to add
      * @throws CommandException if the student does not belong to any of the specified class groups
      */
-    private static void validateStudentClassGroups(Person person, AddAssignmentDescriptor desc) 
+    private static void validateStudentClassGroups(Person person, AddAssignmentDescriptor desc)
             throws CommandException {
         Set<Assignment> newAssignments = desc.getAssignments().orElse(Set.of());
         Set<String> personClassGroupNames = person.getClassGroups().stream()
                 .map(ClassGroup::getClassGroupName)
                 .collect(Collectors.toSet());
-        
+
         for (Assignment assignment : newAssignments) {
             if (!personClassGroupNames.contains(assignment.classGroupName)) {
-                throw new CommandException(String.format(MESSAGE_STUDENT_NOT_IN_CLASS_GROUP, 
+                throw new CommandException(String.format(MESSAGE_STUDENT_NOT_IN_CLASS_GROUP,
                         assignment.classGroupName));
             }
         }

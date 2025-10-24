@@ -41,10 +41,10 @@ public class AddAssignmentCommandParser implements Parser<AddAssignmentCommand> 
         if (!argMultimap.getValue(PREFIX_CLASSGROUP).isPresent()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddAssignmentCommand.MESSAGE_USAGE));
         }
-        
+
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CLASSGROUP);
         String classGroupName = argMultimap.getValue(PREFIX_CLASSGROUP).get().trim().toLowerCase();
-        
+
         if (classGroupName.isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddAssignmentCommand.MESSAGE_USAGE));
         }

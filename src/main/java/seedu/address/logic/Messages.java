@@ -6,7 +6,6 @@ import java.util.stream.Stream;
 
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.Prefix;
-import seedu.address.model.assignment.Assignment;
 import seedu.address.model.person.Person;
 
 /**
@@ -53,7 +52,7 @@ public class Messages {
                 .map(cg -> StringUtil.toTitleCase(cg.classGroupName))
                 .collect(Collectors.joining(", "));
         builder.append(classGroups);
-        
+
         // Only show assignments if the person has any
         if (!person.getAssignments().isEmpty()) {
             builder.append("; Assignments: ");
@@ -63,7 +62,7 @@ public class Messages {
                     .collect(Collectors.joining(", "));
             builder.append(assignments);
         }
-        
+
         return builder.toString();
     }
 

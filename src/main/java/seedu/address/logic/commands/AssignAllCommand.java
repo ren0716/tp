@@ -82,7 +82,8 @@ public class AssignAllCommand extends Command {
 
         if (studentsInClass.isEmpty()) {
             logger.warning("No students found in class group: " + classGroupName);
-            throw new CommandException(String.format(MESSAGE_NO_STUDENTS_FOUND, StringUtil.toTitleCase(classGroupName)));
+            throw new CommandException(String.format(MESSAGE_NO_STUDENTS_FOUND,
+                    StringUtil.toTitleCase(classGroupName)));
         }
 
         int assignedCount = 0;

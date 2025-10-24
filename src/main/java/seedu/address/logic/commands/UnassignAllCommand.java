@@ -81,7 +81,8 @@ public class UnassignAllCommand extends Command {
                 .collect(Collectors.toList());
 
         if (studentsInClass.isEmpty()) {
-            throw new CommandException(String.format(MESSAGE_NO_STUDENTS_FOUND, StringUtil.toTitleCase(classGroupName)));
+            throw new CommandException(String.format(MESSAGE_NO_STUDENTS_FOUND,
+                    StringUtil.toTitleCase(classGroupName)));
         }
 
         int unassignedCount = 0;

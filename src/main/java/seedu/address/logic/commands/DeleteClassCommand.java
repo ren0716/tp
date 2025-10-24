@@ -159,7 +159,7 @@ public class DeleteClassCommand extends Command {
         Set<String> deletedClassGroupNames = toDelete.stream()
                 .map(ClassGroup::getClassGroupName)
                 .collect(Collectors.toSet());
-        
+
         Set<Assignment> updatedAssignments = personToEdit.getAssignments().stream()
                 .filter(assignment -> !deletedClassGroupNames.contains(assignment.classGroupName))
                 .collect(Collectors.toSet());

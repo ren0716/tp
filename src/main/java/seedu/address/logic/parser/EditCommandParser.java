@@ -9,7 +9,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
 
@@ -76,7 +75,7 @@ public class EditCommandParser implements Parser<EditCommand> {
      * Parses {@code Collection<String> classGroups} into a {@code Set<ClassGroup>} if {@code classGroups} is non-empty.
      * If {@code classGroup} contain only one element which is an empty string, it will be parsed into a
      * {@code Set<ClassGroup>} containing zero class groups.
-     * 
+     *
      * Note: This method is disabled as editing class groups could create inconsistencies with existing assignments.
      * Assignments contain a classGroupName field, and removing a class group while assignments reference it
      * would create an invalid state. Use dedicated commands to manage class groups and assignments together.
