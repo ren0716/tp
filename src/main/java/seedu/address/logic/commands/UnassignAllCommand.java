@@ -146,6 +146,11 @@ public class UnassignAllCommand extends Command {
         return new Person(name, phone, level, classGroups, updatedAssignments);
     }
 
+    @Override
+    public String getCommandWord() {
+        return COMMAND_WORD;
+    }
+
     /**
      * Checks if this UnassignAllCommand is equal to another object.
      * Two UnassignAllCommand objects are considered equal if they have the same class group name
