@@ -25,6 +25,7 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.MarkAssignmentCommand;
 import seedu.address.logic.commands.UnassignAllCommand;
+import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.UnmarkAssignmentCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -42,6 +43,7 @@ public class AddressBookParser {
     /**
      * Parses user input into command for execution.
      * The input is normalized to lowercase before parsing, ensuring case-insensitive command recognition.
+     *
      * @param userInput full user input string
      * @return the command based on the lowercase form of user input
      * @throws ParseException if the user input does not conform the expected format
@@ -54,7 +56,7 @@ public class AddressBookParser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
-        assert(arguments.equals(arguments.toLowerCase())); //all arguments should be lowercase at this stage
+        assert (arguments.equals(arguments.toLowerCase())); //all arguments should be lowercase at this stage
 
         // Note to developers: Change the log level in config.json to enable lower level (i.e., FINE, FINER and lower)
         // log messages such as the one below.
@@ -113,6 +115,9 @@ public class AddressBookParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommand();
 
         default:
             logger.finer("This user input caused a ParseException: " + userInput);

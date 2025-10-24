@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
+import seedu.address.model.versionedaddressbook.VersionedAddressBook;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -22,6 +23,7 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final VersionedAddressBook versions;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -32,6 +34,7 @@ public class ModelManager implements Model {
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         this.addressBook = new AddressBook(addressBook);
+        this.versions = new VersionedAddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
     }
@@ -78,9 +81,7 @@ public class ModelManager implements Model {
     //=========== AddressBook ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
-    }
+    public void setAddressBook(ReadOnlyAddressBook addressBook) {this.addressBook.resetData(addressBook);}
 
     @Override
     public ReadOnlyAddressBook getAddressBook() {
@@ -95,13 +96,16 @@ public class ModelManager implements Model {
 
     @Override
     public void deletePerson(Person target) {
+
         addressBook.removePerson(target);
+        commit();
     }
 
     @Override
     public void addPerson(Person person) {
         addressBook.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        commit();
     }
 
     @Override
@@ -109,6 +113,7 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedPerson);
 
         addressBook.setPerson(target, editedPerson);
+        commit();
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -143,6 +148,18 @@ public class ModelManager implements Model {
         return addressBook.equals(otherModelManager.addressBook)
                 && userPrefs.equals(otherModelManager.userPrefs)
                 && filteredPersons.equals(otherModelManager.filteredPersons);
+    }
+
+    //=========== VersionedAddressBook =======================================================================
+    @Override
+    public void undo() {
+        ReadOnlyAddressBook previous = this.versions.undo();
+        setAddressBook(previous);
+    }
+
+    @Override
+    public void commit() {
+        this.versions.commit(new AddressBook(getAddressBook()));
     }
 
 }
