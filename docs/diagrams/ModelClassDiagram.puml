@@ -17,7 +17,7 @@ Class Person
 Class Level
 Class Name
 Class Phone
-Class Tag
+Class Class
 Class Assignment
 
 Class I #FFFFFF
@@ -40,7 +40,7 @@ UniquePersonList --> "~* all" Person
 Person *--> Name
 Person *--> Phone
 Person *--> Level
-Person *--> "*" Tag
+Person *--> "*" Class
 Person *--> "*" Assignment
 
 Person -[hidden]up--> I
@@ -48,7 +48,7 @@ UniquePersonList -[hidden]right-> I
 
 Name -[hidden]right-> Phone
 Phone -[hidden]right-> Level
-Tag -[hidden]right-> Assignment
+Class -[hidden]right-> Assignment
 
 ModelManager --> "~* filtered" Person
 @enduml
