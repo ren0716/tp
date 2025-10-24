@@ -9,7 +9,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
 
@@ -76,6 +75,10 @@ public class EditCommandParser implements Parser<EditCommand> {
      * Parses {@code Collection<String> classGroups} into a {@code Set<ClassGroup>} if {@code classGroups} is non-empty.
      * If {@code classGroup} contain only one element which is an empty string, it will be parsed into a
      * {@code Set<ClassGroup>} containing zero class groups.
+     *
+     * Note: This method is disabled as editing class groups could create inconsistencies with existing assignments.
+     * Assignments contain a classGroupName field, and removing a class group while assignments reference it
+     * would create an invalid state. Use dedicated commands to manage class groups and assignments together.
      */
     private Optional<Set<ClassGroup>> parseClassGroupsForEdit(Collection<String> classGroups) throws ParseException {
         assert classGroups != null;
@@ -83,16 +86,19 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (classGroups.isEmpty()) {
             return Optional.empty();
         }
-        Collection<String> classSet = classGroups.size() == 1 && classGroups.contains("")
-                ? Collections.emptySet()
-                : classGroups;
-        return Optional.of(ParserUtil.parseClassGroups(classSet));
+        // Class groups can no longer be edited via the edit command to prevent inconsistencies
+        // with assignments that reference class group names
+        throw new ParseException("Class groups cannot be edited via the edit command to maintain consistency "
+                + "with assignments. Use dedicated commands to manage class groups and assignments.");
     }
 
     /**
      * Parses {@code Collection<String> assignments} into a {@code Set<Assignment>} if {@code assignments} is non-empty.
      * If {@code assignments} contain only one element which is an empty string, it will be parsed into a
-     * {@code Set<Assignment>} containing zero tags.
+     * {@code Set<Assignment>} containing zero assignments.
+     *
+     * Note: This method is disabled as assignments now require a class group.
+     * Use the assign command to add assignments to a person.
      */
     private Optional<Set<Assignment>> parseAssignmentsForEdit(Collection<String> assignments) throws ParseException {
         assert assignments != null;
@@ -100,9 +106,10 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (assignments.isEmpty()) {
             return Optional.empty();
         }
-        Collection<String> assignmentSet = assignments.size() == 1
-                && assignments.contains("") ? Collections.emptySet() : assignments;
-        return Optional.of(ParserUtil.parseAssignments(assignmentSet));
+        // Assignments can no longer be edited via the edit command since they require a class group
+        // Use assign/unassign commands instead
+        throw new ParseException("Assignments cannot be edited via the edit command. "
+                + "Use 'assign' command to add assignments with a class group.");
     }
 
 }

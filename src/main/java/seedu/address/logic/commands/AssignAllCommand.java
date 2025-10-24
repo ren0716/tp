@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -81,7 +82,8 @@ public class AssignAllCommand extends Command {
 
         if (studentsInClass.isEmpty()) {
             logger.warning("No students found in class group: " + classGroupName);
-            throw new CommandException(String.format(MESSAGE_NO_STUDENTS_FOUND, classGroupName));
+            throw new CommandException(String.format(MESSAGE_NO_STUDENTS_FOUND,
+                    StringUtil.toTitleCase(classGroupName)));
         }
 
         int assignedCount = 0;
@@ -113,7 +115,7 @@ public class AssignAllCommand extends Command {
                     "All students in class '%s' already have assignment '%s'",
                     classGroupName, assignment.getAssignmentName()));
             throw new CommandException(String.format(MESSAGE_ALREADY_ASSIGNED,
-                    assignment.getAssignmentName(), classGroupName));
+                    StringUtil.toTitleCase(classGroupName), StringUtil.toTitleCase(assignment.getAssignmentName())));
         }
 
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);

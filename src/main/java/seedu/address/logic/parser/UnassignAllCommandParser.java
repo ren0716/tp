@@ -35,8 +35,8 @@ public class UnassignAllCommandParser implements Parser<UnassignAllCommand> {
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CLASSGROUP, PREFIX_ASSIGNMENT);
 
-        String classGroupName = argMultimap.getValue(PREFIX_CLASSGROUP).get().trim();
-        String assignmentName = argMultimap.getValue(PREFIX_ASSIGNMENT).get().trim();
+        String classGroupName = argMultimap.getValue(PREFIX_CLASSGROUP).get().trim().toLowerCase();
+        String assignmentName = argMultimap.getValue(PREFIX_ASSIGNMENT).get().trim().toLowerCase();
 
         if (classGroupName.isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
@@ -48,7 +48,7 @@ public class UnassignAllCommandParser implements Parser<UnassignAllCommand> {
                     UnassignAllCommand.MESSAGE_USAGE));
         }
 
-        Assignment assignment = ParserUtil.parseAssignment(assignmentName);
+        Assignment assignment = ParserUtil.parseAssignment(assignmentName, classGroupName);
 
         return new UnassignAllCommand(classGroupName, assignment);
     }

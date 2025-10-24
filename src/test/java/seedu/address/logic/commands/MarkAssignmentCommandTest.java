@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
@@ -29,10 +30,15 @@ public class MarkAssignmentCommandTest {
     @Test
     public void execute_validAssignment_success() {
         // Prepare a typical model and a person with the assignment to be marked
-        Assignment assignment = new AssignmentBuilder().withName("Physics-1800").build();
+        String classGroup = "default-class";
+        Assignment assignment = new AssignmentBuilder()
+                .withName("Physics-1800")
+                .withClassGroup(classGroup)
+                .build();
         Person originalPerson = TypicalPersons.getTypicalAddressBook().getPersonList().get(0);
         Person personWithAssignment = new PersonBuilder(originalPerson)
-                .withAssignments(assignment.getAssignmentName())
+                .withClassGroups(classGroup)
+                .withAssignments(classGroup, assignment.getAssignmentName())
                 .build();
 
         Model model = new ModelManager(new AddressBook(TypicalPersons.getTypicalAddressBook()), new UserPrefs());
@@ -45,7 +51,8 @@ public class MarkAssignmentCommandTest {
         try {
             var result = command.execute(model);
             String expectedMessage = String.format(seedu.address.logic.Messages.MESSAGE_MARK_PERSON_SUCCESS,
-                                                     assignment.getAssignmentName(), personWithAssignment.getName());
+                                                     StringUtil.toTitleCase(assignment.getAssignmentName()),
+                                                     StringUtil.toTitleCase(personWithAssignment.getName().fullName));
             assertEquals(expectedMessage, result.getFeedbackToUser());
         } catch (CommandException ce) {
             throw new AssertionError("Execution of command should not fail.", ce);
@@ -77,10 +84,13 @@ public class MarkAssignmentCommandTest {
                 .map(a -> a.getAssignmentName())
                 .filter(name -> !name.equals("Physics-1800"))
                 .toArray(String[]::new);
-        Person updatedPerson = new PersonBuilder(person).withAssignments(remainingAssignments).build();
+        Person updatedPerson = new PersonBuilder(person).withAssignmentsUsingDefaultClass(remainingAssignments).build();
         model.setPerson(person, updatedPerson);
 
-        Assignment assignment = new AssignmentBuilder().withName("Physics-1800").build();
+        Assignment assignment = new AssignmentBuilder()
+                .withName("Physics-1800")
+                .withClassGroup("default-class")
+                .build();
         MarkAssignmentCommand command = new MarkAssignmentCommand(Index.fromOneBased(1), assignment);
 
         assertCommandFailure(command, model, seedu.address.logic.Messages.MESSAGE_INVALID_ASSIGNMENT_IN_PERSON);

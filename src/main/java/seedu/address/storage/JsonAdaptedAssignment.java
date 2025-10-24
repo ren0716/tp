@@ -15,6 +15,7 @@ import seedu.address.model.assignment.Assignment;
 class JsonAdaptedAssignment {
 
     private final String assignmentName;
+    private final String classGroupName;
     private final boolean isMarked;
 
     /**
@@ -23,8 +24,10 @@ class JsonAdaptedAssignment {
     @JsonCreator
     public JsonAdaptedAssignment(
             @JsonProperty("name") String assignmentName,
+            @JsonProperty("classGroup") String classGroupName,
             @JsonProperty("marked") Boolean isMarked) {
         this.assignmentName = assignmentName;
+        this.classGroupName = classGroupName;
         this.isMarked = isMarked != null ? isMarked : false; // Default to unmarked if not specified
     }
 
@@ -32,7 +35,7 @@ class JsonAdaptedAssignment {
      * Constructor for backward compatibility with old data format
      */
     public JsonAdaptedAssignment(String assignmentName) {
-        this(assignmentName, false);
+        this(assignmentName, "Unknown", false);
     }
 
     /**
@@ -41,6 +44,7 @@ class JsonAdaptedAssignment {
     public JsonAdaptedAssignment(Assignment source) {
         requireNonNull(source);
         assignmentName = source.getAssignmentName();
+        classGroupName = source.getClassGroupName();
         isMarked = source.isMarked();
     }
 
@@ -54,16 +58,21 @@ class JsonAdaptedAssignment {
         }
         JsonAdaptedAssignment that = (JsonAdaptedAssignment) o;
         return isMarked == that.isMarked
-                && java.util.Objects.equals(assignmentName, that.assignmentName);
+                && java.util.Objects.equals(assignmentName, that.assignmentName)
+                && java.util.Objects.equals(classGroupName, that.classGroupName);
     }
 
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(assignmentName, isMarked);
+        return java.util.Objects.hash(assignmentName, classGroupName, isMarked);
     }
 
     public String getAssignmentName() {
         return assignmentName;
+    }
+
+    public String getClassGroupName() {
+        return classGroupName;
     }
 
     public boolean isMarked() {
@@ -87,7 +96,10 @@ class JsonAdaptedAssignment {
         if (!Assignment.isValidAssignmentName(assignmentName)) {
             throw new IllegalValueException(Assignment.MESSAGE_CONSTRAINTS);
         }
-        return new Assignment(assignmentName, isMarked); // Use the constructor that takes both name and marked status
+        if (classGroupName == null || !Assignment.isValidClassGroupName(classGroupName)) {
+            throw new IllegalValueException(Assignment.MESSAGE_CLASSGROUP_CONSTRAINTS);
+        }
+        return new Assignment(assignmentName, classGroupName, isMarked);
     }
 
 }

@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.address.commons.util.StringUtil;
 import seedu.address.model.person.Person;
 
 /**
@@ -49,17 +50,19 @@ public class PersonCard extends UiPart<Region> {
         super(FXML);
         this.person = person;
         id.setText(displayedIndex + ". ");
-        name.setText(person.getName().fullName);
+        name.setText(StringUtil.toTitleCase(person.getName().fullName));
         phone.setText(person.getPhone().value);
         level.setText(person.getLevel().toString());
         person.getClassGroups().stream()
                 .sorted(Comparator.comparing(classGroup -> classGroup.classGroupName))
-                .forEach(classGroup -> classGroups.getChildren().add(new Label(classGroup.classGroupName)));
+                .forEach(classGroup -> classGroups.getChildren().add(
+                        new Label(StringUtil.toTitleCase(classGroup.classGroupName))));
         person.getAssignments().stream()
                 .sorted(Comparator.comparing(assignment -> assignment.assignmentName))
                 .forEach(assignment -> {
                     Label container = new Label();
-                    javafx.scene.text.Text text = new javafx.scene.text.Text(assignment.getAssignmentName());
+                    javafx.scene.text.Text text = new javafx.scene.text.Text(
+                            StringUtil.toTitleCase(assignment.getAssignmentName()));
                     if (assignment.isMarked()) {
                         text.setStrikethrough(true);
                         text.setFill(javafx.scene.paint.Color.GRAY);

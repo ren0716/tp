@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSGROUP;
 
 import java.util.Optional;
 
@@ -20,7 +21,7 @@ public class UnmarkAssignmentCommandParser implements Parser<UnmarkAssignmentCom
      * Parses the given {@code String} of arguments in the context of the UnmarkAssignmentCommand
      * and returns an UnmarkAssignmentCommand object for execution.
      *
-     * The expected format is: INDEX a/ASSIGNMENT_NAME
+     * The expected format is: INDEX c/CLASS_GROUP a/ASSIGNMENT_NAME
      *
      * @param args full user input string (arguments portion)
      * @return an UnmarkAssignmentCommand containing the parsed index and assignment
@@ -32,16 +33,29 @@ public class UnmarkAssignmentCommandParser implements Parser<UnmarkAssignmentCom
         ArgumentMultimap argMultimap = tokenizeArguments(args);
 
         Index index = parseIndexFromPreamble(argMultimap);
-        Assignment assignment = parseAssignmentValue(argMultimap);
+
+        // Check if class group is provided
+        if (!argMultimap.getValue(PREFIX_CLASSGROUP).isPresent()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    UnmarkAssignmentCommand.MESSAGE_USAGE));
+        }
+
+        String classGroupName = argMultimap.getValue(PREFIX_CLASSGROUP).get().trim().toLowerCase();
+        if (classGroupName.isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    UnmarkAssignmentCommand.MESSAGE_USAGE));
+        }
+
+        Assignment assignment = parseAssignmentValue(argMultimap, classGroupName);
 
         return new UnmarkAssignmentCommand(index, assignment);
     }
 
     /**
-     * Tokenizes the raw argument string using the assignment prefix.
+     * Tokenizes the raw argument string using the assignment and classgroup prefixes.
      */
     private ArgumentMultimap tokenizeArguments(String args) {
-        return ArgumentTokenizer.tokenize(args, PREFIX_ASSIGNMENT);
+        return ArgumentTokenizer.tokenize(args, PREFIX_ASSIGNMENT, PREFIX_CLASSGROUP);
     }
 
     /**
@@ -63,13 +77,14 @@ public class UnmarkAssignmentCommandParser implements Parser<UnmarkAssignmentCom
      *
      * @throws ParseException if the assignment value is missing or invalid
      */
-    private Assignment parseAssignmentValue(ArgumentMultimap argMultimap) throws ParseException {
+    private Assignment parseAssignmentValue(ArgumentMultimap argMultimap, String classGroupName)
+            throws ParseException {
         Optional<String> assignmentValue = argMultimap.getValue(PREFIX_ASSIGNMENT);
         if (assignmentValue.isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     UnmarkAssignmentCommand.MESSAGE_USAGE));
         }
 
-        return ParserUtil.parseAssignment(assignmentValue.get());
+        return ParserUtil.parseAssignment(assignmentValue.get(), classGroupName);
     }
 }
