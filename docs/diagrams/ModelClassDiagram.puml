@@ -48,6 +48,7 @@ UniquePersonList -[hidden]right-> I
 
 Name -[hidden]right-> Phone
 Phone -[hidden]right-> Level
+Level -[hidden]right-> Class
 Class -[hidden]right-> Assignment
 
 ModelManager --> "~* filtered" Person
