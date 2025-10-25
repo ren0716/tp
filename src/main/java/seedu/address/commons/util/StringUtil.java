@@ -1,8 +1,5 @@
 package seedu.address.commons.util;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
-
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Arrays;
@@ -39,6 +36,29 @@ public class StringUtil {
     }
 
     /**
+     * Returns true if the {@code sentence} contains the {@code word}.
+     *   Ignores case, and supports partial matching.
+     *   <br>examples:<pre>
+     *       containsIgnoreCase("ABc def", "abc") == true
+     *       containsIgnoreCase("ABc def", "DEF") == true
+     *       containsIgnoreCase("ABc def", "AB") == true
+     *       </pre>
+     * @param sentence cannot be null
+     * @param word cannot be null, cannot be empty
+     */
+    public static boolean containsIgnoreCase(String sentence, String word) {
+        requireNonNull(sentence);
+        requireNonNull(word);
+
+        String preppedWord = word.trim();
+        checkArgument(!preppedWord.isEmpty(), "Word parameter cannot be empty");
+
+        String preppedSentence = sentence;
+
+        return preppedSentence.toLowerCase().contains(preppedWord.toLowerCase());
+    }
+
+    /**
      * Returns a detailed message of the t, including the stack trace.
      */
     public static String getDetails(Throwable t) {
@@ -63,6 +83,48 @@ public class StringUtil {
             return value > 0 && !s.startsWith("+"); // "+1" is successfully parsed by Integer#parseInt(String)
         } catch (NumberFormatException nfe) {
             return false;
+        }
+    }
+
+    /**
+     * Converts a lowercase string to title case (first letter of each word capitalized).
+     * Words are separated by spaces or hyphens.
+     *
+     * @param input The string to convert to title case
+     * @return The input string with the first letter of each word capitalized
+     */
+    public static String toTitleCase(String input) {
+        if (input == null || input.isEmpty()) {
+            return input;
+        }
+
+        StringBuilder titleCase = new StringBuilder();
+        boolean capitalizeNext = true;
+
+        for (char c : input.toCharArray()) {
+            if (Character.isWhitespace(c) || c == '-') {
+                titleCase.append(c);
+                capitalizeNext = true;
+            } else if (capitalizeNext) {
+                titleCase.append(Character.toUpperCase(c));
+                capitalizeNext = false;
+            } else {
+                titleCase.append(c);
+            }
+        }
+
+        return titleCase.toString();
+    }
+
+    private static void requireNonNull(Object obj) {
+        if (obj == null) {
+            throw new NullPointerException();
+        }
+    }
+
+    private static void checkArgument(boolean condition, String message) {
+        if (!condition) {
+            throw new IllegalArgumentException(message);
         }
     }
 }

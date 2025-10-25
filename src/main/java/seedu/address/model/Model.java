@@ -84,4 +84,19 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /**
+     * Replaces current address book data with the data prior to the latest command
+     */
+    void undo();
+
+    /**
+     * Commits current address book data into versioned address book
+     */
+    void commit();
+
+    /**
+     * Restores the address book data that was undone by the most recent undo command
+     */
+    void redo();
 }

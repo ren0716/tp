@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -28,11 +29,14 @@ public class UnmarkAssignmentCommand extends Command {
     public static final String COMMAND_WORD = "unmark";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Unmarks the assignment of the student identified by the index number"
+            + ": Unmarks the assignment of the student identified by the index number "
             + "used in the displayed person list and the assignment name.\n"
             + "Parameters: INDEX (must be a positive integer) "
+            + "c/CLASS_GROUP "
             + "a/ASSIGNMENT_NAME\n"
-            + "Example: " + COMMAND_WORD + " 1" + " a/Physics-1800\n";
+            + "Example: " + COMMAND_WORD + " 1 "
+            + "c/Math-2000 "
+            + "a/Homework1\n";
 
     private static final Logger logger = LogsCenter.getLogger(UnmarkAssignmentCommand.class);
 
@@ -175,7 +179,14 @@ public class UnmarkAssignmentCommand extends Command {
      * Formats the user-visible success message after unmarking an assignment.
      */
     private String formatSuccessMessage(Assignment a, Person p) {
-        return String.format(MESSAGE_UNMARK_PERSON_SUCCESS, a.getAssignmentName(), p.getName());
+        String assignmentNameTitleCase = StringUtil.toTitleCase(a.getAssignmentName());
+        String personNameTitleCase = StringUtil.toTitleCase(p.getName().fullName);
+        return String.format(MESSAGE_UNMARK_PERSON_SUCCESS, assignmentNameTitleCase, personNameTitleCase);
+    }
+
+    @Override
+    public String getCommandWord() {
+        return COMMAND_WORD;
     }
 
     @Override

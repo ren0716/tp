@@ -141,7 +141,6 @@ public class DeleteClassCommand extends Command {
         Name updatedName = personToEdit.getName();
         Phone updatedPhone = personToEdit.getPhone();
         Level updatedLevel = personToEdit.getLevel();
-        Set<Assignment> updatedAssignments = personToEdit.getAssignments();
         Set<ClassGroup> currentClasses = new HashSet<>(personToEdit.getClassGroups());
         Set<ClassGroup> toDelete = findDeletableClasses(personToEdit, deleteClassDescriptor);
         Set<ClassGroup> nonExistent = findNonExistentClasses(personToEdit, deleteClassDescriptor);
@@ -156,6 +155,15 @@ public class DeleteClassCommand extends Command {
 
         currentClasses.removeAll(toDelete);
 
+        // Remove assignments associated with deleted class groups
+        Set<String> deletedClassGroupNames = toDelete.stream()
+                .map(ClassGroup::getClassGroupName)
+                .collect(Collectors.toSet());
+
+        Set<Assignment> updatedAssignments = personToEdit.getAssignments().stream()
+                .filter(assignment -> !deletedClassGroupNames.contains(assignment.classGroupName))
+                .collect(Collectors.toSet());
+
         return new Person(
                 updatedName,
                 updatedPhone,
@@ -163,6 +171,11 @@ public class DeleteClassCommand extends Command {
                 currentClasses,
                 updatedAssignments
         );
+    }
+
+    @Override
+    public String getCommandWord() {
+        return COMMAND_WORD;
     }
 
     @Override
@@ -260,4 +273,3 @@ public class DeleteClassCommand extends Command {
         }
     }
 }
-

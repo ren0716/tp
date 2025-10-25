@@ -8,6 +8,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 class JsonAdaptedAssignmentWrapper {
     @JsonProperty("name")
     private String assignmentName;
+    @JsonProperty("classGroup")
+    private String classGroupName;
     @JsonProperty("marked")
     private boolean isMarked;
 
@@ -17,11 +19,16 @@ class JsonAdaptedAssignmentWrapper {
 
     public JsonAdaptedAssignmentWrapper(JsonAdaptedAssignment assignment) {
         this.assignmentName = assignment.getAssignmentName();
+        this.classGroupName = assignment.getClassGroupName();
         this.isMarked = assignment.isMarked();
     }
 
     public String getAssignmentName() {
         return assignmentName;
+    }
+
+    public String getClassGroupName() {
+        return classGroupName;
     }
 
     public boolean isMarked() {

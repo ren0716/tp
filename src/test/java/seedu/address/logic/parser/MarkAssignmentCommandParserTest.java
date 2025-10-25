@@ -25,8 +25,11 @@ public class MarkAssignmentCommandParserTest {
     @Test
     public void parse_validInput_success() {
         Index expectedIndex = Index.fromOneBased(1);
-        Assignment expectedAssignment = new AssignmentBuilder().withName("Physics-1800").build();
-        String userInput = "1 a/Physics-1800";
+        Assignment expectedAssignment = new AssignmentBuilder()
+                .withName("physics-1800")
+                .withClassGroup("physics-1800")
+                .build();
+        String userInput = "1 c/physics-1800 a/Physics-1800";
 
         try {
             var command = parser.parse(userInput);

@@ -14,10 +14,10 @@ Class UserPrefs
 
 Class UniquePersonList
 Class Person
-Class Address
+Class Level
 Class Name
 Class Phone
-Class Tag
+Class Class
 Class Assignment
 
 Class I #FFFFFF
@@ -39,16 +39,16 @@ AddressBook *--> "1" UniquePersonList
 UniquePersonList --> "~* all" Person
 Person *--> Name
 Person *--> Phone
-Person *--> Address
-Person *--> "*" Tag
+Person *--> Level
+Person *--> "*" Class
 Person *--> "*" Assignment
 
 Person -[hidden]up--> I
 UniquePersonList -[hidden]right-> I
 
 Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Tag -[hidden]right-> Assignment
+Phone -[hidden]right-> Level
+Class -[hidden]right-> Assignment
 
 ModelManager --> "~* filtered" Person
 @enduml

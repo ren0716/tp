@@ -50,11 +50,14 @@ public class TypicalPersons {
 
     // Manually added - Person's details found in {@code CommandTestUtil}
     public static final Person AMY = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
-            .withLevel(VALID_LEVEL_AMY).withAssignments(VALID_ASSIGNMENT_MATH)
-            .withClassGroups(VALID_CLASSGROUP_MATH).build();
+            .withLevel(VALID_LEVEL_AMY)
+            .withClassGroups(VALID_CLASSGROUP_MATH)
+            .withAssignments(VALID_CLASSGROUP_MATH, VALID_ASSIGNMENT_MATH)
+            .build();
     public static final Person BOB = new PersonBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
-            .withLevel(VALID_LEVEL_BOB).withAssignments(VALID_ASSIGNMENT_PHYSICS, VALID_ASSIGNMENT_MATH)
+            .withLevel(VALID_LEVEL_BOB)
             .withClassGroups(VALID_CLASSGROUP_PHYSICS, VALID_CLASSGROUP_MATH)
+            .withAssignments(VALID_CLASSGROUP_PHYSICS, VALID_ASSIGNMENT_PHYSICS)
             .build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER

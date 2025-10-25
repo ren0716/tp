@@ -38,16 +38,27 @@ public class AddAssignmentCommandTest {
     @Test
     public void execute_addAssignment_success() throws Exception {
         Person personToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        Assignment validAssignment = new AssignmentBuilder().withName("HW1").build();
+
+        // Ensure the person has the class group that the assignment belongs to
+        String classGroup = "test-class";
+        Person personWithClassGroup = new PersonBuilder(personToEdit)
+                .withClassGroups(classGroup)
+                .build();
+        model.setPerson(personToEdit, personWithClassGroup);
+
+        Assignment validAssignment = new AssignmentBuilder()
+                .withName("HW1")
+                .withClassGroup(classGroup)
+                .build();
         AddAssignmentCommand.AddAssignmentDescriptor descriptor = new AddAssignmentCommand.AddAssignmentDescriptor();
         descriptor.setAssignments(Set.of(validAssignment));
         AddAssignmentCommand command = new AddAssignmentCommand(INDEX_FIRST_PERSON, descriptor);
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        Person editedPerson = new PersonBuilder(personToEdit)
-                .withAssignments(validAssignment.getAssignmentName())
+        Person editedPerson = new PersonBuilder(personWithClassGroup)
+                .withAssignments(classGroup, validAssignment.getAssignmentName())
                 .build();
-        expectedModel.setPerson(personToEdit, editedPerson);
+        expectedModel.setPerson(personWithClassGroup, editedPerson);
 
         String expectedMessage = String.format(AddAssignmentCommand.MESSAGE_SUCCESS,
                 Messages.format(editedPerson));
@@ -62,9 +73,19 @@ public class AddAssignmentCommandTest {
      */
     @Test
     public void execute_duplicateAssignment_failure() {
-        Assignment duplicate = new AssignmentBuilder().withName("EXISTING").build();
+        String classGroup = "default-class";
+        Assignment duplicate = new AssignmentBuilder()
+                .withName("EXISTING")
+                .withClassGroup(classGroup)
+                .build();
+
         Person original = model.getFilteredPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
-        Person withAssignment = new PersonBuilder(original).withAssignments(duplicate.getAssignmentName()).build();
+
+        // Add the class group and assignment to the person
+        Person withAssignment = new PersonBuilder(original)
+                .withClassGroups(classGroup)
+                .withAssignments(classGroup, duplicate.getAssignmentName())
+                .build();
         model.setPerson(original, withAssignment);
 
         AddAssignmentCommand.AddAssignmentDescriptor descriptor = new AddAssignmentCommand.AddAssignmentDescriptor();
@@ -73,6 +94,27 @@ public class AddAssignmentCommandTest {
 
         assertCommandFailure(command, model, String.format(
                 AddAssignmentCommand.MESSAGE_DUPLICATE_ASSIGNMENT, duplicate.getAssignmentName()));
+    }
+
+    /**
+     * Tests that attempting to add an assignment with a class group the student doesn't belong to fails.
+     * Verifies that the command throws an exception when the student is not enrolled in the
+     * class group specified for the assignment.
+     */
+    @Test
+    public void execute_studentNotInClassGroup_failure() {
+        Person personToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        // Create an assignment with a class group the student doesn't have
+        Assignment assignmentWithInvalidClass = new AssignmentBuilder()
+                .withName("HW1")
+                .withClassGroup("nonexistent-class")
+                .build();
+        AddAssignmentCommand.AddAssignmentDescriptor descriptor = new AddAssignmentCommand.AddAssignmentDescriptor();
+        descriptor.setAssignments(Set.of(assignmentWithInvalidClass));
+        AddAssignmentCommand command = new AddAssignmentCommand(INDEX_FIRST_PERSON, descriptor);
+
+        assertCommandFailure(command, model, String.format(
+                AddAssignmentCommand.MESSAGE_STUDENT_NOT_IN_CLASS_GROUP, "nonexistent-class"));
     }
 
     /**
@@ -200,5 +242,225 @@ public class AddAssignmentCommandTest {
         AddAssignmentCommand command = new AddAssignmentCommand(INDEX_FIRST_PERSON, emptyDescriptor);
 
         assertCommandFailure(command, model, AddAssignmentCommand.MESSAGE_ASSIGNMENT_NOT_ADDED);
+    }
+
+    /**
+     * Tests that executing a command with empty assignment set fails.
+     * Verifies that the command throws an exception when the assignment set is explicitly empty.
+     */
+    @Test
+    public void execute_emptyAssignmentSet_failure() {
+        AddAssignmentCommand.AddAssignmentDescriptor descriptor = new AddAssignmentCommand.AddAssignmentDescriptor();
+        descriptor.setAssignments(Set.of());
+        AddAssignmentCommand command = new AddAssignmentCommand(INDEX_FIRST_PERSON, descriptor);
+
+        assertCommandFailure(command, model, AddAssignmentCommand.MESSAGE_ASSIGNMENT_NOT_ADDED);
+    }
+
+    /**
+     * Tests the copy constructor of AddAssignmentDescriptor.
+     * Verifies that the copy constructor creates a proper defensive copy.
+     */
+    @Test
+    public void descriptorCopyConstructor_validDescriptor_success() {
+        Assignment assignment = new AssignmentBuilder().withName("Test-HW").build();
+        AddAssignmentCommand.AddAssignmentDescriptor original = new AddAssignmentCommand.AddAssignmentDescriptor();
+        original.setAssignments(Set.of(assignment));
+
+        AddAssignmentCommand.AddAssignmentDescriptor copy = new AddAssignmentCommand.AddAssignmentDescriptor(original);
+
+        assertEquals(original, copy);
+        assertTrue(original.getAssignments().equals(copy.getAssignments()));
+    }
+
+    /**
+     * Tests the copy constructor with null assignments.
+     * Verifies that the copy constructor handles null assignments properly.
+     */
+    @Test
+    public void descriptorCopyConstructor_nullAssignments_success() {
+        AddAssignmentCommand.AddAssignmentDescriptor original = new AddAssignmentCommand.AddAssignmentDescriptor();
+        AddAssignmentCommand.AddAssignmentDescriptor copy = new AddAssignmentCommand.AddAssignmentDescriptor(original);
+
+        assertEquals(original, copy);
+        assertFalse(copy.getAssignments().isPresent());
+    }
+
+    /**
+     * Tests the getAssignments method returns an unmodifiable set.
+     * Verifies that attempting to modify the returned set throws an exception.
+     */
+    @Test
+    public void descriptorGetAssignments_returnsUnmodifiableSet() {
+        Assignment assignment = new AssignmentBuilder().withName("Protected-HW").build();
+        AddAssignmentCommand.AddAssignmentDescriptor descriptor = new AddAssignmentCommand.AddAssignmentDescriptor();
+        descriptor.setAssignments(Set.of(assignment));
+
+        Set<Assignment> assignments = descriptor.getAssignments().get();
+
+        // Attempting to modify should throw UnsupportedOperationException
+        try {
+            assignments.add(new AssignmentBuilder().withName("NewHW").build());
+            // If we reach here, the test should fail
+            assertTrue(false, "Expected UnsupportedOperationException");
+        } catch (UnsupportedOperationException e) {
+            // Expected behavior
+            assertTrue(true);
+        }
+    }
+
+    /**
+     * Tests the getAssignments method when assignments is null.
+     * Verifies that Optional.empty() is returned when no assignments are set.
+     */
+    @Test
+    public void descriptorGetAssignments_nullAssignments_returnsEmpty() {
+        AddAssignmentCommand.AddAssignmentDescriptor descriptor = new AddAssignmentCommand.AddAssignmentDescriptor();
+        assertFalse(descriptor.getAssignments().isPresent());
+    }
+
+    /**
+     * Tests descriptor equals method with same object.
+     * Verifies reflexive property of equals.
+     */
+    @Test
+    public void descriptorEquals_sameObject_returnsTrue() {
+        AddAssignmentCommand.AddAssignmentDescriptor descriptor = new AddAssignmentCommand.AddAssignmentDescriptor();
+        assertTrue(descriptor.equals(descriptor));
+    }
+
+    /**
+     * Tests descriptor equals method with null.
+     * Verifies that equals returns false when compared to null.
+     */
+    @Test
+    public void descriptorEquals_null_returnsFalse() {
+        AddAssignmentCommand.AddAssignmentDescriptor descriptor = new AddAssignmentCommand.AddAssignmentDescriptor();
+        assertFalse(descriptor.equals(null));
+    }
+
+    /**
+     * Tests descriptor equals method with different type.
+     * Verifies that equals returns false when compared to a different type.
+     */
+    @Test
+    public void descriptorEquals_differentType_returnsFalse() {
+        AddAssignmentCommand.AddAssignmentDescriptor descriptor = new AddAssignmentCommand.AddAssignmentDescriptor();
+        assertFalse(descriptor.equals("string"));
+    }
+
+    /**
+     * Tests descriptor equals method with different assignments.
+     * Verifies that descriptors with different assignments are not equal.
+     */
+    @Test
+    public void descriptorEquals_differentAssignments_returnsFalse() {
+        Assignment a1 = new AssignmentBuilder().withName("HW1").build();
+        Assignment a2 = new AssignmentBuilder().withName("HW2").build();
+
+        AddAssignmentCommand.AddAssignmentDescriptor desc1 = new AddAssignmentCommand.AddAssignmentDescriptor();
+        desc1.setAssignments(Set.of(a1));
+
+        AddAssignmentCommand.AddAssignmentDescriptor desc2 = new AddAssignmentCommand.AddAssignmentDescriptor();
+        desc2.setAssignments(Set.of(a2));
+
+        assertFalse(desc1.equals(desc2));
+    }
+
+    /**
+     * Tests descriptor equals with both having null assignments.
+     * Verifies that two descriptors with null assignments are equal.
+     */
+    @Test
+    public void descriptorEquals_bothNullAssignments_returnsTrue() {
+        AddAssignmentCommand.AddAssignmentDescriptor desc1 = new AddAssignmentCommand.AddAssignmentDescriptor();
+        AddAssignmentCommand.AddAssignmentDescriptor desc2 = new AddAssignmentCommand.AddAssignmentDescriptor();
+
+        assertTrue(desc1.equals(desc2));
+    }
+
+    /**
+     * Tests command equals with different object type.
+     * Verifies that command equals returns false for non-AddAssignmentCommand objects.
+     */
+    @Test
+    public void equals_differentType_returnsFalse() {
+        Assignment assignment = new AssignmentBuilder().withName("HW1").build();
+        AddAssignmentCommand.AddAssignmentDescriptor descriptor = new AddAssignmentCommand.AddAssignmentDescriptor();
+        descriptor.setAssignments(Set.of(assignment));
+        AddAssignmentCommand command = new AddAssignmentCommand(INDEX_FIRST_PERSON, descriptor);
+
+        assertFalse(command.equals("string"));
+    }
+
+    /**
+     * Tests adding multiple assignments at once.
+     * Verifies that multiple assignments can be added in a single command.
+     */
+    @Test
+    public void execute_addMultipleAssignments_success() throws Exception {
+        Person personToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+
+        String classGroup = "multi-test-class";
+        Person personWithClassGroup = new PersonBuilder(personToEdit)
+                .withClassGroups(classGroup)
+                .build();
+        model.setPerson(personToEdit, personWithClassGroup);
+
+        Assignment assignment1 = new AssignmentBuilder()
+                .withName("HW1")
+                .withClassGroup(classGroup)
+                .build();
+        Assignment assignment2 = new AssignmentBuilder()
+                .withName("HW2")
+                .withClassGroup(classGroup)
+                .build();
+
+        AddAssignmentCommand.AddAssignmentDescriptor descriptor = new AddAssignmentCommand.AddAssignmentDescriptor();
+        descriptor.setAssignments(Set.of(assignment1, assignment2));
+        AddAssignmentCommand command = new AddAssignmentCommand(INDEX_FIRST_PERSON, descriptor);
+
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Person editedPerson = new PersonBuilder(personWithClassGroup)
+                .withAssignments(classGroup, "HW1", "HW2")
+                .build();
+        expectedModel.setPerson(personWithClassGroup, editedPerson);
+
+        String expectedMessage = String.format(AddAssignmentCommand.MESSAGE_SUCCESS,
+                Messages.format(editedPerson));
+
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+    }
+
+    /**
+     * Tests adding assignments when some are duplicates.
+     * Verifies that the command fails when any assignment is a duplicate.
+     */
+    @Test
+    public void execute_multipleDuplicateAssignments_failure() {
+        String classGroup = "dup-test-class";
+        Assignment existing1 = new AssignmentBuilder()
+                .withName("EXISTING1")
+                .withClassGroup(classGroup)
+                .build();
+        Assignment existing2 = new AssignmentBuilder()
+                .withName("EXISTING2")
+                .withClassGroup(classGroup)
+                .build();
+
+        Person original = model.getFilteredPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
+        Person withAssignments = new PersonBuilder(original)
+                .withClassGroups(classGroup)
+                .withAssignments(classGroup, "EXISTING1", "EXISTING2")
+                .build();
+        model.setPerson(original, withAssignments);
+
+        AddAssignmentCommand.AddAssignmentDescriptor descriptor = new AddAssignmentCommand.AddAssignmentDescriptor();
+        descriptor.setAssignments(Set.of(existing1, existing2));
+        AddAssignmentCommand command = new AddAssignmentCommand(INDEX_SECOND_PERSON, descriptor);
+
+        // Should fail with duplicate message containing both assignment names
+        assertCommandFailure(command, model,
+                String.format(AddAssignmentCommand.MESSAGE_DUPLICATE_ASSIGNMENT, "EXISTING1, EXISTING2"));
     }
 }

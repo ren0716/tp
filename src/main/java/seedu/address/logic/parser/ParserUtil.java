@@ -88,7 +88,7 @@ public class ParserUtil {
      */
     public static ClassGroup parseClassGroup(String classGroup) throws ParseException {
         requireNonNull(classGroup);
-        String trimmedClassGroup = classGroup.trim();
+        String trimmedClassGroup = classGroup.trim().toLowerCase();
         if (!ClassGroup.isValidClassGroupName(trimmedClassGroup)) {
             throw new ParseException(ClassGroup.MESSAGE_CONSTRAINTS);
         }
@@ -113,23 +113,31 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code assignment} is invalid.
      */
-    public static Assignment parseAssignment(String assignment) throws ParseException {
+    public static Assignment parseAssignment(String assignment, String classGroupName) throws ParseException {
         requireNonNull(assignment);
-        String trimmedAssignment = assignment.trim();
+        requireNonNull(classGroupName);
+        String trimmedAssignment = assignment.trim().toLowerCase();
+        String trimmedClassGroupName = classGroupName.trim().toLowerCase();
         if (!Assignment.isValidAssignmentName(trimmedAssignment)) {
             throw new ParseException(Assignment.MESSAGE_CONSTRAINTS);
         }
-        return new Assignment(trimmedAssignment);
+        if (!Assignment.isValidClassGroupName(trimmedClassGroupName)) {
+            throw new ParseException(Assignment.MESSAGE_CLASSGROUP_CONSTRAINTS);
+        }
+        return new Assignment(trimmedAssignment, trimmedClassGroupName);
     }
 
     /**
      * Parses {@code Collection<String> assignments} into a {@code Set<Assignments>}.
+     * All assignments will be assigned to the specified class group.
      */
-    public static Set<Assignment> parseAssignments(Collection<String> assignments) throws ParseException {
+    public static Set<Assignment> parseAssignments(Collection<String> assignments, String classGroupName)
+            throws ParseException {
         requireNonNull(assignments);
+        requireNonNull(classGroupName);
         final Set<Assignment> assignmentSet = new HashSet<>();
         for (String assignmentName : assignments) {
-            assignmentSet.add(parseAssignment(assignmentName));
+            assignmentSet.add(parseAssignment(assignmentName, classGroupName));
         }
         return assignmentSet;
     }

@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
+import seedu.address.model.versionedaddressbook.VersionedAddressBook;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -22,6 +23,7 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final VersionedAddressBook versions;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -32,6 +34,7 @@ public class ModelManager implements Model {
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         this.addressBook = new AddressBook(addressBook);
+        this.versions = new VersionedAddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
     }
@@ -95,6 +98,7 @@ public class ModelManager implements Model {
 
     @Override
     public void deletePerson(Person target) {
+
         addressBook.removePerson(target);
     }
 
@@ -145,4 +149,21 @@ public class ModelManager implements Model {
                 && filteredPersons.equals(otherModelManager.filteredPersons);
     }
 
+    //=========== VersionedAddressBook =======================================================================
+    @Override
+    public void undo() {
+        ReadOnlyAddressBook previous = this.versions.undo();
+        setAddressBook(previous);
+    }
+
+    @Override
+    public void commit() {
+        this.versions.commit(new AddressBook(getAddressBook()));
+    }
+
+    @Override
+    public void redo() {
+        ReadOnlyAddressBook next = this.versions.redo();
+        setAddressBook(next);
+    }
 }

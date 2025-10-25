@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSGROUP;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -29,7 +30,7 @@ public class DeleteAssignmentCommandParser implements Parser<DeleteAssignmentCom
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(
-                        args, PREFIX_ASSIGNMENT);
+                        args, PREFIX_ASSIGNMENT, PREFIX_CLASSGROUP);
 
         Index index;
 
@@ -40,9 +41,23 @@ public class DeleteAssignmentCommandParser implements Parser<DeleteAssignmentCom
                     DeleteAssignmentCommand.MESSAGE_USAGE), pe);
         }
 
+        // Check if class group is provided
+        if (!argMultimap.getValue(PREFIX_CLASSGROUP).isPresent()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    DeleteAssignmentCommand.MESSAGE_USAGE));
+        }
+
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CLASSGROUP);
+        String classGroupName = argMultimap.getValue(PREFIX_CLASSGROUP).get().trim().toLowerCase();
+
+        if (classGroupName.isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    DeleteAssignmentCommand.MESSAGE_USAGE));
+        }
+
         DeleteAssignmentDescriptor deleteAssignmentDescriptor = new DeleteAssignmentDescriptor();
 
-        parseAssignmentsForEdit(argMultimap.getAllValues(PREFIX_ASSIGNMENT))
+        parseAssignmentsForEdit(argMultimap.getAllValues(PREFIX_ASSIGNMENT), classGroupName)
                 .ifPresent(deleteAssignmentDescriptor::setAssignments);
 
         if (!deleteAssignmentDescriptor.isAssignmentDeleted()) {
@@ -57,7 +72,8 @@ public class DeleteAssignmentCommandParser implements Parser<DeleteAssignmentCom
      * If {@code assignments} contain only one element which is an empty string, it will be parsed into a
      * {@code Set<Assignment>} containing zero assignments.
      */
-    private Optional<Set<Assignment>> parseAssignmentsForEdit(Collection<String> assignments) throws ParseException {
+    private Optional<Set<Assignment>> parseAssignmentsForEdit(Collection<String> assignments, String classGroupName)
+            throws ParseException {
         assert assignments != null;
 
         if (assignments.isEmpty()) {
@@ -65,7 +81,7 @@ public class DeleteAssignmentCommandParser implements Parser<DeleteAssignmentCom
         }
         Collection<String> assignmentSet =
                 assignments.size() == 1 && assignments.contains("") ? Collections.emptySet() : assignments;
-        return Optional.of(ParserUtil.parseAssignments(assignmentSet));
+        return Optional.of(ParserUtil.parseAssignments(assignmentSet, classGroupName));
     }
 
 }
