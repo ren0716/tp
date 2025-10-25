@@ -681,4 +681,111 @@ public class AssignAllCommandTest {
             assertEquals(expectedError, e.getMessage());
         }
     }
+
+    /**
+     * Tests line 105: logger.fine with assignment toString when successfully assigned.
+     * Directly verifies the logging path that uses assignment.toString() after model.setPerson().
+     */
+    @Test
+    public void execute_line105_loggerFineAssignedToString() {
+        Model model = new ModelManager(new AddressBook(), new UserPrefs());
+        Person alice = new PersonBuilder().withName("Alice").withPhone("91234567")
+                .withLevel("1").withClassGroups(VALID_CLASSGROUP_MATH).build();
+        model.addPerson(alice);
+
+        Assignment assignment = new Assignment(VALID_ASSIGNMENT_MATH.toLowerCase(),
+                VALID_CLASSGROUP_MATH.toLowerCase());
+        AssignAllCommand command = new AssignAllCommand(VALID_CLASSGROUP_MATH.toLowerCase(), assignment);
+
+        try {
+            CommandResult result = command.execute(model);
+            // Verify the assignment was added (this path triggers line 105 logging)
+            Person updatedPerson = model.getFilteredPersonList().get(0);
+            assertTrue(updatedPerson.getAssignments().contains(assignment));
+            // Verify assignedCount was incremented (line 103)
+            assertTrue(result.getFeedbackToUser().contains("1 student"));
+        } catch (CommandException e) {
+            throw new AssertionError("Command should not fail", e);
+        }
+    }
+
+    /**
+     * Tests line 108: logger.fine when student already has assignment.
+     * Directly verifies the else branch logging that uses assignment.toString().
+     */
+    @Test
+    public void execute_line108_loggerFineAlreadyHasAssignment() {
+        Model model = new ModelManager(new AddressBook(), new UserPrefs());
+        // Create two students: one already has the assignment, one doesn't
+        Person alice = new PersonBuilder().withName("Alice").withPhone("91234567")
+                .withLevel("1").withClassGroups(VALID_CLASSGROUP_MATH)
+                .withAssignments(VALID_CLASSGROUP_MATH, VALID_ASSIGNMENT_MATH).build();
+        Person bob = new PersonBuilder().withName("Bob").withPhone("92345678")
+                .withLevel("2").withClassGroups(VALID_CLASSGROUP_MATH).build();
+        model.addPerson(alice);
+        model.addPerson(bob);
+
+        Assignment assignment = new Assignment(VALID_ASSIGNMENT_MATH.toLowerCase(),
+                VALID_CLASSGROUP_MATH.toLowerCase());
+        AssignAllCommand command = new AssignAllCommand(VALID_CLASSGROUP_MATH.toLowerCase(), assignment);
+
+        try {
+            CommandResult result = command.execute(model);
+            // Alice already had assignment (triggers line 108), Bob gets it (triggers line 105)
+            assertTrue(result.getFeedbackToUser().contains("1 student"));
+            // Verify both now have the assignment
+            for (Person person : model.getFilteredPersonList()) {
+                assertTrue(person.getAssignments().contains(assignment));
+            }
+        } catch (CommandException e) {
+            throw new AssertionError("Command should not fail", e);
+        }
+    }
+
+    /**
+     * Tests that both logging paths (lines 105 and 108) are triggered in same execution.
+     * Verifies mixed scenario where some students get new assignment and some already have it.
+     */
+    @Test
+    public void execute_lines105And108_bothLoggingPathsTriggered() {
+        Model model = new ModelManager(new AddressBook(), new UserPrefs());
+
+        // Create 4 students: 2 already have assignment, 2 don't
+        Person alice = new PersonBuilder().withName("Alice").withPhone("91234567")
+                .withLevel("1").withClassGroups(VALID_CLASSGROUP_MATH)
+                .withAssignments(VALID_CLASSGROUP_MATH, VALID_ASSIGNMENT_MATH).build();
+        Person bob = new PersonBuilder().withName("Bob").withPhone("92345678")
+                .withLevel("2").withClassGroups(VALID_CLASSGROUP_MATH).build();
+        Person charlie = new PersonBuilder().withName("Charlie").withPhone("93456789")
+                .withLevel("3").withClassGroups(VALID_CLASSGROUP_MATH)
+                .withAssignments(VALID_CLASSGROUP_MATH, VALID_ASSIGNMENT_MATH).build();
+        Person david = new PersonBuilder().withName("David").withPhone("94567890")
+                .withLevel("1").withClassGroups(VALID_CLASSGROUP_MATH).build();
+
+        model.addPerson(alice);
+        model.addPerson(bob);
+        model.addPerson(charlie);
+        model.addPerson(david);
+
+        Assignment assignment = new Assignment(VALID_ASSIGNMENT_MATH.toLowerCase(),
+                VALID_CLASSGROUP_MATH.toLowerCase());
+        AssignAllCommand command = new AssignAllCommand(VALID_CLASSGROUP_MATH.toLowerCase(), assignment);
+
+        try {
+            CommandResult result = command.execute(model);
+            // Should report 2 new assignments (Bob and David)
+            // Alice and Charlie trigger line 108 (already have it)
+            // Bob and David trigger line 105 (newly assigned)
+            assertTrue(result.getFeedbackToUser().contains("2 student"));
+
+            // Verify all four now have the assignment
+            assertEquals(4, model.getFilteredPersonList().size());
+            for (Person person : model.getFilteredPersonList()) {
+                assertTrue(person.getAssignments().contains(assignment),
+                        "Person " + person.getName() + " should have the assignment");
+            }
+        } catch (CommandException e) {
+            throw new AssertionError("Command should not fail", e);
+        }
+    }
 }
