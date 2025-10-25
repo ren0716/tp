@@ -337,28 +337,42 @@
     -fx-background-radius: 0;
 }
 
-#classGroups {
-    -fx-hgap: 7;
-    -fx-vgap: 3;
+/* Container that holds all "classGroup - assignments" rows */
+#classGroupAssignmentContainer {
+    -fx-spacing: 5;
 }
 
-#classGroups .label {
+/* Each row (HBox) */
+.classgroup-row {
+    -fx-alignment: center-left;
+    -fx-spacing: 5;
+}
+
+/* Label for class group name */
+.classgroup-label {
     -fx-text-fill: white;
-    -fx-background-color: #3e7b91;
+    -fx-background-color: #3e7b91;  /* same color as your old #classGroups */
     -fx-padding: 3 5 3 5;
     -fx-border-radius: 2;
     -fx-background-radius: 2;
     -fx-font-size: 11;
 }
 
-#assignments {
+/* The dash between class group and assignments */
+.separator-label {
+    -fx-text-fill: #cccccc;
+}
+
+/* FlowPane that holds assignment labels */
+.assignment-flow {
     -fx-hgap: 7;
     -fx-vgap: 3;
 }
 
-#assignments .label {
+/* Each assignment label */
+.assignment-flow .label {
     -fx-text-fill: white;
-    -fx-background-color: #FFA500;
+    -fx-background-color: #FFA500;  /* same orange as before */
     -fx-padding: 3 5 3 5;
     -fx-border-radius: 5;
     -fx-background-radius: 5;
