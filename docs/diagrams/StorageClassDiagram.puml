@@ -22,7 +22,6 @@ Class JsonAdaptedPerson
 Class JsonAdaptedTag
 Class JsonAdaptedClassGroup
 Class JsonAdaptedAssignment
-Class JsonAdaptedAssignmentWrapper
 }
 
 }
@@ -43,7 +42,5 @@ JsonAddressBookStorage ..> JsonSerializableAddressBook
 JsonSerializableAddressBook --> "*" JsonAdaptedPerson
 JsonAdaptedPerson --> "*" JsonAdaptedTag
 JsonAdaptedPerson --> "*" JsonAdaptedClassGroup
-JsonAdaptedPerson --> "*" JsonAdaptedAssignment
-JsonAdaptedAssignment ..> JsonAdaptedAssignmentWrapper : uses >
 
 @enduml
