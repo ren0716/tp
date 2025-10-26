@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSGROUP;
 
+import java.util.List;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.UnmarkAssignmentCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -29,12 +30,13 @@ public class UnmarkAssignmentCommandParser implements Parser<UnmarkAssignmentCom
         requireNonNull(args);
         ArgumentMultimap argMultimap = tokenizeArguments(args);
 
-        Index index = ParserUtil.parseIndexFromPreamble(argMultimap, UnmarkAssignmentCommand.MESSAGE_USAGE);
+        // Parse index or index range
+        List<Index> indices = ParserUtil.parseIndexSpecification(argMultimap.getPreamble());
         String classGroupName = ParserUtil.parseClassGroupName(argMultimap, UnmarkAssignmentCommand.MESSAGE_USAGE);
         Assignment assignment = ParserUtil.parseAssignmentValue(argMultimap, classGroupName,
                 UnmarkAssignmentCommand.MESSAGE_USAGE);
 
-        return new UnmarkAssignmentCommand(index, assignment);
+        return new UnmarkAssignmentCommand(indices, assignment);
     }
 
     /**
