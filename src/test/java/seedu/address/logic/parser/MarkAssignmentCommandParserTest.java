@@ -57,7 +57,25 @@ public class MarkAssignmentCommandParserTest {
         } catch (ParseException pe) {
             fail("Unexpected ParseException thrown for valid range input.");
         }
+
+        // Test multiple indices (mix of single and ranges)
+        String multipleIndexInput = "1 3 5-7 c/physics-1800 a/Physics-1800";
+        List<Index> expectedMultipleIndices = Arrays.asList(
+                Index.fromOneBased(1),
+                Index.fromOneBased(3),
+                Index.fromOneBased(5),
+                Index.fromOneBased(6),
+                Index.fromOneBased(7)
+        );
+        try {
+            var command = parser.parse(multipleIndexInput);
+            var expectedCommand = new MarkAssignmentCommand(expectedMultipleIndices, expectedAssignment);
+            assertEquals(expectedCommand, command);
+        } catch (ParseException pe) {
+            fail("Unexpected ParseException thrown for valid multiple indices input.");
+        }
     }
+
 
     /**
      * Tests that parsing fails when the assignment prefix is missing.
@@ -78,7 +96,7 @@ public class MarkAssignmentCommandParserTest {
     @Test
     public void parse_invalidIndex_throwsParseException() {
         String userInput = "a c/physics-1800 a/Physics-1800"; // 'a' is not a valid index
-        String expectedMessage = ParserUtil.MESSAGE_INVALID_INDEX;
+        String expectedMessage = ParserUtil.MESSAGE_INVALID_INDEX_FORMAT;
         assertParseFailure(parser, userInput, expectedMessage);
     }
 

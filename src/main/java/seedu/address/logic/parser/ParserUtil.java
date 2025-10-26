@@ -8,6 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSGROUP;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -30,6 +31,8 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_INDEX_RANGE =
             "Invalid index range format. Expected format: START-END where START and END are positive integers "
             + "and START is less than or equal to END.";
+    public static final String MESSAGE_INVALID_INDEX_FORMAT = "Invalid index format. "
+            + "Use space-separated indices or ranges. Examples: '1 2 3' or '1-3' or '1 2-4 6'";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -56,13 +59,7 @@ public class ParserUtil {
      */
     public static List<Index> parseIndexSpecification(String indexSpec) throws ParseException {
         String trimmedSpec = indexSpec.trim();
-        // Check if it contains a hyphen for range format
-        if (trimmedSpec.contains("-")) {
-            return parseIndexRange(trimmedSpec);
-        } else {
-            // Single index case
-            return parseSingleIndex(trimmedSpec);
-        }
+        return parseMultipleIndex(indexSpec);
     }
 
     /**
@@ -104,6 +101,34 @@ public class ParserUtil {
         } catch (NumberFormatException e) {
             throw new ParseException(MESSAGE_INVALID_INDEX_RANGE);
         }
+    }
+
+    private static List<Index> parseMultipleIndex(String input) throws ParseException {
+        // Regex for validating whole string
+        String regex = "^\\s*(?:\\d+\\s*(?:-\\s*\\d+)?)(?:\\s+\\d+\\s*(?:-\\s*\\d+)?)*\\s*$";
+
+        if (input == null || !input.trim().matches(regex)) {
+            throw new ParseException(MESSAGE_INVALID_INDEX_FORMAT);
+        }
+
+        input.replaceAll("\\s*-\\s*", "-");
+        String[] tokens = input.trim().split("\\s+");
+        Set<Index> uniqueIndices = new LinkedHashSet<>(); // preserves order, removes duplicates
+
+        for (String token : tokens) {
+            if (token.contains("-")) {
+                // Handle ranges like "2-5"
+                uniqueIndices.addAll(parseIndexRange(token));
+            } else {
+                // Handle single indices like "3"
+                if (!StringUtil.isNonZeroUnsignedInteger(token)) {
+                    throw new ParseException(MESSAGE_INVALID_INDEX_FORMAT);
+                }
+                uniqueIndices.addAll(parseSingleIndex(token));
+            }
+        }
+
+        return new ArrayList<>(uniqueIndices);
     }
 
     /**

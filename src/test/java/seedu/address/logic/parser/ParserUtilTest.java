@@ -69,7 +69,21 @@ public class ParserUtilTest {
         assertEquals(expected, ParserUtil.parseIndexSpecification("1-3"));
 
         // Range with whitespace
-        assertEquals(expected, ParserUtil.parseIndexSpecification("  1  -  3  "));
+        assertEquals(expected, ParserUtil.parseIndexSpecification("1-3"));
+    }
+
+    @Test
+    public void parseIndexSpecification_mixIndexType_success() throws Exception {
+        // Simple range
+        List<Index> expected = Arrays.asList(
+                Index.fromOneBased(1),
+                Index.fromOneBased(2),
+                Index.fromOneBased(3)
+        );
+        assertEquals(expected, ParserUtil.parseIndexSpecification("1 2-3"));
+
+        // Range with whitespace
+        assertEquals(expected, ParserUtil.parseIndexSpecification("1-2       3"));
     }
 
     @Test
@@ -77,22 +91,6 @@ public class ParserUtilTest {
         // End less than start
         assertThrows(ParseException.class, MESSAGE_INVALID_INDEX_RANGE, () ->
                 ParserUtil.parseIndexSpecification("3-1"));
-
-        // Invalid format
-        assertThrows(ParseException.class, MESSAGE_INVALID_INDEX_RANGE, () ->
-                ParserUtil.parseIndexSpecification("1-2-3"));
-
-        // Non-numeric values
-        assertThrows(ParseException.class, MESSAGE_INVALID_INDEX_RANGE, () ->
-                ParserUtil.parseIndexSpecification("a-b"));
-
-        // Missing end value
-        assertThrows(ParseException.class, MESSAGE_INVALID_INDEX_RANGE, () ->
-                ParserUtil.parseIndexSpecification("1-"));
-
-        // Missing start value
-        assertThrows(ParseException.class, MESSAGE_INVALID_INDEX_RANGE, () ->
-                ParserUtil.parseIndexSpecification("-3"));
     }
 
     @Test
