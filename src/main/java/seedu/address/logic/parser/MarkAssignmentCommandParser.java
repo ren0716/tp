@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSGROUP;
 
+import java.util.List;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.MarkAssignmentCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -18,10 +20,12 @@ public class MarkAssignmentCommandParser implements Parser<MarkAssignmentCommand
      * Parses the given {@code String} of arguments in the context of the MarkAssignmentCommand
      * and returns a MarkAssignmentCommand object for execution.
      *
-     * The expected format is: INDEX c/CLASS_GROUP a/ASSIGNMENT_NAME
+     * The expected format is either:
+     * - Single index: INDEX c/CLASS_GROUP a/ASSIGNMENT_NAME
+     * - Index range: START-END c/CLASS_GROUP a/ASSIGNMENT_NAME
      *
      * @param args full user input string (arguments portion)
-     * @return a MarkAssignmentCommand containing the parsed index and assignment
+     * @return a MarkAssignmentCommand containing the parsed indices and assignment
      * @throws ParseException if the user input does not conform to the expected format
      */
     @Override
@@ -29,12 +33,13 @@ public class MarkAssignmentCommandParser implements Parser<MarkAssignmentCommand
         requireNonNull(args);
         ArgumentMultimap argMultimap = tokenizeArguments(args);
 
-        Index index = ParserUtil.parseIndexFromPreamble(argMultimap, MarkAssignmentCommand.MESSAGE_USAGE);
+        // Parse index or index range
+        List<Index> indices = ParserUtil.parseIndexSpecification(argMultimap.getPreamble());
         String classGroupName = ParserUtil.parseClassGroupName(argMultimap, MarkAssignmentCommand.MESSAGE_USAGE);
         Assignment assignment = ParserUtil.parseAssignmentValue(argMultimap, classGroupName,
                 MarkAssignmentCommand.MESSAGE_USAGE);
 
-        return new MarkAssignmentCommand(index, assignment);
+        return new MarkAssignmentCommand(indices, assignment);
     }
 
     /**

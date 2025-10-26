@@ -4,6 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
@@ -24,21 +27,35 @@ public class UnmarkAssignmentCommandParserTest {
      */
     @Test
     public void parse_validInput_success() {
-        Index expectedIndex = Index.fromOneBased(1);
         Assignment expectedAssignment = new AssignmentBuilder()
                 .withName("physics-1800")
                 .withClassGroup("physics-1800")
                 .build();
-        String userInput = "1 c/physics-1800 a/Physics-1800";
 
+        // Test single index
+        String singleIndexInput = "1 c/physics-1800 a/Physics-1800";
+        List<Index> expectedSingleIndex = Arrays.asList(Index.fromOneBased(1));
         try {
-            var command = parser.parse(userInput);
-            // Split the long line into two lines to satisfy checkstyle
-            var expectedCommand = new UnmarkAssignmentCommand(
-                    expectedIndex, expectedAssignment);
+            var command = parser.parse(singleIndexInput);
+            var expectedCommand = new UnmarkAssignmentCommand(expectedSingleIndex, expectedAssignment);
             assertEquals(expectedCommand, command);
         } catch (ParseException pe) {
-            fail("Unexpected ParseException thrown for valid input.");
+            fail("Unexpected ParseException thrown for valid single index input.");
+        }
+
+        // Test index range
+        String rangeInput = "1-3 c/physics-1800 a/Physics-1800";
+        List<Index> expectedRange = Arrays.asList(
+                Index.fromOneBased(1),
+                Index.fromOneBased(2),
+                Index.fromOneBased(3)
+        );
+        try {
+            var command = parser.parse(rangeInput);
+            var expectedCommand = new UnmarkAssignmentCommand(expectedRange, expectedAssignment);
+            assertEquals(expectedCommand, command);
+        } catch (ParseException pe) {
+            fail("Unexpected ParseException thrown for valid range input.");
         }
     }
 
@@ -60,11 +77,8 @@ public class UnmarkAssignmentCommandParserTest {
      */
     @Test
     public void parse_invalidIndex_throwsParseException() {
-        String userInput = "a a/Physics-1800"; // 'a' is not a valid index
-        String expectedMessage = String.format(
-                MESSAGE_INVALID_COMMAND_FORMAT,
-                UnmarkAssignmentCommand.MESSAGE_USAGE
-        );
+        String userInput = "a c/physics-1800 a/Physics-1800"; // 'a' is not a valid index
+        String expectedMessage = ParserUtil.MESSAGE_INVALID_INDEX;
         assertParseFailure(parser, userInput, expectedMessage);
     }
 

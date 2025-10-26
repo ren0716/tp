@@ -2,11 +2,16 @@ package seedu.address.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
+import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX_RANGE;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Level;
 import seedu.address.model.person.Name;
@@ -41,6 +46,53 @@ public class ParserUtilTest {
 
         // Leading and trailing whitespaces
         assertEquals(INDEX_FIRST_PERSON, ParserUtil.parseIndex("  1  "));
+    }
+
+    @Test
+    public void parseIndexSpecification_singleIndex_success() throws Exception {
+        // Single index without whitespace
+        List<Index> expected = Arrays.asList(INDEX_FIRST_PERSON);
+        assertEquals(expected, ParserUtil.parseIndexSpecification("1"));
+
+        // Single index with whitespace
+        assertEquals(expected, ParserUtil.parseIndexSpecification("  1  "));
+    }
+
+    @Test
+    public void parseIndexSpecification_validRange_success() throws Exception {
+        // Simple range
+        List<Index> expected = Arrays.asList(
+                Index.fromOneBased(1),
+                Index.fromOneBased(2),
+                Index.fromOneBased(3)
+        );
+        assertEquals(expected, ParserUtil.parseIndexSpecification("1-3"));
+
+        // Range with whitespace
+        assertEquals(expected, ParserUtil.parseIndexSpecification("  1  -  3  "));
+    }
+
+    @Test
+    public void parseIndexSpecification_invalidRange_throwsParseException() {
+        // End less than start
+        assertThrows(ParseException.class, MESSAGE_INVALID_INDEX_RANGE, () ->
+                ParserUtil.parseIndexSpecification("3-1"));
+
+        // Invalid format
+        assertThrows(ParseException.class, MESSAGE_INVALID_INDEX_RANGE, () ->
+                ParserUtil.parseIndexSpecification("1-2-3"));
+
+        // Non-numeric values
+        assertThrows(ParseException.class, MESSAGE_INVALID_INDEX_RANGE, () ->
+                ParserUtil.parseIndexSpecification("a-b"));
+
+        // Missing end value
+        assertThrows(ParseException.class, MESSAGE_INVALID_INDEX_RANGE, () ->
+                ParserUtil.parseIndexSpecification("1-"));
+
+        // Missing start value
+        assertThrows(ParseException.class, MESSAGE_INVALID_INDEX_RANGE, () ->
+                ParserUtil.parseIndexSpecification("-3"));
     }
 
     @Test

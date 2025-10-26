@@ -5,8 +5,10 @@ import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSGROUP;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -25,6 +27,9 @@ import seedu.address.model.person.Phone;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_INDEX_RANGE =
+            "Invalid index range format. Expected format: START-END where START and END are positive integers "
+            + "and START is less than or equal to END.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -37,6 +42,68 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
+    }
+
+    /**
+     * Parses an index specification which can be either a single index or a range.
+     * Formats supported:
+     * - Single index: "1" (just a number)
+     * - Range: "1-5" (two numbers separated by hyphen)
+     * Both start and end are inclusive.
+     * @param indexSpec the index specification to parse
+     * @return List of Index objects representing either a single index or a range of indices
+     * @throws ParseException if the index specification is invalid
+     */
+    public static List<Index> parseIndexSpecification(String indexSpec) throws ParseException {
+        String trimmedSpec = indexSpec.trim();
+        // Check if it contains a hyphen for range format
+        if (trimmedSpec.contains("-")) {
+            return parseIndexRange(trimmedSpec);
+        } else {
+            // Single index case
+            return parseSingleIndex(trimmedSpec);
+        }
+    }
+
+    /**
+     * Parses a single index and returns it as a singleton list.
+     */
+    private static List<Index> parseSingleIndex(String indexString) throws ParseException {
+        List<Index> indices = new ArrayList<>();
+        indices.add(parseIndex(indexString));
+        return indices;
+    }
+
+    /**
+     * Parses an index range string in the format "start-end" into a List of Indices.
+     */
+    private static List<Index> parseIndexRange(String indexRange) throws ParseException {
+        String[] parts = indexRange.split("-");
+        // Check if format is correct (exactly two parts)
+        if (parts.length != 2) {
+            throw new ParseException(MESSAGE_INVALID_INDEX_RANGE);
+        }
+
+        try {
+            int start = Integer.parseInt(parts[0].trim());
+            int end = Integer.parseInt(parts[1].trim());
+
+            // Validate the range
+            if (!StringUtil.isNonZeroUnsignedInteger(parts[0].trim())
+                    || !StringUtil.isNonZeroUnsignedInteger(parts[1].trim())
+                    || start > end) {
+                throw new ParseException(MESSAGE_INVALID_INDEX_RANGE);
+            }
+
+            // Create list of indices
+            List<Index> indices = new ArrayList<>();
+            for (int i = start; i <= end; i++) {
+                indices.add(Index.fromOneBased(i));
+            }
+            return indices;
+        } catch (NumberFormatException e) {
+            throw new ParseException(MESSAGE_INVALID_INDEX_RANGE);
+        }
     }
 
     /**
