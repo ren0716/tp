@@ -20,10 +20,12 @@ public class MarkAssignmentCommandParser implements Parser<MarkAssignmentCommand
      * Parses the given {@code String} of arguments in the context of the MarkAssignmentCommand
      * and returns a MarkAssignmentCommand object for execution.
      *
-     * The expected format is: INDEX c/CLASS_GROUP a/ASSIGNMENT_NAME
+     * The expected format is either:
+     * - Single index: INDEX c/CLASS_GROUP a/ASSIGNMENT_NAME
+     * - Index range: START-END c/CLASS_GROUP a/ASSIGNMENT_NAME
      *
      * @param args full user input string (arguments portion)
-     * @return a MarkAssignmentCommand containing the parsed index and assignment
+     * @return a MarkAssignmentCommand containing the parsed indices and assignment
      * @throws ParseException if the user input does not conform to the expected format
      */
     @Override

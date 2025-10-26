@@ -24,7 +24,7 @@ import seedu.address.model.person.Person;
 
 
 /**
- * Resets a student's assignment status as unmarked
+ * Resets one or more students' assignment status as unmarked
  */
 public class UnmarkAssignmentCommand extends Command {
 

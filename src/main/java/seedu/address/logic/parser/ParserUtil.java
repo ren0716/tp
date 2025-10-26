@@ -48,6 +48,8 @@ public class ParserUtil {
      * - Single index: "1" (just a number)
      * - Range: "1-5" (two numbers separated by hyphen)
      * Both start and end are inclusive.
+     * @param indexSpec the index specification to parse
+     * @return List of Index objects representing either a single index or a range of indices
      * @throws ParseException if the index specification is invalid
      */
     public static List<Index> parseIndexSpecification(String indexSpec) throws ParseException {

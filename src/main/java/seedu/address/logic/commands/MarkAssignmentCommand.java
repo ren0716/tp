@@ -24,7 +24,7 @@ import seedu.address.model.person.Person;
 
 
 /**
- * Sets a student's assignment status as marked
+ * Sets one or more students' assignment status as marked
  */
 public class MarkAssignmentCommand extends Command {
 

@@ -19,10 +19,12 @@ public class UnmarkAssignmentCommandParser implements Parser<UnmarkAssignmentCom
      * Parses the given {@code String} of arguments in the context of the UnmarkAssignmentCommand
      * and returns an UnmarkAssignmentCommand object for execution.
      *
-     * The expected format is: INDEX c/CLASS_GROUP a/ASSIGNMENT_NAME
+     * The expected format is either:
+     * - Single index: INDEX c/CLASS_GROUP a/ASSIGNMENT_NAME
+     * - Index range: START-END c/CLASS_GROUP a/ASSIGNMENT_NAME
      *
      * @param args full user input string (arguments portion)
-     * @return an UnmarkAssignmentCommand containing the parsed index and assignment
+     * @return an UnmarkAssignmentCommand containing the parsed indices and assignment
      * @throws ParseException if the user input does not conform to the expected format
      */
     @Override
