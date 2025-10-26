@@ -103,6 +103,17 @@ public class ParserUtil {
         }
     }
 
+    /**
+     * Parses a string containing multiple indices and/or index ranges into a list of Index objects.
+     * Accepts space-separated indices (e.g., "1 2 3"), ranges using hyphens (e.g., "1-3"),
+     * or a combination of both (e.g., "1 2-4 6"). Whitespace around numbers and hyphens is allowed.
+     * Duplicate indices are automatically removed while preserving the order of first occurrence.
+     *
+     * @param input The string containing indices and/or ranges to parse.
+     *              Must contain only positive integers, spaces, and hyphens.
+     *              Example valid inputs: "1 2 3", "1-5", "1 3-5 7", "1 - 3", "  1   2-4  "
+     * @return A list of unique Index objects in order of first occurrence.
+     */
     private static List<Index> parseMultipleIndex(String input) throws ParseException {
         // Regex for validating whole string
         String regex = "^\\s*(?:\\d+\\s*(?:-\\s*\\d+)?)(?:\\s+\\d+\\s*(?:-\\s*\\d+)?)*\\s*$";
@@ -117,13 +128,10 @@ public class ParserUtil {
 
         for (String token : tokens) {
             if (token.contains("-")) {
-                // Handle ranges like "2-5"
+                // Handle ranges
                 uniqueIndices.addAll(parseIndexRange(token));
             } else {
-                // Handle single indices like "3"
-                if (!StringUtil.isNonZeroUnsignedInteger(token)) {
-                    throw new ParseException(MESSAGE_INVALID_INDEX_FORMAT);
-                }
+                // Handle single indices
                 uniqueIndices.addAll(parseSingleIndex(token));
             }
         }
