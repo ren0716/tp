@@ -6,10 +6,12 @@ import static seedu.address.logic.Messages.MESSAGE_INVALID_ASSIGNMENT_IN_PERSON;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.logic.Messages.MESSAGE_MARK_PERSON_SUCCESS;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
@@ -29,28 +31,28 @@ public class MarkAssignmentCommand extends Command {
     public static final String COMMAND_WORD = "mark";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Marks the assignment of the student identified by the index number "
+            + ": Marks the assignment of students identified by the index numbers "
             + "used in the displayed person list and the assignment name.\n"
-            + "Parameters: INDEX (must be a positive integer) "
+            + "Parameters: INDEX_RANGE (must be in format START-END where both are positive integers) "
             + "c/CLASS_GROUP "
             + "a/ASSIGNMENT_NAME\n"
-            + "Example: " + COMMAND_WORD + " 1 "
+            + "Example: " + COMMAND_WORD + " 1-5 "
             + "c/Math-2000 "
             + "a/Homework1\n";
 
     private static final Logger logger = LogsCenter.getLogger(MarkAssignmentCommand.class);
 
-    private final Index targetIndex;
+    private final List<Index> targetIndices;
     private final Assignment assignment;
 
     /**
      * Creates a MarkAssignmentCommand.
      *
-     * @param targetIndex index of the student in the displayed list
+     * @param targetIndices list of indices of the students in the displayed list
      * @param assignment assignment to mark
      */
-    public MarkAssignmentCommand(Index targetIndex, Assignment assignment) {
-        this.targetIndex = targetIndex;
+    public MarkAssignmentCommand(List<Index> targetIndices, Assignment assignment) {
+        this.targetIndices = targetIndices;
         this.assignment = assignment;
     }
 
@@ -72,32 +74,28 @@ public class MarkAssignmentCommand extends Command {
         requireNonNull(model);
 
         List<Person> lastShownList = model.getFilteredPersonList();
-        Person personToMark = getPersonToMark(lastShownList);
+        List<Person> markedPersons = new ArrayList<>();
 
-        Set<Assignment> personAssignments = getPersonAssignmentSet(personToMark);
-        ensureAssignmentExists(personAssignments, personToMark);
+        for (Index targetIndex : targetIndices) {
+            if (targetIndex.getZeroBased() >= lastShownList.size()) {
+                throw new CommandException(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            }
 
-        // Create a new mutable set with all assignments
-        Set<Assignment> updatedAssignments = createUpdatedAssignmentSet(personAssignments);
-        Assignment markedAssignment = findAndMarkAssignment(updatedAssignments);
+            Person personToMark = lastShownList.get(targetIndex.getZeroBased());
+            Set<Assignment> personAssignments = getPersonAssignmentSet(personToMark);
+            ensureAssignmentExists(personAssignments, personToMark);
 
-        // Create updated person with new assignments
-        Person updatedPerson = personToMark.withAssignments(updatedAssignments);
-        model.setPerson(personToMark, updatedPerson);
+            // Create a new mutable set with all assignments
+            Set<Assignment> updatedAssignments = createUpdatedAssignmentSet(personAssignments);
+            Assignment markedAssignment = findAndMarkAssignment(updatedAssignments);
 
-        return new CommandResult(formatSuccessMessage(markedAssignment, updatedPerson));
-    }
-
-    /**
-     * Returns the person at the configured index from the provided displayed list.
-     *
-     * @throws CommandException if the index is out of bounds
-     */
-    private Person getPersonToMark(List<Person> lastShownList) throws CommandException {
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            // Create updated person with new assignments
+            Person updatedPerson = personToMark.withAssignments(updatedAssignments);
+            model.setPerson(personToMark, updatedPerson);
+            markedPersons.add(updatedPerson);
         }
-        return lastShownList.get(targetIndex.getZeroBased());
+
+        return new CommandResult(formatSuccessMessage(assignment, markedPersons));
     }
 
     /**
@@ -116,8 +114,8 @@ public class MarkAssignmentCommand extends Command {
         if (!assignments.contains(assignment)) {
             // Log helpful debug info to aid troubleshooting
             logger.warning(() -> String.format(
-                    "Person %s (index %d) does not have assignment '%s'. Person assignments: %s",
-                    person.getName(), targetIndex.getZeroBased(), assignment.toString(),
+                    "Person %s does not have assignment '%s'. Person assignments: %s",
+                    person.getName(), assignment.toString(),
                     assignmentsToString(assignments)));
             throw new CommandException(MESSAGE_INVALID_ASSIGNMENT_IN_PERSON);
         }
@@ -178,10 +176,13 @@ public class MarkAssignmentCommand extends Command {
     /**
      * Formats the user-visible success message after marking an assignment.
      */
-    private String formatSuccessMessage(Assignment a, Person p) {
+    private String formatSuccessMessage(Assignment a, List<Person> persons) {
         String assignmentNameTitleCase = StringUtil.toTitleCase(a.getAssignmentName());
-        String personNameTitleCase = StringUtil.toTitleCase(p.getName().fullName);
-        return String.format(MESSAGE_MARK_PERSON_SUCCESS, assignmentNameTitleCase, personNameTitleCase);
+        List<String> names = persons.stream()
+                .map(p -> StringUtil.toTitleCase(p.getName().fullName))
+                .collect(Collectors.toList());
+        String personNames = String.join(", ", names);
+        return String.format(MESSAGE_MARK_PERSON_SUCCESS, assignmentNameTitleCase, personNames);
     }
 
     @Override
@@ -201,13 +202,13 @@ public class MarkAssignmentCommand extends Command {
         }
 
         MarkAssignmentCommand otherMarkAssignmentCommand = (MarkAssignmentCommand) other;
-        return targetIndex.equals(otherMarkAssignmentCommand.targetIndex);
+        return targetIndices.equals(otherMarkAssignmentCommand.targetIndices);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("targetIndex", targetIndex)
+                .add("targetIndices", targetIndices)
                 .add("assignment", assignment)
                 .toString();
     }
