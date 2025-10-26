@@ -43,13 +43,39 @@ public class ParserUtil {
     }
 
     /**
-     * Parses an index range string in the format "start-end" into a List of Indices.
+     * Parses an index specification which can be either a single index or a range.
+     * Formats supported:
+     * - Single index: "1" (just a number)
+     * - Range: "1-5" (two numbers separated by hyphen)
      * Both start and end are inclusive.
-     * @throws ParseException if the range format is invalid
+     * @throws ParseException if the index specification is invalid
      */
-    public static List<Index> parseIndexRange(String indexRange) throws ParseException {
-        String trimmedRange = indexRange.trim();
-        String[] parts = trimmedRange.split("-");
+    public static List<Index> parseIndexSpecification(String indexSpec) throws ParseException {
+        String trimmedSpec = indexSpec.trim();
+        
+        // Check if it contains a hyphen for range format
+        if (trimmedSpec.contains("-")) {
+            return parseIndexRange(trimmedSpec);
+        } else {
+            // Single index case
+            return parseSingleIndex(trimmedSpec);
+        }
+    }
+
+    /**
+     * Parses a single index and returns it as a singleton list.
+     */
+    private static List<Index> parseSingleIndex(String indexString) throws ParseException {
+        List<Index> indices = new ArrayList<>();
+        indices.add(parseIndex(indexString));
+        return indices;
+    }
+
+    /**
+     * Parses an index range string in the format "start-end" into a List of Indices.
+     */
+    private static List<Index> parseIndexRange(String indexRange) throws ParseException {
+        String[] parts = indexRange.split("-");
         
         // Check if format is correct (exactly two parts)
         if (parts.length != 2) {

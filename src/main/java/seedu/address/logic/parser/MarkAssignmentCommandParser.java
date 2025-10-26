@@ -31,7 +31,8 @@ public class MarkAssignmentCommandParser implements Parser<MarkAssignmentCommand
         requireNonNull(args);
         ArgumentMultimap argMultimap = tokenizeArguments(args);
 
-        List<Index> indices = ParserUtil.parseIndexRange(argMultimap.getPreamble());
+        // Parse index or index range
+        List<Index> indices = ParserUtil.parseIndexSpecification(argMultimap.getPreamble());
         String classGroupName = ParserUtil.parseClassGroupName(argMultimap, MarkAssignmentCommand.MESSAGE_USAGE);
         Assignment assignment = ParserUtil.parseAssignmentValue(argMultimap, classGroupName,
                 MarkAssignmentCommand.MESSAGE_USAGE);

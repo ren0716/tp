@@ -31,12 +31,15 @@ public class MarkAssignmentCommand extends Command {
     public static final String COMMAND_WORD = "mark";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Marks the assignment of students identified by the index numbers "
+            + ": Marks the assignment of one or more students identified by the index number(s) "
             + "used in the displayed person list and the assignment name.\n"
-            + "Parameters: INDEX_RANGE (must be in format START-END where both are positive integers) "
+            + "Parameters: INDEX | INDEX_RANGE (e.g., '1' for single student or '1-5' for multiple students) "
             + "c/CLASS_GROUP "
             + "a/ASSIGNMENT_NAME\n"
-            + "Example: " + COMMAND_WORD + " 1-5 "
+            + "Example 1: " + COMMAND_WORD + " 1 "
+            + "c/Math-2000 "
+            + "a/Homework1\n"
+            + "Example 2: " + COMMAND_WORD + " 1-5 "
             + "c/Math-2000 "
             + "a/Homework1\n";
 
