@@ -2,6 +2,10 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
@@ -45,14 +49,15 @@ public class MarkAssignmentCommandTest {
         // Replace the original person with the modified one containing the assignment
         model.setPerson(originalPerson, personWithAssignment);
 
-        Index targetIndex = Index.fromOneBased(1);
-        MarkAssignmentCommand command = new MarkAssignmentCommand(targetIndex, assignment);
+        List<Index> targetIndices = Arrays.asList(Index.fromOneBased(1));
+        MarkAssignmentCommand command = new MarkAssignmentCommand(targetIndices, assignment);
 
         try {
             var result = command.execute(model);
-            String expectedMessage = String.format(seedu.address.logic.Messages.MESSAGE_MARK_PERSON_SUCCESS,
-                                                     StringUtil.toTitleCase(assignment.getAssignmentName()),
-                                                     StringUtil.toTitleCase(personWithAssignment.getName().fullName));
+            String expectedMessage = String.format(
+                    seedu.address.logic.Messages.MESSAGE_MARK_PERSON_SUCCESS,
+                    StringUtil.toTitleCase(assignment.getAssignmentName()),
+                    StringUtil.toTitleCase(personWithAssignment.getName().fullName));
             assertEquals(expectedMessage, result.getFeedbackToUser());
         } catch (CommandException ce) {
             throw new AssertionError("Execution of command should not fail.", ce);
@@ -67,7 +72,7 @@ public class MarkAssignmentCommandTest {
         Model model = new ModelManager(TypicalPersons.getTypicalAddressBook(), new UserPrefs());
         Index outOfBoundsIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
         Assignment assignment = new AssignmentBuilder().withName("Physics-1800").build();
-        MarkAssignmentCommand command = new MarkAssignmentCommand(outOfBoundsIndex, assignment);
+        MarkAssignmentCommand command = new MarkAssignmentCommand(Arrays.asList(outOfBoundsIndex), assignment);
 
         assertCommandFailure(command, model, seedu.address.logic.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
@@ -91,7 +96,7 @@ public class MarkAssignmentCommandTest {
                 .withName("Physics-1800")
                 .withClassGroup("default-class")
                 .build();
-        MarkAssignmentCommand command = new MarkAssignmentCommand(Index.fromOneBased(1), assignment);
+        MarkAssignmentCommand command = new MarkAssignmentCommand(Arrays.asList(Index.fromOneBased(1)), assignment);
 
         assertCommandFailure(command, model, seedu.address.logic.Messages.MESSAGE_INVALID_ASSIGNMENT_IN_PERSON);
     }
@@ -100,11 +105,87 @@ public class MarkAssignmentCommandTest {
      * Tests the {@code equals} method of {@code MarkAssignmentCommand}.
      */
     @Test
+    public void execute_multipleValidAssignments_success() {
+        // Prepare multiple persons with assignments
+        String classGroup = "default-class";
+        Assignment assignment = new AssignmentBuilder()
+                .withName("Physics-1800")
+                .withClassGroup(classGroup)
+                .build();
+
+        Model model = new ModelManager(new AddressBook(TypicalPersons.getTypicalAddressBook()), new UserPrefs());
+        List<Person> originalPersons = model.getFilteredPersonList().subList(0, 3);
+
+        for (Person originalPerson : originalPersons) {
+            Person personWithAssignment = new PersonBuilder(originalPerson)
+                    .withClassGroups(classGroup)
+                    .withAssignments(classGroup, assignment.getAssignmentName())
+                    .build();
+            model.setPerson(originalPerson, personWithAssignment);
+        }
+
+        List<Index> targetIndices = Arrays.asList(
+                Index.fromOneBased(1),
+                Index.fromOneBased(2),
+                Index.fromOneBased(3)
+        );
+        MarkAssignmentCommand command = new MarkAssignmentCommand(targetIndices, assignment);
+
+        try {
+            CommandResult result = command.execute(model);
+            String expectedMessage = String.format(
+                    seedu.address.logic.Messages.MESSAGE_MARK_PERSON_SUCCESS,
+                    StringUtil.toTitleCase(assignment.getAssignmentName()),
+                    originalPersons.stream()
+                            .map(p -> StringUtil.toTitleCase(p.getName().fullName))
+                            .collect(Collectors.joining(", ")));
+            assertEquals(expectedMessage, result.getFeedbackToUser());
+        } catch (CommandException ce) {
+            throw new AssertionError("Execution of command should not fail.", ce);
+        }
+    }
+
+    @Test
+    public void execute_partialInvalidIndices_failure() {
+        Model model = new ModelManager(TypicalPersons.getTypicalAddressBook(), new UserPrefs());
+        String classGroup = "default-class";
+
+        // Create and add assignments for first three persons
+        for (int i = 0; i < 3; i++) {
+            Assignment assignment = new AssignmentBuilder()
+                    .withName("Physics-1800")
+                    .withClassGroup(classGroup)
+                    .build();
+            Person person = model.getFilteredPersonList().get(i);
+            Person personWithAssignment = new PersonBuilder(person)
+                    .withClassGroups(classGroup)
+                    .withAssignments(classGroup, assignment.getAssignmentName())
+                    .build();
+            model.setPerson(person, personWithAssignment);
+        }
+
+        // Now try to mark with an index that's out of bounds
+        Assignment commandAssignment = new AssignmentBuilder()
+                .withName("Physics-1800")
+                .withClassGroup(classGroup)
+                .build();
+        List<Index> indices = Arrays.asList(
+                Index.fromOneBased(model.getFilteredPersonList().size() + 1) // Invalid index
+        );
+        MarkAssignmentCommand command = new MarkAssignmentCommand(indices, commandAssignment);
+
+        assertCommandFailure(command, model, seedu.address.logic.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+    }
+
+    @Test
     public void equals() {
         Assignment assignment = new AssignmentBuilder().withName("Physics-1800").build();
-        MarkAssignmentCommand command1 = new MarkAssignmentCommand(Index.fromOneBased(1), assignment);
-        MarkAssignmentCommand command2 = new MarkAssignmentCommand(Index.fromOneBased(1), assignment);
-        MarkAssignmentCommand command3 = new MarkAssignmentCommand(Index.fromOneBased(2), assignment);
+        List<Index> indices1 = Arrays.asList(Index.fromOneBased(1));
+        List<Index> indices2 = Arrays.asList(Index.fromOneBased(1));
+        List<Index> indices3 = Arrays.asList(Index.fromOneBased(2));
+        MarkAssignmentCommand command1 = new MarkAssignmentCommand(indices1, assignment);
+        MarkAssignmentCommand command2 = new MarkAssignmentCommand(indices2, assignment);
+        MarkAssignmentCommand command3 = new MarkAssignmentCommand(indices3, assignment);
 
         // same object -> returns true
         assertEquals(command1, command1);

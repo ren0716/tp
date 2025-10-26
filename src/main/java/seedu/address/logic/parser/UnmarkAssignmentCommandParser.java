@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSGROUP;
 
 import java.util.List;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.UnmarkAssignmentCommand;
 import seedu.address.logic.parser.exceptions.ParseException;

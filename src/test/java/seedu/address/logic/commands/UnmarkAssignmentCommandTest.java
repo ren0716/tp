@@ -4,6 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
@@ -49,14 +52,14 @@ public class UnmarkAssignmentCommandTest {
 
         Index targetIndex = Index.fromOneBased(1);
 
-        MarkAssignmentCommand markCommand = new MarkAssignmentCommand(targetIndex, assignment);
+        MarkAssignmentCommand markCommand = new MarkAssignmentCommand(Arrays.asList(targetIndex), assignment);
         try {
             markCommand.execute(model);
         } catch (CommandException ce) {
             throw new AssertionError("Setup for unmarking failed.", ce);
         }
 
-        UnmarkAssignmentCommand command = new UnmarkAssignmentCommand(targetIndex, assignment);
+        UnmarkAssignmentCommand command = new UnmarkAssignmentCommand(Arrays.asList(targetIndex), assignment);
         try {
             var result = command.execute(model);
             String expectedMessage = String.format(seedu.address.logic.Messages.MESSAGE_UNMARK_PERSON_SUCCESS,
@@ -76,7 +79,7 @@ public class UnmarkAssignmentCommandTest {
         Model model = new ModelManager(TypicalPersons.getTypicalAddressBook(), new UserPrefs());
         Index outOfBoundsIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
         Assignment assignment = new AssignmentBuilder().withName("Physics-1800").build();
-        UnmarkAssignmentCommand command = new UnmarkAssignmentCommand(outOfBoundsIndex, assignment);
+        UnmarkAssignmentCommand command = new UnmarkAssignmentCommand(Arrays.asList(outOfBoundsIndex), assignment);
 
         assertCommandFailure(command, model, seedu.address.logic.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
@@ -100,7 +103,7 @@ public class UnmarkAssignmentCommandTest {
                 .withName("Physics-1800")
                 .withClassGroup("default-class")
                 .build();
-        UnmarkAssignmentCommand command = new UnmarkAssignmentCommand(Index.fromOneBased(1), assignment);
+        UnmarkAssignmentCommand command = new UnmarkAssignmentCommand(Arrays.asList(Index.fromOneBased(1)), assignment);
 
         assertCommandFailure(command, model, seedu.address.logic.Messages.MESSAGE_INVALID_ASSIGNMENT_IN_PERSON);
     }
@@ -111,9 +114,12 @@ public class UnmarkAssignmentCommandTest {
     @Test
     public void equals() {
         Assignment assignment = new AssignmentBuilder().withName("Physics-1800").build();
-        UnmarkAssignmentCommand command1 = new UnmarkAssignmentCommand(Index.fromOneBased(1), assignment);
-        UnmarkAssignmentCommand command2 = new UnmarkAssignmentCommand(Index.fromOneBased(1), assignment);
-        UnmarkAssignmentCommand command3 = new UnmarkAssignmentCommand(Index.fromOneBased(2), assignment);
+        List<Index> indices1 = Arrays.asList(Index.fromOneBased(1));
+        List<Index> indices2 = Arrays.asList(Index.fromOneBased(1));
+        List<Index> indices3 = Arrays.asList(Index.fromOneBased(2));
+        UnmarkAssignmentCommand command1 = new UnmarkAssignmentCommand(indices1, assignment);
+        UnmarkAssignmentCommand command2 = new UnmarkAssignmentCommand(indices2, assignment);
+        UnmarkAssignmentCommand command3 = new UnmarkAssignmentCommand(indices3, assignment);
 
         // same object -> returns true
         assertEquals(command1, command1);
@@ -163,7 +169,7 @@ public class UnmarkAssignmentCommandTest {
         model.setPerson(originalPerson, personWithUnmarkedAssignment);
 
         Index targetIndex = Index.fromOneBased(1);
-        UnmarkAssignmentCommand command = new UnmarkAssignmentCommand(targetIndex, assignment);
+        UnmarkAssignmentCommand command = new UnmarkAssignmentCommand(Arrays.asList(targetIndex), assignment);
 
         assertCommandFailure(command, model, seedu.address.logic.Messages.ALREADY_UNMARKED);
     }
@@ -190,7 +196,7 @@ public class UnmarkAssignmentCommandTest {
         Index targetIndex = Index.fromOneBased(1);
 
         // First mark the assignment
-        MarkAssignmentCommand markCommand = new MarkAssignmentCommand(targetIndex, assignment);
+        MarkAssignmentCommand markCommand = new MarkAssignmentCommand(Arrays.asList(targetIndex), assignment);
         try {
             markCommand.execute(model);
         } catch (CommandException ce) {
@@ -198,7 +204,7 @@ public class UnmarkAssignmentCommandTest {
         }
 
         // First unmark should succeed
-        UnmarkAssignmentCommand unmarkCommand = new UnmarkAssignmentCommand(targetIndex, assignment);
+        UnmarkAssignmentCommand unmarkCommand = new UnmarkAssignmentCommand(Arrays.asList(targetIndex), assignment);
         try {
             unmarkCommand.execute(model);
         } catch (CommandException ce) {
@@ -206,7 +212,8 @@ public class UnmarkAssignmentCommandTest {
         }
 
         // Second unmark should fail
-        UnmarkAssignmentCommand secondUnmarkCommand = new UnmarkAssignmentCommand(targetIndex, assignment);
+        UnmarkAssignmentCommand secondUnmarkCommand =
+                new UnmarkAssignmentCommand(Arrays.asList(targetIndex), assignment);
         assertCommandFailure(secondUnmarkCommand, model, seedu.address.logic.Messages.ALREADY_UNMARKED);
     }
 
@@ -216,7 +223,7 @@ public class UnmarkAssignmentCommandTest {
     @Test
     public void getCommandWord_returnsCorrectWord() {
         Assignment assignment = new AssignmentBuilder().withName("Physics-1800").build();
-        UnmarkAssignmentCommand command = new UnmarkAssignmentCommand(Index.fromOneBased(1), assignment);
+        UnmarkAssignmentCommand command = new UnmarkAssignmentCommand(Arrays.asList(Index.fromOneBased(1)), assignment);
         assertEquals("unmark", command.getCommandWord());
     }
 
@@ -227,10 +234,10 @@ public class UnmarkAssignmentCommandTest {
     public void toStringMethod() {
         Index targetIndex = Index.fromOneBased(1);
         Assignment assignment = new AssignmentBuilder().withName("Physics-1800").build();
-        UnmarkAssignmentCommand command = new UnmarkAssignmentCommand(targetIndex, assignment);
+        UnmarkAssignmentCommand command = new UnmarkAssignmentCommand(Arrays.asList(targetIndex), assignment);
 
         String expected = UnmarkAssignmentCommand.class.getCanonicalName()
-                + "{targetIndex=" + targetIndex
+                + "{targetIndices=" + Arrays.asList(targetIndex)
                 + ", assignment=" + assignment + "}";
         assertEquals(expected, command.toString());
     }
@@ -241,8 +248,10 @@ public class UnmarkAssignmentCommandTest {
     @Test
     public void equals_sameAssignmentDifferentIndex_returnsFalse() {
         Assignment assignment = new AssignmentBuilder().withName("Physics-1800").build();
-        UnmarkAssignmentCommand command1 = new UnmarkAssignmentCommand(Index.fromOneBased(1), assignment);
-        UnmarkAssignmentCommand command2 = new UnmarkAssignmentCommand(Index.fromOneBased(2), assignment);
+        UnmarkAssignmentCommand command1 =
+                new UnmarkAssignmentCommand(Arrays.asList(Index.fromOneBased(1)), assignment);
+        UnmarkAssignmentCommand command2 =
+                new UnmarkAssignmentCommand(Arrays.asList(Index.fromOneBased(2)), assignment);
 
         assertFalse(command1.equals(command2));
     }
@@ -255,8 +264,10 @@ public class UnmarkAssignmentCommandTest {
     public void equals_differentAssignmentSameIndex_returnsTrue() {
         Assignment assignment1 = new AssignmentBuilder().withName("Physics-1800").build();
         Assignment assignment2 = new AssignmentBuilder().withName("Math-2000").build();
-        UnmarkAssignmentCommand command1 = new UnmarkAssignmentCommand(Index.fromOneBased(1), assignment1);
-        UnmarkAssignmentCommand command2 = new UnmarkAssignmentCommand(Index.fromOneBased(1), assignment2);
+        UnmarkAssignmentCommand command1 =
+                new UnmarkAssignmentCommand(Arrays.asList(Index.fromOneBased(1)), assignment1);
+        UnmarkAssignmentCommand command2 =
+                new UnmarkAssignmentCommand(Arrays.asList(Index.fromOneBased(1)), assignment2);
 
         // The equals implementation only compares index, not assignment
         assertTrue(command1.equals(command2));
@@ -268,7 +279,7 @@ public class UnmarkAssignmentCommandTest {
     @Test
     public void equals_null_returnsFalse() {
         Assignment assignment = new AssignmentBuilder().withName("Physics-1800").build();
-        UnmarkAssignmentCommand command = new UnmarkAssignmentCommand(Index.fromOneBased(1), assignment);
+        UnmarkAssignmentCommand command = new UnmarkAssignmentCommand(Arrays.asList(Index.fromOneBased(1)), assignment);
 
         assertFalse(command.equals(null));
     }
@@ -279,7 +290,7 @@ public class UnmarkAssignmentCommandTest {
     @Test
     public void equals_differentType_returnsFalse() {
         Assignment assignment = new AssignmentBuilder().withName("Physics-1800").build();
-        UnmarkAssignmentCommand command = new UnmarkAssignmentCommand(Index.fromOneBased(1), assignment);
+        UnmarkAssignmentCommand command = new UnmarkAssignmentCommand(Arrays.asList(Index.fromOneBased(1)), assignment);
 
         assertFalse(command.equals("not a command"));
     }
@@ -311,8 +322,8 @@ public class UnmarkAssignmentCommandTest {
         Index targetIndex = Index.fromOneBased(1);
 
         // Mark both assignments
-        MarkAssignmentCommand markCommand1 = new MarkAssignmentCommand(targetIndex, assignment1);
-        MarkAssignmentCommand markCommand2 = new MarkAssignmentCommand(targetIndex, assignment2);
+        MarkAssignmentCommand markCommand1 = new MarkAssignmentCommand(Arrays.asList(targetIndex), assignment1);
+        MarkAssignmentCommand markCommand2 = new MarkAssignmentCommand(Arrays.asList(targetIndex), assignment2);
         try {
             markCommand1.execute(model);
             markCommand2.execute(model);
@@ -321,7 +332,7 @@ public class UnmarkAssignmentCommandTest {
         }
 
         // Unmark only the first assignment
-        UnmarkAssignmentCommand command = new UnmarkAssignmentCommand(targetIndex, assignment1);
+        UnmarkAssignmentCommand command = new UnmarkAssignmentCommand(Arrays.asList(targetIndex), assignment1);
         try {
             var result = command.execute(model);
             String expectedMessage = String.format(seedu.address.logic.Messages.MESSAGE_UNMARK_PERSON_SUCCESS,
@@ -355,7 +366,7 @@ public class UnmarkAssignmentCommandTest {
         Index targetIndex = Index.fromOneBased(1);
 
         // Mark the assignment first
-        MarkAssignmentCommand markCommand = new MarkAssignmentCommand(targetIndex, assignment);
+        MarkAssignmentCommand markCommand = new MarkAssignmentCommand(Arrays.asList(targetIndex), assignment);
         try {
             markCommand.execute(model);
         } catch (CommandException ce) {
@@ -363,7 +374,7 @@ public class UnmarkAssignmentCommandTest {
         }
 
         // Unmark should succeed
-        UnmarkAssignmentCommand command = new UnmarkAssignmentCommand(targetIndex, assignment);
+        UnmarkAssignmentCommand command = new UnmarkAssignmentCommand(Arrays.asList(targetIndex), assignment);
         try {
             var result = command.execute(model);
             String expectedMessage = String.format(seedu.address.logic.Messages.MESSAGE_UNMARK_PERSON_SUCCESS,
@@ -398,7 +409,7 @@ public class UnmarkAssignmentCommandTest {
         Index targetIndex = Index.fromOneBased(lastIndex);
 
         // Mark the assignment first
-        MarkAssignmentCommand markCommand = new MarkAssignmentCommand(targetIndex, assignment);
+        MarkAssignmentCommand markCommand = new MarkAssignmentCommand(Arrays.asList(targetIndex), assignment);
         try {
             markCommand.execute(model);
         } catch (CommandException ce) {
@@ -406,7 +417,7 @@ public class UnmarkAssignmentCommandTest {
         }
 
         // Unmark should succeed
-        UnmarkAssignmentCommand command = new UnmarkAssignmentCommand(targetIndex, assignment);
+        UnmarkAssignmentCommand command = new UnmarkAssignmentCommand(Arrays.asList(targetIndex), assignment);
         try {
             var result = command.execute(model);
             String expectedMessage = String.format(seedu.address.logic.Messages.MESSAGE_UNMARK_PERSON_SUCCESS,
@@ -442,7 +453,7 @@ public class UnmarkAssignmentCommandTest {
         Index targetIndex = Index.fromOneBased(1);
 
         // Mark first
-        MarkAssignmentCommand markCommand = new MarkAssignmentCommand(targetIndex, assignment);
+        MarkAssignmentCommand markCommand = new MarkAssignmentCommand(Arrays.asList(targetIndex), assignment);
         try {
             markCommand.execute(model);
         } catch (CommandException ce) {
@@ -450,7 +461,7 @@ public class UnmarkAssignmentCommandTest {
         }
 
         // Unmark and verify message contains title-cased names
-        UnmarkAssignmentCommand command = new UnmarkAssignmentCommand(targetIndex, assignment);
+        UnmarkAssignmentCommand command = new UnmarkAssignmentCommand(Arrays.asList(targetIndex), assignment);
         try {
             var result = command.execute(model);
             String message = result.getFeedbackToUser();

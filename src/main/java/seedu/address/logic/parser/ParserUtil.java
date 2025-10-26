@@ -27,7 +27,9 @@ import seedu.address.model.person.Phone;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
-    public static final String MESSAGE_INVALID_INDEX_RANGE = "Invalid index range format. Expected format: START-END where START and END are positive integers and START is less than or equal to END.";
+    public static final String MESSAGE_INVALID_INDEX_RANGE =
+            "Invalid index range format. Expected format: START-END where START and END are positive integers "
+            + "and START is less than or equal to END.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -54,7 +56,6 @@ public class ParserUtil {
      */
     public static List<Index> parseIndexSpecification(String indexSpec) throws ParseException {
         String trimmedSpec = indexSpec.trim();
-        
         // Check if it contains a hyphen for range format
         if (trimmedSpec.contains("-")) {
             return parseIndexRange(trimmedSpec);
@@ -78,7 +79,6 @@ public class ParserUtil {
      */
     private static List<Index> parseIndexRange(String indexRange) throws ParseException {
         String[] parts = indexRange.split("-");
-        
         // Check if format is correct (exactly two parts)
         if (parts.length != 2) {
             throw new ParseException(MESSAGE_INVALID_INDEX_RANGE);
@@ -89,9 +89,9 @@ public class ParserUtil {
             int end = Integer.parseInt(parts[1].trim());
 
             // Validate the range
-            if (!StringUtil.isNonZeroUnsignedInteger(parts[0].trim()) 
-                || !StringUtil.isNonZeroUnsignedInteger(parts[1].trim())
-                || start > end) {
+            if (!StringUtil.isNonZeroUnsignedInteger(parts[0].trim())
+                    || !StringUtil.isNonZeroUnsignedInteger(parts[1].trim())
+                    || start > end) {
                 throw new ParseException(MESSAGE_INVALID_INDEX_RANGE);
             }
 
