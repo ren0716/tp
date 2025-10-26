@@ -25,6 +25,7 @@ import seedu.address.model.person.Phone;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_INDEX_RANGE = "Invalid index range format. Expected format: START-END where START and END are positive integers and START is less than or equal to END.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -37,6 +38,42 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
+    }
+
+    /**
+     * Parses an index range string in the format "start-end" into a List of Indices.
+     * Both start and end are inclusive.
+     * @throws ParseException if the range format is invalid
+     */
+    public static List<Index> parseIndexRange(String indexRange) throws ParseException {
+        String trimmedRange = indexRange.trim();
+        String[] parts = trimmedRange.split("-");
+        
+        // Check if format is correct (exactly two parts)
+        if (parts.length != 2) {
+            throw new ParseException(MESSAGE_INVALID_INDEX_RANGE);
+        }
+
+        try {
+            int start = Integer.parseInt(parts[0].trim());
+            int end = Integer.parseInt(parts[1].trim());
+
+            // Validate the range
+            if (!StringUtil.isNonZeroUnsignedInteger(parts[0].trim()) 
+                || !StringUtil.isNonZeroUnsignedInteger(parts[1].trim())
+                || start > end) {
+                throw new ParseException(MESSAGE_INVALID_INDEX_RANGE);
+            }
+
+            // Create list of indices
+            List<Index> indices = new ArrayList<>();
+            for (int i = start; i <= end; i++) {
+                indices.add(Index.fromOneBased(i));
+            }
+            return indices;
+        } catch (NumberFormatException e) {
+            throw new ParseException(MESSAGE_INVALID_INDEX_RANGE);
+        }
     }
 
     /**
