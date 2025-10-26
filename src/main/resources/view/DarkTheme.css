@@ -351,7 +351,7 @@
 /* Label for class group name */
 .classgroup-label {
     -fx-text-fill: white;
-    -fx-background-color: #3e7b91;  /* same color as your old #classGroups */
+    -fx-background-color: #3e7b91;
     -fx-padding: 3 5 3 5;
     -fx-border-radius: 2;
     -fx-background-radius: 2;
@@ -372,7 +372,7 @@
 /* Each assignment label */
 .assignment-flow .label {
     -fx-text-fill: white;
-    -fx-background-color: #FFA500;  /* same orange as before */
+    -fx-background-color: #FFA500;
     -fx-padding: 3 5 3 5;
     -fx-border-radius: 5;
     -fx-background-radius: 5;
