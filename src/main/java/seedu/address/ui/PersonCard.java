@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
 import java.util.Comparator;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
@@ -8,12 +9,10 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.person.Person;
-import seedu.address.model.classgroup.ClassGroup;
-import seedu.address.model.assignment.Assignment;
 
 /**
  * A UI component that displays information of a {@code Person}.
@@ -59,6 +58,13 @@ public class PersonCard extends UiPart<Region> {
         populateClassGroupAssignments();
     }
 
+    /**
+     * Populates the UI container with class groups and their corresponding assignments.
+     *
+     * Each row displays a class group label followed by its assignments.
+     * Assignments that are marked appear grayed out and struck through.
+     * The method clears any existing content before rebuilding the display.
+     */
     private void populateClassGroupAssignments() {
         classGroupAssignmentContainer.getChildren().clear();
 
