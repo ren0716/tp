@@ -78,7 +78,10 @@ public class UnmarkAssignmentCommand extends Command {
 
         List<Person> lastShownList = model.getFilteredPersonList();
         List<Person> unmarkedPersons = new ArrayList<>();
+        List<Person> alreadyUnmarkedPersons = new ArrayList<>();
+        List<Person> peopleToUnmark = new ArrayList<>();
 
+        // First validate indices and collect people to unmark
         for (Index targetIndex : targetIndices) {
             if (targetIndex.getZeroBased() >= lastShownList.size()) {
                 throw new CommandException(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
@@ -88,14 +91,45 @@ public class UnmarkAssignmentCommand extends Command {
             Set<Assignment> personAssignments = getPersonAssignmentSet(personToUnmark);
             ensureAssignmentExists(personAssignments, personToUnmark);
 
-            // Create a new mutable set with all assignments
-            Set<Assignment> updatedAssignments = createUpdatedAssignmentSet(personAssignments);
-            Assignment unmarkedAssignment = findAndUnmarkAssignment(updatedAssignments);
+            // Check if the assignment is already unmarked
+            Assignment match = personAssignments.stream()
+                    .filter(a -> a.equals(assignment))
+                    .findAny()
+                    .orElse(null);
 
-            // Create updated person with new assignments
-            Person updatedPerson = personToUnmark.withAssignments(updatedAssignments);
-            model.setPerson(personToUnmark, updatedPerson);
-            unmarkedPersons.add(updatedPerson);
+            if (match != null && !match.isMarked()) {
+                alreadyUnmarkedPersons.add(personToUnmark);
+            } else {
+                peopleToUnmark.add(personToUnmark);
+            }
+        }
+
+        // If all people are already unmarked, throw an error
+        if (peopleToUnmark.isEmpty() && !alreadyUnmarkedPersons.isEmpty()) {
+            throw new CommandException(ALREADY_UNMARKED);
+        }
+
+        // Unmark assignments for people who aren't already unmarked
+        for (Person personToUnmark : peopleToUnmark) {
+            Set<Assignment> personAssignments = getPersonAssignmentSet(personToUnmark);
+            Set<Assignment> updatedAssignments = createUpdatedAssignmentSet(personAssignments);
+
+            // Find and unmark the assignment
+            Assignment match = updatedAssignments.stream()
+                    .filter(a -> a.equals(assignment))
+                    .findAny()
+                    .orElse(null);
+
+            if (match != null && match.isMarked()) {
+                Assignment unmarkedAssignment = match.unmark();
+                updatedAssignments.remove(match);
+                updatedAssignments.add(unmarkedAssignment);
+
+                // Create updated person with new assignments
+                Person updatedPerson = personToUnmark.withAssignments(updatedAssignments);
+                model.setPerson(personToUnmark, updatedPerson);
+                unmarkedPersons.add(updatedPerson);
+            }
         }
 
         return new CommandResult(formatSuccessMessage(assignment, unmarkedPersons));

@@ -78,7 +78,10 @@ public class MarkAssignmentCommand extends Command {
 
         List<Person> lastShownList = model.getFilteredPersonList();
         List<Person> markedPersons = new ArrayList<>();
+        List<Person> alreadyMarkedPersons = new ArrayList<>();
+        List<Person> peopleToMark = new ArrayList<>();
 
+        // First validate indices and collect people to mark
         for (Index targetIndex : targetIndices) {
             if (targetIndex.getZeroBased() >= lastShownList.size()) {
                 throw new CommandException(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
@@ -88,14 +91,45 @@ public class MarkAssignmentCommand extends Command {
             Set<Assignment> personAssignments = getPersonAssignmentSet(personToMark);
             ensureAssignmentExists(personAssignments, personToMark);
 
-            // Create a new mutable set with all assignments
-            Set<Assignment> updatedAssignments = createUpdatedAssignmentSet(personAssignments);
-            Assignment markedAssignment = findAndMarkAssignment(updatedAssignments);
+            // Check if the assignment is already marked
+            Assignment match = personAssignments.stream()
+                    .filter(a -> a.equals(assignment))
+                    .findAny()
+                    .orElse(null);
 
-            // Create updated person with new assignments
-            Person updatedPerson = personToMark.withAssignments(updatedAssignments);
-            model.setPerson(personToMark, updatedPerson);
-            markedPersons.add(updatedPerson);
+            if (match != null && match.isMarked()) {
+                alreadyMarkedPersons.add(personToMark);
+            } else {
+                peopleToMark.add(personToMark);
+            }
+        }
+
+        // If all people are already marked, throw an error
+        if (peopleToMark.isEmpty() && !alreadyMarkedPersons.isEmpty()) {
+            throw new CommandException(ALREADY_MARKED);
+        }
+
+        // Mark assignments for people who aren't already marked
+        for (Person personToMark : peopleToMark) {
+            Set<Assignment> personAssignments = getPersonAssignmentSet(personToMark);
+            Set<Assignment> updatedAssignments = createUpdatedAssignmentSet(personAssignments);
+
+            // Find and mark the assignment
+            Assignment match = updatedAssignments.stream()
+                    .filter(a -> a.equals(assignment))
+                    .findAny()
+                    .orElse(null);
+
+            if (match != null && !match.isMarked()) {
+                Assignment markedAssignment = match.mark();
+                updatedAssignments.remove(match);
+                updatedAssignments.add(markedAssignment);
+
+                // Create updated person with new assignments
+                Person updatedPerson = personToMark.withAssignments(updatedAssignments);
+                model.setPerson(personToMark, updatedPerson);
+                markedPersons.add(updatedPerson);
+            }
         }
 
         return new CommandResult(formatSuccessMessage(assignment, markedPersons));
