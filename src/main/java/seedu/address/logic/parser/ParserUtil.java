@@ -1,9 +1,13 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSGROUP;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
@@ -140,5 +144,59 @@ public class ParserUtil {
             assignmentSet.add(parseAssignment(assignmentName, classGroupName));
         }
         return assignmentSet;
+    }
+
+    /**
+     * Parses and returns the index from the preamble portion of the tokenized arguments.
+     *
+     * @throws ParseException if the index is invalid
+     */
+    public static Index parseIndexFromPreamble(ArgumentMultimap argMultimap, String messageUsage)
+            throws ParseException {
+        try {
+            return ParserUtil.parseIndex(argMultimap.getPreamble());
+        } catch (ParseException pe) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    messageUsage), pe);
+        }
+    }
+
+    /**
+     * Extracts, validates and parses the classGroupName from the tokenized arguments.
+     *
+     * @throws ParseException if the classGroupName is missing or invalid
+     */
+    public static String parseClassGroupName(ArgumentMultimap argMultimap, String messageUsage)
+            throws ParseException {
+
+        // Check if class group is provided
+        if (!argMultimap.getValue(PREFIX_CLASSGROUP).isPresent()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    messageUsage));
+        }
+
+        String classGroupName = argMultimap.getValue(PREFIX_CLASSGROUP).get().trim().toLowerCase();
+        if (classGroupName.isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    messageUsage));
+        }
+
+        return classGroupName;
+    }
+
+    /**
+     * Extracts, validates and parses the assignment value from the tokenized arguments.
+     *
+     * @throws ParseException if the assignment value is missing or invalid
+     */
+    public static Assignment parseAssignmentValue(ArgumentMultimap argMultimap, String classGroupName,
+                                                  String messageUsage) throws ParseException {
+        Optional<String> assignmentValue = argMultimap.getValue(PREFIX_ASSIGNMENT);
+        if (assignmentValue.isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    messageUsage));
+        }
+
+        return ParserUtil.parseAssignment(assignmentValue.get(), classGroupName);
     }
 }
