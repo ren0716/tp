@@ -78,7 +78,7 @@ public class UnmarkAssignmentCommandParserTest {
     @Test
     public void parse_invalidIndex_throwsParseException() {
         String userInput = "a c/physics-1800 a/Physics-1800"; // 'a' is not a valid index
-        String expectedMessage = ParserUtil.MESSAGE_INVALID_INDEX;
+        String expectedMessage = ParserUtil.MESSAGE_INVALID_INDEX_FORMAT;
         assertParseFailure(parser, userInput, expectedMessage);
     }
 
