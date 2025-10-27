@@ -32,14 +32,17 @@ public class UnmarkAssignmentCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Unmarks the assignment of one or more students identified by the index number(s) "
-            + "used in the displayed person list and the assignment name.\n"
-            + "Parameters: INDEX | INDEX_RANGE (e.g., '1' for single student or '1-5' for multiple students) "
-            + "c/CLASS_GROUP "
-            + "a/ASSIGNMENT_NAME\n"
+            + "used in the displayed student list and the assignment name.\n"
+            + "Parameters: [INDEX]... [INDEX_RANGE]... (e.g., '1' for single student or '1-5' for multiple students) "
+            + "c/CLASS "
+            + "a/ASSIGNMENT\n"
             + "Example 1: " + COMMAND_WORD + " 1 "
             + "c/Math-2000 "
             + "a/Homework1\n"
             + "Example 2: " + COMMAND_WORD + " 1-5 "
+            + "c/Math-2000 "
+            + "a/Homework1\n"
+            + "Example 3: " + COMMAND_WORD + " 1 3-5 7"
             + "c/Math-2000 "
             + "a/Homework1\n";
 
@@ -154,7 +157,9 @@ public class UnmarkAssignmentCommand extends Command {
                     "Person %s does not have assignment '%s'. Person assignments: %s",
                     person.getName(), assignment.toString(),
                     assignmentsToString(assignments)));
-            throw new CommandException(MESSAGE_INVALID_ASSIGNMENT_IN_PERSON);
+            throw new CommandException(String.format(
+                    MESSAGE_INVALID_ASSIGNMENT_IN_PERSON, assignment.getAssignmentName())
+            );
         }
     }
 

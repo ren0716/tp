@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_INDEX_FORMAT;
 
 import java.util.Arrays;
 import java.util.List;
@@ -78,7 +79,7 @@ public class UnmarkAssignmentCommandParserTest {
     @Test
     public void parse_invalidIndex_throwsParseException() {
         String userInput = "a c/physics-1800 a/Physics-1800"; // 'a' is not a valid index
-        String expectedMessage = ParserUtil.MESSAGE_INVALID_INDEX_FORMAT;
+        String expectedMessage = MESSAGE_INVALID_INDEX_FORMAT;
         assertParseFailure(parser, userInput, expectedMessage);
     }
 

@@ -1,6 +1,11 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.Messages.MESSAGE_ASSIGNMENT_NOT_ADDED;
+import static seedu.address.logic.Messages.MESSAGE_ASSIGN_SUCCESS;
+import static seedu.address.logic.Messages.MESSAGE_DUPLICATE_ASSIGNMENT;
+import static seedu.address.logic.Messages.MESSAGE_DUPLICATE_PERSON;
+import static seedu.address.logic.Messages.MESSAGE_STUDENT_NOT_IN_CLASS_GROUP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSGROUP;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
@@ -34,10 +39,10 @@ public class AddAssignmentCommand extends Command {
 
     public static final String COMMAND_WORD = "assign";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Add Assignment(s) to the person identified "
-            + "by the index number used in the displayed person list. \n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Add Assignment(s) to the student identified "
+            + "by the index number used in the displayed student list. \n"
             + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_CLASSGROUP + "CLASS_GROUP "
+            + PREFIX_CLASSGROUP + "CLASS "
             + PREFIX_ASSIGNMENT + "ASSIGNMENT "
             + "[" + PREFIX_ASSIGNMENT + "ASSIGNMENT]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
@@ -45,11 +50,6 @@ public class AddAssignmentCommand extends Command {
             + PREFIX_ASSIGNMENT + "ScienceTopic2 "
             + PREFIX_ASSIGNMENT + "MathHW1";
 
-    public static final String MESSAGE_SUCCESS = "Added assignment(s) to: %1$s";
-    public static final String MESSAGE_ASSIGNMENT_NOT_ADDED = "At least one assignment to add must be provided.";
-    public static final String MESSAGE_DUPLICATE_ASSIGNMENT = "Duplicate assignment(s): %s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
-    public static final String MESSAGE_STUDENT_NOT_IN_CLASS_GROUP = "Student does not belong to the class group: %s";
     private final Index index;
     private final AddAssignmentDescriptor addAssignmentDescriptor;
 
@@ -102,7 +102,7 @@ public class AddAssignmentCommand extends Command {
 
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(editedPerson)));
+        return new CommandResult(String.format(MESSAGE_ASSIGN_SUCCESS, Messages.format(editedPerson)));
     }
 
     /**

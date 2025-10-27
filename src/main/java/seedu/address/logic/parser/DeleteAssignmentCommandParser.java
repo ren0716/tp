@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.Messages.MESSAGE_ASSIGNMENT_NOT_DELETED;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSGROUP;
@@ -61,7 +62,7 @@ public class DeleteAssignmentCommandParser implements Parser<DeleteAssignmentCom
                 .ifPresent(deleteAssignmentDescriptor::setAssignments);
 
         if (!deleteAssignmentDescriptor.isAssignmentDeleted()) {
-            throw new ParseException(DeleteAssignmentCommand.MESSAGE_ASSIGNMENT_NOT_DELETED);
+            throw new ParseException(MESSAGE_ASSIGNMENT_NOT_DELETED);
         }
 
         return new DeleteAssignmentCommand(index, deleteAssignmentDescriptor);

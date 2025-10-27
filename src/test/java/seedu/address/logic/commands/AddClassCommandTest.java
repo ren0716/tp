@@ -3,6 +3,9 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.Messages.MESSAGE_ADD_CLASS_SUCCESS;
+import static seedu.address.logic.Messages.MESSAGE_CLASSES_NOT_ADDED;
+import static seedu.address.logic.Messages.MESSAGE_DUPLICATE_CLASSES;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CLASSGROUP_MATH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CLASSGROUP_PHYSICS;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
@@ -48,7 +51,7 @@ public class AddClassCommandTest {
         Person editedPerson = new PersonBuilder(personToEdit)
                 .withClassGroups(VALID_CLASSGROUP_MATH).build();
 
-        String expectedMessage = String.format(AddClassCommand.MESSAGE_ADD_CLASS_SUCCESS,
+        String expectedMessage = String.format(MESSAGE_ADD_CLASS_SUCCESS,
                 Messages.format(editedPerson));
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
@@ -71,7 +74,7 @@ public class AddClassCommandTest {
         Person editedPerson = new PersonBuilder(personToEdit)
                 .withClassGroups(VALID_CLASSGROUP_MATH, VALID_CLASSGROUP_PHYSICS).build();
 
-        String expectedMessage = String.format(AddClassCommand.MESSAGE_ADD_CLASS_SUCCESS,
+        String expectedMessage = String.format(MESSAGE_ADD_CLASS_SUCCESS,
                 Messages.format(editedPerson));
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
@@ -95,7 +98,7 @@ public class AddClassCommandTest {
         Person editedPerson = new PersonBuilder(personToEdit)
                 .withClassGroups(VALID_CLASSGROUP_MATH).build();
 
-        String expectedMessage = String.format(AddClassCommand.MESSAGE_ADD_CLASS_SUCCESS,
+        String expectedMessage = String.format(MESSAGE_ADD_CLASS_SUCCESS,
                 Messages.format(editedPerson));
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
@@ -120,7 +123,7 @@ public class AddClassCommandTest {
         descriptor.setClassGroups(classesToAdd);
         AddClassCommand addClassCommand = new AddClassCommand(INDEX_FIRST_PERSON, descriptor);
 
-        String expectedMessage = String.format(AddClassCommand.MESSAGE_DUPLICATE_CLASSES, VALID_CLASSGROUP_MATH);
+        String expectedMessage = String.format(MESSAGE_DUPLICATE_CLASSES, VALID_CLASSGROUP_MATH);
         assertCommandFailure(addClassCommand, model, expectedMessage);
     }
 
@@ -130,7 +133,7 @@ public class AddClassCommandTest {
         descriptor.setClassGroups(new HashSet<>());
         AddClassCommand addClassCommand = new AddClassCommand(INDEX_FIRST_PERSON, descriptor);
 
-        assertCommandFailure(addClassCommand, model, AddClassCommand.MESSAGE_CLASSES_NOT_ADDED);
+        assertCommandFailure(addClassCommand, model, MESSAGE_CLASSES_NOT_ADDED);
     }
 
     @Test

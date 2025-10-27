@@ -1,6 +1,10 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.Messages.MESSAGE_ADD_CLASS_SUCCESS;
+import static seedu.address.logic.Messages.MESSAGE_CLASSES_NOT_ADDED;
+import static seedu.address.logic.Messages.MESSAGE_DUPLICATE_CLASSES;
+import static seedu.address.logic.Messages.MESSAGE_DUPLICATE_PERSON;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSGROUP;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
@@ -33,19 +37,14 @@ public class AddClassCommand extends Command {
 
     public static final String COMMAND_WORD = "addclass";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds class(es) to the person identified "
-            + "by the index number used in the displayed person list.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds class(es) to the student identified "
+            + "by the index number used in the displayed student list.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_CLASSGROUP + "CLASS_NAME "
-            + "[" + PREFIX_CLASSGROUP + "CLASS_NAME]...\n"
+            + PREFIX_CLASSGROUP + "CLASS "
+            + "[" + PREFIX_CLASSGROUP + "CLASS]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_CLASSGROUP + "Math-1000 "
             + PREFIX_CLASSGROUP + "Physics-2000";
-
-    public static final String MESSAGE_ADD_CLASS_SUCCESS = "Added class(es) to: %1$s";
-    public static final String MESSAGE_CLASSES_NOT_ADDED = "At least one class to add must be provided.";
-    public static final String MESSAGE_DUPLICATE_CLASSES = "Duplicate class(es): %s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
 
     private final Index index;
     private final AddClassDescriptor addClassDescriptor;

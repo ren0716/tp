@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.Messages.MESSAGE_CLASSES_NOT_ADDED;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSGROUP;
 
@@ -43,7 +44,7 @@ public class AddClassCommandParser implements Parser<AddClassCommand> {
                 .ifPresent(addClassDescriptor::setClassGroups);
 
         if (!addClassDescriptor.hasClasses()) {
-            throw new ParseException(AddClassCommand.MESSAGE_CLASSES_NOT_ADDED);
+            throw new ParseException(MESSAGE_CLASSES_NOT_ADDED);
         }
 
         return new AddClassCommand(index, addClassDescriptor);

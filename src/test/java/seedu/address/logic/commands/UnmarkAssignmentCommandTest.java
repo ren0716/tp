@@ -3,6 +3,10 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.Messages.ALREADY_UNMARKED;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_ASSIGNMENT_IN_PERSON;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+import static seedu.address.logic.Messages.MESSAGE_UNMARK_PERSON_SUCCESS;
 
 import java.util.Arrays;
 import java.util.List;
@@ -62,7 +66,7 @@ public class UnmarkAssignmentCommandTest {
         UnmarkAssignmentCommand command = new UnmarkAssignmentCommand(Arrays.asList(targetIndex), assignment);
         try {
             var result = command.execute(model);
-            String expectedMessage = String.format(seedu.address.logic.Messages.MESSAGE_UNMARK_PERSON_SUCCESS,
+            String expectedMessage = String.format(MESSAGE_UNMARK_PERSON_SUCCESS,
                     StringUtil.toTitleCase(assignment.getAssignmentName()),
                     StringUtil.toTitleCase(personWithAssignment.getName().fullName));
             assertEquals(expectedMessage, result.getFeedbackToUser());
@@ -81,7 +85,7 @@ public class UnmarkAssignmentCommandTest {
         Assignment assignment = new AssignmentBuilder().withName("Physics-1800").build();
         UnmarkAssignmentCommand command = new UnmarkAssignmentCommand(Arrays.asList(outOfBoundsIndex), assignment);
 
-        assertCommandFailure(command, model, seedu.address.logic.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(command, model, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     /**
@@ -105,7 +109,9 @@ public class UnmarkAssignmentCommandTest {
                 .build();
         UnmarkAssignmentCommand command = new UnmarkAssignmentCommand(Arrays.asList(Index.fromOneBased(1)), assignment);
 
-        assertCommandFailure(command, model, seedu.address.logic.Messages.MESSAGE_INVALID_ASSIGNMENT_IN_PERSON);
+        assertCommandFailure(command, model, String.format(
+                MESSAGE_INVALID_ASSIGNMENT_IN_PERSON, assignment.getAssignmentName())
+        );
     }
 
     /**
@@ -171,7 +177,7 @@ public class UnmarkAssignmentCommandTest {
         Index targetIndex = Index.fromOneBased(1);
         UnmarkAssignmentCommand command = new UnmarkAssignmentCommand(Arrays.asList(targetIndex), assignment);
 
-        assertCommandFailure(command, model, seedu.address.logic.Messages.ALREADY_UNMARKED);
+        assertCommandFailure(command, model, ALREADY_UNMARKED);
     }
 
     /**
@@ -214,7 +220,7 @@ public class UnmarkAssignmentCommandTest {
         // Second unmark should fail
         UnmarkAssignmentCommand secondUnmarkCommand =
                 new UnmarkAssignmentCommand(Arrays.asList(targetIndex), assignment);
-        assertCommandFailure(secondUnmarkCommand, model, seedu.address.logic.Messages.ALREADY_UNMARKED);
+        assertCommandFailure(secondUnmarkCommand, model, ALREADY_UNMARKED);
     }
 
     /**
@@ -335,7 +341,7 @@ public class UnmarkAssignmentCommandTest {
         UnmarkAssignmentCommand command = new UnmarkAssignmentCommand(Arrays.asList(targetIndex), assignment1);
         try {
             var result = command.execute(model);
-            String expectedMessage = String.format(seedu.address.logic.Messages.MESSAGE_UNMARK_PERSON_SUCCESS,
+            String expectedMessage = String.format(MESSAGE_UNMARK_PERSON_SUCCESS,
                     StringUtil.toTitleCase(assignment1.getAssignmentName()),
                     StringUtil.toTitleCase(personWithAssignments.getName().fullName));
             assertEquals(expectedMessage, result.getFeedbackToUser());
@@ -377,7 +383,7 @@ public class UnmarkAssignmentCommandTest {
         UnmarkAssignmentCommand command = new UnmarkAssignmentCommand(Arrays.asList(targetIndex), assignment);
         try {
             var result = command.execute(model);
-            String expectedMessage = String.format(seedu.address.logic.Messages.MESSAGE_UNMARK_PERSON_SUCCESS,
+            String expectedMessage = String.format(MESSAGE_UNMARK_PERSON_SUCCESS,
                     StringUtil.toTitleCase(assignment.getAssignmentName()),
                     StringUtil.toTitleCase(personWithAssignment.getName().fullName));
             assertEquals(expectedMessage, result.getFeedbackToUser());
@@ -420,7 +426,7 @@ public class UnmarkAssignmentCommandTest {
         UnmarkAssignmentCommand command = new UnmarkAssignmentCommand(Arrays.asList(targetIndex), assignment);
         try {
             var result = command.execute(model);
-            String expectedMessage = String.format(seedu.address.logic.Messages.MESSAGE_UNMARK_PERSON_SUCCESS,
+            String expectedMessage = String.format(MESSAGE_UNMARK_PERSON_SUCCESS,
                     StringUtil.toTitleCase(assignment.getAssignmentName()),
                     StringUtil.toTitleCase(personWithAssignment.getName().fullName));
             assertEquals(expectedMessage, result.getFeedbackToUser());

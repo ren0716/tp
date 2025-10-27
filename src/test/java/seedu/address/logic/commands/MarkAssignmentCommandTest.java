@@ -1,6 +1,9 @@
 package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_ASSIGNMENT_IN_PERSON;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+import static seedu.address.logic.Messages.MESSAGE_MARK_PERSON_SUCCESS;
 
 import java.util.Arrays;
 import java.util.List;
@@ -55,7 +58,7 @@ public class MarkAssignmentCommandTest {
         try {
             var result = command.execute(model);
             String expectedMessage = String.format(
-                    seedu.address.logic.Messages.MESSAGE_MARK_PERSON_SUCCESS,
+                    MESSAGE_MARK_PERSON_SUCCESS,
                     StringUtil.toTitleCase(assignment.getAssignmentName()),
                     StringUtil.toTitleCase(personWithAssignment.getName().fullName));
             assertEquals(expectedMessage, result.getFeedbackToUser());
@@ -74,7 +77,7 @@ public class MarkAssignmentCommandTest {
         Assignment assignment = new AssignmentBuilder().withName("Physics-1800").build();
         MarkAssignmentCommand command = new MarkAssignmentCommand(Arrays.asList(outOfBoundsIndex), assignment);
 
-        assertCommandFailure(command, model, seedu.address.logic.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(command, model, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     /**
@@ -98,7 +101,9 @@ public class MarkAssignmentCommandTest {
                 .build();
         MarkAssignmentCommand command = new MarkAssignmentCommand(Arrays.asList(Index.fromOneBased(1)), assignment);
 
-        assertCommandFailure(command, model, seedu.address.logic.Messages.MESSAGE_INVALID_ASSIGNMENT_IN_PERSON);
+        assertCommandFailure(command, model, String.format(
+                MESSAGE_INVALID_ASSIGNMENT_IN_PERSON, assignment.getAssignmentName())
+        );
     }
 
     /**
@@ -134,7 +139,7 @@ public class MarkAssignmentCommandTest {
         try {
             CommandResult result = command.execute(model);
             String expectedMessage = String.format(
-                    seedu.address.logic.Messages.MESSAGE_MARK_PERSON_SUCCESS,
+                    MESSAGE_MARK_PERSON_SUCCESS,
                     StringUtil.toTitleCase(assignment.getAssignmentName()),
                     originalPersons.stream()
                             .map(p -> StringUtil.toTitleCase(p.getName().fullName))
@@ -174,7 +179,7 @@ public class MarkAssignmentCommandTest {
         );
         MarkAssignmentCommand command = new MarkAssignmentCommand(indices, commandAssignment);
 
-        assertCommandFailure(command, model, seedu.address.logic.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(command, model, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test

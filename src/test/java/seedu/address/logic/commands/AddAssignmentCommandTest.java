@@ -3,6 +3,10 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.Messages.MESSAGE_ASSIGNMENT_NOT_ADDED;
+import static seedu.address.logic.Messages.MESSAGE_ASSIGN_SUCCESS;
+import static seedu.address.logic.Messages.MESSAGE_DUPLICATE_ASSIGNMENT;
+import static seedu.address.logic.Messages.MESSAGE_STUDENT_NOT_IN_CLASS_GROUP;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
@@ -60,7 +64,7 @@ public class AddAssignmentCommandTest {
                 .build();
         expectedModel.setPerson(personWithClassGroup, editedPerson);
 
-        String expectedMessage = String.format(AddAssignmentCommand.MESSAGE_SUCCESS,
+        String expectedMessage = String.format(MESSAGE_ASSIGN_SUCCESS,
                 Messages.format(editedPerson));
 
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -93,7 +97,7 @@ public class AddAssignmentCommandTest {
         AddAssignmentCommand command = new AddAssignmentCommand(INDEX_SECOND_PERSON, descriptor);
 
         assertCommandFailure(command, model, String.format(
-                AddAssignmentCommand.MESSAGE_DUPLICATE_ASSIGNMENT, duplicate));
+                MESSAGE_DUPLICATE_ASSIGNMENT, duplicate));
     }
 
     /**
@@ -114,7 +118,7 @@ public class AddAssignmentCommandTest {
         AddAssignmentCommand command = new AddAssignmentCommand(INDEX_FIRST_PERSON, descriptor);
 
         assertCommandFailure(command, model, String.format(
-                AddAssignmentCommand.MESSAGE_STUDENT_NOT_IN_CLASS_GROUP, "nonexistent-class"));
+                MESSAGE_STUDENT_NOT_IN_CLASS_GROUP, "nonexistent-class"));
     }
 
     /**
@@ -241,7 +245,7 @@ public class AddAssignmentCommandTest {
                 .AddAssignmentDescriptor();
         AddAssignmentCommand command = new AddAssignmentCommand(INDEX_FIRST_PERSON, emptyDescriptor);
 
-        assertCommandFailure(command, model, AddAssignmentCommand.MESSAGE_ASSIGNMENT_NOT_ADDED);
+        assertCommandFailure(command, model, MESSAGE_ASSIGNMENT_NOT_ADDED);
     }
 
     /**
@@ -254,7 +258,7 @@ public class AddAssignmentCommandTest {
         descriptor.setAssignments(Set.of());
         AddAssignmentCommand command = new AddAssignmentCommand(INDEX_FIRST_PERSON, descriptor);
 
-        assertCommandFailure(command, model, AddAssignmentCommand.MESSAGE_ASSIGNMENT_NOT_ADDED);
+        assertCommandFailure(command, model, MESSAGE_ASSIGNMENT_NOT_ADDED);
     }
 
     /**
@@ -426,7 +430,7 @@ public class AddAssignmentCommandTest {
                 .build();
         expectedModel.setPerson(personWithClassGroup, editedPerson);
 
-        String expectedMessage = String.format(AddAssignmentCommand.MESSAGE_SUCCESS,
+        String expectedMessage = String.format(MESSAGE_ASSIGN_SUCCESS,
                 Messages.format(editedPerson));
 
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -465,6 +469,6 @@ public class AddAssignmentCommandTest {
                 .sorted()
                 .collect(java.util.stream.Collectors.joining(", "));
         assertCommandFailure(command, model,
-                String.format(AddAssignmentCommand.MESSAGE_DUPLICATE_ASSIGNMENT, expectedDuplicates));
+                String.format(MESSAGE_DUPLICATE_ASSIGNMENT, expectedDuplicates));
     }
 }

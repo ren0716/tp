@@ -2,6 +2,9 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_INDEX;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_INDEX_FORMAT;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_INDEX_RANGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSGROUP;
 
@@ -26,13 +29,6 @@ import seedu.address.model.person.Phone;
  * Contains utility methods used for parsing strings in the various *Parser classes.
  */
 public class ParserUtil {
-
-    public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
-    public static final String MESSAGE_INVALID_INDEX_RANGE =
-            "Invalid index range format. Expected format: START-END where START and END are positive integers "
-            + "and START is less than or equal to END.";
-    public static final String MESSAGE_INVALID_INDEX_FORMAT = "Invalid index format. "
-            + "Use space-separated indices or ranges. Examples: '1 2 3' or '1-3' or '1 2-4 6'";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
