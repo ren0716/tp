@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.Messages.MESSAGE_ASSIGNMENT_NOT_ADDED;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSGROUP;
@@ -53,7 +54,7 @@ public class AddAssignmentCommandParser implements Parser<AddAssignmentCommand> 
         parseAssignmentsForEdit(argMultimap.getAllValues(PREFIX_ASSIGNMENT), classGroupName).ifPresent(
                 addAssignmentDescriptor::setAssignments);
         if (!addAssignmentDescriptor.isAssignmentAdded()) {
-            throw new ParseException(AddAssignmentCommand.MESSAGE_ASSIGNMENT_NOT_ADDED);
+            throw new ParseException(MESSAGE_ASSIGNMENT_NOT_ADDED);
         }
         return new AddAssignmentCommand(index, addAssignmentDescriptor);
     }

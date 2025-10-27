@@ -3,6 +3,9 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.Messages.MESSAGE_CLASS_NOT_FOUND;
+import static seedu.address.logic.Messages.MESSAGE_CLASS_NOT_PROVIDED;
+import static seedu.address.logic.Messages.MESSAGE_DELETE_CLASS_SUCCESS;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CLASSGROUP_MATH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CLASSGROUP_PHYSICS;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
@@ -54,7 +57,7 @@ public class DeleteClassCommandTest {
         Person editedPerson = new PersonBuilder(personWithClass)
                 .withClassGroups().build();
 
-        String expectedMessage = String.format(DeleteClassCommand.MESSAGE_DELETE_CLASS_SUCCESS,
+        String expectedMessage = String.format(MESSAGE_DELETE_CLASS_SUCCESS,
                 Messages.format(editedPerson));
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
@@ -83,7 +86,7 @@ public class DeleteClassCommandTest {
         Person editedPerson = new PersonBuilder(personWithClasses)
                 .withClassGroups().build();
 
-        String expectedMessage = String.format(DeleteClassCommand.MESSAGE_DELETE_CLASS_SUCCESS,
+        String expectedMessage = String.format(MESSAGE_DELETE_CLASS_SUCCESS,
                 Messages.format(editedPerson));
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
@@ -112,7 +115,7 @@ public class DeleteClassCommandTest {
         Person editedPerson = new PersonBuilder(personWithClasses)
                 .withClassGroups(VALID_CLASSGROUP_PHYSICS).build();
 
-        String expectedMessage = String.format(DeleteClassCommand.MESSAGE_DELETE_CLASS_SUCCESS,
+        String expectedMessage = String.format(MESSAGE_DELETE_CLASS_SUCCESS,
                 Messages.format(editedPerson));
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
@@ -142,7 +145,7 @@ public class DeleteClassCommandTest {
         Person editedPerson = new PersonBuilder(personWithClass)
                 .withClassGroups().build();
 
-        String expectedMessage = String.format(DeleteClassCommand.MESSAGE_DELETE_CLASS_SUCCESS,
+        String expectedMessage = String.format(MESSAGE_DELETE_CLASS_SUCCESS,
                 Messages.format(editedPerson));
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
@@ -187,7 +190,7 @@ public class DeleteClassCommandTest {
                 new HashSet<>()
         );
 
-        String expectedMessage = String.format(DeleteClassCommand.MESSAGE_DELETE_CLASS_SUCCESS,
+        String expectedMessage = String.format(MESSAGE_DELETE_CLASS_SUCCESS,
                 Messages.format(editedPerson));
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
@@ -211,7 +214,7 @@ public class DeleteClassCommandTest {
         descriptor.setClassGroups(classesToDelete);
         DeleteClassCommand deleteClassCommand = new DeleteClassCommand(INDEX_FIRST_PERSON, descriptor);
 
-        String expectedMessage = String.format(DeleteClassCommand.MESSAGE_CLASS_NOT_FOUND, VALID_CLASSGROUP_MATH);
+        String expectedMessage = String.format(MESSAGE_CLASS_NOT_FOUND, VALID_CLASSGROUP_MATH);
         assertCommandFailure(deleteClassCommand, model, expectedMessage);
     }
 
@@ -221,7 +224,7 @@ public class DeleteClassCommandTest {
         descriptor.setClassGroups(new HashSet<>());
         DeleteClassCommand deleteClassCommand = new DeleteClassCommand(INDEX_FIRST_PERSON, descriptor);
 
-        assertCommandFailure(deleteClassCommand, model, DeleteClassCommand.MESSAGE_CLASS_NOT_PROVIDED);
+        assertCommandFailure(deleteClassCommand, model, MESSAGE_CLASS_NOT_PROVIDED);
     }
 
     @Test
@@ -229,7 +232,7 @@ public class DeleteClassCommandTest {
         DeleteClassDescriptor descriptor = new DeleteClassDescriptor();
         DeleteClassCommand deleteClassCommand = new DeleteClassCommand(INDEX_FIRST_PERSON, descriptor);
 
-        assertCommandFailure(deleteClassCommand, model, DeleteClassCommand.MESSAGE_CLASS_NOT_PROVIDED);
+        assertCommandFailure(deleteClassCommand, model, MESSAGE_CLASS_NOT_PROVIDED);
     }
 
     @Test
