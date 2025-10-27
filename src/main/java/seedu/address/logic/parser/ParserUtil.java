@@ -12,6 +12,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
@@ -58,7 +59,6 @@ public class ParserUtil {
      * @throws ParseException if the index specification is invalid
      */
     public static List<Index> parseIndexSpecification(String indexSpec) throws ParseException {
-        String trimmedSpec = indexSpec.trim();
         return parseMultipleIndex(indexSpec);
     }
 
@@ -247,21 +247,6 @@ public class ParserUtil {
     }
 
     /**
-     * Parses and returns the index from the preamble portion of the tokenized arguments.
-     *
-     * @throws ParseException if the index is invalid
-     */
-    public static Index parseIndexFromPreamble(ArgumentMultimap argMultimap, String messageUsage)
-            throws ParseException {
-        try {
-            return ParserUtil.parseIndex(argMultimap.getPreamble());
-        } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    messageUsage), pe);
-        }
-    }
-
-    /**
      * Extracts, validates and parses the classGroupName from the tokenized arguments.
      *
      * @throws ParseException if the classGroupName is missing or invalid
@@ -298,5 +283,13 @@ public class ParserUtil {
         }
 
         return ParserUtil.parseAssignment(assignmentValue.get(), classGroupName);
+    }
+
+    /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    public static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 }
