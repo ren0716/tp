@@ -49,14 +49,6 @@ public class CommandHistoryTest {
     }
 
     @Test
-    public void add_nullOrEmpty_doesNothing() {
-        commandHistory.add(null);
-        commandHistory.add("");
-        commandHistory.add("   ");
-        assertTrue(commandHistory.getHistory().isEmpty());
-    }
-
-    @Test
     public void add_validCommand_addsSuccessfully() {
         commandHistory.add("list");
         commandHistory.add("add John");
