@@ -110,7 +110,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         // Assignments can no longer be edited via the edit command since they require a class group
         // Use assign/unassign commands instead
         throw new ParseException("Assignments cannot be edited via the edit command. "
-                + "Use 'assign' command to add assignments with a class group.");
+                + "Use dedicated commands to manage class groups and assignments.");
     }
 
 }
