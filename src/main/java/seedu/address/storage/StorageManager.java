@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataLoadingException;
+import seedu.address.model.CommandHistory;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
@@ -19,13 +20,18 @@ public class StorageManager implements Storage {
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private AddressBookStorage addressBookStorage;
     private UserPrefsStorage userPrefsStorage;
+    private CommandHistoryStorage commandHistoryStorage;
 
     /**
-     * Creates a {@code StorageManager} with the given {@code AddressBookStorage} and {@code UserPrefStorage}.
+     * Creates a {@code StorageManager} with the given {@code AddressBookStorage},
+     * {@code UserPrefStorage} and {@code CommandHistoryStorage}
      */
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(AddressBookStorage addressBookStorage,
+                          UserPrefsStorage userPrefsStorage,
+                          CommandHistoryStorage commandHistoryStorage) {
         this.addressBookStorage = addressBookStorage;
         this.userPrefsStorage = userPrefsStorage;
+        this.commandHistoryStorage = commandHistoryStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -73,6 +79,24 @@ public class StorageManager implements Storage {
     public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         addressBookStorage.saveAddressBook(addressBook, filePath);
+    }
+
+    // ================ CommandHistory methods ==============================
+    @Override
+    public Path getCommandHistoryFilePath() {
+        return commandHistoryStorage.getCommandHistoryFilePath();
+    }
+
+    @Override
+    public Optional<CommandHistory> readCommandHistory() throws IOException {
+        logger.fine("Attempting to read command history from: " + getCommandHistoryFilePath());
+        return commandHistoryStorage.readCommandHistory();
+    }
+
+    @Override
+    public void saveCommandHistory(CommandHistory history) throws IOException {
+        logger.fine("Attempting to save command history to: " + getCommandHistoryFilePath());
+        commandHistoryStorage.saveCommandHistory(history);
     }
 
 }
