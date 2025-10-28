@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.AssignAllCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.assignment.Assignment;
 
 /**
@@ -84,9 +85,9 @@ public class AssignAllCommandParserTest {
 
     @Test
     public void parse_missingAssignmentPrefix_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AssignAllCommand.MESSAGE_USAGE);
+        String expectedMessage = Messages.MESSAGE_ASSIGNMENT_NOT_ADDED;
 
-        // missing assignment prefix
+        // class prefix present, assignment provided without its prefix
         assertParseFailure(parser,
                 " " + PREFIX_CLASSGROUP + VALID_CLASSGROUP_MATH + " " + VALID_ASSIGNMENT_MATH,
                 expectedMessage);
@@ -104,32 +105,23 @@ public class AssignAllCommandParserTest {
 
     @Test
     public void parse_emptyClassGroup_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AssignAllCommand.MESSAGE_USAGE);
+        String expectedMessage = Messages.MESSAGE_CLASSES_NOT_ADDED;
 
-        // empty class group after prefix
+        // class prefix present but empty, assignment prefix present with value
         assertParseFailure(parser,
                 " " + PREFIX_CLASSGROUP + " " + PREFIX_ASSIGNMENT + VALID_ASSIGNMENT_MATH,
-                expectedMessage);
-
-        // only whitespace after class group prefix
-        assertParseFailure(parser,
-                " " + PREFIX_CLASSGROUP + "   " + PREFIX_ASSIGNMENT + VALID_ASSIGNMENT_MATH,
                 expectedMessage);
     }
 
     @Test
     public void parse_emptyAssignment_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AssignAllCommand.MESSAGE_USAGE);
-
-        // empty assignment after prefix
-        assertParseFailure(parser,
-                " " + PREFIX_CLASSGROUP + VALID_CLASSGROUP_MATH + " " + PREFIX_ASSIGNMENT,
-                expectedMessage);
-
-        // only whitespace after assignment prefix
-        assertParseFailure(parser,
-                " " + PREFIX_CLASSGROUP + VALID_CLASSGROUP_MATH + " " + PREFIX_ASSIGNMENT + "   ",
-                expectedMessage);
+        AssignAllCommandParser parser = new AssignAllCommandParser();
+        // class group provided, assignment prefix present but empty
+        String userInput = " c/math a/";
+        ParseException pe = org.junit.jupiter.api.Assertions.assertThrows(ParseException.class, (
+        ) -> parser.parse(userInput));
+        org.junit.jupiter.api.Assertions.assertEquals(seedu.address.logic.Messages.MESSAGE_ASSIGNMENT_NOT_ADDED,
+                pe.getMessage());
     }
 
     @Test

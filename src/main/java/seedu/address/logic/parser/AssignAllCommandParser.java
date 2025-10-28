@@ -1,9 +1,12 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.logic.Messages.MESSAGE_ASSIGNMENT_NOT_ADDED;
+import static seedu.address.logic.Messages.MESSAGE_CLASSES_NOT_ADDED;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSGROUP;
 
+import java.util.Optional;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AssignAllCommand;
@@ -24,23 +27,25 @@ public class AssignAllCommandParser implements Parser<AssignAllCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_CLASSGROUP, PREFIX_ASSIGNMENT);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_CLASSGROUP, PREFIX_ASSIGNMENT)
-                || !argMultimap.getPreamble().isEmpty()) {
+        // keep preamble check as invalid format
+        if (!argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AssignAllCommand.MESSAGE_USAGE));
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CLASSGROUP, PREFIX_ASSIGNMENT);
 
+        Optional<Prefix> missingOrEmpty = firstMissingOrEmptyPrefix(argMultimap, PREFIX_CLASSGROUP, PREFIX_ASSIGNMENT);
+        if (missingOrEmpty.isPresent()) {
+            Prefix p = missingOrEmpty.get();
+            if (p.equals(PREFIX_CLASSGROUP)) {
+                throw new ParseException(MESSAGE_CLASSES_NOT_ADDED);
+            } else {
+                throw new ParseException(MESSAGE_ASSIGNMENT_NOT_ADDED);
+            }
+        }
+
         String classGroupName = argMultimap.getValue(PREFIX_CLASSGROUP).get().trim().toLowerCase();
         String assignmentName = argMultimap.getValue(PREFIX_ASSIGNMENT).get().trim().toLowerCase();
-
-        if (classGroupName.isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AssignAllCommand.MESSAGE_USAGE));
-        }
-
-        if (assignmentName.isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AssignAllCommand.MESSAGE_USAGE));
-        }
 
         Assignment assignment = ParserUtil.parseAssignment(assignmentName, classGroupName);
 
@@ -48,10 +53,16 @@ public class AssignAllCommandParser implements Parser<AssignAllCommand> {
     }
 
     /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
+     * Returns the first prefix that is either missing or present with an empty (trimmed) value.
+     * If all prefixes are present and non-empty, returns Optional.empty().
      */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    private static Optional<Prefix> firstMissingOrEmptyPrefix(ArgumentMultimap argumentMultimap,
+                                                              Prefix... prefixes) {
+        return Stream.of(prefixes)
+                .filter(prefix -> {
+                    Optional<String> val = argumentMultimap.getValue(prefix);
+                    return val.isEmpty() || val.get().trim().isEmpty();
+                })
+                .findFirst();
     }
 }
