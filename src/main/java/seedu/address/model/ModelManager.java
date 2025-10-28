@@ -11,7 +11,9 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
 import seedu.address.model.versionedaddressbook.VersionedAddressBook;
 
 /**
@@ -95,6 +97,18 @@ public class ModelManager implements Model {
     public boolean hasPerson(Person person) {
         requireNonNull(person);
         return addressBook.hasPerson(person);
+    }
+
+    @Override
+    public boolean hasName(Name name) {
+        requireNonNull(name);
+        return addressBook.hasName(name);
+    }
+
+    @Override
+    public boolean hasPhone(Phone phone) {
+        requireNonNull(phone);
+        return addressBook.hasPhone(phone);
     }
 
     @Override
