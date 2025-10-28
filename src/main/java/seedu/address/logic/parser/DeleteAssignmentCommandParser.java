@@ -37,7 +37,10 @@ public class DeleteAssignmentCommandParser implements Parser<DeleteAssignmentCom
                         args, PREFIX_ASSIGNMENT, PREFIX_CLASSGROUP);
 
         Index index;
-
+        if (argMultimap.getPreamble() == null || argMultimap.getPreamble().trim().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    DeleteAssignmentCommand.MESSAGE_USAGE));
+        }
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
