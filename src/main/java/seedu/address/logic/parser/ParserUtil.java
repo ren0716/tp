@@ -253,10 +253,12 @@ public class ParserUtil {
         String trimmedAssignment = assignment.trim().toLowerCase();
         String trimmedClassGroupName = classGroupName.trim().toLowerCase();
         if (!Assignment.isValidAssignmentName(trimmedAssignment)) {
+            // Invalid assignment name
             throw new ParseException(Assignment.MESSAGE_CONSTRAINTS);
         }
         if (!Assignment.isValidClassGroupName(trimmedClassGroupName)) {
-            throw new ParseException(Assignment.MESSAGE_CLASSGROUP_CONSTRAINTS);
+            // Invalid class group name
+            throw new ParseException(ClassGroup.MESSAGE_CONSTRAINTS);
         }
         return new Assignment(trimmedAssignment, trimmedClassGroupName);
     }
