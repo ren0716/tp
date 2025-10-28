@@ -47,4 +47,14 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    /**
+     * Returns the previous command in history, or null if at the start.
+     */
+    String getPreviousCommand();
+
+    /**
+     * Returns the next command in history, or null if at the end.
+     */
+    String getNextCommand();
 }

@@ -11,7 +11,9 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
 import seedu.address.model.versionedaddressbook.VersionedAddressBook;
 
 /**
@@ -24,6 +26,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final VersionedAddressBook versions;
+    private final CommandHistory history = new CommandHistory();
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -97,6 +100,18 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasName(Name name) {
+        requireNonNull(name);
+        return addressBook.hasName(name);
+    }
+
+    @Override
+    public boolean hasPhone(Phone phone) {
+        requireNonNull(phone);
+        return addressBook.hasPhone(phone);
+    }
+
+    @Override
     public void deletePerson(Person target) {
 
         addressBook.removePerson(target);
@@ -165,5 +180,30 @@ public class ModelManager implements Model {
     public void redo() {
         ReadOnlyAddressBook next = this.versions.redo();
         setAddressBook(next);
+    }
+
+    //=========== Command History ============================================================================
+    @Override
+    public void setCommandHistory(CommandHistory commandHistory) {
+        this.history.resetHistory(commandHistory);
+    }
+
+    public CommandHistory getHistory() {
+        return this.history;
+    }
+
+    @Override
+    public void addCommandToHistory(String command) {
+        history.add(command);
+    }
+
+    @Override
+    public String nextCommand() {
+        return history.next();
+    }
+
+    @Override
+    public String previousCommand() {
+        return history.previous();
     }
 }

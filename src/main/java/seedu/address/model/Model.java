@@ -5,7 +5,9 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
 
 /**
  * The API of the Model component.
@@ -58,6 +60,16 @@ public interface Model {
     boolean hasPerson(Person person);
 
     /**
+     * Returns true if a person with the same name as {@code name} exists in the address book.
+     */
+    boolean hasName(Name name);
+
+    /**
+     * Returns true if a person with the same phone number as {@code phone} exists in the address book.
+     */
+    boolean hasPhone(Phone phone);
+
+    /**
      * Deletes the given person.
      * The person must exist in the address book.
      */
@@ -99,4 +111,19 @@ public interface Model {
      * Restores the address book data that was undone by the most recent undo command
      */
     void redo();
+
+    /** Injects an instance of Command History to model */
+    void setCommandHistory(CommandHistory commandHistory);
+
+    /** Adds a command to history. */
+    void addCommandToHistory(String command);
+
+    /** Get previous command from Command History */
+    String previousCommand();
+
+    /** Get next command from Command History*/
+    String nextCommand();
+
+    /** Returns the Command History */
+    CommandHistory getHistory();
 }

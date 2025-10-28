@@ -19,11 +19,16 @@ public class Messages {
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d students listed!";
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Multiple values specified for the following single-valued field(s): ";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This student already exists in the student list!";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This student already exists in the student list!\n"
+            + "(NOTE: NAME is case-insensitive)";
 
     // add & delete student
     public static final String MESSAGE_ADD_SUCCESS = "New student added: %1$s";
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted student: %1$s";
+    public static final String MESSAGE_NAME_ALREADY_EXISTS = "Warning: A student with the name '%1$s' already exists\n"
+            + "(NOTE: NAME is case-insensitive)";
+    public static final String MESSAGE_PHONE_ALREADY_EXISTS = "Warning: A student with the phone number "
+            + "'%1$s' already exists\n";
 
     // edit
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited student: %1$s";
@@ -32,7 +37,8 @@ public class Messages {
     // assign & unassign
     public static final String MESSAGE_ASSIGN_SUCCESS = "Added assignment(s) to: %1$s";
     public static final String MESSAGE_ASSIGNMENT_NOT_ADDED = "At least one assignment to add must be provided";
-    public static final String MESSAGE_DUPLICATE_ASSIGNMENT = "Duplicate assignment(s): %s";
+    public static final String MESSAGE_DUPLICATE_ASSIGNMENT = "Duplicate assignment(s): %s\n"
+            + "(NOTE: ASSIGNMENT is case-insensitive)";
     public static final String MESSAGE_STUDENT_NOT_IN_CLASS_GROUP = "Student does not belong to the class: %s";
     public static final String MESSAGE_DELETE_ASSIGNMENT_SUCCESS = "Deleted assignment(s) from: %1$s";
     public static final String MESSAGE_ASSIGNMENT_NOT_DELETED = "At least one assignment to delete must be provided";
@@ -43,7 +49,8 @@ public class Messages {
             "Assigned assignment '%1$s' to %2$d student(s) in class '%3$s'";
     public static final String MESSAGE_CLASS_NOT_EXIST = "Non-existent class: %1$s";
     public static final String MESSAGE_ALREADY_ASSIGNED =
-            "All students in class '%1$s' already have the assignment '%2$s' assigned";
+            "All students in class '%1$s' already have the assignment '%2$s' assigned\n"
+                    + "(NOTE: ASSIGNMENT is case-insensitive)";
     public static final String MESSAGE_UNASSIGNALL_SUCCESS =
             "Unassigned assignment '%1$s' from %2$d student(s) in class '%3$s'";
     public static final String MESSAGE_ASSIGNMENT_NOT_FOUND = "Assignment '%1$s' not found in class '%2$s'";
@@ -51,7 +58,8 @@ public class Messages {
     // add & delete class
     public static final String MESSAGE_ADD_CLASS_SUCCESS = "Added class(es) to: %1$s";
     public static final String MESSAGE_CLASSES_NOT_ADDED = "At least one class to add must be provided";
-    public static final String MESSAGE_DUPLICATE_CLASSES = "Duplicate class(es): %s";
+    public static final String MESSAGE_DUPLICATE_CLASSES = "Duplicate class(es): %s\n"
+            + "(NOTE: CLASS is case-insensitive)";
     public static final String MESSAGE_DELETE_CLASS_SUCCESS = "Deleted class(es) from: %1$s";
     public static final String MESSAGE_CLASS_NOT_PROVIDED = "At least one class to delete must be provided";
     public static final String MESSAGE_CLASS_NOT_FOUND = "Cannot delete non-existent class(es): %s";

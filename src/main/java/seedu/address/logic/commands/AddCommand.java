@@ -53,6 +53,20 @@ public class AddCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
+        // Check for duplicate name only
+        if (model.hasName(toAdd.getName())) {
+            model.addPerson(toAdd);
+            return new CommandResult(String.format(MESSAGE_ADD_SUCCESS, Messages.format(toAdd))
+                    + "\n" + String.format(Messages.MESSAGE_NAME_ALREADY_EXISTS, toAdd.getName()));
+        }
+
+        //Check for duplicate phone only
+        if (model.hasPhone(toAdd.getPhone())) {
+            model.addPerson(toAdd);
+            return new CommandResult(String.format(MESSAGE_ADD_SUCCESS, Messages.format(toAdd))
+                    + "\n" + String.format(Messages.MESSAGE_PHONE_ALREADY_EXISTS, toAdd.getPhone()));
+        }
+
         model.addPerson(toAdd);
         return new CommandResult(String.format(MESSAGE_ADD_SUCCESS, Messages.format(toAdd)));
     }

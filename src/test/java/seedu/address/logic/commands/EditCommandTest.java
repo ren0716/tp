@@ -123,6 +123,52 @@ public class EditCommandTest {
     }
 
     @Test
+    public void execute_sameNameDifferentPersonUnfilteredList_success() {
+        Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Person secondPerson = model.getFilteredPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
+
+        // edit second person to have the same name as first person
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder()
+                .withName(firstPerson.getName().fullName)
+                .withPhone(secondPerson.getPhone().value)
+                .build();
+        EditCommand editCommand = new EditCommand(INDEX_SECOND_PERSON, descriptor);
+        Person editedPerson = secondPerson.withName(firstPerson.getName());
+        String expectedMessage = String.format(MESSAGE_EDIT_PERSON_SUCCESS,
+                Messages.format(editedPerson))
+                + "\n" + String.format(Messages.MESSAGE_NAME_ALREADY_EXISTS, editedPerson.getName());
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.setPerson(secondPerson, secondPerson.withName(firstPerson.getName()));
+
+        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_samePhoneDifferentPersonUnfilteredList_success() {
+        Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Person secondPerson = model.getFilteredPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
+
+        // edit second person to have the same phone as first person
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder()
+                .withName(secondPerson.getName().fullName)
+                .withPhone(firstPerson.getPhone().value)
+                .build();
+        EditCommand editCommand = new EditCommand(INDEX_SECOND_PERSON, descriptor);
+        Person editedPerson = secondPerson.withPhone(firstPerson.getPhone());
+        String expectedMessage = String.format(MESSAGE_EDIT_PERSON_SUCCESS,
+                Messages.format(editedPerson))
+                + "\n" + String.format(Messages.MESSAGE_PHONE_ALREADY_EXISTS, editedPerson.getPhone());
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.setPerson(secondPerson, secondPerson.withPhone(firstPerson.getPhone()));
+
+        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+    }
+
+
+
+    @Test
     public void execute_invalidPersonIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();
