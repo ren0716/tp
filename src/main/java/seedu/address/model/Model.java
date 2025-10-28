@@ -111,4 +111,19 @@ public interface Model {
      * Restores the address book data that was undone by the most recent undo command
      */
     void redo();
+
+    /** Injects an instance of Command History to model */
+    void setCommandHistory(CommandHistory commandHistory);
+
+    /** Adds a command to history. */
+    void addCommandToHistory(String command);
+
+    /** Get previous command from Command History */
+    String previousCommand();
+
+    /** Get next command from Command History*/
+    String nextCommand();
+
+    /** Returns the Command History */
+    CommandHistory getHistory();
 }

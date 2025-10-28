@@ -50,6 +50,19 @@ public class CommandBox extends UiPart<Region> {
     }
 
     /**
+     * Sets the text displayed in the command input field.
+     * <p>
+     * This method updates the text in the {@code commandTextField} but does not execute the command.
+     * The caret is typically moved to the end of the text after setting.
+     *
+     * @param text the text to set in the command input field; may be empty but should not be null
+     */
+    @FXML
+    public void setCommandTextField(String text) {
+        this.commandTextField.setText(text);
+    }
+
+    /**
      * Sets the command box style to use the default style.
      */
     private void setStyleToDefault() {
@@ -68,6 +81,31 @@ public class CommandBox extends UiPart<Region> {
 
         styleClass.add(ERROR_STYLE_CLASS);
     }
+
+    /**
+     * Sets handlers for navigating command history.
+     * These handlers are invoked when UP or DOWN arrows are pressed.
+     */
+    public void setCommandHistoryNavigation(Runnable onUp, Runnable onDown) {
+        commandTextField.setOnKeyPressed(event -> {
+            switch (event.getCode()) {
+            case UP -> {
+                onUp.run();
+                event.consume(); // prevent default caret movement
+            }
+            case DOWN -> {
+                onDown.run();
+                event.consume();
+            }
+
+            default -> {
+                // do nothing, allow normal behavior
+            }
+
+            }
+        });
+    }
+
 
     /**
      * Represents a function that can execute commands.
