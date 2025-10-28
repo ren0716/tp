@@ -77,6 +77,20 @@ public class EditCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
+        // Check for duplicate name only
+        if (!personToEdit.getName().equals(editedPerson.getName()) && model.hasName(editedPerson.getName())) {
+            model.setPerson(personToEdit, editedPerson);
+            return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson))
+                    + "\n" + String.format(Messages.MESSAGE_NAME_ALREADY_EXISTS, editedPerson.getName()));
+        }
+
+        // Check for duplicate phone only
+        if (!personToEdit.getPhone().equals(editedPerson.getPhone()) && model.hasPhone(editedPerson.getPhone())) {
+            model.setPerson(personToEdit, editedPerson);
+            return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson))
+                    + "\n" + String.format(Messages.MESSAGE_PHONE_ALREADY_EXISTS, editedPerson.getPhone()));
+        }
+
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson)));

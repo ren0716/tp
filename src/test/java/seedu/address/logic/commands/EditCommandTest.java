@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -17,16 +18,26 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.function.Predicate;
+
 import org.junit.jupiter.api.Test;
 
+import javafx.collections.ObservableList;
+import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 
@@ -123,6 +134,52 @@ public class EditCommandTest {
     }
 
     @Test
+    public void execute_sameNameDifferentPersonUnfilteredList_success() {
+        Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Person secondPerson = model.getFilteredPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
+
+        // edit second person to have the same name as first person
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder()
+                .withName(firstPerson.getName().fullName)
+                .withPhone(secondPerson.getPhone().value)
+                .build();
+        EditCommand editCommand = new EditCommand(INDEX_SECOND_PERSON, descriptor);
+        Person editedPerson = secondPerson.withName(firstPerson.getName());
+        String expectedMessage = String.format(MESSAGE_EDIT_PERSON_SUCCESS,
+                Messages.format(editedPerson))
+                + "\n" + String.format(Messages.MESSAGE_NAME_ALREADY_EXISTS, editedPerson.getName());
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.setPerson(secondPerson, secondPerson.withName(firstPerson.getName()));
+
+        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_samePhoneDifferentPersonUnfilteredList_success() {
+        Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Person secondPerson = model.getFilteredPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
+
+        // edit second person to have the same phone as first person
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder()
+                .withName(secondPerson.getName().fullName)
+                .withPhone(firstPerson.getPhone().value)
+                .build();
+        EditCommand editCommand = new EditCommand(INDEX_SECOND_PERSON, descriptor);
+        Person editedPerson = secondPerson.withPhone(firstPerson.getPhone());
+        String expectedMessage = String.format(MESSAGE_EDIT_PERSON_SUCCESS,
+                Messages.format(editedPerson))
+                + "\n" + String.format(Messages.MESSAGE_PHONE_ALREADY_EXISTS, editedPerson.getPhone());
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.setPerson(secondPerson, secondPerson.withPhone(firstPerson.getPhone()));
+
+        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+    }
+
+
+
+    @Test
     public void execute_invalidPersonIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();
@@ -181,6 +238,148 @@ public class EditCommandTest {
         String expected = EditCommand.class.getCanonicalName() + "{index=" + index + ", editPersonDescriptor="
                 + editPersonDescriptor + "}";
         assertEquals(expected, editCommand.toString());
+    }
+
+    /**
+     * A default model stub that have all of the methods failing.
+     */
+    private class ModelStub implements Model {
+        @Override
+        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyUserPrefs getUserPrefs() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public GuiSettings getGuiSettings() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setGuiSettings(GuiSettings guiSettings) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Path getAddressBookFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setAddressBookFilePath(Path addressBookFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addPerson(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setAddressBook(ReadOnlyAddressBook newData) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyAddressBook getAddressBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasPerson(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasName(Name name) {
+            return false;
+        }
+
+        @Override
+        public boolean hasPhone(Phone phone) {
+            return false;
+        }
+
+        @Override
+        public void deletePerson(Person target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setPerson(Person target, Person editedPerson) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Person> getFilteredPersonList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void undo() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void commit() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void redo() {
+            throw new AssertionError("This method should not be called.");
+        }
+    }
+
+    /**
+     * A Model stub that contains a single person.
+     */
+    private class ModelStubWithPerson extends EditCommandTest.ModelStub {
+        final ArrayList<Person> personAdded = new ArrayList<>();
+        private final Person person;
+
+        ModelStubWithPerson(Person person) {
+            requireNonNull(person);
+            this.person = person;
+        }
+
+        @Override
+        public void addPerson(Person person) {
+            requireNonNull(person);
+            personAdded.add(person);
+        }
+
+        @Override
+        public boolean hasPerson(Person person) {
+            requireNonNull(person);
+            return this.person.isSamePerson(person);
+        }
+
+        @Override
+        public boolean hasName(Name name) {
+            requireNonNull(name);
+            return this.person.getName().equals(name);
+        }
+
+        @Override
+        public boolean hasPhone(Phone phone) {
+            requireNonNull(phone);
+            return this.person.getPhone().equals(phone);
+        }
+
+        @Override
+        public ReadOnlyAddressBook getAddressBook() {
+            return new AddressBook();
+        }
     }
 
 }
