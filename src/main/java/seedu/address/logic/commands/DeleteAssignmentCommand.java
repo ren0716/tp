@@ -74,8 +74,15 @@ public class DeleteAssignmentCommand extends Command {
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
 
+        // No class provided (missing prefix / present but empty): MESSAGE_CLASSES_NOT_ADDED
+        if (!deleteAssignmentDescriptor.hasClassGroup()) {
+            throw new CommandException(Messages.MESSAGE_CLASSES_NOT_ADDED);
+        }
+
+        // No assignments provided (missing prefix / present but empty): MESSAGE_ASSIGNMENT_NOT_DELETED
         if (!deleteAssignmentDescriptor.isAssignmentDeleted()
-                || deleteAssignmentDescriptor.getAssignments().get().isEmpty()) {
+                || (deleteAssignmentDescriptor.getAssignments().isPresent()
+                && deleteAssignmentDescriptor.getAssignments().get().isEmpty())) {
             throw new CommandException(MESSAGE_ASSIGNMENT_NOT_DELETED);
         }
 
@@ -176,6 +183,7 @@ public class DeleteAssignmentCommand extends Command {
      */
     public static class DeleteAssignmentDescriptor {
         private Set<Assignment> assignments;
+        private String classGroupName;
 
         public DeleteAssignmentDescriptor() {}
 
@@ -185,6 +193,7 @@ public class DeleteAssignmentCommand extends Command {
          */
         public DeleteAssignmentDescriptor(DeleteAssignmentDescriptor toCopy) {
             setAssignments(toCopy.assignments);
+            setClassGroupName(toCopy.classGroupName);
         }
 
         /**
@@ -192,6 +201,21 @@ public class DeleteAssignmentCommand extends Command {
          */
         public boolean isAssignmentDeleted() {
             return CollectionUtil.isAnyNonNull(assignments);
+        }
+
+        /**
+         * Returns true if a class group was provided (non-null and non-empty after trimming).
+         */
+        public boolean hasClassGroup() {
+            return classGroupName != null && !classGroupName.trim().isEmpty();
+        }
+
+        public void setClassGroupName(String classGroupName) {
+            this.classGroupName = classGroupName;
+        }
+
+        public Optional<String> getClassGroupName() {
+            return (classGroupName != null) ? Optional.of(classGroupName) : Optional.empty();
         }
 
         /**
@@ -223,7 +247,8 @@ public class DeleteAssignmentCommand extends Command {
             }
 
             DeleteAssignmentDescriptor otherDeleteAssignmentDescriptor = (DeleteAssignmentDescriptor) other;
-            return Objects.equals(assignments, otherDeleteAssignmentDescriptor.assignments);
+            return Objects.equals(assignments, otherDeleteAssignmentDescriptor.assignments)
+                    && Objects.equals(classGroupName, otherDeleteAssignmentDescriptor.classGroupName);
         }
 
         @Override

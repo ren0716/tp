@@ -1,7 +1,6 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSGROUP;
 
@@ -12,7 +11,6 @@ import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeleteAssignmentCommand;
-import seedu.address.logic.commands.DeleteAssignmentCommand.DeleteAssignmentDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.assignment.Assignment;
 
@@ -36,22 +34,23 @@ public class DeleteAssignmentCommandParser implements Parser<DeleteAssignmentCom
         Index index = ParserUtil.parseIndexFromPreamble(
                 argMultimap.getPreamble(), DeleteAssignmentCommand.MESSAGE_USAGE);
 
+        // allow missing / empty c/ to be represented in the descriptor
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CLASSGROUP);
 
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CLASSGROUP); // 4) Duplicate prefixes detection
-        if (!argMultimap.getValue(PREFIX_CLASSGROUP).isPresent()) { // 5) Check class group presence and non-empty
-            throw new ParseException(String.format(
-                    MESSAGE_INVALID_COMMAND_FORMAT, DeleteAssignmentCommand.MESSAGE_USAGE));
-        }
-        String classGroupName = argMultimap.getValue(PREFIX_CLASSGROUP).get().trim().toLowerCase();
-        if (classGroupName.isEmpty()) {
-            throw new ParseException(String.format(
-                    MESSAGE_INVALID_COMMAND_FORMAT, DeleteAssignmentCommand.MESSAGE_USAGE));
-        }
+        DeleteAssignmentCommand.DeleteAssignmentDescriptor deleteAssignmentDescriptor =
+                new DeleteAssignmentCommand.DeleteAssignmentDescriptor();
 
-        // 6) Parse assignments: assignment-specific MESSAGE_CONSTRAINTS on invalid values
-        DeleteAssignmentDescriptor deleteAssignmentDescriptor = new DeleteAssignmentDescriptor();
-        parseAssignmentsForEdit(argMultimap.getAllValues(PREFIX_ASSIGNMENT), classGroupName)
-                .ifPresent(deleteAssignmentDescriptor::setAssignments);
+        // set classGroupName in descriptor (may be null if missing, may be empty if c/ provided with empty token)
+        Optional<String> rawClassValueOpt = argMultimap.getValue(PREFIX_CLASSGROUP);
+        String rawClassValue = rawClassValueOpt.orElse(null);
+        deleteAssignmentDescriptor.setClassGroupName(rawClassValue);
+
+        // Only parse Assignment objects if a non-empty class group name is provided.
+        if (rawClassValue != null && !rawClassValue.trim().isEmpty()) {
+            String classGroupName = rawClassValue.trim().toLowerCase();
+            parseAssignmentsForEdit(argMultimap.getAllValues(PREFIX_ASSIGNMENT), classGroupName)
+                    .ifPresent(deleteAssignmentDescriptor::setAssignments);
+        }
 
         return new DeleteAssignmentCommand(index, deleteAssignmentDescriptor);
     }
