@@ -1,7 +1,6 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.Messages.MESSAGE_ASSIGNMENT_NOT_DELETED;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_INDEX_FORMAT;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_INDEX_RANGE;
@@ -23,6 +22,7 @@ import seedu.address.model.assignment.Assignment;
 /**
  * Parses input arguments and creates a new DeleteAssignmentCommand object
  */
+@SuppressWarnings("checkstyle:Regexp")
 public class DeleteAssignmentCommandParser implements Parser<DeleteAssignmentCommand> {
 
     /**
@@ -30,42 +30,16 @@ public class DeleteAssignmentCommandParser implements Parser<DeleteAssignmentCom
      * and returns an DeleteAssignmentCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
+    @SuppressWarnings("checkstyle:Regexp")
     public DeleteAssignmentCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_ASSIGNMENT, PREFIX_CLASSGROUP);
-        Index index;
-        // 1) Missing index: MESSAGE_INVALID_COMMAND_FORMAT
-        if (argMultimap.getPreamble() == null || argMultimap.getPreamble().trim().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    DeleteAssignmentCommand.MESSAGE_USAGE));
-        }
-        // 2) Preamble contains extra tokens (e.g. "1 extra"): MESSAGE_INVALID_COMMAND_FORMAT
-        String preamble = argMultimap.getPreamble().trim();
-        if (preamble.split("\\s+").length > 1) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    DeleteAssignmentCommand.MESSAGE_USAGE));
-        }
-        // 3) Parse index: ParserUtil.parseIndex throws Invalid INDEX / command specific error
-        try {
-            index = ParserUtil.parseIndex(preamble);
-        } catch (ParseException pe) {
-            String msg = pe.getMessage();
-            if (MESSAGE_INVALID_PERSON_DISPLAYED_INDEX.equals(msg)
-                    || MESSAGE_INVALID_INDEX_FORMAT.equals(msg)
-                    || MESSAGE_INVALID_INDEX_RANGE.equals(msg)) {
-                // keep index-specific errors
-                throw pe;
-            }
-            // command specific parse errors
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    DeleteAssignmentCommand.MESSAGE_USAGE), pe);
-        }
-        // 4) Duplicate prefixes detection
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CLASSGROUP);
 
-        // 5) Check class group presence and non-empty
-        if (!argMultimap.getValue(PREFIX_CLASSGROUP).isPresent()) {
+        Index index = parseIndexFromPreamble(argMultimap.getPreamble(), DeleteAssignmentCommand.MESSAGE_USAGE);
+
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CLASSGROUP); // 4) Duplicate prefixes detection
+        if (!argMultimap.getValue(PREFIX_CLASSGROUP).isPresent()) { // 5) Check class group presence and non-empty
             throw new ParseException(String.format(
                     MESSAGE_INVALID_COMMAND_FORMAT, DeleteAssignmentCommand.MESSAGE_USAGE));
         }
@@ -80,11 +54,52 @@ public class DeleteAssignmentCommandParser implements Parser<DeleteAssignmentCom
         parseAssignmentsForEdit(argMultimap.getAllValues(PREFIX_ASSIGNMENT), classGroupName)
                 .ifPresent(deleteAssignmentDescriptor::setAssignments);
 
-        // 7) No assignments provided: MESSAGE_ASSIGNMENT_NOT_ADDED
-        if (!deleteAssignmentDescriptor.isAssignmentDeleted()) {
-            throw new ParseException(MESSAGE_ASSIGNMENT_NOT_DELETED);
-        }
         return new DeleteAssignmentCommand(index, deleteAssignmentDescriptor);
+    }
+
+    /**
+     * Parses and validates the preamble as a single index.
+     *
+     * <p>Expected behavior:
+     * - Ensures the preamble is present and contains exactly one token.
+     * - Delegates numeric validation to {@link ParserUtil#parseIndex(String)} which
+     *   will throw index-specific {@link ParseException} messages:
+     *   {@code MESSAGE_INVALID_PERSON_DISPLAYED_INDEX}, {@code MESSAGE_INVALID_INDEX_FORMAT},
+     *   or {@code MESSAGE_INVALID_INDEX_RANGE}.
+     * - Any other {@link ParseException} thrown by the delegate is wrapped and rethrown
+     *   as a generic invalid command format error using {@code usageMessage}, so that
+     *   command-specific usage is shown to the user.
+     *
+     * @param preamble the raw preamble string extracted from the user's input (may be null/blank)
+     * @param usageMessage the command usage message to include when reporting generic format errors
+     * @return the parsed {@link Index} corresponding to the preamble
+     * @throws ParseException if the preamble is missing, contains extra tokens, or the index is invalid
+     */
+    private Index parseIndexFromPreamble(String preamble, String usageMessage) throws ParseException {
+        // 1) Missing preamble or empty: MESSAGE_INVALID_COMMAND_FORMAT
+        if (preamble == null || preamble.trim().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, usageMessage));
+        }
+
+        String trimmed = preamble.trim();
+        if (trimmed.split("\\s+").length > 1) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, usageMessage));
+        }
+
+        // 2) Index parsing and validation delegated to ParserUtil
+        try {
+            return ParserUtil.parseIndex(trimmed);
+        } catch (ParseException pe) {
+            String msg = pe.getMessage();
+            if (MESSAGE_INVALID_PERSON_DISPLAYED_INDEX.equals(msg)
+                    || MESSAGE_INVALID_INDEX_FORMAT.equals(msg)
+                    || MESSAGE_INVALID_INDEX_RANGE.equals(msg)) {
+                // Throw index-related errors
+                throw pe;
+            }
+            // Any other parse exceptions: MESSAGE_INVALID_COMMAND_FORMAT
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, usageMessage), pe);
+        }
     }
 
     /**

@@ -47,16 +47,35 @@ public class AddAssignmentCommandParser implements Parser<AddAssignmentCommand> 
     }
 
     /**
-     * Helper to parse and validate the preamble as an index.
+     * Parses and validates the preamble as a single index.
+     *
+     * <p>Behavior:
+     * - Ensures the preamble is present and contains exactly one token (no extra tokens).
+     * - Delegates numeric/index validation to {@link ParserUtil#parseIndex(String)} which may throw
+     *   index-specific {@link ParseException} messages:
+     *   {@code MESSAGE_INVALID_PERSON_DISPLAYED_INDEX}, {@code MESSAGE_INVALID_INDEX_FORMAT},
+     *   or {@code MESSAGE_INVALID_INDEX_RANGE}.
+     * - If {@link ParserUtil#parseIndex(String)} throws any other {@link ParseException}, the
+     *   exception is wrapped and rethrown as a generic invalid command format error that
+     *   includes the supplied {@code usageMessage}, so the command usage is displayed to the user.
+     *
+     * @param preamble the raw preamble string extracted from the user's input (may be null or blank)
+     * @param usageMessage the command usage message to include when reporting generic format errors
+     * @return the parsed {@link Index} corresponding to the preamble
+     * @throws ParseException if the preamble is missing, contains extra tokens, or the index is invalid
      */
     private Index parseIndexFromPreamble(String preamble, String usageMessage) throws ParseException {
+        // 1) Missing preamble or empty: MESSAGE_INVALID_COMMAND_FORMAT
         if (preamble == null || preamble.trim().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, usageMessage));
         }
+
         String trimmed = preamble.trim();
         if (trimmed.split("\\s+").length > 1) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, usageMessage));
         }
+
+        // 2) Index parsing and validation delegated to ParserUtil
         try {
             return ParserUtil.parseIndex(trimmed);
         } catch (ParseException pe) {
@@ -64,8 +83,10 @@ public class AddAssignmentCommandParser implements Parser<AddAssignmentCommand> 
             if (MESSAGE_INVALID_PERSON_DISPLAYED_INDEX.equals(msg)
                     || MESSAGE_INVALID_INDEX_FORMAT.equals(msg)
                     || MESSAGE_INVALID_INDEX_RANGE.equals(msg)) {
+                // Throw index-related errors
                 throw pe;
             }
+            // Any other parse exceptions: MESSAGE_INVALID_COMMAND_FORMAT
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, usageMessage), pe);
         }
     }
