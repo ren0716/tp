@@ -1,10 +1,6 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.Messages.MESSAGE_INVALID_INDEX_FORMAT;
-import static seedu.address.logic.Messages.MESSAGE_INVALID_INDEX_RANGE;
-import static seedu.address.logic.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.logic.Messages.MESSAGE_NOT_EDITED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSGROUP;
@@ -36,36 +32,11 @@ public class EditCommandParser implements Parser<EditCommand> {
      */
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(
-                        args, PREFIX_NAME, PREFIX_PHONE, PREFIX_LEVEL, PREFIX_CLASSGROUP, PREFIX_ASSIGNMENT);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(
+                args, PREFIX_NAME, PREFIX_PHONE, PREFIX_LEVEL, PREFIX_CLASSGROUP, PREFIX_ASSIGNMENT);
 
-        Index index;
-        // 1) Missing index
-        if (argMultimap.getPreamble() == null || argMultimap.getPreamble().trim().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    EditCommand.MESSAGE_USAGE));
-        }
+        Index index = ParserUtil.parseIndexFromPreamble(argMultimap.getPreamble(), EditCommand.MESSAGE_USAGE);
 
-        // 2) Preamble contains extra tokens (e.g. "1 extra")
-        String preamble = argMultimap.getPreamble().trim();
-        if (preamble.split("\\s+").length > 1) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    EditCommand.MESSAGE_USAGE));
-        }
-        // 3) Parse index: ParserUtil.parseIndex throws Invalid INDEX / command specific error
-        try {
-            index = ParserUtil.parseIndex(preamble);
-        } catch (ParseException pe) {
-            String msg = pe.getMessage();
-            if (MESSAGE_INVALID_PERSON_DISPLAYED_INDEX.equals(msg)
-                    || MESSAGE_INVALID_INDEX_FORMAT.equals(msg)
-                    || MESSAGE_INVALID_INDEX_RANGE.equals(msg)) {
-                throw pe;
-            }
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    EditCommand.MESSAGE_USAGE), pe);
-        }
         // 4) Duplicate prefixes detection
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_LEVEL);
 
