@@ -74,7 +74,7 @@ public class Messages {
                     + "Expected format: START-END where START and END are positive integers "
                     + "and START <= END";
     public static final String MESSAGE_INVALID_INDEX_FORMAT = "Invalid index format!\n "
-            + "Use space-separated indices or ranges\n" 
+            + "Use space-separated indices or ranges\n"
             + "Examples: '1 2 3' or '1-3' or '1 2-4 6'";
 
     /**
