@@ -26,6 +26,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final VersionedAddressBook versions;
+    private final CommandHistory history = new CommandHistory();
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -179,5 +180,30 @@ public class ModelManager implements Model {
     public void redo() {
         ReadOnlyAddressBook next = this.versions.redo();
         setAddressBook(next);
+    }
+
+    //=========== Command History ============================================================================
+    @Override
+    public void setCommandHistory(CommandHistory commandHistory) {
+        this.history.resetHistory(commandHistory);
+    }
+
+    public CommandHistory getHistory() {
+        return this.history;
+    }
+
+    @Override
+    public void addCommandToHistory(String command) {
+        history.add(command);
+    }
+
+    @Override
+    public String nextCommand() {
+        return history.next();
+    }
+
+    @Override
+    public String previousCommand() {
+        return history.previous();
     }
 }
