@@ -129,7 +129,7 @@ public class MainApp extends Application {
      * @param userPrefs the user preferences to initialize the model with
      * @return an initialized {@code ModelManager} instance
      */
-    private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
+    protected Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         logger.info("Using data file : " + storage.getAddressBookFilePath());
         logger.info("Using data file : " + storage.getCommandHistoryFilePath());
 
