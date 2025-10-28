@@ -340,6 +340,7 @@
 /* Container that holds all "classGroup - assignments" rows */
 #classGroupAssignmentContainer {
     -fx-spacing: 5;
+    -fx-padding: 5 0 0 0;
 }
 
 /* Each row (HBox) */
