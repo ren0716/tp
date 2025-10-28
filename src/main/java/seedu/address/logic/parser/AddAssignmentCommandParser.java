@@ -1,7 +1,6 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.Messages.MESSAGE_ASSIGNMENT_NOT_ADDED;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_INDEX_FORMAT;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_INDEX_RANGE;
@@ -34,59 +33,41 @@ public class AddAssignmentCommandParser implements Parser<AddAssignmentCommand> 
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_ASSIGNMENT, PREFIX_CLASSGROUP);
 
-        Index index;
-        // 1) Missing index: MESSAGE_INVALID_COMMAND_FORMAT
-        if (argMultimap.getPreamble() == null || argMultimap.getPreamble().trim().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    AddAssignmentCommand.MESSAGE_USAGE));
-        }
+        Index index = parseIndexFromPreamble(argMultimap.getPreamble(), AddAssignmentCommand.MESSAGE_USAGE);
 
-        // 2) Preamble contains extra tokens (e.g. "1 extra"): MESSAGE_INVALID_COMMAND_FORMAT
-        String preamble = argMultimap.getPreamble().trim();
-        if (preamble.split("\\s+").length > 1) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    AddAssignmentCommand.MESSAGE_USAGE));
-        }
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CLASSGROUP);
 
-        // 3) Parse index: ParserUtil.parseIndex throws Invalid INDEX / command specific error
+        String classGroupName = ParserUtil.parseClassGroupName(argMultimap, AddAssignmentCommand.MESSAGE_USAGE);
+
+        AddAssignmentDescriptor addAssignmentDescriptor = new AddAssignmentDescriptor();
+        parseAssignmentsForEdit(argMultimap.getAllValues(PREFIX_ASSIGNMENT), classGroupName)
+                .ifPresent(addAssignmentDescriptor::setAssignments);
+
+        return new AddAssignmentCommand(index, addAssignmentDescriptor);
+    }
+
+    /**
+     * Helper to parse and validate the preamble as an index.
+     */
+    private Index parseIndexFromPreamble(String preamble, String usageMessage) throws ParseException {
+        if (preamble == null || preamble.trim().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, usageMessage));
+        }
+        String trimmed = preamble.trim();
+        if (trimmed.split("\\s+").length > 1) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, usageMessage));
+        }
         try {
-            index = ParserUtil.parseIndex(preamble);
+            return ParserUtil.parseIndex(trimmed);
         } catch (ParseException pe) {
             String msg = pe.getMessage();
             if (MESSAGE_INVALID_PERSON_DISPLAYED_INDEX.equals(msg)
                     || MESSAGE_INVALID_INDEX_FORMAT.equals(msg)
                     || MESSAGE_INVALID_INDEX_RANGE.equals(msg)) {
-                // index-specific errors
                 throw pe;
             }
-            // command specific parse errors
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    AddAssignmentCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, usageMessage), pe);
         }
-
-        // 4) Duplicate prefixes detection
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CLASSGROUP);
-
-        // 5) Check class group presence and non-empty
-        if (!argMultimap.getValue(PREFIX_CLASSGROUP).isPresent()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddAssignmentCommand.MESSAGE_USAGE));
-        }
-        String classGroupName = argMultimap.getValue(PREFIX_CLASSGROUP).get().trim().toLowerCase();
-        if (classGroupName.isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddAssignmentCommand.MESSAGE_USAGE));
-        }
-
-        // 6) Parse assignments: assignment-specific MESSAGE_CONSTRAINTS on invalid values
-        AddAssignmentDescriptor addAssignmentDescriptor = new AddAssignmentDescriptor();
-        parseAssignmentsForEdit(argMultimap.getAllValues(PREFIX_ASSIGNMENT), classGroupName)
-                .ifPresent(addAssignmentDescriptor::setAssignments);
-
-        // 7) No assignments provided: MESSAGE_ASSIGNMENT_NOT_ADDED
-        if (!addAssignmentDescriptor.isAssignmentAdded()) {
-            throw new ParseException(MESSAGE_ASSIGNMENT_NOT_ADDED);
-        }
-
-        return new AddAssignmentCommand(index, addAssignmentDescriptor);
     }
 
     /**

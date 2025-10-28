@@ -33,50 +33,57 @@ public class DeleteAssignmentCommandParser implements Parser<DeleteAssignmentCom
     public DeleteAssignmentCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(
-                        args, PREFIX_ASSIGNMENT, PREFIX_CLASSGROUP);
-
+                ArgumentTokenizer.tokenize(args, PREFIX_ASSIGNMENT, PREFIX_CLASSGROUP);
         Index index;
+        // 1) Missing index: MESSAGE_INVALID_COMMAND_FORMAT
         if (argMultimap.getPreamble() == null || argMultimap.getPreamble().trim().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     DeleteAssignmentCommand.MESSAGE_USAGE));
         }
+        // 2) Preamble contains extra tokens (e.g. "1 extra"): MESSAGE_INVALID_COMMAND_FORMAT
+        String preamble = argMultimap.getPreamble().trim();
+        if (preamble.split("\\s+").length > 1) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    DeleteAssignmentCommand.MESSAGE_USAGE));
+        }
+        // 3) Parse index: ParserUtil.parseIndex throws Invalid INDEX / command specific error
         try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
+            index = ParserUtil.parseIndex(preamble);
         } catch (ParseException pe) {
             String msg = pe.getMessage();
             if (MESSAGE_INVALID_PERSON_DISPLAYED_INDEX.equals(msg)
                     || MESSAGE_INVALID_INDEX_FORMAT.equals(msg)
                     || MESSAGE_INVALID_INDEX_RANGE.equals(msg)) {
+                // keep index-specific errors
                 throw pe;
             }
+            // command specific parse errors
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     DeleteAssignmentCommand.MESSAGE_USAGE), pe);
         }
-
-        // Check if class group is provided
-        if (!argMultimap.getValue(PREFIX_CLASSGROUP).isPresent()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    DeleteAssignmentCommand.MESSAGE_USAGE));
-        }
-
+        // 4) Duplicate prefixes detection
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CLASSGROUP);
-        String classGroupName = argMultimap.getValue(PREFIX_CLASSGROUP).get().trim().toLowerCase();
 
+        // 5) Check class group presence and non-empty
+        if (!argMultimap.getValue(PREFIX_CLASSGROUP).isPresent()) {
+            throw new ParseException(String.format(
+                    MESSAGE_INVALID_COMMAND_FORMAT, DeleteAssignmentCommand.MESSAGE_USAGE));
+        }
+        String classGroupName = argMultimap.getValue(PREFIX_CLASSGROUP).get().trim().toLowerCase();
         if (classGroupName.isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    DeleteAssignmentCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(
+                    MESSAGE_INVALID_COMMAND_FORMAT, DeleteAssignmentCommand.MESSAGE_USAGE));
         }
 
+        // 6) Parse assignments: assignment-specific MESSAGE_CONSTRAINTS on invalid values
         DeleteAssignmentDescriptor deleteAssignmentDescriptor = new DeleteAssignmentDescriptor();
-
         parseAssignmentsForEdit(argMultimap.getAllValues(PREFIX_ASSIGNMENT), classGroupName)
                 .ifPresent(deleteAssignmentDescriptor::setAssignments);
 
+        // 7) No assignments provided: MESSAGE_ASSIGNMENT_NOT_ADDED
         if (!deleteAssignmentDescriptor.isAssignmentDeleted()) {
             throw new ParseException(MESSAGE_ASSIGNMENT_NOT_DELETED);
         }
-
         return new DeleteAssignmentCommand(index, deleteAssignmentDescriptor);
     }
 

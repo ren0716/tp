@@ -77,11 +77,12 @@ public class AddAssignmentCommand extends Command {
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
 
-        if (addAssignmentDescriptor.getAssignments().isEmpty()
-                || addAssignmentDescriptor.getAssignments().get().isEmpty()) {
+        // No assignments provided (missing prefix / present but empty): MESSAGE_ASSIGNMENT_NOT_ADDED
+        if (!addAssignmentDescriptor.isAssignmentAdded()
+                || (addAssignmentDescriptor.getAssignments().isPresent()
+                && addAssignmentDescriptor.getAssignments().get().isEmpty())) {
             throw new CommandException(MESSAGE_ASSIGNMENT_NOT_ADDED);
         }
-
         // Validate that the student belongs to the specified class group(s)
         validateStudentClassGroups(personToEdit, addAssignmentDescriptor);
 
