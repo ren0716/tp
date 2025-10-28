@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.Messages.MESSAGE_ADD_SUCCESS;
-import static seedu.address.logic.Messages.MESSAGE_NAME_ALREADY_EXISTS;
 import static seedu.address.logic.Messages.MESSAGE_DUPLICATE_PERSON;
+import static seedu.address.logic.Messages.MESSAGE_NAME_ALREADY_EXISTS;
 import static seedu.address.logic.Messages.MESSAGE_PHONE_ALREADY_EXISTS;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
@@ -223,8 +223,8 @@ public class AddCommandTest {
      * A Model stub that contains a single person.
      */
     private class ModelStubWithPerson extends ModelStub {
-        private final Person person;
         final ArrayList<Person> personAdded = new ArrayList<>();
+        private final Person person;
 
         ModelStubWithPerson(Person person) {
             requireNonNull(person);
