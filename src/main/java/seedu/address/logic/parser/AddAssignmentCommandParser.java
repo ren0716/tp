@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSGROUP;
 
+import java.util.Optional;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddAssignmentCommand;
 import seedu.address.logic.commands.AddAssignmentCommand.AddAssignmentDescriptor;
@@ -25,13 +27,22 @@ public class AddAssignmentCommandParser implements Parser<AddAssignmentCommand> 
 
         Index index = ParserUtil.parseIndexFromPreamble(argMultimap.getPreamble(), AddAssignmentCommand.MESSAGE_USAGE);
 
+        // allow missing / empty c/ to be represented in the descriptor (parser-side duplication check still useful)
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CLASSGROUP);
 
-        String classGroupName = ParserUtil.parseClassGroupName(argMultimap, AddAssignmentCommand.MESSAGE_USAGE);
-
         AddAssignmentDescriptor addAssignmentDescriptor = new AddAssignmentDescriptor();
-        ParserUtil.parseOptionalAssignments(argMultimap.getAllValues(PREFIX_ASSIGNMENT), classGroupName)
-                .ifPresent(addAssignmentDescriptor::setAssignments);
+
+        // set classGroupName in descriptor (may be null if missing, may be empty if c/ provided with empty token)
+        Optional<String> rawClassValueOpt = argMultimap.getValue(PREFIX_CLASSGROUP);
+        String rawClassValue = rawClassValueOpt.orElse(null);
+        addAssignmentDescriptor.setClassGroupName(rawClassValue);
+
+        // Only parse Assignment objects if a non-empty class group name is provided.
+        if (rawClassValue != null && !rawClassValue.trim().isEmpty()) {
+            String classGroupName = rawClassValue.trim().toLowerCase();
+            ParserUtil.parseOptionalAssignments(argMultimap.getAllValues(PREFIX_ASSIGNMENT), classGroupName)
+                    .ifPresent(addAssignmentDescriptor::setAssignments);
+        }
 
         return new AddAssignmentCommand(index, addAssignmentDescriptor);
     }

@@ -77,6 +77,11 @@ public class AddAssignmentCommand extends Command {
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
 
+        // No class provided (missing prefix / present but empty): MESSAGE_CLASSES_NOT_ADDED
+        if (!addAssignmentDescriptor.hasClassGroup()) {
+            throw new CommandException(Messages.MESSAGE_CLASSES_NOT_ADDED);
+        }
+
         // No assignments provided (missing prefix / present but empty): MESSAGE_ASSIGNMENT_NOT_ADDED
         if (!addAssignmentDescriptor.isAssignmentAdded()
                 || (addAssignmentDescriptor.getAssignments().isPresent()
@@ -195,6 +200,7 @@ public class AddAssignmentCommand extends Command {
      */
     public static class AddAssignmentDescriptor {
         private Set<Assignment> assignments;
+        private String classGroupName;
 
         public AddAssignmentDescriptor() {}
 
@@ -204,6 +210,7 @@ public class AddAssignmentCommand extends Command {
          */
         public AddAssignmentDescriptor(AddAssignmentDescriptor toCopy) {
             setAssignments(toCopy.assignments);
+            setClassGroupName(toCopy.classGroupName);
         }
 
         /**
@@ -211,6 +218,21 @@ public class AddAssignmentCommand extends Command {
          */
         public boolean isAssignmentAdded() {
             return CollectionUtil.isAnyNonNull(assignments);
+        }
+
+        /**
+         * Returns true if a class group was provided (non-null and non-empty after trimming).
+         */
+        public boolean hasClassGroup() {
+            return classGroupName != null && !classGroupName.trim().isEmpty();
+        }
+
+        public void setClassGroupName(String classGroupName) {
+            this.classGroupName = classGroupName;
+        }
+
+        public Optional<String> getClassGroupName() {
+            return (classGroupName != null) ? Optional.of(classGroupName) : Optional.empty();
         }
 
         /**
@@ -242,12 +264,14 @@ public class AddAssignmentCommand extends Command {
             }
 
             AddAssignmentDescriptor otherAddAssignmentDescriptor = (AddAssignmentDescriptor) other;
-            return Objects.equals(assignments, otherAddAssignmentDescriptor.assignments);
+            return Objects.equals(assignments, otherAddAssignmentDescriptor.assignments)
+                    && Objects.equals(classGroupName, otherAddAssignmentDescriptor.classGroupName);
         }
 
         @Override
         public String toString() {
             return new ToStringBuilder(this)
+                    .add("classGroupName", classGroupName)
                     .add("assignments", assignments)
                     .toString();
         }
