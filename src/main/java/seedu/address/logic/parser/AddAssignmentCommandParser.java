@@ -34,6 +34,10 @@ public class AddAssignmentCommandParser implements Parser<AddAssignmentCommand> 
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_ASSIGNMENT, PREFIX_CLASSGROUP);
         Index index;
+        if (argMultimap.getPreamble() == null || argMultimap.getPreamble().trim().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    AddAssignmentCommand.MESSAGE_USAGE));
+        }
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
@@ -43,8 +47,8 @@ public class AddAssignmentCommandParser implements Parser<AddAssignmentCommand> 
                     || MESSAGE_INVALID_INDEX_RANGE.equals(msg)) {
                 throw pe;
             }
-            throw new ParseException(String.format(
-                    MESSAGE_INVALID_COMMAND_FORMAT, AddAssignmentCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    AddAssignmentCommand.MESSAGE_USAGE), pe);
         }
 
         // Check if class group is provided
