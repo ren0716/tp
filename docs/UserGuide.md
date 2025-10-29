@@ -1,7 +1,8 @@
----
-layout: page
-title: User Guide
----
+<frontmatter>
+  title: "User Guide"
+</frontmatter>
+
+# User Guide
 
 TutorTrack is a **desktop app for managing contacts, optimized for use via the Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, TutorTrack can help you efficiently track students, organise classes and assignments faster than traditional GUI apps.
 
@@ -105,8 +106,8 @@ Adds a student to TutorTrack.
 
 Format: `add n/NAME p/PHONE l/LEVEL [c/CLASS]…​`
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-A student can have any number of classes (including 0)
+<div markdown="span" class="alert alert-primary"><span class="fas fa-lightbulb" aria-hidden="true"></span> <strong>Tip:</strong>
+A student can have any number of classes and assignments (including 0)
 </div>
 
 Examples:
@@ -338,7 +339,7 @@ TutorTrack data are saved in the hard disk automatically after any command that 
 
 TutorTrack data are saved automatically as a JSON file `[JAR file location]/data/tutortrack.json`. Advanced users are welcome to update data directly by editing that data file.
 
-<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+<div markdown="span" class="alert alert-warning"><span class="fas fa-exclamation-triangle" aria-hidden="true"></span> <strong>Caution:</strong>
 If your changes to the data file makes its format invalid, TutorTrack will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
 Furthermore, certain edits can cause the TutorTrack to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </div>

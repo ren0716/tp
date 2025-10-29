@@ -1,7 +1,8 @@
----
-layout: page
-title: About Us
----
+<frontmatter>
+  title: "About Us"
+</frontmatter>
+
+# About Us
 
 We are a team based in the [School of Computing, National University of Singapore](https://www.comp.nus.edu.sg).
 

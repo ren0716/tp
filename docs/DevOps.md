@@ -1,10 +1,13 @@
----
-layout: page
-title: DevOps guide
----
+<frontmatter>
+  title: "DevOps Guide"
+</frontmatter>
 
-* Table of Contents
-{:toc}
+# DevOps Guide
+
+<div id="toc">
+
+<!-- MarkBind will generate the table of contents here -->
+</div>
 
 --------------------------------------------------------------------------------------------------------------------
 

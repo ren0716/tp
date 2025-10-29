@@ -44,7 +44,7 @@ public class UnmarkAssignmentCommandParser implements Parser<UnmarkAssignmentCom
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CLASSGROUP, PREFIX_ASSIGNMENT);
 
         // Parse index or index range
-        List<Index> indices = ParserUtil.parseIndexSpecification(argMultimap.getPreamble());
+        List<Index> indices = ParserUtil.parseMultipleIndex(argMultimap.getPreamble());
         String classGroupName = ParserUtil.parseClassGroupName(argMultimap, UnmarkAssignmentCommand.MESSAGE_USAGE);
         Assignment assignment = ParserUtil.parseAssignmentValue(argMultimap, classGroupName,
                 UnmarkAssignmentCommand.MESSAGE_USAGE);
