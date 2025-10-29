@@ -227,7 +227,7 @@ Examples:
 * `unassignall c/Math-2000 a/MathHW1` unassigns the assignment `MathHW1` from all students in the class `Math-2000`.
 * `unassignall c/Chemistry-1400 a/ProjectDraft` unassigns the assignment `ProjectDraft` from all students in the class `Chemistry-1400`.
 
-### Marking an assignment as completed: `mark` 
+### Marking an assignment as completed: `mark`
 
 Marks the assignment of student(s) identified by the index number(s) used in the displayed student list and the assignment name.
 
