@@ -3,10 +3,10 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSGROUP;
+import static seedu.address.logic.parser.ParserUtil.arePrefixesPresent;
 
 import java.util.Iterator;
 import java.util.Set;
-import java.util.stream.Stream;
 
 import seedu.address.logic.commands.FilterByClassGroupCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -47,7 +47,4 @@ public class FilterByClassGroupCommandParser implements Parser<FilterByClassGrou
         return new FilterByClassGroupCommand(new StudentInClassGroupPredicate(classGroupName));
     }
 
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
-    }
 }

@@ -1,28 +1,29 @@
-package seedu.address.model.versionedaddressbook;
+package seedu.address.model.versionmanager;
 
 import java.util.Stack;
 
-import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.versionmanager.exceptions.NoPreviousCommitException;
+import seedu.address.model.versionmanager.exceptions.NoPreviousUndoException;
 
 /**
- * A {@code VersionedAddressBook} maintains a history of {@link ReadOnlyAddressBook} states
+ * A {@code AddressBookVersionManager} maintains a history of {@link ReadOnlyAddressBook} states
  * to support undo and redo operations within a single application session.
  * <p>
  * Version history is <b>not persisted</b> between sessions; it is reset when the application closes.
  */
-public class VersionedAddressBook extends AddressBook {
+public class AddressBookVersionManager {
 
     private final Stack<ReadOnlyAddressBook> versionStack;
     private final Stack<ReadOnlyAddressBook> redoStack;
 
     /**
-     * Constructs a {@code VersionedAddressBook} with the given initial address book data.
+     * Constructs a {@code AddressBookVersionManager} with the given initial address book data.
      * The initial state is recorded as the first version in the history.
      *
      * @param initialData the initial {@link ReadOnlyAddressBook} state to track
      */
-    public VersionedAddressBook(ReadOnlyAddressBook initialData) {
+    public AddressBookVersionManager(ReadOnlyAddressBook initialData) {
         this.versionStack = new Stack<>();
         this.versionStack.add(initialData);
         this.redoStack = new Stack<>();

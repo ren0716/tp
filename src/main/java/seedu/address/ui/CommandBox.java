@@ -53,8 +53,6 @@ public class CommandBox extends UiPart<Region> {
      * Sets the text displayed in the command input field.
      * <p>
      * This method updates the text in the {@code commandTextField} but does not execute the command.
-     * The caret is typically moved to the end of the text after setting.
-     *
      * @param text the text to set in the command input field; may be empty but should not be null
      */
     @FXML
@@ -91,11 +89,15 @@ public class CommandBox extends UiPart<Region> {
             switch (event.getCode()) {
             case UP -> {
                 onUp.run();
-                event.consume(); // prevent default caret movement
+                event.consume();
+                //set caret to end of text
+                commandTextField.positionCaret(commandTextField.getLength());
             }
             case DOWN -> {
                 onDown.run();
                 event.consume();
+                //set caret to end of text
+                commandTextField.positionCaret(commandTextField.getLength());
             }
 
             default -> {
