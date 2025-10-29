@@ -10,8 +10,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.versionmanager.AddressBookVersionManager;
-import seedu.address.model.versionmanager.NoPreviousCommitException;
-import seedu.address.model.versionmanager.NoPreviousUndoException;
+import seedu.address.model.versionmanager.exceptions.NoPreviousCommitException;
+import seedu.address.model.versionmanager.exceptions.NoPreviousUndoException;
 import seedu.address.testutil.AddressBookBuilder;
 
 public class AddressBookAddressBookVersionManagerTest {

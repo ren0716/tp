@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.versionmanager.NoPreviousCommitException;
+import seedu.address.model.versionmanager.exceptions.NoPreviousCommitException;
 
 /**
  * Reverts the effect of the previous command

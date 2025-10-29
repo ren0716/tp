@@ -3,6 +3,8 @@ package seedu.address.model.versionmanager;
 import java.util.Stack;
 
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.versionmanager.exceptions.NoPreviousCommitException;
+import seedu.address.model.versionmanager.exceptions.NoPreviousUndoException;
 
 /**
  * A {@code AddressBookVersionManager} maintains a history of {@link ReadOnlyAddressBook} states
