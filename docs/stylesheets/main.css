@@ -330,6 +330,22 @@ pre code {
   border-color: #ffeaa7 !important;
 }
 
+/* Callout icon + label tweaks */
+.alert .fas,
+.alert .bi {
+  margin-right: 0.35rem !important;
+}
+
+.alert strong:first-of-type {
+  font-weight: 700 !important;
+}
+
+/* Emphasize CAUTION label more (user request) */
+.alert.alert-warning strong:first-of-type {
+  font-weight: 800 !important;
+  font-size: 1.1em !important;
+}
+
 /* Blockquotes */
 blockquote {
   padding: 0 1em !important;
