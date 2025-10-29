@@ -7,9 +7,9 @@
     "bootstrapTheme": "none"
   },
   "globalOverride": {
-    "header": "_markbind/navigation.md",
-    "headBottom": "<link rel=\"stylesheet\" href=\"{{baseUrl}}/stylesheets/main.css\">"
+    "header": "_markbind/navigation.md"
   },
+  "head": "<link rel=\"stylesheet\" href=\"{{baseUrl}}/stylesheets/main.css\">",
   "pages": [
     {
       "src": "index.md",
