@@ -19,10 +19,26 @@ public class ArgumentTokenizer {
 
     /**
      * Tokenizes an arguments string and returns an {@code ArgumentMultimap} object that maps prefixes to their
-     * respective argument values.
+     * respective argument values. Only the given prefixes will be recognized in the arguments string.
      *
      * @param argsString Arguments string of the form: {@code preamble <prefix>value <prefix>value ...}
+     * @param prefixes   Prefixes to tokenize the arguments string with
      * @return           ArgumentMultimap object that maps prefixes to their arguments
+     */
+    public static ArgumentMultimap tokenize(String argsString, Prefix... prefixes) {
+        List<PrefixPosition> positions = findAllPrefixPositions(argsString, prefixes);
+        return extractArguments(argsString, positions);
+    }
+
+    /**
+     * Tokenizes an arguments string using all registered prefixes and returns an {@code ArgumentMultimap} object
+     * that maps each prefix to its respective argument values.
+     *
+     * <p>This method recognizes all prefixes defined in {@link CliSyntax#ALL_PREFIXES} and is equivalent to calling
+     * {@link #tokenize(String, Prefix...)} with {@code ALL_PREFIXES}.</p>
+     *
+     * @param argsString Arguments string of the form: {@code preamble <prefix>value <prefix>value ...}
+     * @return           ArgumentMultimap object that maps all known prefixes to their arguments
      */
     public static ArgumentMultimap tokenize(String argsString) {
         List<PrefixPosition> positions = findAllPrefixPositions(argsString, ALL_PREFIXES);
