@@ -16,7 +16,6 @@ public class Messages {
     // general messages
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
-    public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The student index provided is invalid";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d students listed!";
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Multiple values specified for the following single-valued field(s): ";
@@ -36,6 +35,7 @@ public class Messages {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided";
 
     // assign & unassign
+    public static final String MESSAGE_CLASS_NOT_PROVIDED = "At least one class must be provided";
     public static final String MESSAGE_ASSIGN_SUCCESS = "Added assignment(s) to: %1$s";
     public static final String MESSAGE_ASSIGNMENT_NOT_ADDED = "At least one assignment to add must be provided";
     public static final String MESSAGE_DUPLICATE_ASSIGNMENT = "Duplicate assignment(s): %s\n"
@@ -62,7 +62,7 @@ public class Messages {
     public static final String MESSAGE_DUPLICATE_CLASSES = "Duplicate class(es): %s\n"
             + "(NOTE: CLASS is case-insensitive)";
     public static final String MESSAGE_DELETE_CLASS_SUCCESS = "Deleted class(es) from: %1$s";
-    public static final String MESSAGE_CLASS_NOT_PROVIDED = "At least one class to delete must be provided";
+    public static final String MESSAGE_CLASS_NOT_DELETED = "At least one class to delete must be provided";
     public static final String MESSAGE_CLASS_NOT_FOUND = "Cannot delete non-existent class(es): %s";
 
     // mark & unmark
@@ -73,11 +73,11 @@ public class Messages {
     public static final String ALREADY_UNMARKED = "Assignment is already unmarked!";
 
     // parserutil
-    public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer";
+    public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The student index provided is invalid";
     public static final String MESSAGE_INVALID_INDEX_RANGE = "Invalid index range format!\n"
-                    + "Expected format: START-END where START and END are positive integers "
-                    + "and START <= END";
-    public static final String MESSAGE_INVALID_INDEX_FORMAT = "Invalid index format!\n "
+            + "Expected format: START-END where START and END are positive integers "
+            + "and START <= END";
+    public static final String MESSAGE_INVALID_INDEX_FORMAT = "Invalid index format!\n"
             + "Use space-separated indices or ranges\n"
             + "Examples: '1 2 3' or '1-3' or '1 2-4 6'";
 

@@ -1,7 +1,6 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.Messages.MESSAGE_NOT_EDITED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSGROUP;
@@ -33,38 +32,35 @@ public class EditCommandParser implements Parser<EditCommand> {
      */
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(
-                        args, PREFIX_NAME, PREFIX_PHONE, PREFIX_LEVEL, PREFIX_CLASSGROUP, PREFIX_ASSIGNMENT);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(
+                args, PREFIX_NAME, PREFIX_PHONE, PREFIX_LEVEL, PREFIX_CLASSGROUP, PREFIX_ASSIGNMENT);
 
-        Index index;
+        Index index = ParserUtil.parseIndexFromPreamble(argMultimap.getPreamble(), EditCommand.MESSAGE_USAGE);
 
-        try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
-        } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
-        }
-
+        // 4) Duplicate prefixes detection
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_LEVEL);
 
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
 
-        if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
+        // 5) Field-specific parsing
+        if (argMultimap.getValue(PREFIX_NAME).isPresent()) { // invalid name
             editPersonDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
         }
-        if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
+        if (argMultimap.getValue(PREFIX_PHONE).isPresent()) { // invalid phone
             editPersonDescriptor.setPhone(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get()));
         }
-        if (argMultimap.getValue(PREFIX_LEVEL).isPresent()) {
+        if (argMultimap.getValue(PREFIX_LEVEL).isPresent()) { // invalid level
             editPersonDescriptor.setLevel(ParserUtil.parseLevel(argMultimap.getValue(PREFIX_LEVEL).get()));
         }
 
+        // 6) Disabled edits for class groups and assignments
         parseClassGroupsForEdit(argMultimap.getAllValues(PREFIX_CLASSGROUP))
                 .ifPresent(editPersonDescriptor::setClassGroups);
 
         parseAssignmentsForEdit(argMultimap.getAllValues(PREFIX_ASSIGNMENT))
                 .ifPresent(editPersonDescriptor::setAssignments);
 
+        // 7) No editable fields provided
         if (!editPersonDescriptor.isAnyFieldEdited()) {
             throw new ParseException(MESSAGE_NOT_EDITED);
         }
@@ -110,7 +106,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         // Assignments can no longer be edited via the edit command since they require a class group
         // Use assign/unassign commands instead
         throw new ParseException("Assignments cannot be edited via the edit command. "
-                + "Use 'assign' command to add assignments with a class group.");
+                + "Use dedicated commands to manage class groups and assignments.");
     }
 
 }
