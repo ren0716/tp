@@ -11,8 +11,8 @@ public class Phone {
 
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Phone number must be a number at least 3 digits long, and it should not be blank.";
-    public static final String VALIDATION_REGEX = "\\d{3,}";
+            "Phone number must be a number at least 8 digits long, and it should not be blank.";
+    public static final String VALIDATION_REGEX = "^(?=(?:.*\\d){8,})\\+?[\\d ]+$";
     public final String value;
 
     /**
