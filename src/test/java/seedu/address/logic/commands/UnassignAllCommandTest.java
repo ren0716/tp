@@ -184,8 +184,8 @@ public class UnassignAllCommandTest {
 
         assertCommandFailure(command, modelWithoutAssignment,
                 String.format(MESSAGE_ASSIGNMENT_NOT_FOUND,
-                        StringUtil.toTitleCase(VALID_ASSIGNMENT_MATH.toLowerCase()),
-                        StringUtil.toTitleCase(VALID_CLASSGROUP_MATH.toLowerCase())));
+                        VALID_ASSIGNMENT_MATH.toLowerCase(),
+                        VALID_CLASSGROUP_MATH.toLowerCase()));
     }
 
     /**
