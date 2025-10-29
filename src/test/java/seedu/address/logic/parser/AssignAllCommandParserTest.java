@@ -8,6 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_CLASSGROUP_MATH
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CLASSGROUP_PHYSICS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSGROUP;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
@@ -194,5 +195,15 @@ public class AssignAllCommandParserTest {
         assertParseSuccess(parser,
                 "   " + PREFIX_CLASSGROUP + classGroup + " " + PREFIX_ASSIGNMENT + assignmentName,
                 new AssignAllCommand(classGroup.toLowerCase(), expectedAssignment));
+    }
+
+    @Test
+    public void parse_invalidPrefix_failure() {
+        // duplicate assignment prefix
+        assertParseFailure(parser,
+                " " + PREFIX_CLASSGROUP + VALID_CLASSGROUP_MATH
+                        + " " + PREFIX_ASSIGNMENT + VALID_ASSIGNMENT_MATH
+                        + " " + PREFIX_NAME,
+                Messages.getErrorMessageForInvalidPrefixes(PREFIX_NAME));
     }
 }

@@ -1,7 +1,5 @@
 package seedu.address.logic.parser;
 
-import java.util.ArrayList;
-
 /**
  * Contains Command Line Interface (CLI) syntax definitions common to multiple commands
  */
@@ -16,11 +14,11 @@ public class CliSyntax {
 
     /* UPDATE WHEN ADDING A NEW PREFIX */
     public static final Prefix[] ALL_PREFIXES = new Prefix[] {
-            PREFIX_NAME,
-            PREFIX_PHONE,
-            PREFIX_LEVEL,
-            PREFIX_ASSIGNMENT,
-            PREFIX_CLASSGROUP
+        PREFIX_NAME,
+        PREFIX_PHONE,
+        PREFIX_LEVEL,
+        PREFIX_ASSIGNMENT,
+        PREFIX_CLASSGROUP
     };
 
 

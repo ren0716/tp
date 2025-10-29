@@ -4,6 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_INDEX_FORMAT;
+import static seedu.address.logic.Messages.getErrorMessageForInvalidPrefixes;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 
 import java.util.Arrays;
 import java.util.List;
@@ -83,19 +86,10 @@ public class UnmarkAssignmentCommandParserTest {
         assertParseFailure(parser, userInput, expectedMessage);
     }
 
-    /**
-     * Helper method to assert that parsing fails with the expected message.
-     *
-     * @param parser the parser to test
-     * @param userInput the input string to parse
-     * @param expectedMessage the expected error message
-     */
-    private void assertParseFailure(UnmarkAssignmentCommandParser parser, String userInput, String expectedMessage) {
-        try {
-            parser.parse(userInput);
-            fail("The expected ParseException was not thrown.");
-        } catch (ParseException pe) {
-            assertEquals(expectedMessage, pe.getMessage());
-        }
+    @Test
+    public void parse_invalidPrefix_throwsParseException() {
+        String userInput = "1 c/physics-1800 a/Physics-1800 p/97658418";
+        String expectedMessage = getErrorMessageForInvalidPrefixes(PREFIX_PHONE);
+        assertParseFailure(parser, userInput, expectedMessage);
     }
 }

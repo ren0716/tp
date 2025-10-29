@@ -98,11 +98,11 @@ public class Messages {
     /**
      * Returns an error message indicating the duplicate prefixes.
      */
-    public static String getErrorMessageForInvalidPrefixes(Prefix... InvalidPrefixes) {
-        assert InvalidPrefixes.length > 0;
+    public static String getErrorMessageForInvalidPrefixes(Prefix... invalidPrefixes) {
+        assert invalidPrefixes.length > 0;
 
         Set<String> invalidFields =
-                Stream.of(InvalidPrefixes).map(Prefix::toString).collect(Collectors.toSet());
+                Stream.of(invalidPrefixes).map(Prefix::toString).collect(Collectors.toSet());
 
         return MESSAGE_INVALID_FIELDS + String.join(" ", invalidFields);
     }
