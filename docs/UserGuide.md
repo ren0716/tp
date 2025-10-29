@@ -138,17 +138,16 @@ Format: `list`
 
 Edits an existing student in the address book.
 
-Format: `edit INDEX [n/NAME] [p/PHONE_NUMBER] [l/LEVEL]`
+Format: `edit INDEX [n/NAME] [p/PHONE] [l/LEVEL]`
 
 * Edits the student at the specified `INDEX`. The index refers to the index number shown in the displayed student list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* To edit classes, use the dedicated [`addclass`](#adding-classes-to-a-student-addclass) or [`deleteclass`](#deleting-classes-from-a-student-deleteclass) commands.
-* To edit assignments, use the dedicated [`assign`](#adding-assignments-to-a-student-assign) or [`unassign`](#deleting-assignments-from-a-student-unassign) commands.
+* Classes and assignments cannot be edited via the `edit` command.
 
 Examples:
-*  `edit 1 p/91234567 ` Edits the phone number of the 1st student to be `91234567`.
-*  `edit 2 n/Betsy Crower` Edits the name of the 2nd student to be `Betsy Crower`.
+*  `edit 1 p/91234567` Edits the phone number of the 1st student to be `91234567`.
+*  `edit 2 n/Betsy Crower l/3` Edits the name of the 2nd student to be `Betsy Crower` and the level to `3`.
 
 ### Locating students by name: `find`
 
