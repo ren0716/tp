@@ -113,13 +113,6 @@ Examples:
 * `add n/John Doe p/98765432 l/2`
 * `add n/Betsy Crowe p/1234567 c/Chemistry-1400 l/3 c/Math-1000`
 
-<div markdown="block" class="alert alert-warning">
-Duplicate Check:
-* Students are considered duplicates if they have the same name (case-insensitive) AND phone number.
-* Students with same name but different phone numbers can be added with a warning.
-* Students with same phone number but different names can be added with a warning.
-</div>
-
 ### Deleting a student : `delete`
 
 Deletes the specified student from TutorTrack.
@@ -145,25 +138,17 @@ Format: `list`
 
 Edits an existing student in the address book.
 
-Format: `edit INDEX [n/NAME] [p/PHONE_NUMBER] [l/LEVEL] [c/CLASS]…​ [a/ASSIGNMENT]…​`
+Format: `edit INDEX [n/NAME] [p/PHONE_NUMBER] [l/LEVEL]`
 
 * Edits the student at the specified `INDEX`. The index refers to the index number shown in the displayed student list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing classes/assignments, the existing classes/assignments of the student will be removed i.e adding of classes/assignments is not cumulative.
-* You can remove all the student’s classes/assignments by typing `c/`/ `a/` without
-    specifying any classes/assignments after it.
+* To edit classes, use the dedicated [`addclass`](#adding-classes-to-a-student-addclass) or [`deleteclass`](#deleting-classes-from-a-student-deleteclass) commands.
+* To edit assignments, use the dedicated [`assign`](#adding-assignments-to-a-student-assign) or [`unassign`](#deleting-assignments-from-a-student-unassign) commands.
 
 Examples:
 *  `edit 1 p/91234567 ` Edits the phone number of the 1st student to be `91234567`.
-*  `edit 2 n/Betsy Crower a/` Edits the name of the 2nd student to be `Betsy Crower` and clears all existing assignments.
-
-<div markdown="block" class="alert alert-warning">
-Duplicate Check:
-* Students are considered duplicates if they have the same name (case-insensitive) AND phone number.
-* Students with same name but different phone numbers can be added with a warning.
-* Students with same phone number but different names can be added with a warning.
-</div>
+*  `edit 2 n/Betsy Crower` Edits the name of the 2nd student to be `Betsy Crower`.
 
 ### Locating students by name: `find`
 
