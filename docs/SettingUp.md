@@ -1,10 +1,13 @@
----
-layout: page
-title: Setting up and getting started
----
+<frontmatter>
+  title: "Setting Up and Getting Started"
+</frontmatter>
 
-* Table of Contents
-{:toc}
+# Setting Up and Getting Started
+
+<div id="toc">
+
+<!-- MarkBind will generate the table of contents here -->
+</div>
 
 
 --------------------------------------------------------------------------------------------------------------------

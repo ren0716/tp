@@ -1,0 +1,282 @@
+/* Override MarkBind defaults */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+  font-size: 16px !important;
+  line-height: 1.6 !important;
+  color: #24292e !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background-color: #ffffff !important;
+}
+
+/* Hide MarkBind's default header if present */
+#app-header {
+  display: none !important;
+}
+
+/* Navigation bar - override MarkBind navbar */
+nav.navbar,
+.navbar {
+  background-color: #f8f9fa !important;
+  padding: 0.75rem 1rem !important;
+  border-bottom: 1px solid #e1e4e8 !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  margin-bottom: 0 !important;
+}
+
+.navbar-brand-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-brand {
+  font-size: 1.5rem !important;
+  font-weight: 600 !important;
+  color: #24292e !important;
+  text-decoration: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.navbar-brand:hover {
+  text-decoration: none !important;
+  color: #0366d6 !important;
+}
+
+.navbar-nav {
+  display: flex !important;
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  align-items: center !important;
+  flex-direction: row !important;
+}
+
+.nav-item {
+  margin-left: 1.5rem !important;
+  display: inline-block !important;
+}
+
+.nav-link {
+  color: #586069 !important;
+  text-decoration: none !important;
+  font-weight: 500 !important;
+  padding: 0.5rem 0 !important;
+}
+
+.nav-link:hover {
+  color: #0366d6 !important;
+  text-decoration: none !important;
+}
+
+/* Content area */
+#content-wrapper,
+.content-wrapper,
+main {
+  padding: 2rem !important;
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+  width: 100% !important;
+  background-color: #ffffff !important;
+}
+
+/* Typography */
+h1 {
+  font-size: 2.5rem !important;
+  font-weight: 600 !important;
+  margin-top: 1.5rem !important;
+  margin-bottom: 1rem !important;
+  border-bottom: 1px solid #eaecef !important;
+  padding-bottom: 0.3rem !important;
+  color: #24292e !important;
+}
+
+h2 {
+  font-size: 2rem !important;
+  font-weight: 600 !important;
+  margin-top: 1.5rem !important;
+  margin-bottom: 1rem !important;
+  border-bottom: 1px solid #eaecef !important;
+  padding-bottom: 0.3rem !important;
+  color: #24292e !important;
+}
+
+h3 {
+  font-size: 1.5rem !important;
+  font-weight: 600 !important;
+  margin-top: 1.5rem !important;
+  margin-bottom: 1rem !important;
+  color: #24292e !important;
+}
+
+h4 {
+  font-size: 1.25rem !important;
+  font-weight: 600 !important;
+  margin-top: 1.5rem !important;
+  margin-bottom: 1rem !important;
+  color: #24292e !important;
+}
+
+p {
+  margin-bottom: 1rem !important;
+  color: #24292e !important;
+}
+
+/* Images */
+img {
+  max-width: 100% !important;
+  height: auto !important;
+}
+
+/* Inline badges (CI Status, codecov) */
+img[alt*="CI Status"],
+img[alt*="codecov"],
+img[alt*="badge"] {
+  display: inline-block !important;
+  margin: 0.5rem 0.25rem !important;
+  vertical-align: middle !important;
+}
+
+/* Links */
+a {
+  color: #0366d6 !important;
+  text-decoration: none !important;
+}
+
+a:hover {
+  text-decoration: underline !important;
+}
+
+/* Lists */
+ul, ol {
+  padding-left: 2rem !important;
+  margin: 1rem 0 !important;
+}
+
+li {
+  margin: 0.5rem 0 !important;
+  color: #24292e !important;
+}
+
+/* Tables */
+table {
+  border-collapse: collapse !important;
+  width: 100% !important;
+  margin: 1.5rem 0 !important;
+  display: table !important;
+  overflow-x: auto !important;
+}
+
+table th,
+table td {
+  border: 1px solid #dfe2e5 !important;
+  padding: 8px 13px !important;
+  text-align: left !important;
+}
+
+table th {
+  background-color: #f6f8fa !important;
+  font-weight: 600 !important;
+  color: #24292e !important;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f6f8fa !important;
+}
+
+/* Code blocks */
+code {
+  background-color: rgba(27,31,35,0.05) !important;
+  padding: 0.2em 0.4em !important;
+  border-radius: 3px !important;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
+  font-size: 85% !important;
+  color: #24292e !important;
+}
+
+pre {
+  background-color: #f6f8fa !important;
+  padding: 16px !important;
+  overflow-x: auto !important;
+  border-radius: 6px !important;
+  margin: 1rem 0 !important;
+}
+
+pre code {
+  background-color: transparent !important;
+  padding: 0 !important;
+  font-size: 85% !important;
+  display: block !important;
+}
+
+/* Alert boxes */
+.alert {
+  padding: 0.75rem 1.25rem !important;
+  margin: 1rem 0 !important;
+  border: 1px solid transparent !important;
+  border-radius: 0.25rem !important;
+}
+
+.alert-info {
+  color: #004085 !important;
+  background-color: #cce5ff !important;
+  border-color: #b8daff !important;
+}
+
+.alert-primary {
+  color: #004085 !important;
+  background-color: #cce5ff !important;
+  border-color: #b8daff !important;
+}
+
+.alert-warning {
+  color: #856404 !important;
+  background-color: #fff3cd !important;
+  border-color: #ffeaa7 !important;
+}
+
+/* Blockquotes */
+blockquote {
+  padding: 0 1em !important;
+  color: #6a737d !important;
+  border-left: 0.25em solid #dfe2e5 !important;
+  margin: 1rem 0 !important;
+}
+
+/* Footer */
+footer {
+  background-color: #f6f8fa !important;
+  padding: 1.5rem !important;
+  margin-top: 3rem !important;
+  border-top: 1px solid #e1e4e8 !important;
+  text-align: center !important;
+  color: #586069 !important;
+}
+
+/* Utility classes */
+.text-center {
+  text-align: center !important;
+}
+
+.ml-auto {
+  margin-left: auto !important;
+}
+
+/* Override MarkBind sidebar if present */
+#site-nav,
+.site-nav {
+  display: none !important;
+}
+
+/* Ensure main content takes full width */
+#app {
+  display: block !important;
+}
+
+

@@ -1,7 +1,8 @@
----
-layout: page
-title: User Guide
----
+<frontmatter>
+  title: "User Guide"
+</frontmatter>
+
+# User Guide
 
 TutorTrack is a **desktop app for managing contacts, optimized for use via the Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, TutorTrack can help you efficiently track students, organise classes and assignments faster than traditional GUI apps.
 

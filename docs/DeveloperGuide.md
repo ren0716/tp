@@ -1,9 +1,13 @@
----
-layout: page
-title: Developer Guide
----
-* Table of Contents
-{:toc}
+<frontmatter>
+  title: "Developer Guide"
+</frontmatter>
+
+# Developer Guide
+
+<div id="toc">
+
+<!-- MarkBind will generate the table of contents here -->
+</div>
 
 --------------------------------------------------------------------------------------------------------------------
 

@@ -1,0 +1,353 @@
+2025-10-29T16:30:18.862Z - info: Website generation started at 12:30:18 AM
+2025-10-29T16:30:18.868Z - warn: ENOENT: no such file or directory, open '/Users/hninsatphyusin/Desktop/tp/docs/_markbind/variables.md'
+2025-10-29T16:30:18.869Z - info: Building assets...
+2025-10-29T16:30:18.881Z - info: Assets built
+2025-10-29T16:30:18.881Z - info: Generating pages...
+2025-10-29T16:30:18.912Z - error: 'default' layout does not exist
+2025-10-29T16:30:18.912Z - error: 'default' layout does not exist
+2025-10-29T16:30:18.913Z - error: 'default' layout does not exist
+2025-10-29T16:30:18.914Z - error: 'default' layout does not exist
+2025-10-29T16:30:18.952Z - error: 'default' layout does not exist
+2025-10-29T16:30:18.953Z - error: 'default' layout does not exist
+2025-10-29T16:30:18.960Z - error: 'default' layout does not exist
+2025-10-29T16:30:18.960Z - error: 'default' layout does not exist
+2025-10-29T16:30:18.966Z - error: 'default' layout does not exist
+2025-10-29T16:30:18.968Z - error: 'default' layout does not exist
+2025-10-29T16:30:18.972Z - error: 'default' layout does not exist
+2025-10-29T16:30:18.997Z - error: 'default' layout does not exist
+2025-10-29T16:30:19.027Z - error: 'default' layout does not exist
+2025-10-29T16:30:19.037Z - error: 'default' layout does not exist
+2025-10-29T16:30:19.037Z - error: 'default' layout does not exist
+2025-10-29T16:30:19.041Z - error: 'default' layout does not exist
+2025-10-29T16:30:19.046Z - info: Pages built
+2025-10-29T16:30:19.079Z - info: Site data built
+2025-10-29T16:30:19.079Z - info: Website generation complete! Total build time: 0.245s
+2025-10-29T16:30:20.119Z - info: Serving "/Users/hninsatphyusin/Desktop/tp/docs/_site" at http://127.0.0.1:58401
+2025-10-29T16:30:20.119Z - info: Press CTRL+C to stop ...
+2025-10-29T16:30:24.678Z - info: [12:30:24 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/index.md
+2025-10-29T16:30:24.979Z - info: [12:30:24 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/index.md
+2025-10-29T16:30:25.282Z - info: [12:30:25 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/index.md
+2025-10-29T16:30:25.584Z - info: [12:30:25 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/index.md
+2025-10-29T16:30:25.683Z - info: Rebuilding 1 pages
+2025-10-29T16:30:25.690Z - error: 'default' layout does not exist
+2025-10-29T16:30:25.698Z - info: Site data built
+2025-10-29T16:30:25.698Z - info: Pages rebuilt
+2025-10-29T16:30:25.698Z - info: Website regeneration complete! Total build time: 0.016s
+2025-10-29T16:30:31.350Z - info: [12:30:31 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/index.md
+2025-10-29T16:30:31.651Z - info: [12:30:31 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/index.md
+2025-10-29T16:30:32.054Z - info: [12:30:32 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/index.md
+2025-10-29T16:30:32.351Z - info: Rebuilding 1 pages
+2025-10-29T16:30:32.356Z - error: 'default' layout does not exist
+2025-10-29T16:30:32.361Z - info: Site data built
+2025-10-29T16:30:32.361Z - info: Pages rebuilt
+2025-10-29T16:30:32.361Z - info: Website regeneration complete! Total build time: 0.01s
+2025-10-29T16:30:35.750Z - info: Website generation started at 12:30:35 AM
+2025-10-29T16:30:35.755Z - warn: ENOENT: no such file or directory, open '/Users/hninsatphyusin/Desktop/tp/docs/_markbind/variables.md'
+2025-10-29T16:30:35.756Z - info: Building assets...
+2025-10-29T16:30:35.768Z - info: Assets built
+2025-10-29T16:30:35.768Z - info: Generating pages...
+2025-10-29T16:30:35.799Z - error: 'default' layout does not exist
+2025-10-29T16:30:35.799Z - error: 'default' layout does not exist
+2025-10-29T16:30:35.800Z - error: 'default' layout does not exist
+2025-10-29T16:30:35.800Z - error: 'default' layout does not exist
+2025-10-29T16:30:35.841Z - error: 'default' layout does not exist
+2025-10-29T16:30:35.841Z - error: 'default' layout does not exist
+2025-10-29T16:30:35.841Z - error: 'default' layout does not exist
+2025-10-29T16:30:35.849Z - error: 'default' layout does not exist
+2025-10-29T16:30:35.855Z - error: 'default' layout does not exist
+2025-10-29T16:30:35.860Z - error: 'default' layout does not exist
+2025-10-29T16:30:35.860Z - error: 'default' layout does not exist
+2025-10-29T16:30:35.886Z - error: 'default' layout does not exist
+2025-10-29T16:30:35.915Z - error: 'default' layout does not exist
+2025-10-29T16:30:35.925Z - error: 'default' layout does not exist
+2025-10-29T16:30:35.926Z - error: 'default' layout does not exist
+2025-10-29T16:30:35.929Z - error: 'default' layout does not exist
+2025-10-29T16:30:35.935Z - info: Pages built
+2025-10-29T16:30:35.961Z - info: Site data built
+2025-10-29T16:30:35.961Z - info: Website generation complete! Total build time: 0.236s
+2025-10-29T16:30:36.980Z - info: Serving "/Users/hninsatphyusin/Desktop/tp/docs/_site" at http://127.0.0.1:58414
+2025-10-29T16:30:36.981Z - info: Press CTRL+C to stop ...
+2025-10-29T16:31:02.696Z - info: Website generation started at 12:31:02 AM
+2025-10-29T16:31:02.702Z - warn: ENOENT: no such file or directory, open '/Users/hninsatphyusin/Desktop/tp/docs/_markbind/variables.md'
+2025-10-29T16:31:02.703Z - info: Building assets...
+2025-10-29T16:31:02.718Z - info: Assets built
+2025-10-29T16:31:02.719Z - info: Generating pages...
+2025-10-29T16:31:02.749Z - error: 'default' layout does not exist
+2025-10-29T16:31:02.750Z - error: 'default' layout does not exist
+2025-10-29T16:31:02.751Z - error: 'default' layout does not exist
+2025-10-29T16:31:02.751Z - error: 'default' layout does not exist
+2025-10-29T16:31:02.782Z - error: 'default' layout does not exist
+2025-10-29T16:31:02.792Z - error: 'default' layout does not exist
+2025-10-29T16:31:02.797Z - error: 'default' layout does not exist
+2025-10-29T16:31:02.797Z - error: 'default' layout does not exist
+2025-10-29T16:31:02.803Z - error: 'default' layout does not exist
+2025-10-29T16:31:02.805Z - error: 'default' layout does not exist
+2025-10-29T16:31:02.809Z - error: 'default' layout does not exist
+2025-10-29T16:31:02.834Z - error: 'default' layout does not exist
+2025-10-29T16:31:02.862Z - error: 'default' layout does not exist
+2025-10-29T16:31:02.869Z - error: 'default' layout does not exist
+2025-10-29T16:31:02.872Z - error: 'default' layout does not exist
+2025-10-29T16:31:02.877Z - error: 'default' layout does not exist
+2025-10-29T16:31:02.881Z - info: Pages built
+2025-10-29T16:31:02.908Z - info: Site data built
+2025-10-29T16:31:02.908Z - info: Website generation complete! Total build time: 0.223s
+2025-10-29T16:31:02.908Z - info: Build success!
+2025-10-29T16:32:08.765Z - info: Website generation started at 12:32:08 AM
+2025-10-29T16:32:08.774Z - info: Building assets...
+2025-10-29T16:32:08.786Z - info: Assets built
+2025-10-29T16:32:08.787Z - info: Generating pages...
+2025-10-29T16:32:08.816Z - error: 'default' layout does not exist
+2025-10-29T16:32:08.816Z - error: 'default' layout does not exist
+2025-10-29T16:32:08.817Z - error: 'default' layout does not exist
+2025-10-29T16:32:08.817Z - error: 'default' layout does not exist
+2025-10-29T16:32:08.856Z - error: 'default' layout does not exist
+2025-10-29T16:32:08.857Z - error: 'default' layout does not exist
+2025-10-29T16:32:08.863Z - error: 'default' layout does not exist
+2025-10-29T16:32:08.863Z - error: 'default' layout does not exist
+2025-10-29T16:32:08.871Z - error: 'default' layout does not exist
+2025-10-29T16:32:08.871Z - error: 'default' layout does not exist
+2025-10-29T16:32:08.876Z - error: 'default' layout does not exist
+2025-10-29T16:32:08.901Z - error: 'default' layout does not exist
+2025-10-29T16:32:08.931Z - error: 'default' layout does not exist
+2025-10-29T16:32:08.942Z - error: 'default' layout does not exist
+2025-10-29T16:32:08.942Z - error: 'default' layout does not exist
+2025-10-29T16:32:08.946Z - error: 'default' layout does not exist
+2025-10-29T16:32:08.952Z - info: Pages built
+2025-10-29T16:32:08.978Z - info: Site data built
+2025-10-29T16:32:08.979Z - info: Website generation complete! Total build time: 0.239s
+2025-10-29T16:32:08.979Z - info: Build success!
+2025-10-29T16:33:11.145Z - info: Website generation started at 12:33:11 AM
+2025-10-29T16:33:11.156Z - info: Building assets...
+2025-10-29T16:33:11.172Z - info: Assets built
+2025-10-29T16:33:11.172Z - info: Generating pages...
+2025-10-29T16:33:11.203Z - error:  TypeError: Cannot read properties of undefined (reading 'forEach')
+    at transformOldSlotSyntax (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/@markbind/core/src/html/vueSlotSyntaxProcessor.js:58:19)
+    at NodeProcessor.processNode (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/@markbind/core/src/html/NodeProcessor.js:156:65)
+    at NodeProcessor.traverse (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/@markbind/core/src/html/NodeProcessor.js:345:24)
+    at /opt/homebrew/lib/node_modules/markbind-cli/node_modules/@markbind/core/src/html/NodeProcessor.js:349:22
+    at Array.forEach (<anonymous>)
+    at NodeProcessor.traverse (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/@markbind/core/src/html/NodeProcessor.js:348:27)
+    at /opt/homebrew/lib/node_modules/markbind-cli/node_modules/@markbind/core/src/html/NodeProcessor.js:373:42
+    at Array.map (<anonymous>)
+    at DomHandler._callback (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/@markbind/core/src/html/NodeProcessor.js:370:43)
+    at DomHandler._handleCallback.DomHandler.onerror (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/domhandler/index.js:52:8)
+    at DomHandler.onend (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/domhandler/index.js:46:7)
+    at Parser.onend (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/htmlparser2/lib/Parser.js:340:36)
+    at Tokenizer._finish (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/htmlparser2/lib/Tokenizer.js:890:15)
+    at Tokenizer.end (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/htmlparser2/lib/Tokenizer.js:881:29)
+    at Parser.end (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/htmlparser2/lib/Parser.js:367:21)
+    at Parser.parseComplete (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/htmlparser2/lib/Parser.js:359:10)
+2025-10-29T16:33:11.203Z - error:  TypeError: Cannot read properties of undefined (reading 'id')
+Error while rendering '/Users/hninsatphyusin/Desktop/tp/docs/_markbind/layouts/default.md'
+    at addSitePageNavPortal (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/@markbind/core/src/html/siteAndPageNavProcessor.js:135:22)
+    at NodeProcessor.traverse (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/@markbind/core/src/html/NodeProcessor.js:353:60)
+    at /opt/homebrew/lib/node_modules/markbind-cli/node_modules/@markbind/core/src/html/NodeProcessor.js:349:22
+    at Array.forEach (<anonymous>)
+    at NodeProcessor.traverse (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/@markbind/core/src/html/NodeProcessor.js:348:27)
+    at /opt/homebrew/lib/node_modules/markbind-cli/node_modules/@markbind/core/src/html/NodeProcessor.js:373:42
+    at Array.map (<anonymous>)
+    at DomHandler._callback (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/@markbind/core/src/html/NodeProcessor.js:370:43)
+    at DomHandler._handleCallback.DomHandler.onerror (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/domhandler/index.js:52:8)
+    at DomHandler.onend (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/domhandler/index.js:46:7)
+    at Parser.onend (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/htmlparser2/lib/Parser.js:340:36)
+    at Tokenizer._finish (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/htmlparser2/lib/Tokenizer.js:890:15)
+    at Tokenizer.end (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/htmlparser2/lib/Tokenizer.js:881:29)
+    at Parser.end (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/htmlparser2/lib/Parser.js:367:21)
+    at Parser.parseComplete (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/htmlparser2/lib/Parser.js:359:10)
+    at /opt/homebrew/lib/node_modules/markbind-cli/node_modules/@markbind/core/src/html/NodeProcessor.js:393:24
+2025-10-29T16:33:11.298Z - info: Pages built
+2025-10-29T16:33:11.322Z - info: Site data built
+2025-10-29T16:33:11.322Z - info: Website generation complete! Total build time: 0.202s
+2025-10-29T16:33:11.322Z - info: Build success!
+2025-10-29T16:33:37.595Z - info: Website generation started at 12:33:37 AM
+2025-10-29T16:33:37.605Z - info: Building assets...
+2025-10-29T16:33:37.617Z - info: Assets built
+2025-10-29T16:33:37.617Z - info: Generating pages...
+2025-10-29T16:33:37.647Z - error: 'default.md' layout does not exist
+2025-10-29T16:33:37.647Z - error: 'default.md' layout does not exist
+2025-10-29T16:33:37.648Z - error: 'default.md' layout does not exist
+2025-10-29T16:33:37.649Z - error: 'default.md' layout does not exist
+2025-10-29T16:33:37.686Z - error: 'default.md' layout does not exist
+2025-10-29T16:33:37.697Z - error: 'default.md' layout does not exist
+2025-10-29T16:33:37.697Z - error: 'default.md' layout does not exist
+2025-10-29T16:33:37.702Z - error: 'default.md' layout does not exist
+2025-10-29T16:33:37.708Z - error: 'default.md' layout does not exist
+2025-10-29T16:33:37.733Z - error: 'default.md' layout does not exist
+2025-10-29T16:33:37.733Z - error: 'default.md' layout does not exist
+2025-10-29T16:33:37.736Z - error: 'default.md' layout does not exist
+2025-10-29T16:33:37.769Z - error: 'default.md' layout does not exist
+2025-10-29T16:33:37.780Z - error: 'default.md' layout does not exist
+2025-10-29T16:33:37.780Z - error: 'default.md' layout does not exist
+2025-10-29T16:33:37.783Z - error: 'default.md' layout does not exist
+2025-10-29T16:33:37.790Z - info: Pages built
+2025-10-29T16:33:37.828Z - info: Site data built
+2025-10-29T16:33:37.828Z - info: Website generation complete! Total build time: 0.259s
+2025-10-29T16:33:37.828Z - info: Build success!
+2025-10-29T16:36:01.465Z - info: Website generation started at 12:36:01 AM
+2025-10-29T16:36:01.475Z - info: Building assets...
+2025-10-29T16:36:01.489Z - info: Assets built
+2025-10-29T16:36:01.490Z - info: Generating pages...
+2025-10-29T16:36:01.519Z - error: 'default.md' layout does not exist
+2025-10-29T16:36:01.519Z - error: 'default.md' layout does not exist
+2025-10-29T16:36:01.520Z - error: 'default.md' layout does not exist
+2025-10-29T16:36:01.520Z - error: 'default.md' layout does not exist
+2025-10-29T16:36:01.552Z - error: 'default.md' layout does not exist
+2025-10-29T16:36:01.563Z - error: 'default.md' layout does not exist
+2025-10-29T16:36:01.563Z - error: 'default.md' layout does not exist
+2025-10-29T16:36:01.569Z - error: 'default.md' layout does not exist
+2025-10-29T16:36:01.575Z - error: 'default.md' layout does not exist
+2025-10-29T16:36:01.579Z - error: 'default.md' layout does not exist
+2025-10-29T16:36:01.580Z - error: 'default.md' layout does not exist
+2025-10-29T16:36:01.606Z - error: 'default.md' layout does not exist
+2025-10-29T16:36:01.634Z - error: 'default.md' layout does not exist
+2025-10-29T16:36:01.643Z - error: 'default.md' layout does not exist
+2025-10-29T16:36:01.643Z - error: 'default.md' layout does not exist
+2025-10-29T16:36:01.647Z - error: 'default.md' layout does not exist
+2025-10-29T16:36:01.653Z - info: Pages built
+2025-10-29T16:36:01.681Z - info: Site data built
+2025-10-29T16:36:01.681Z - info: Website generation complete! Total build time: 0.245s
+2025-10-29T16:36:01.681Z - info: Build success!
+2025-10-29T16:36:26.450Z - info: Website generation started at 12:36:26 AM
+2025-10-29T16:36:26.459Z - info: Building assets...
+2025-10-29T16:36:26.471Z - info: Assets built
+2025-10-29T16:36:26.471Z - info: Generating pages...
+2025-10-29T16:36:26.501Z - error: 'default.md' layout does not exist
+2025-10-29T16:36:26.502Z - error: 'default.md' layout does not exist
+2025-10-29T16:36:26.502Z - error: 'default.md' layout does not exist
+2025-10-29T16:36:26.503Z - error: 'default.md' layout does not exist
+2025-10-29T16:36:26.542Z - error: 'default.md' layout does not exist
+2025-10-29T16:36:26.542Z - error: 'default.md' layout does not exist
+2025-10-29T16:36:26.548Z - error: 'default.md' layout does not exist
+2025-10-29T16:36:26.550Z - error: 'default.md' layout does not exist
+2025-10-29T16:36:26.556Z - error: 'default.md' layout does not exist
+2025-10-29T16:36:26.557Z - error: 'default.md' layout does not exist
+2025-10-29T16:36:26.561Z - error: 'default.md' layout does not exist
+2025-10-29T16:36:26.586Z - error: 'default.md' layout does not exist
+2025-10-29T16:36:26.616Z - error: 'default.md' layout does not exist
+2025-10-29T16:36:26.616Z - error: 'default.md' layout does not exist
+2025-10-29T16:36:26.626Z - error: 'default.md' layout does not exist
+2025-10-29T16:36:26.629Z - error: 'default.md' layout does not exist
+2025-10-29T16:36:26.635Z - info: Pages built
+2025-10-29T16:36:26.660Z - info: Site data built
+2025-10-29T16:36:26.660Z - info: Website generation complete! Total build time: 0.236s
+2025-10-29T16:36:27.678Z - info: Serving "/Users/hninsatphyusin/Desktop/tp/docs/_site" at http://127.0.0.1:58575
+2025-10-29T16:36:27.678Z - info: Press CTRL+C to stop ...
+2025-10-29T16:38:09.026Z - info: Website generation started at 12:38:09 AM
+2025-10-29T16:38:09.036Z - info: Building assets...
+2025-10-29T16:38:09.051Z - info: Assets built
+2025-10-29T16:38:09.051Z - info: Generating pages...
+2025-10-29T16:38:09.080Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:09.081Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:09.082Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:09.082Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:09.114Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:09.126Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:09.127Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:09.127Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:09.137Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:09.138Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:09.162Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:09.165Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:09.196Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:09.204Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:09.206Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:09.210Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:09.216Z - info: Pages built
+2025-10-29T16:38:09.244Z - info: Site data built
+2025-10-29T16:38:09.244Z - info: Website generation complete! Total build time: 0.242s
+2025-10-29T16:38:09.244Z - info: Build success!
+2025-10-29T16:38:27.267Z - info: Website generation started at 12:38:27 AM
+2025-10-29T16:38:27.276Z - info: Building assets...
+2025-10-29T16:38:27.288Z - info: Assets built
+2025-10-29T16:38:27.289Z - info: Generating pages...
+2025-10-29T16:38:27.318Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:27.319Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:27.319Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:27.320Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:27.362Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:27.363Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:27.369Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:27.369Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:27.376Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:27.377Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:27.381Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:27.406Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:27.437Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:27.448Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:27.448Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:27.452Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:27.458Z - info: Pages built
+2025-10-29T16:38:27.484Z - info: Site data built
+2025-10-29T16:38:27.484Z - info: Website generation complete! Total build time: 0.242s
+2025-10-29T16:38:28.501Z - info: Serving "/Users/hninsatphyusin/Desktop/tp/docs/_site" at http://127.0.0.1:58623
+2025-10-29T16:38:28.501Z - info: Press CTRL+C to stop ...
+2025-10-29T16:38:40.958Z - info: Website generation started at 12:38:40 AM
+2025-10-29T16:38:40.966Z - info: Building assets...
+2025-10-29T16:38:40.978Z - info: Assets built
+2025-10-29T16:38:40.978Z - info: Generating pages...
+2025-10-29T16:38:41.008Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:41.009Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:41.010Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:41.010Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:41.043Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:41.055Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:41.056Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:41.056Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:41.065Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:41.069Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:41.069Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:41.095Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:41.125Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:41.134Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:41.135Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:41.140Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:41.144Z - info: Pages built
+2025-10-29T16:38:41.172Z - info: Site data built
+2025-10-29T16:38:41.172Z - info: Website generation complete! Total build time: 0.239s
+2025-10-29T16:38:42.192Z - info: Serving "/Users/hninsatphyusin/Desktop/tp/docs/_site" at http://127.0.0.1:58636
+2025-10-29T16:38:42.192Z - info: Press CTRL+C to stop ...
+2025-10-29T16:39:04.263Z - info: Website generation started at 12:39:04 AM
+2025-10-29T16:39:04.271Z - info: Building assets...
+2025-10-29T16:39:04.284Z - info: Assets built
+2025-10-29T16:39:04.284Z - info: Generating pages...
+2025-10-29T16:39:04.315Z - error: 'default.md' layout does not exist
+2025-10-29T16:39:04.316Z - error: 'default.md' layout does not exist
+2025-10-29T16:39:04.317Z - error: 'default.md' layout does not exist
+2025-10-29T16:39:04.317Z - error: 'default.md' layout does not exist
+2025-10-29T16:39:04.354Z - error: 'default.md' layout does not exist
+2025-10-29T16:39:04.366Z - error: 'default.md' layout does not exist
+2025-10-29T16:39:04.366Z - error: 'default.md' layout does not exist
+2025-10-29T16:39:04.367Z - error: 'default.md' layout does not exist
+2025-10-29T16:39:04.376Z - error: 'default.md' layout does not exist
+2025-10-29T16:39:04.378Z - error: 'default.md' layout does not exist
+2025-10-29T16:39:04.402Z - error: 'default.md' layout does not exist
+2025-10-29T16:39:04.404Z - error: 'default.md' layout does not exist
+2025-10-29T16:39:04.437Z - error: 'default.md' layout does not exist
+2025-10-29T16:39:04.437Z - error: 'default.md' layout does not exist
+2025-10-29T16:39:04.449Z - error: 'default.md' layout does not exist
+2025-10-29T16:39:04.449Z - error: 'default.md' layout does not exist
+2025-10-29T16:39:04.456Z - info: Pages built
+2025-10-29T16:39:04.483Z - info: Site data built
+2025-10-29T16:39:04.483Z - info: Website generation complete! Total build time: 0.247s
+2025-10-29T16:39:05.495Z - info: Serving "/Users/hninsatphyusin/Desktop/tp/docs/_site" at http://127.0.0.1:58650
+2025-10-29T16:39:05.495Z - info: Press CTRL+C to stop ...
+2025-10-29T16:39:06.910Z - info: [12:39:06 AM] Reload for file add: /Users/hninsatphyusin/Desktop/tp/docs/_markbind/layouts/default.md
+2025-10-29T16:39:07.010Z - info: [12:39:07 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/_markbind/layouts/default.md
+2025-10-29T16:39:07.915Z - info: Assets built
+2025-10-29T16:39:50.116Z - info: Website generation started at 12:39:50 AM
+2025-10-29T16:39:50.126Z - info: Building assets...
+2025-10-29T16:39:50.141Z - info: Assets built
+2025-10-29T16:39:50.142Z - info: Generating pages...
+2025-10-29T16:39:50.304Z - info: Pages built
+2025-10-29T16:39:50.328Z - info: Site data built
+2025-10-29T16:39:50.329Z - info: Website generation complete! Total build time: 0.238s
+2025-10-29T16:39:50.329Z - info: Build success!
+2025-10-29T16:40:15.930Z - info: Website generation started at 12:40:15 AM
+2025-10-29T16:40:15.938Z - info: Building assets...
+2025-10-29T16:40:15.953Z - info: Assets built
+2025-10-29T16:40:15.953Z - info: Generating pages...
+2025-10-29T16:40:16.122Z - info: Pages built
+2025-10-29T16:40:16.160Z - info: Site data built
+2025-10-29T16:40:16.160Z - info: Website generation complete! Total build time: 0.257s
+2025-10-29T16:40:17.183Z - info: Serving "/Users/hninsatphyusin/Desktop/tp/docs/_site" at http://127.0.0.1:58688
+2025-10-29T16:40:17.184Z - info: Press CTRL+C to stop ...
