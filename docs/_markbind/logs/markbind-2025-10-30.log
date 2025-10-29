@@ -737,3 +737,16 @@ Error while rendering '/Users/hninsatphyusin/Desktop/tp/docs/_markbind/layouts/d
 2025-10-29T17:46:31.637Z - info: Website generation complete! Total build time: 0.258s
 2025-10-29T17:46:32.662Z - info: Serving "/Users/hninsatphyusin/Desktop/tp/docs/_site" at http://127.0.0.1:60058
 2025-10-29T17:46:32.662Z - info: Press CTRL+C to stop ...
+2025-10-29T17:47:47.859Z - info: [1:47:47 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/_markbind/navigation.md
+2025-10-29T17:47:48.060Z - info: [1:47:48 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/_markbind/navigation.md
+2025-10-29T17:47:48.864Z - info: Rebuilding 16 pages
+2025-10-29T17:47:48.980Z - info: Site data built
+2025-10-29T17:47:48.980Z - info: Pages rebuilt
+2025-10-29T17:47:48.980Z - info: Website regeneration complete! Total build time: 0.117s
+2025-10-29T17:49:54.272Z - info: [1:49:54 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/_markbind/navigation.md
+2025-10-29T17:49:55.286Z - info: Rebuilding 16 pages
+2025-10-29T17:49:55.427Z - info: Site data built
+2025-10-29T17:49:55.427Z - info: Pages rebuilt
+2025-10-29T17:49:55.427Z - info: Website regeneration complete! Total build time: 0.142s
+2025-10-29T17:51:18.997Z - info: [1:51:18 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/stylesheets/main.css
+2025-10-29T17:51:18.997Z - error: ENOENT: no such file or directory, unlink '/Users/hninsatphyusin/Desktop/tp/docs/_site/stylesheets/main.css'
