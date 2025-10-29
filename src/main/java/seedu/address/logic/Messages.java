@@ -20,7 +20,7 @@ public class Messages {
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Multiple values specified for the following single-valued field(s): ";
     public static final String MESSAGE_INVALID_FIELDS =
-            "Values specified for the following invalid field(s): ";
+            "Following field(s) should not be part of command: ";
     public static final String MESSAGE_DUPLICATE_PERSON = "This student already exists in the student list!\n"
             + "(NOTE: NAME is case-insensitive)";
 
