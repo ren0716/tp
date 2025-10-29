@@ -1,7 +1,7 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.Messages.MESSAGE_CLASS_NOT_PROVIDED;
+import static seedu.address.logic.Messages.MESSAGE_CLASS_NOT_DELETED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSGROUP;
 
 import seedu.address.commons.core.index.Index;
@@ -32,7 +32,7 @@ public class DeleteClassCommandParser implements Parser<DeleteClassCommand> {
                 .ifPresent(deleteClassDescriptor::setClassGroups);
 
         if (!deleteClassDescriptor.isClassDeleted()) {
-            throw new ParseException(MESSAGE_CLASS_NOT_PROVIDED);
+            throw new ParseException(MESSAGE_CLASS_NOT_DELETED);
         }
 
         return new DeleteClassCommand(index, deleteClassDescriptor);

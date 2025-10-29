@@ -79,7 +79,7 @@ public class AddAssignmentCommand extends Command {
 
         // No class provided (missing prefix / present but empty): MESSAGE_CLASSES_NOT_ADDED
         if (!addAssignmentDescriptor.hasClassGroup()) {
-            throw new CommandException(Messages.MESSAGE_CLASSES_NOT_ADDED);
+            throw new CommandException(Messages.MESSAGE_CLASS_NOT_PROVIDED);
         }
 
         // No assignments provided (missing prefix / present but empty): MESSAGE_ASSIGNMENT_NOT_ADDED

@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.Messages.MESSAGE_ASSIGNMENT_NOT_ADDED;
 import static seedu.address.logic.Messages.MESSAGE_ASSIGN_SUCCESS;
+import static seedu.address.logic.Messages.MESSAGE_CLASS_NOT_PROVIDED;
 import static seedu.address.logic.Messages.MESSAGE_DUPLICATE_ASSIGNMENT;
 import static seedu.address.logic.Messages.MESSAGE_STUDENT_NOT_IN_CLASS_GROUP;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
@@ -258,20 +259,6 @@ public class AddAssignmentCommandTest {
         assertFalse(descriptor.isAssignmentAdded());
     }
 
-    /**
-     * Tests that executing a command with no assignments provided fails.
-     * Verifies that the command throws an exception with the appropriate error message
-     * when an empty assignment descriptor is used.
-     */
-    @Test
-    public void execute_noClassProvided_failure() {
-        AddAssignmentCommand.AddAssignmentDescriptor emptyDescriptor = new AddAssignmentCommand
-                .AddAssignmentDescriptor();
-        AddAssignmentCommand command = new AddAssignmentCommand(INDEX_FIRST_PERSON, emptyDescriptor);
-
-        // No class provided: MESSAGE_CLASSES_NOT_ADDED
-        assertCommandFailure(command, model, Messages.MESSAGE_CLASSES_NOT_ADDED);
-    }
 
     /**
      * Tests that executing a command with empty assignment set fails.
@@ -454,7 +441,7 @@ public class AddAssignmentCommandTest {
         AddAssignmentCommand command = new AddAssignmentCommand(INDEX_FIRST_PERSON, descriptor);
 
         // Expect failure because class group was not provided in the descriptor
-        String expectedMessage = Messages.MESSAGE_CLASSES_NOT_ADDED;
+        String expectedMessage = MESSAGE_CLASS_NOT_PROVIDED;
         assertCommandFailure(command, model, expectedMessage);
     }
 

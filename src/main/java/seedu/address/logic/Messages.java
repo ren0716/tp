@@ -35,6 +35,7 @@ public class Messages {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided";
 
     // assign & unassign
+    public static final String MESSAGE_CLASS_NOT_PROVIDED = "At least one class must be provided";
     public static final String MESSAGE_ASSIGN_SUCCESS = "Added assignment(s) to: %1$s";
     public static final String MESSAGE_ASSIGNMENT_NOT_ADDED = "At least one assignment to add must be provided";
     public static final String MESSAGE_DUPLICATE_ASSIGNMENT = "Duplicate assignment(s): %s\n"
@@ -61,7 +62,7 @@ public class Messages {
     public static final String MESSAGE_DUPLICATE_CLASSES = "Duplicate class(es): %s\n"
             + "(NOTE: CLASS is case-insensitive)";
     public static final String MESSAGE_DELETE_CLASS_SUCCESS = "Deleted class(es) from: %1$s";
-    public static final String MESSAGE_CLASS_NOT_PROVIDED = "At least one class to delete must be provided";
+    public static final String MESSAGE_CLASS_NOT_DELETED = "At least one class to delete must be provided";
     public static final String MESSAGE_CLASS_NOT_FOUND = "Cannot delete non-existent class(es): %s";
 
     // mark & unmark

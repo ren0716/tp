@@ -1,5 +1,6 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.logic.Messages.MESSAGE_CLASS_NOT_PROVIDED;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ASSIGNMENT_MATH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ASSIGNMENT_PHYSICS;
@@ -105,12 +106,10 @@ public class AssignAllCommandParserTest {
 
     @Test
     public void parse_emptyClassGroup_failure() {
-        String expectedMessage = Messages.MESSAGE_CLASSES_NOT_ADDED;
-
         // class prefix present but empty, assignment prefix present with value
         assertParseFailure(parser,
                 " " + PREFIX_CLASSGROUP + " " + PREFIX_ASSIGNMENT + VALID_ASSIGNMENT_MATH,
-                expectedMessage);
+                MESSAGE_CLASS_NOT_PROVIDED);
     }
 
     @Test

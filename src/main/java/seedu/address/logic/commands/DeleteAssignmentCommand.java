@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_ASSIGNMENT_NOT_DELETED;
 import static seedu.address.logic.Messages.MESSAGE_ASSIGNMENT_NOT_EXIST;
+import static seedu.address.logic.Messages.MESSAGE_CLASS_NOT_PROVIDED;
 import static seedu.address.logic.Messages.MESSAGE_DELETE_ASSIGNMENT_SUCCESS;
 import static seedu.address.logic.Messages.MESSAGE_DUPLICATE_PERSON;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENT;
@@ -74,9 +75,9 @@ public class DeleteAssignmentCommand extends Command {
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
 
-        // No class provided (missing prefix / present but empty): MESSAGE_CLASSES_NOT_ADDED
+        // No class provided (missing prefix / present but empty):
         if (!deleteAssignmentDescriptor.hasClassGroup()) {
-            throw new CommandException(Messages.MESSAGE_CLASSES_NOT_ADDED);
+            throw new CommandException(MESSAGE_CLASS_NOT_PROVIDED);
         }
 
         // No assignments provided (missing prefix / present but empty): MESSAGE_ASSIGNMENT_NOT_DELETED

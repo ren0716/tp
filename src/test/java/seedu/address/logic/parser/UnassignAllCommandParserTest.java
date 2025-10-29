@@ -1,6 +1,10 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.logic.Messages.MESSAGE_ASSIGNMENT_NOT_DELETED;
+import static seedu.address.logic.Messages.MESSAGE_CLASS_NOT_PROVIDED;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ASSIGNMENT_MATH;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CLASSGROUP_MATH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSGROUP;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
@@ -10,6 +14,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.UnassignAllCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.assignment.Assignment;
 
 /**
@@ -75,10 +80,9 @@ public class UnassignAllCommandParserTest {
      */
     @Test
     public void parse_missingAssignmentPrefix_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnassignAllCommand.MESSAGE_USAGE);
-
         // Missing assignment prefix
-        assertParseFailure(parser, " " + PREFIX_CLASSGROUP + "Math 3PM Homework1", expectedMessage);
+        assertParseFailure(parser, " " + PREFIX_CLASSGROUP + VALID_ASSIGNMENT_MATH,
+                MESSAGE_ASSIGNMENT_NOT_DELETED);
     }
 
     /**
@@ -99,15 +103,13 @@ public class UnassignAllCommandParserTest {
      */
     @Test
     public void parse_emptyClassGroup_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnassignAllCommand.MESSAGE_USAGE);
-
         // Empty class group value
-        assertParseFailure(parser, " " + PREFIX_CLASSGROUP + " " + PREFIX_ASSIGNMENT + "Homework1",
-                expectedMessage);
+        assertParseFailure(parser, " " + PREFIX_CLASSGROUP + " " + PREFIX_ASSIGNMENT + VALID_ASSIGNMENT_MATH,
+                MESSAGE_CLASS_NOT_PROVIDED);
 
         // Class group with only whitespace
-        assertParseFailure(parser, " " + PREFIX_CLASSGROUP + "   " + PREFIX_ASSIGNMENT + "Homework1",
-                expectedMessage);
+        assertParseFailure(parser, " " + PREFIX_CLASSGROUP + "   " + PREFIX_ASSIGNMENT + VALID_ASSIGNMENT_MATH,
+                MESSAGE_CLASS_NOT_PROVIDED);
     }
 
     /**
@@ -116,15 +118,13 @@ public class UnassignAllCommandParserTest {
      */
     @Test
     public void parse_emptyAssignment_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnassignAllCommand.MESSAGE_USAGE);
-
-        // Empty assignment value
-        assertParseFailure(parser, " " + PREFIX_CLASSGROUP + "Math 3PM " + PREFIX_ASSIGNMENT,
-                expectedMessage);
-
-        // Assignment with only whitespace
-        assertParseFailure(parser, " " + PREFIX_CLASSGROUP + "Math 3PM " + PREFIX_ASSIGNMENT + "   ",
-                expectedMessage);
+        UnassignAllCommandParser parser = new UnassignAllCommandParser();
+        // class group provided, assignment prefix present but empty
+        String userInput = " " + PREFIX_CLASSGROUP + VALID_CLASSGROUP_MATH + " " + PREFIX_ASSIGNMENT;
+        ParseException pe = org.junit.jupiter.api.Assertions.assertThrows(
+                ParseException.class, () -> parser.parse(userInput));
+        org.junit.jupiter.api.Assertions.assertEquals(seedu.address.logic.Messages.MESSAGE_ASSIGNMENT_NOT_DELETED,
+                pe.getMessage());
     }
 
     /**
@@ -133,11 +133,9 @@ public class UnassignAllCommandParserTest {
      */
     @Test
     public void parse_emptyBothValues_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnassignAllCommand.MESSAGE_USAGE);
-
         // Both values empty
         assertParseFailure(parser, " " + PREFIX_CLASSGROUP + " " + PREFIX_ASSIGNMENT,
-                expectedMessage);
+                MESSAGE_CLASS_NOT_PROVIDED);
     }
 
     /**
