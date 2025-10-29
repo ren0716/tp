@@ -1,4 +1,4 @@
-package seedu.address.model.versionedaddressbook;
+package seedu.address.model.versionmanager;
 
 /**
  * Thrown when a redo operation is attempted but no undone version exists

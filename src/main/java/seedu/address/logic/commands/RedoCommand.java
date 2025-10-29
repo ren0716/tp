@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.versionedaddressbook.NoPreviousUndoException;
+import seedu.address.model.versionmanager.NoPreviousUndoException;
 
 /**
  * restores the effect of the latest undone command
