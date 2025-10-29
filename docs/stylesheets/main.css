@@ -11,12 +11,13 @@ body {
   margin: 0 !important;
   padding: 0 !important;
   background-color: #fafbfc !important;
+  max-width: 100vw !important;
+  overflow-x: hidden !important; /* prevent horizontal scroll due to fixed sidebar/content */
 }
 
-/* Hide MarkBind's default elements */
-#app-header,
-.site-nav-btn,
-#site-nav {
+/* Hide MarkBind's default top header (we use a custom one).
+   Keep site nav elements visible. */
+#app-header {
   display: none !important;
 }
 
@@ -156,10 +157,10 @@ body {
 #content-wrapper,
 .content-wrapper,
 main {
-  padding: 3rem 2rem !important;
+  padding: 1.5rem 2rem !important; /* reduce top padding to lessen white gap */
   max-width: 1000px !important;
-  margin: 2rem auto !important;
-  width: 100% !important;
+  margin: 1rem auto !important; /* reduce top margin */
+  width: auto !important; /* avoid exceeding viewport width when sidebar is present */
   background-color: #ffffff !important;
   border-radius: 8px !important;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
@@ -170,7 +171,7 @@ main {
   #content-wrapper,
   .content-wrapper,
   main {
-    padding: 1.5rem 1rem !important;
+    padding: 1.25rem 1rem !important;
   }
 }
 
@@ -356,12 +357,53 @@ footer {
   margin-left: auto !important;
 }
 
-/* Override MarkBind sidebar if present */
-#site-nav,
-.site-nav {
-  display: none !important;
+/* Sidebar: rely on MarkBind's default styles; no forced hiding here. */
+
+/* Custom fixed left sidebar for desktop */
+#custom-sidebar {
+  position: fixed !important;
+  top: 64px !important; /* approximate height of the top bar */
+  left: 0 !important;
+  bottom: 0 !important;
+  width: 260px !important;
+  overflow-y: auto !important;
+  background-color: #ffffff !important;
+  border-right: 1px solid #eaecef !important;
+  padding: 0.5rem 0.75rem !important; /* add horizontal padding so items don't touch the edge */
+  z-index: 900 !important;
+  font-size: 0.85rem !important; /* slightly smaller to avoid scrollbar when expanded */
 }
 
+#custom-sidebar .site-nav-root { padding: 0.25rem 0 !important; }
+
+/* Remove global list spacing inside sidebar to avoid excessive gaps */
+#custom-sidebar ul,
+#custom-sidebar ol { padding-left: 0 !important; margin: 0 !important; }
+#custom-sidebar li { margin: 0 !important; }
+
+/* Tighten vertical rhythm of items while keeping MarkBind indentation */
+#custom-sidebar .site-nav-default-list-item { padding-top: 0.25rem !important; padding-bottom: 0.2rem !important; }
+
+/* Scale down heading/item sizes inside the sidebar */
+#custom-sidebar .site-nav-list-item-0 { font-size: 1rem !important; line-height: 1.2 !important; }
+#custom-sidebar .site-nav-list-item-1 { font-size: 0.92rem !important; line-height: 1.2 !important; }
+#custom-sidebar .site-nav-list-item-2 { font-size: 0.9rem !important; line-height: 1.2 !important; }
+#custom-sidebar .site-nav-list-item-3 { font-size: 0.88rem !important; line-height: 1.2 !important; }
+
+/* Offset the content to the right of the sidebar on larger screens */
+@media (min-width: 992px) {
+  #content {
+    margin-left: 280px !important; /* sidebar width + spacing */
+    width: calc(100% - 280px) !important; /* constrain content so page never exceeds viewport */
+    margin-right: auto !important;
+  }
+}
+
+/* Hide sidebar on small screens */
+@media (max-width: 991.98px) {
+  #custom-sidebar { display: none !important; }
+  #content { margin-left: auto !important; }
+}
 /* Ensure root app remains unstyled container for header + content */
 #app { display: block !important; }
 

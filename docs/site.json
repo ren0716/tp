@@ -9,23 +9,28 @@
   "globalOverride": {
     "header": "_markbind/navigation.md"
   },
+  "siteNav": "_markbind/sideNav.md",
   "head": "<link rel=\"stylesheet\" href=\"{{baseUrl}}/stylesheets/main.css\">",
   "pages": [
     {
       "src": "index.md",
-      "title": "TutorTrack"
+      "title": "TutorTrack",
+      "siteNav": "_markbind/sideNav.md"
     },
     {
       "src": "UserGuide.md",
-      "title": "User Guide"
+      "title": "User Guide",
+      "siteNav": "_markbind/sideNav.md"
     },
     {
       "src": "DeveloperGuide.md",
-      "title": "Developer Guide"
+      "title": "Developer Guide",
+      "siteNav": "_markbind/sideNav.md"
     },
     {
       "src": "AboutUs.md",
-      "title": "About Us"
+      "title": "About Us",
+      "siteNav": "_markbind/sideNav.md"
     },
     {
       "src": "Configuration.md",
