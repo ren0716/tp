@@ -113,13 +113,6 @@ Examples:
 * `add n/John Doe p/98765432 l/2`
 * `add n/Betsy Crowe p/1234567 c/Chemistry-1400 l/3 c/Math-1000`
 
-<div markdown="block" class="alert alert-warning">
-Duplicate Check:
-* Students are considered duplicates if they have the same name (case-insensitive) AND phone number.
-* Students with same name but different phone numbers can be added with a warning.
-* Students with same phone number but different names can be added with a warning.
-</div>
-
 ### Deleting a student : `delete`
 
 Deletes the specified student from TutorTrack.
@@ -145,25 +138,16 @@ Format: `list`
 
 Edits an existing student in the address book.
 
-Format: `edit INDEX [n/NAME] [p/PHONE_NUMBER] [l/LEVEL] [c/CLASS]…​ [a/ASSIGNMENT]…​`
+Format: `edit INDEX [n/NAME] [p/PHONE] [l/LEVEL]`
 
 * Edits the student at the specified `INDEX`. The index refers to the index number shown in the displayed student list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing classes/assignments, the existing classes/assignments of the student will be removed i.e adding of classes/assignments is not cumulative.
-* You can remove all the student’s classes/assignments by typing `c/`/ `a/` without
-    specifying any classes/assignments after it.
+* Classes and assignments cannot be edited via the `edit` command.
 
 Examples:
-*  `edit 1 p/91234567 ` Edits the phone number of the 1st student to be `91234567`.
-*  `edit 2 n/Betsy Crower a/` Edits the name of the 2nd student to be `Betsy Crower` and clears all existing assignments.
-
-<div markdown="block" class="alert alert-warning">
-Duplicate Check:
-* Students are considered duplicates if they have the same name (case-insensitive) AND phone number.
-* Students with same name but different phone numbers can be added with a warning.
-* Students with same phone number but different names can be added with a warning.
-</div>
+*  `edit 1 p/91234567` Edits the phone number of the 1st student to be `91234567`.
+*  `edit 2 n/Betsy Crower l/3` Edits the name of the 2nd student to be `Betsy Crower` and the level to `3`.
 
 ### Locating students by name: `find`
 
@@ -253,9 +237,14 @@ Format: `mark [INDEX]... [INDEX_RANGE]...  c/CLASS a/ASSIGNMENT`
 * The index(es) **must be a positive integer** 1, 2, 3, …​
 * At least one index or index range must be provided.
 
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+For efficient marking of assignments for a specific class, use the [`filter`](#filtering-students-by-class-filter) command first to display only students in that class, then use `mark` with the filtered list.
+</div>
+
 Examples:
 * `list` followed by `mark 1 3-5 c/Math-2000 a/MathHW1` marks the assignment `MathHW1` from class `Math-100` as completed for the 1st, 3rd, 4th and 5th students in the student list.
 * `find John` followed by `mark 2 c/History a/ProjectDraft` marks the assignment `ProjectDraft` from class `History` as completed for the 2nd student in the results of the `find` command.
+* `filter c/Math-2000` followed by `mark 1-10 c/Math-2000 a/MathHW1` marks the assignment for the first 10 students in the Math-2000 class (recommended workflow).
 
 ### Unmarking an assignment as not completed: `unmark`
 
@@ -268,9 +257,14 @@ Format: `unmark [INDEX]... [INDEX_RANGE]...  c/CLASS a/ASSIGNMENT`
 * The index(es) **must be a positive integer** 1, 2, 3, …​
 * At least one index or index range must be provided.
 
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+Like [`mark`](#marking-an-assignment-as-completed-mark), use [`filter`](#filtering-students-by-class-filter) first for efficient unmarking by class.
+</div>
+
 Examples:
 * `list` followed by `unmark 1 3-5 c/Math-2000 a/MathHW1` unmarks the assignment `MathHW1` from class `Math-100` as not completed for the 1st, 3rd, 4th and 5th students in the student list.
 * `find John` followed by `unmark 2 c/History a/ProjectDraft` unmarks the assignment `ProjectDraft` from class `History` as not completed for the 2nd student in the results of the `find` command.
+* `filter c/Chemistry-1400` followed by `unmark 5-8 c/Chemistry-1400 a/Lab Report` unmarks the assignment for students 5-8 in the Chemistry-1400 class (recommended workflow).
 
 ### Adding class(es) to a student: `addclass`
 
@@ -310,11 +304,11 @@ Examples:
 
 ### Filtering students by class: `filter`
 
-Finds and lists all students who are in the specified class group.
+Finds and lists all students who are in the specified class name.
 
 Format: `filter c/CLASS`
 
-* Filters students by the specified class group.
+* Filters students by the specified class name.
 * The search is case-insensitive. e.g., `math-1000` will match `Math-1000`
 * Only one class can be specified at a time.
 * Only students with an exact match to the class name will be shown.

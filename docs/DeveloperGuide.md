@@ -337,10 +337,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1.  Tutor initiates "add student" with information about \
+1.  Tutor initiates "add student" with information about:
    * Name
    * Phone Number
    * Level
+   * Class (optional)
 2. System validates details and checks for duplicates.
 3. System creates the student and saves data.
 4. System shows a success message and highlights the new student.
@@ -379,10 +380,9 @@ Use case ends.
 
 **MSS**
 1. Tutor deletes a student from the list based on the index.
-2. System validates the selected entry and requests confirmation.
-3. Tutor confirms.
-4. System removes the student and related records from storage.
-5. System shows a success message and updates the list.
+2. System validates the selected entry.
+3. System removes the student and related records from storage.
+4. System shows a success message and updates the list.
 
 Use case ends.
 
@@ -392,18 +392,17 @@ Use case ends.
   * 1a1. System shows an error and keeps list unchanged. \
     Use case ends.
 
-* 3a. Storage write fails
-  * 3a1. System restores the student and shows a failure message. \
+* 2a. Storage write fails
+  * 2a1. System restores the student and shows a failure message. \
     Use case ends.
 
 **Use case: Add Class to Student**
 
 **Primary Actor:** Private Tutor
-**Goal:** Add a class (subject \+ time) for a specific student.
+**Goal:** Add a class for a specific student.
 
 **Preconditions:**
 * At least one student is displayed.
-* Subject and time are known.
 
 **Minimal Guarantees:**
 * No partial class is attached.
@@ -412,20 +411,16 @@ Use case ends.
 * Student shows the new class in their class list; data is saved to storage.
 
 **MSS:**
-1. Tutor adds class to student.
-2. System validates format and requests confirmation.
-3. Tutor confirms.
-4. System adds the class to the student and saves data.
-5. System shows success and updates the student’s details.
+1. Tutor initiates “addclass” to student.
+2. System validates details and checks for duplicate classes.
+3. System adds the class to the student and saves data.
+4. System shows success and updates the student’s details.
 
 Use case ends.
 
 **Extensions:**
-* 2a. Missing/invalid subject or time
-  * 2a1. System shows an error and keeps the list unchanged.
-    Use case resumes from step 1\.
 
-* 3a. Duplicate class (same class & time)
+* 3a. Duplicate class (same class name)
   * 3a1. System shows an error and keeps the list unchanged.
     Use case ends.
 
@@ -436,7 +431,7 @@ Use case ends.
 **Use Case: Delete Class from Student**
 
 **Primary Actor:** Private Tutor
-**Goal:** Remove a class (subject \+ time) from a student.
+**Goal:** Remove a class from a student.
 
 **Preconditions:**
 * The student exists and has at least one class.
@@ -448,25 +443,24 @@ Use case ends.
 * The specific class is removed and the change is saved.
 
 **MSS:**
-1. Tutor deletes class from student.
-2. System validates and requests confirmation.
-3. Tutor confirms.
-4. System removes the class and saves data.
-5. System shows success and updates the student’s details.
+1. Tutor initiates “deleteclass” from student.
+2. System validates the selected entry and checks whether the student has the specified class to delete.
+3. System removes the class and saves data.
+4. System shows success and updates the student’s details.
 
 Use case ends.
 
 **Extensions:**
 * 2a. Missing/invalid class identification
   * 2a1. System shows an error and keeps the list unchanged.
-    Use case resumes from step 1\.
+    Use case ends
 
-* 3a. Class not found
-  * 3a1. System shows an error and keeps the list unchanged.
+* 2b. Student not enrolled in the specified class
+  * 2b1. System shows an error and keeps the list unchanged.
     Use case ends.
 
-* 4a. Storage write fails
-  * 4a1. System adds back class from the student and shows a failure message.
+* 3a. Storage write fails
+  * 3a1. System adds back class from the student and shows a failure message.
     Use case ends.
 
 **Use Case: View All Active Students**

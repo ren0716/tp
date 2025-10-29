@@ -1,8 +1,6 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.Messages.MESSAGE_ASSIGNMENT_NOT_DELETED;
-import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSGROUP;
 
@@ -13,13 +11,13 @@ import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeleteAssignmentCommand;
-import seedu.address.logic.commands.DeleteAssignmentCommand.DeleteAssignmentDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.assignment.Assignment;
 
 /**
  * Parses input arguments and creates a new DeleteAssignmentCommand object
  */
+@SuppressWarnings("checkstyle:Regexp")
 public class DeleteAssignmentCommandParser implements Parser<DeleteAssignmentCommand> {
 
     /**
@@ -27,42 +25,31 @@ public class DeleteAssignmentCommandParser implements Parser<DeleteAssignmentCom
      * and returns an DeleteAssignmentCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
+    @SuppressWarnings("checkstyle:Regexp")
     public DeleteAssignmentCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(
-                        args, PREFIX_ASSIGNMENT, PREFIX_CLASSGROUP);
+                ArgumentTokenizer.tokenize(args, PREFIX_ASSIGNMENT, PREFIX_CLASSGROUP);
 
-        Index index;
+        Index index = ParserUtil.parseIndexFromPreamble(
+                argMultimap.getPreamble(), DeleteAssignmentCommand.MESSAGE_USAGE);
 
-        try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
-        } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    DeleteAssignmentCommand.MESSAGE_USAGE), pe);
-        }
-
-        // Check if class group is provided
-        if (!argMultimap.getValue(PREFIX_CLASSGROUP).isPresent()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    DeleteAssignmentCommand.MESSAGE_USAGE));
-        }
-
+        // allow missing / empty c/ to be represented in the descriptor
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CLASSGROUP);
-        String classGroupName = argMultimap.getValue(PREFIX_CLASSGROUP).get().trim().toLowerCase();
 
-        if (classGroupName.isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    DeleteAssignmentCommand.MESSAGE_USAGE));
-        }
+        DeleteAssignmentCommand.DeleteAssignmentDescriptor deleteAssignmentDescriptor =
+                new DeleteAssignmentCommand.DeleteAssignmentDescriptor();
 
-        DeleteAssignmentDescriptor deleteAssignmentDescriptor = new DeleteAssignmentDescriptor();
+        // set classGroupName in descriptor (may be null if missing, may be empty if c/ provided with empty token)
+        Optional<String> rawClassValueOpt = argMultimap.getValue(PREFIX_CLASSGROUP);
+        String rawClassValue = rawClassValueOpt.orElse(null);
+        deleteAssignmentDescriptor.setClassGroupName(rawClassValue);
 
-        parseAssignmentsForEdit(argMultimap.getAllValues(PREFIX_ASSIGNMENT), classGroupName)
-                .ifPresent(deleteAssignmentDescriptor::setAssignments);
-
-        if (!deleteAssignmentDescriptor.isAssignmentDeleted()) {
-            throw new ParseException(MESSAGE_ASSIGNMENT_NOT_DELETED);
+        // Only parse Assignment objects if a non-empty class group name is provided.
+        if (rawClassValue != null && !rawClassValue.trim().isEmpty()) {
+            String classGroupName = rawClassValue.trim().toLowerCase();
+            parseAssignmentsForEdit(argMultimap.getAllValues(PREFIX_ASSIGNMENT), classGroupName)
+                    .ifPresent(deleteAssignmentDescriptor::setAssignments);
         }
 
         return new DeleteAssignmentCommand(index, deleteAssignmentDescriptor);

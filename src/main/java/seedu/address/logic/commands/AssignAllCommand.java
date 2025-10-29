@@ -113,7 +113,8 @@ public class AssignAllCommand extends Command {
                     "All students in class '%s' already have assignment '%s'",
                     classGroupName, assignment));
             throw new CommandException(String.format(MESSAGE_ALREADY_ASSIGNED,
-                    StringUtil.toTitleCase(classGroupName), StringUtil.toTitleCase(assignment.getAssignmentName())));
+                    classGroupName.toLowerCase(),
+                    assignment.getAssignmentName().toLowerCase()));
         }
 
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
