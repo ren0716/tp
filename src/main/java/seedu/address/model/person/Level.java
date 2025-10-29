@@ -9,7 +9,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Level {
 
-    public static final String MESSAGE_CONSTRAINTS = "Level must be a number between 1 and 5 inclusive.";
+    public static final String MESSAGE_CONSTRAINTS = "Level must be a number between 1 and 5 inclusive, and it should not be blank.";
     public static final String VALIDATION_REGEX = "[1-5]"; // case-insensitive regex for Secondary1–4
     public final String value;
 
