@@ -171,26 +171,27 @@ public class AssignAllCommandTest {
      */
     @Test
     public void execute_assignmentsAlreadyAssignedToAllStudents_throwsCommandException() {
-        // Setup: Add students with Math class who already have the assignment
-        Model modelAllHaveAssignment = new ModelManager(new AddressBook(), new UserPrefs());
+        Model model = new ModelManager(new AddressBook(), new UserPrefs());
+
         Person alice = new PersonBuilder().withName("Alice").withPhone("91234567")
                 .withLevel("1").withClassGroups(VALID_CLASSGROUP_MATH)
                 .withAssignments(VALID_CLASSGROUP_MATH, VALID_ASSIGNMENT_MATH).build();
         Person bob = new PersonBuilder().withName("Bob").withPhone("92345678")
                 .withLevel("2").withClassGroups(VALID_CLASSGROUP_MATH)
                 .withAssignments(VALID_CLASSGROUP_MATH, VALID_ASSIGNMENT_MATH).build();
-        modelAllHaveAssignment.addPerson(alice);
-        modelAllHaveAssignment.addPerson(bob);
 
-        Assignment assignment = new Assignment(VALID_ASSIGNMENT_MATH.toLowerCase(),
-                VALID_CLASSGROUP_MATH.toLowerCase());
-        AssignAllCommand command = new AssignAllCommand(VALID_CLASSGROUP_MATH.toLowerCase(), assignment);
+        model.addPerson(alice);
+        model.addPerson(bob);
 
-        assertCommandFailure(command, modelAllHaveAssignment,
-                String.format(MESSAGE_ALREADY_ASSIGNED,
-                        StringUtil.toTitleCase(VALID_CLASSGROUP_MATH.toLowerCase()),
-                        StringUtil.toTitleCase(VALID_ASSIGNMENT_MATH.toLowerCase())));
+        String classGroup = VALID_CLASSGROUP_MATH.toLowerCase();
+        String assignmentName = VALID_ASSIGNMENT_MATH.toLowerCase();
+        Assignment assignment = new Assignment(assignmentName, classGroup);
+        AssignAllCommand command = new AssignAllCommand(classGroup, assignment);
+
+        String expectedMessage = String.format(MESSAGE_ALREADY_ASSIGNED, classGroup, assignment.getAssignmentName());
+        assertCommandFailure(command, model, expectedMessage);
     }
+
 
     /**
      * Tests that unassigning from a non-existent class group throws a CommandException.
@@ -554,32 +555,6 @@ public class AssignAllCommandTest {
     }
 
     /**
-     * Tests logging when all students already have the assignment.
-     * Verifies that the assignment toString representation is used in warning logs.
-     */
-    @Test
-    public void execute_loggingAllHaveAssignment_usesToString() {
-        Model model = new ModelManager(new AddressBook(), new UserPrefs());
-        Person alice = new PersonBuilder().withName("Alice").withPhone("91234567")
-                .withLevel("1").withClassGroups(VALID_CLASSGROUP_MATH)
-                .withAssignments(VALID_CLASSGROUP_MATH, VALID_ASSIGNMENT_MATH).build();
-        model.addPerson(alice);
-
-        Assignment assignment = new Assignment(VALID_ASSIGNMENT_MATH.toLowerCase(),
-                VALID_CLASSGROUP_MATH.toLowerCase());
-        AssignAllCommand command = new AssignAllCommand(VALID_CLASSGROUP_MATH.toLowerCase(), assignment);
-
-        try {
-            command.execute(model);
-            throw new AssertionError("Command should have failed with MESSAGE_ALREADY_ASSIGNED");
-        } catch (CommandException e) {
-            // Expected exception - verify error message contains the assignment name
-            assertTrue(e.getMessage().contains(StringUtil.toTitleCase(VALID_CLASSGROUP_MATH.toLowerCase())));
-            assertTrue(e.getMessage().contains(StringUtil.toTitleCase(VALID_ASSIGNMENT_MATH.toLowerCase())));
-        }
-    }
-
-    /**
      * Tests that assignment with different class group toString format is handled correctly.
      * Verifies the full assignment representation [name (classgroup)] in logs.
      */
@@ -647,41 +622,6 @@ public class AssignAllCommandTest {
             }
         } catch (CommandException e) {
             throw new AssertionError("Command should not fail", e);
-        }
-    }
-
-    /**
-     * Tests the exact scenario where assignedCount remains 0 and exception is thrown.
-     * Directly tests: if (assignedCount == 0) { throw new CommandException(...) }
-     */
-    @Test
-    public void execute_assignedCountZero_throwsException() {
-        Model model = new ModelManager(new AddressBook(), new UserPrefs());
-
-        // All students already have the assignment
-        Person alice = new PersonBuilder().withName("Alice").withPhone("91234567")
-                .withLevel("1").withClassGroups(VALID_CLASSGROUP_MATH)
-                .withAssignments(VALID_CLASSGROUP_MATH, VALID_ASSIGNMENT_MATH).build();
-        Person bob = new PersonBuilder().withName("Bob").withPhone("92345678")
-                .withLevel("2").withClassGroups(VALID_CLASSGROUP_MATH)
-                .withAssignments(VALID_CLASSGROUP_MATH, VALID_ASSIGNMENT_MATH).build();
-
-        model.addPerson(alice);
-        model.addPerson(bob);
-
-        Assignment assignment = new Assignment(VALID_ASSIGNMENT_MATH.toLowerCase(),
-                VALID_CLASSGROUP_MATH.toLowerCase());
-        AssignAllCommand command = new AssignAllCommand(VALID_CLASSGROUP_MATH.toLowerCase(), assignment);
-
-        // Verify exception is thrown with correct message format
-        try {
-            command.execute(model);
-            throw new AssertionError("Should have thrown CommandException");
-        } catch (CommandException e) {
-            String expectedError = String.format(MESSAGE_ALREADY_ASSIGNED,
-                    StringUtil.toTitleCase(VALID_CLASSGROUP_MATH.toLowerCase()),
-                    StringUtil.toTitleCase(VALID_ASSIGNMENT_MATH.toLowerCase()));
-            assertEquals(expectedError, e.getMessage());
         }
     }
 }

@@ -2,9 +2,9 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.Messages.MESSAGE_INVALID_INDEX;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_INDEX_FORMAT;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_INDEX_RANGE;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSGROUP;
 
@@ -39,7 +39,7 @@ public class ParserUtil {
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
         String trimmedIndex = oneBasedIndex.trim();
         if (!StringUtil.isNonZeroUnsignedInteger(trimmedIndex)) {
-            throw new ParseException(MESSAGE_INVALID_INDEX);
+            throw new ParseException(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
     }
@@ -84,6 +84,40 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_INVALID_INDEX_RANGE);
         }
     }
+
+    /**
+     * Parses and validates the preamble as a single index.
+     *
+     * @param preamble the raw preamble string extracted from the user's input (may be null or blank)
+     * @param usageMessage the command usage message to include when reporting generic format errors
+     * @return the parsed {@link seedu.address.commons.core.index.Index} corresponding to the preamble
+     * @throws ParseException if the preamble is missing, contains extra tokens, or the index is invalid
+     */
+    public static Index parseIndexFromPreamble(String preamble, String usageMessage) throws ParseException {
+        // 1) Missing preamble: invalid command format with usage
+        if (preamble == null || preamble.trim().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, usageMessage));
+        }
+
+        String trimmed = preamble.trim();
+        if (trimmed.split("\\s+").length > 1) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, usageMessage));
+        }
+
+        // 2) Delegate numeric/index validation to parseIndex
+        try {
+            return parseIndex(trimmed);
+        } catch (ParseException pe) {
+            String msg = pe.getMessage();
+            if (MESSAGE_INVALID_PERSON_DISPLAYED_INDEX.equals(msg)
+                    || MESSAGE_INVALID_INDEX_FORMAT.equals(msg)
+                    || MESSAGE_INVALID_INDEX_RANGE.equals(msg)) {
+                throw pe;
+            }
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, usageMessage), pe);
+        }
+    }
+
 
     /**
      * Parses a string containing multiple indices and/or index ranges into a list of Index objects.
@@ -208,10 +242,12 @@ public class ParserUtil {
         String trimmedAssignment = assignment.trim().toLowerCase();
         String trimmedClassGroupName = classGroupName.trim().toLowerCase();
         if (!Assignment.isValidAssignmentName(trimmedAssignment)) {
+            // Invalid assignment name
             throw new ParseException(Assignment.MESSAGE_CONSTRAINTS);
         }
         if (!Assignment.isValidClassGroupName(trimmedClassGroupName)) {
-            throw new ParseException(Assignment.MESSAGE_CLASSGROUP_CONSTRAINTS);
+            // Invalid class group name
+            throw new ParseException(ClassGroup.MESSAGE_CONSTRAINTS);
         }
         return new Assignment(trimmedAssignment, trimmedClassGroupName);
     }
@@ -230,6 +266,50 @@ public class ParserUtil {
         }
         return assignmentSet;
     }
+
+    /**
+     * Parses {@code Collection<String> assignments} into an {@code Optional<Set<Assignment>>}.
+     *
+     * @param assignments collection of assignment name tokens (not null)
+     * @param classGroupName the class group name to associate with each parsed assignment (not null)
+     * @return an {@code Optional} containing the parsed {@code Set<Assignment>}, or {@code Optional.empty()}
+     *         if {@code assignments} is empty
+     * @throws ParseException if any assignment or the class group name is invalid
+     */
+    public static Optional<Set<Assignment>> parseOptionalAssignments(Collection<String> assignments,
+                                                                     String classGroupName) throws ParseException {
+        requireNonNull(assignments);
+        requireNonNull(classGroupName);
+        if (assignments.isEmpty()) {
+            return Optional.empty();
+        }
+        Collection<String> assignmentSet = (assignments.size() == 1 && assignments.contains(""))
+                ? java.util.Collections.emptySet()
+                : assignments;
+        return Optional.of(parseAssignments(assignmentSet, classGroupName));
+    }
+
+
+    /**
+     * Parses {@code Collection<String> classGroups} into an {@code Optional<Set<ClassGroup>>}.
+     *
+     * @param classGroups collection of class group name tokens (not null)
+     * @return an {@code Optional} containing the parsed {@code Set<ClassGroup>}, or {@code Optional.empty()}
+     *         if {@code classGroups} is empty
+     * @throws ParseException if any class group name is invalid
+     */
+    public static Optional<Set<ClassGroup>> parseOptionalClassGroups(Collection<String> classGroups)
+            throws ParseException {
+        requireNonNull(classGroups);
+        if (classGroups.isEmpty()) {
+            return Optional.empty();
+        }
+        Collection<String> classSet = (classGroups.size() == 1 && classGroups.contains(""))
+                ? java.util.Collections.emptySet()
+                : classGroups;
+        return Optional.of(parseClassGroups(classSet));
+    }
+
 
     /**
      * Extracts, validates and parses the classGroupName from the tokenized arguments.
