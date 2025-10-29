@@ -3,8 +3,7 @@ package seedu.address.logic.parser;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSGROUP;
-
-import java.util.stream.Stream;
+import static seedu.address.logic.parser.ParserUtil.arePrefixesPresent;
 
 import seedu.address.logic.commands.UnassignAllCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -53,15 +52,4 @@ public class UnassignAllCommandParser implements Parser<UnassignAllCommand> {
         return new UnassignAllCommand(classGroupName, assignment);
     }
 
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     *
-     * @param argumentMultimap The argument multimap to check.
-     * @param prefixes The prefixes to verify.
-     * @return true if all specified prefixes are present, false otherwise.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
-    }
 }
