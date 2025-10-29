@@ -3,6 +3,9 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSGROUP;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LEVEL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -28,14 +31,14 @@ public class DeleteAssignmentCommandParser implements Parser<DeleteAssignmentCom
     @SuppressWarnings("checkstyle:Regexp")
     public DeleteAssignmentCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_ASSIGNMENT, PREFIX_CLASSGROUP);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args);
 
         Index index = ParserUtil.parseIndexFromPreamble(
                 argMultimap.getPreamble(), DeleteAssignmentCommand.MESSAGE_USAGE);
 
         // allow missing / empty c/ to be represented in the descriptor
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CLASSGROUP);
+        argMultimap.verifyNoInvalidPrefixesFor(PREFIX_LEVEL, PREFIX_NAME, PREFIX_PHONE);
 
         DeleteAssignmentCommand.DeleteAssignmentDescriptor deleteAssignmentDescriptor =
                 new DeleteAssignmentCommand.DeleteAssignmentDescriptor();

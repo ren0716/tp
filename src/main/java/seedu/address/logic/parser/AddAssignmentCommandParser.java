@@ -3,6 +3,9 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSGROUP;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LEVEL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 
 import java.util.Optional;
 
@@ -23,12 +26,13 @@ public class AddAssignmentCommandParser implements Parser<AddAssignmentCommand> 
      */
     public AddAssignmentCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_ASSIGNMENT, PREFIX_CLASSGROUP);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args);
 
         Index index = ParserUtil.parseIndexFromPreamble(argMultimap.getPreamble(), AddAssignmentCommand.MESSAGE_USAGE);
 
         // allow missing / empty c/ to be represented in the descriptor (parser-side duplication check still useful)
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CLASSGROUP);
+        argMultimap.verifyNoInvalidPrefixesFor(PREFIX_NAME, PREFIX_LEVEL, PREFIX_PHONE);
 
         AddAssignmentDescriptor addAssignmentDescriptor = new AddAssignmentDescriptor();
 
