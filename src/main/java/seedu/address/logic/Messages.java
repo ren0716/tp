@@ -66,18 +66,21 @@ public class Messages {
     public static final String MESSAGE_CLASS_NOT_FOUND = "Cannot delete non-existent class(es): %s";
 
     // mark & unmark
-    public static final String MESSAGE_INVALID_ASSIGNMENT_IN_PERSON = "Assignment '%1$s' not found for specified student(s).";
-    public static final String MESSAGE_MARK_PERSON_SUCCESS = "Marked assignment '%1$s' of '%2$s'.";
+    public static final String MESSAGE_INVALID_ASSIGNMENT_IN_PERSON = "Assignment '%1$s' of specified class "
+            + "not found for specified student(s).";
+    public static final String MESSAGE_MARK_PERSON_SUCCESS = "Marked assignment '%1$s' of class '%2$s'.";
     public static final String ALREADY_MARKED = "Assignment is already marked!";
-    public static final String MESSAGE_UNMARK_PERSON_SUCCESS = "Unmarked assignment '%1$s' of '%2$s'.";
+    public static final String MESSAGE_UNMARK_PERSON_SUCCESS = "Unmarked assignment '%1$s' of class '%2$s'.";
     public static final String ALREADY_UNMARKED = "Assignment is already unmarked!";
 
     // parserutil
-    public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The student index provided is invalid.";
+    public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The student index provided is invalid.\n"
+            + "It should be an existing positive index in the student list.";
     public static final String MESSAGE_INVALID_INDEX_RANGE = "Invalid index range format!\n"
             + "Expected format: START-END where START and END are positive integers "
             + "and START <= END.";
-    public static final String MESSAGE_INVALID_INDEX_FORMAT = "Invalid index format! Use space-separated indices or ranges.\n"
+    public static final String MESSAGE_INVALID_INDEX_FORMAT = "Invalid index and/or index format!\n"
+            + "Use non-negative, space-separated indices or ranges.\n"
             + "Examples: '1 2 3' or '1-3' or '1 2-4 6'";
 
     /**

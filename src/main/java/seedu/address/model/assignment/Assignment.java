@@ -9,8 +9,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Assignment {
 
-    public static final String MESSAGE_CONSTRAINTS = "Assignment names should start with and contain alphanumeric characters, "
-            + "and it should not be blank.\n"
+    public static final String MESSAGE_CONSTRAINTS = "Assignment names should start with and "
+            + "contain alphanumeric characters, and it should not be blank.\n"
             + "Allowed special characters are hyphens (-) and spaces.";
     public static final String MESSAGE_CLASSGROUP_CONSTRAINTS =
             "Class name cannot be empty.";
