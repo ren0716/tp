@@ -30,13 +30,7 @@ public class AddClassCommandParser implements Parser<AddClassCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_CLASSGROUP);
 
-        Index index;
-        try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
-        } catch (ParseException pe) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddClassCommand.MESSAGE_USAGE), pe);
-        }
+        Index index = ParserUtil.parseIndexFromPreamble(argMultimap.getPreamble(), AddClassCommand.MESSAGE_USAGE);
 
         AddClassDescriptor addClassDescriptor = new AddClassDescriptor();
 
