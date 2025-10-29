@@ -45,20 +45,6 @@ public class ParserUtil {
     }
 
     /**
-     * Parses an index specification which can be either a single index or a range.
-     * Formats supported:
-     * - Single index: "1" (just a number)
-     * - Range: "1-5" (two numbers separated by hyphen)
-     * Both start and end are inclusive.
-     * @param indexSpec the index specification to parse
-     * @return List of Index objects representing either a single index or a range of indices
-     * @throws ParseException if the index specification is invalid
-     */
-    public static List<Index> parseIndexSpecification(String indexSpec) throws ParseException {
-        return parseMultipleIndex(indexSpec);
-    }
-
-    /**
      * Parses a single index and returns it as a singleton list.
      */
     private static List<Index> parseSingleIndex(String indexString) throws ParseException {
@@ -110,7 +96,7 @@ public class ParserUtil {
      *              Example valid inputs: "1 2 3", "1-5", "1 3-5 7", "1 - 3", "  1   2-4  "
      * @return A list of unique Index objects in order of first occurrence.
      */
-    private static List<Index> parseMultipleIndex(String input) throws ParseException {
+    public static List<Index> parseMultipleIndex(String input) throws ParseException {
         // Regex for validating whole string
         String regex = "^\\s*(?:\\d+\\s*(?:-\\s*\\d+)?)(?:\\s+\\d+\\s*(?:-\\s*\\d+)?)*\\s*$";
 
@@ -118,9 +104,12 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_INVALID_INDEX_FORMAT);
         }
 
-        input.replaceAll("\\s*-\\s*", "-");
-        String[] tokens = input.trim().split("\\s+");
-        Set<Index> uniqueIndices = new LinkedHashSet<>(); // preserves order, removes duplicates
+        // Remove spaces around hyphens in ranges for flexibility (e.g., "1 - 5" → "1-5")
+        String normalisedInput = input.replaceAll("\\s*-\\s*", "-");
+        String[] tokens = normalisedInput.trim().split("\\s+");
+
+        // preserves order, removes duplicates
+        Set<Index> uniqueIndices = new LinkedHashSet<>();
 
         for (String token : tokens) {
             if (token.contains("-")) {

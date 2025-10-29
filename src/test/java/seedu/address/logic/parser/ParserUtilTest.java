@@ -49,48 +49,48 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseIndexSpecification_singleIndex_success() throws Exception {
+    public void parseMultipleIndex_singleIndex_success() throws Exception {
         // Single index without whitespace
         List<Index> expected = Arrays.asList(INDEX_FIRST_PERSON);
-        assertEquals(expected, ParserUtil.parseIndexSpecification("1"));
+        assertEquals(expected, ParserUtil.parseMultipleIndex("1"));
 
         // Single index with whitespace
-        assertEquals(expected, ParserUtil.parseIndexSpecification("  1  "));
+        assertEquals(expected, ParserUtil.parseMultipleIndex("  1  "));
     }
 
     @Test
-    public void parseIndexSpecification_validRange_success() throws Exception {
+    public void parseMultipleIndex_validRange_success() throws Exception {
         // Simple range
         List<Index> expected = Arrays.asList(
                 Index.fromOneBased(1),
                 Index.fromOneBased(2),
                 Index.fromOneBased(3)
         );
-        assertEquals(expected, ParserUtil.parseIndexSpecification("1-3"));
+        assertEquals(expected, ParserUtil.parseMultipleIndex("1-3"));
 
         // Range with whitespace
-        assertEquals(expected, ParserUtil.parseIndexSpecification("1-3"));
+        assertEquals(expected, ParserUtil.parseMultipleIndex("1-3"));
     }
 
     @Test
-    public void parseIndexSpecification_mixIndexType_success() throws Exception {
+    public void parseMultipleIndex_mixIndexType_success() throws Exception {
         // Simple range
         List<Index> expected = Arrays.asList(
                 Index.fromOneBased(1),
                 Index.fromOneBased(2),
                 Index.fromOneBased(3)
         );
-        assertEquals(expected, ParserUtil.parseIndexSpecification("1 2-3"));
+        assertEquals(expected, ParserUtil.parseMultipleIndex("1 2-3"));
 
         // Range with whitespace
-        assertEquals(expected, ParserUtil.parseIndexSpecification("1-2       3"));
+        assertEquals(expected, ParserUtil.parseMultipleIndex("1-2       3"));
     }
 
     @Test
-    public void parseIndexSpecification_invalidRange_throwsParseException() {
+    public void parseMultipleIndex_invalidRange_throwsParseException() {
         // End less than start
         assertThrows(ParseException.class, MESSAGE_INVALID_INDEX_RANGE, () ->
-                ParserUtil.parseIndexSpecification("3-1"));
+                ParserUtil.parseMultipleIndex("3-1"));
     }
 
     @Test
