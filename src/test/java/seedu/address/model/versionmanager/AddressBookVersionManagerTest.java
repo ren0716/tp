@@ -1,4 +1,4 @@
-package seedu.address.model;
+package seedu.address.model.versionmanager;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -9,12 +9,12 @@ import static seedu.address.testutil.TypicalPersons.CARL;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.versionmanager.AddressBookVersionManager;
+import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.versionmanager.exceptions.NoPreviousCommitException;
 import seedu.address.model.versionmanager.exceptions.NoPreviousUndoException;
 import seedu.address.testutil.AddressBookBuilder;
 
-public class AddressBookAddressBookVersionManagerTest {
+public class AddressBookVersionManagerTest {
 
     private ReadOnlyAddressBook addressBookState1;
     private ReadOnlyAddressBook addressBookState2;
