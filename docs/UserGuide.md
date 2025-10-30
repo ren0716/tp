@@ -1,12 +1,3 @@
-<<<<<<< HEAD
----
-  layout: default.md
-  title: "User Guide"
-  pageNav: 3
----
-
-# AB-3 User Guide
-=======
 <frontmatter>
   title: "User Guide"
 </frontmatter>
@@ -14,9 +5,8 @@
 # User Guide
 
 TutorTrack is a **desktop app for managing contacts, optimized for use via the Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, TutorTrack can help you efficiently track students, organise classes and assignments faster than traditional GUI apps.
->>>>>>> upstream/master
 
-AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized for use via a  Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps.
+<!-- Removed legacy AB3 description during migration to TutorTrack -->
 
 <!-- * Table of Contents -->
 <page-nav-print />
@@ -118,16 +108,9 @@ Adds a student to TutorTrack.
 
 Format: `add n/NAME p/PHONE l/LEVEL [c/CLASS]…​`
 
-<<<<<<< HEAD
-<box type="tip" seamless>
-
-**Tip:** A person can have any number of tags (including 0)
-</box>
-=======
 <div markdown="span" class="alert alert-primary"><span class="fas fa-lightbulb" aria-hidden="true"></span> <strong>Tip:</strong>
 A student can have any number of classes and assignments (including 0)
 </div>
->>>>>>> upstream/master
 
 Examples:
 * `add n/John Doe p/98765432 l/2`
@@ -358,19 +341,10 @@ TutorTrack data are saved in the hard disk automatically after any command that 
 
 TutorTrack data are saved automatically as a JSON file `[JAR file location]/data/tutortrack.json`. Advanced users are welcome to update data directly by editing that data file.
 
-<<<<<<< HEAD
-<box type="warning" seamless>
-
-**Caution:**
-If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.<br>
-Furthermore, certain edits can cause the AddressBook to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
-</box>
-=======
 <div markdown="span" class="alert alert-warning"><span class="fas fa-exclamation-triangle" aria-hidden="true"></span> <strong>Caution:</strong>
 If your changes to the data file makes its format invalid, TutorTrack will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
-Furthermore, certain edits can cause the TutorTrack to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
+Furthermore, certain edits can cause TutorTrack to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </div>
->>>>>>> upstream/master
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -390,17 +364,6 @@ Furthermore, certain edits can cause the TutorTrack to behave in unexpected ways
 
 ## Command summary
 
-<<<<<<< HEAD
-Action     | Format, Examples
------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-**Add**    | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-**Clear**  | `clear`
-**Delete** | `delete INDEX`<br> e.g., `delete 3`
-**Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
-**Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
-**List**   | `list`
-**Help**   | `help`
-=======
 Action | Format, Examples
 --------|------------------
 **Add** | `add n/NAME p/PHONE l/LEVEL [c/CLASS]…​` <br> e.g., `add n/John Doe p/98765432 l/2 c/Chemistry-1400`
@@ -420,4 +383,3 @@ Action | Format, Examples
 **Clear** | `clear`
 **Help** | `help`
 **Exit** | `exit`
->>>>>>> upstream/master

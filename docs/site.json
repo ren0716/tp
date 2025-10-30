@@ -1,33 +1,5 @@
 {
   "baseUrl": "",
-<<<<<<< HEAD
-  "titlePrefix": "",
-  "titleSuffix": "AddressBook Level-3",
-  "faviconPath": "images/SeEduLogo.png",
-  "style": {
-    "codeTheme": "light"
-  },
-  "ignore": [
-    "_markbind/layouts/*",
-    "_markbind/logs/*",
-    "_site/*",
-    "site.json",
-    "*.md",
-    "*.njk",
-    ".git/*",
-    "node_modules/*"
-  ],
-  "pagesExclude": ["node_modules/*"],
-  "pages": [
-    {
-      "glob": ["**/index.md", "**/*.md"]
-    }
-  ],
-  "deploy": {
-    "message": "Site Update."
-  },
-  "timeZone": "Asia/Singapore"
-=======
   "titlePrefix": "TutorTrack",
   "titleSuffix": "",
   "favicon": "images/github-icon.png",
@@ -38,7 +10,6 @@
     "header": "_markbind/navigation.md"
   },
   "siteNav": "_markbind/sideNav.md",
-  "head": "<link rel=\"stylesheet\" href=\"{{baseUrl}}/stylesheets/main.css\">",
   "pages": [
     {
       "src": "index.md",
@@ -90,7 +61,6 @@
   ],
   "ignore": [
     "_site/*",
-    "*.json",
     "*.log",
     ".sass-cache/*",
     "_includes/*",
@@ -105,9 +75,10 @@
   ],
   "pluginsContext": {
     "filterTags": {
-      "tags": ["preview"]
+      "tags": [
+        "preview"
+      ]
     }
   },
   "headingIndexingLevel": 4
->>>>>>> upstream/master
 }

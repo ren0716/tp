@@ -1,12 +1,3 @@
-<<<<<<< HEAD
----
-  layout: default.md
-  title: "Testing guide"
-  pageNav: 3
----
-
-# Testing guide
-=======
 <frontmatter>
   title: "Testing Guide"
 </frontmatter>
@@ -17,7 +8,6 @@
 
 <!-- MarkBind will generate the table of contents here -->
 </div>
->>>>>>> upstream/master
 
 <!-- * Table of Contents -->
 <page-nav-print />

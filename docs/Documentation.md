@@ -1,12 +1,3 @@
-<<<<<<< HEAD
----
-  layout: default.md
-  title: "Documentation guide"
-  pageNav: 3
----
-
-# Documentation Guide
-=======
 <frontmatter>
   title: "Documentation Guide"
 </frontmatter>
@@ -16,9 +7,8 @@
 **Setting up and maintaining the project website:**
 
 * We use [**MarkBind**](https://markbind.org/) to manage documentation.
-* The `docs/` folder is used for documentation.
-* To learn how to set it up and maintain the project website, follow the guide [**MarkBind User Guide**](https://markbind.org/userGuide/index.html).
->>>>>>> upstream/master
+* The `docs/` folder contains the source files for the documentation website.
+* To learn how to set it up and maintain the project website, follow the guide [[se-edu/guides] Working with Forked MarkBind sites](https://se-education.org/guides/tutorials/markbind-forked-sites.html).
 
 * We use [**MarkBind**](https://markbind.org/) to manage documentation.
 * The `docs/` folder contains the source files for the documentation website.

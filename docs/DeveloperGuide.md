@@ -1,15 +1,3 @@
-<<<<<<< HEAD
----
-  layout: default.md
-  title: "Developer Guide"
-  pageNav: 3
----
-
-# AB-3 Developer Guide
-
-<!-- * Table of Contents -->
-<page-nav-print />
-=======
 <frontmatter>
   title: "Developer Guide"
 </frontmatter>
@@ -20,7 +8,6 @@
 
 <!-- MarkBind will generate the table of contents here -->
 </div>
->>>>>>> upstream/master
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -38,14 +25,11 @@ Refer to the guide [_Setting up and getting started_](SettingUp.md).
 
 ## **Design**
 
-<<<<<<< HEAD
-=======
 <div markdown="span" class="alert alert-primary">
 
 <span class="fas fa-lightbulb" aria-hidden="true"></span> <strong>Tip:</strong> The `.puml` files used to create diagrams are in this document `docs/diagrams` folder. Refer to the [_PlantUML Tutorial_ at se-edu/guides](https://se-education.org/guides/tutorials/plantUml.html) to learn how to create and edit diagrams.
 </div>
 
->>>>>>> upstream/master
 ### Architecture
 
 <puml src="diagrams/ArchitectureDiagram.puml" width="280" />
@@ -313,16 +297,6 @@ _{Explain here how the data archiving feature will be implemented}_
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-<<<<<<< HEAD
-| Priority | As a …​                                    | I want to …​                 | So that I can…​                                                        |
-|----------|--------------------------------------------|------------------------------|------------------------------------------------------------------------|
-| `* * *`  | new user                                   | see usage instructions       | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person             |                                                                        |
-| `* * *`  | user                                       | delete a person              | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name        | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name         | locate a person easily                                                 |
-=======
 | Priority | As a …​                           | I want to …​                                                 | So that I can…​                                                                                   |
 |----------|-----------------------------------|--------------------------------------------------------------|---------------------------------------------------------------------------------------------------|
 | `* * *`  | private tutor                     | add a student to my list                                     | I can keep track of who I am teaching.                                                            |
@@ -358,7 +332,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *`    | expert user of the app            | export my student details to a CSV file                      | I can back up or share the data in a standard format                                              |
 | `* *`    | user ready to start using the app | clear all current data on the app                            | I can start anew with my own personal data                                                        |
 | `* `     | busy private tutor                | delete/archive a class                                       | I can remove the tagged class from all students                                                   |
->>>>>>> upstream/master
 
 *{More to be added}*
 
