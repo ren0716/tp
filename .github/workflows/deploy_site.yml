@@ -15,5 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: MarkBind/markbind-action@v2
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
         with:
           rootDirectory: ./docs
