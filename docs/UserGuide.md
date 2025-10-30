@@ -233,7 +233,7 @@ Marks the assignment of student(s) identified by the index number(s) used in the
 
 Format: `mark [INDEX]... [INDEX_RANGE]...  c/CLASS a/ASSIGNMENT`
 
-* Marks the assignment belonging to the specified class as completed for the student(s) at the specified `INDEX`(es) or `INDEX_RANGE`(s).
+* Marks the assignment belonging to the specified class as completed for the student(s) at the specified `INDEX`(es) and/or `INDEX_RANGE`(s).
 * The index(es) refers to the index number shown in the displayed student list.
 * The index(es) **must be a positive integer** 1, 2, 3, …​
 * At least one index or index range must be provided.
@@ -253,7 +253,7 @@ Unmarks the assignment of student(s) identified by the index number(s) used in t
 
 Format: `unmark [INDEX]... [INDEX_RANGE]...  c/CLASS a/ASSIGNMENT`
 
-* Unmarks the assignment belonging to the specified class as not completed for the student(s) at the specified `INDEX`(es) or `INDEX_RANGE`(s).
+* Unmarks the assignment belonging to the specified class as not completed for the student(s) at the specified `INDEX`(es) and/or `INDEX_RANGE`(s).
 * The index(es) refers to the index number shown in the displayed student list.
 * The index(es) **must be a positive integer** 1, 2, 3, …​
 * At least one index or index range must be provided.
