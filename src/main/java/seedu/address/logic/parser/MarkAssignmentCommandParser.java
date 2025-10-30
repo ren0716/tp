@@ -4,6 +4,9 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSGROUP;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LEVEL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.ParserUtil.arePrefixesPresent;
 
 import java.util.List;
@@ -33,7 +36,7 @@ public class MarkAssignmentCommandParser implements Parser<MarkAssignmentCommand
     @Override
     public MarkAssignmentCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap = tokenizeArguments(args);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_CLASSGROUP, PREFIX_ASSIGNMENT)
                 || argMultimap.getPreamble().isEmpty()) {
@@ -42,6 +45,7 @@ public class MarkAssignmentCommandParser implements Parser<MarkAssignmentCommand
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CLASSGROUP, PREFIX_ASSIGNMENT);
+        argMultimap.verifyNoInvalidPrefixesFor(PREFIX_PHONE, PREFIX_LEVEL, PREFIX_NAME);
 
         // Parse index or index range
         List<Index> indices = ParserUtil.parseMultipleIndex(argMultimap.getPreamble());
@@ -51,12 +55,4 @@ public class MarkAssignmentCommandParser implements Parser<MarkAssignmentCommand
 
         return new MarkAssignmentCommand(indices, assignment);
     }
-
-    /**
-     * Tokenizes the raw argument string using the assignment and classgroup prefixes.
-     */
-    private ArgumentMultimap tokenizeArguments(String args) {
-        return ArgumentTokenizer.tokenize(args, PREFIX_ASSIGNMENT, PREFIX_CLASSGROUP);
-    }
-
 }

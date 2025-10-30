@@ -19,6 +19,8 @@ public class Messages {
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d students listed!";
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Multiple values specified for the following single-valued field(s): ";
+    public static final String MESSAGE_INVALID_FIELDS =
+            "Following field(s) should not be part of command: ";
     public static final String MESSAGE_DUPLICATE_PERSON = "This student already exists in the student list!\n"
             + "(NOTE: NAME is case-insensitive)";
 
@@ -93,6 +95,18 @@ public class Messages {
                 Stream.of(duplicatePrefixes).map(Prefix::toString).collect(Collectors.toSet());
 
         return MESSAGE_DUPLICATE_FIELDS + String.join(" ", duplicateFields);
+    }
+
+    /**
+     * Returns an error message indicating the duplicate prefixes.
+     */
+    public static String getErrorMessageForInvalidPrefixes(Prefix... invalidPrefixes) {
+        assert invalidPrefixes.length > 0;
+
+        Set<String> invalidFields =
+                Stream.of(invalidPrefixes).map(Prefix::toString).collect(Collectors.toSet());
+
+        return MESSAGE_INVALID_FIELDS + String.join(" ", invalidFields);
     }
 
     /**

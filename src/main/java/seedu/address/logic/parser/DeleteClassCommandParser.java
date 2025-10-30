@@ -2,7 +2,11 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_CLASS_NOT_DELETED;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSGROUP;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LEVEL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeleteClassCommand;
@@ -22,9 +26,11 @@ public class DeleteClassCommandParser implements Parser<DeleteClassCommand> {
      */
     public DeleteClassCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_CLASSGROUP);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args);
 
-        Index index = ParserUtil.parseIndexFromPreamble(argMultimap.getPreamble(), DeleteClassCommand.MESSAGE_USAGE);
+        Index index = ParserUtil.parseOneIndex(argMultimap.getPreamble(), DeleteClassCommand.MESSAGE_USAGE);
+
+        argMultimap.verifyNoInvalidPrefixesFor(PREFIX_LEVEL, PREFIX_ASSIGNMENT, PREFIX_PHONE, PREFIX_NAME);
 
         DeleteClassDescriptor deleteClassDescriptor = new DeleteClassDescriptor();
 
