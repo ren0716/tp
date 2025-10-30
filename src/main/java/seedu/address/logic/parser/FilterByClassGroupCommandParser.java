@@ -38,6 +38,7 @@ public class FilterByClassGroupCommandParser implements Parser<FilterByClassGrou
                     FilterByClassGroupCommand.MESSAGE_USAGE));
         }
 
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CLASSGROUP);
         argMultimap.verifyNoInvalidPrefixesFor(PREFIX_ASSIGNMENT, PREFIX_NAME, PREFIX_LEVEL, PREFIX_PHONE);
 
         Set<ClassGroup> classGroups = ParserUtil
