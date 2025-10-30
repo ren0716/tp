@@ -1,6 +1,13 @@
+<<<<<<< HEAD
+---
+  layout: default.md
+  title: "John Doe's Project Portfolio Page"
+---
+=======
 <frontmatter>
   title: "John Doe's Project Portfolio Page"
 </frontmatter>
+>>>>>>> upstream/master
 
 # John Doe's Project Portfolio Page
 

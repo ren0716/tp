@@ -4,7 +4,10 @@ on:
   push:
     branches:
       - master
+<<<<<<< HEAD
+=======
   workflow_dispatch:
+>>>>>>> upstream/master
 
 jobs:
   build_and_deploy:

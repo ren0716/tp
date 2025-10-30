@@ -1,3 +1,12 @@
+<<<<<<< HEAD
+---
+  layout: default.md
+  title: "Documentation guide"
+  pageNav: 3
+---
+
+# Documentation Guide
+=======
 <frontmatter>
   title: "Documentation Guide"
 </frontmatter>
@@ -9,18 +18,18 @@
 * We use [**MarkBind**](https://markbind.org/) to manage documentation.
 * The `docs/` folder is used for documentation.
 * To learn how to set it up and maintain the project website, follow the guide [**MarkBind User Guide**](https://markbind.org/userGuide/index.html).
+>>>>>>> upstream/master
 
+* We use [**MarkBind**](https://markbind.org/) to manage documentation.
+* The `docs/` folder contains the source files for the documentation website.
+* To learn how set it up and maintain the project website, follow the guide [[se-edu/guides] Working with Forked MarkBind sites](https://se-education.org/guides/tutorials/markbind-forked-sites.html) for project documentation.
 
 **Style guidance:**
 
 * Follow the [**_Google developer documentation style guide_**](https://developers.google.com/style).
+* Also relevant is the [_se-edu/guides **Markdown coding standard**_](https://se-education.org/guides/conventions/markdown.html).
 
-* Also relevant is the [_[se-edu/guides] **Markdown coding standard**_](https://se-education.org/guides/conventions/markdown.html)
 
-**Diagrams:**
+**Converting to PDF**
 
-* See the [_[se-edu/guides] **Using PlantUML**_](https://se-education.org/guides/tutorials/plantUml.html)
-
-**Converting a document to the PDF format:**
-
-* See the guide [_[se-edu/guides] **Saving web documents as PDF files**_](https://se-education.org/guides/tutorials/savingPdf.html)
+* See the guide [_se-edu/guides **Saving web documents as PDF files**_](https://se-education.org/guides/tutorials/savingPdf.html).

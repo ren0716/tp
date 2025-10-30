@@ -1,3 +1,12 @@
+<<<<<<< HEAD
+---
+  layout: default.md
+  title: "DevOps guide"
+  pageNav: 3
+---
+
+# DevOps guide
+=======
 <frontmatter>
   title: "DevOps Guide"
 </frontmatter>
@@ -8,8 +17,12 @@
 
 <!-- MarkBind will generate the table of contents here -->
 </div>
+>>>>>>> upstream/master
 
---------------------------------------------------------------------------------------------------------------------
+<!-- * Table of Contents -->
+<page-nav-print />
+
+<!-- -------------------------------------------------------------------------------------------------------------------- -->
 
 ## Build automation
 
