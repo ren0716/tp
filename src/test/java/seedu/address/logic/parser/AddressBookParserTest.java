@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
@@ -22,9 +23,13 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.MarkAssignmentCommand;
+import seedu.address.logic.commands.UnmarkAssignmentCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.assignment.Assignment;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.testutil.AssignmentBuilder;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
@@ -32,6 +37,52 @@ import seedu.address.testutil.PersonUtil;
 public class AddressBookParserTest {
 
     private final AddressBookParser parser = new AddressBookParser();
+
+    @Test
+    public void parseCommand_mark() throws Exception {
+        Assignment assignment = new AssignmentBuilder().withName("Assignment1")
+                .withClassGroup("Math-2000").build();
+
+        // Test single index
+        MarkAssignmentCommand singleCommand = (MarkAssignmentCommand) parser.parseCommand(
+                MarkAssignmentCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased()
+                        + " c/Math-2000 a/Assignment1");
+        assertEquals(new MarkAssignmentCommand(Arrays.asList(INDEX_FIRST_PERSON), assignment), singleCommand);
+
+        // Test index range
+        MarkAssignmentCommand rangeCommand = (MarkAssignmentCommand) parser.parseCommand(
+                MarkAssignmentCommand.COMMAND_WORD + " 1-3"
+                        + " c/Math-2000 a/Assignment1");
+        List<Index> expectedRange = Arrays.asList(
+                Index.fromOneBased(1),
+                Index.fromOneBased(2),
+                Index.fromOneBased(3)
+        );
+        assertEquals(new MarkAssignmentCommand(expectedRange, assignment), rangeCommand);
+    }
+
+    @Test
+    public void parseCommand_unmark() throws Exception {
+        Assignment assignment = new AssignmentBuilder().withName("Assignment1")
+                .withClassGroup("Math-2000").build();
+
+        // Test single index
+        UnmarkAssignmentCommand singleCommand = (UnmarkAssignmentCommand) parser.parseCommand(
+                UnmarkAssignmentCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased()
+                        + " c/Math-2000 a/Assignment1");
+        assertEquals(new UnmarkAssignmentCommand(Arrays.asList(INDEX_FIRST_PERSON), assignment), singleCommand);
+
+        // Test index range
+        UnmarkAssignmentCommand rangeCommand = (UnmarkAssignmentCommand) parser.parseCommand(
+                UnmarkAssignmentCommand.COMMAND_WORD + " 1-3"
+                        + " c/Math-2000 a/Assignment1");
+        List<Index> expectedRange = Arrays.asList(
+                Index.fromOneBased(1),
+                Index.fromOneBased(2),
+                Index.fromOneBased(3)
+        );
+        assertEquals(new UnmarkAssignmentCommand(expectedRange, assignment), rangeCommand);
+    }
 
     @Test
     public void parseCommand_add() throws Exception {
@@ -56,7 +107,12 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_edit() throws Exception {
         Person person = new PersonBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
+        // Create descriptor with only name, phone, and level (without class groups)
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder()
+                .withName(person.getName().fullName)
+                .withPhone(person.getPhone().value)
+                .withLevel(person.getLevel().value)
+                .build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
         assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);

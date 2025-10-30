@@ -8,7 +8,8 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.assignment.Assignment;
+import seedu.address.model.classgroup.ClassGroup;
 
 /**
  * Represents a Person in the address book.
@@ -19,22 +20,23 @@ public class Person {
     // Identity fields
     private final Name name;
     private final Phone phone;
-    private final Email email;
 
     // Data fields
-    private final Address address;
-    private final Set<Tag> tags = new HashSet<>();
+    private final Level level;
+    private final Set<ClassGroup> classGroups = new HashSet<>();
+    private final Set<Assignment> assignments = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Person(Name name, Phone phone, Level level, Set<ClassGroup> classGroups, Set<Assignment> assignments) {
+        requireAllNonNull(name, phone, level, classGroups);
         this.name = name;
         this.phone = phone;
-        this.email = email;
-        this.address = address;
-        this.tags.addAll(tags);
+        this.level = level;
+        this.classGroups.addAll(classGroups);
+        this.assignments.addAll(assignments);
+
     }
 
     public Name getName() {
@@ -45,20 +47,24 @@ public class Person {
         return phone;
     }
 
-    public Email getEmail() {
-        return email;
-    }
-
-    public Address getAddress() {
-        return address;
+    public Level getLevel() {
+        return level;
     }
 
     /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
+     * Returns an immutable classGroup set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags);
+    public Set<ClassGroup> getClassGroups() {
+        return Collections.unmodifiableSet(classGroups);
+    }
+
+    /**
+     * Returns an immutable assignment set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Set<Assignment> getAssignments() {
+        return Collections.unmodifiableSet(assignments);
     }
 
     /**
@@ -70,8 +76,13 @@ public class Person {
             return true;
         }
 
-        return otherPerson != null
-                && otherPerson.getName().equals(getName());
+        // instanceof handles nulls
+        if (otherPerson == null) {
+            return false;
+        }
+
+        return name.equals(otherPerson.name)
+                && phone.equals(otherPerson.phone);
     }
 
     /**
@@ -92,15 +103,15 @@ public class Person {
         Person otherPerson = (Person) other;
         return name.equals(otherPerson.name)
                 && phone.equals(otherPerson.phone)
-                && email.equals(otherPerson.email)
-                && address.equals(otherPerson.address)
-                && tags.equals(otherPerson.tags);
+                && level.equals(otherPerson.level)
+                && classGroups.equals(otherPerson.classGroups)
+                && assignments.equals(otherPerson.assignments);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, level, classGroups, assignments);
     }
 
     @Override
@@ -108,10 +119,26 @@ public class Person {
         return new ToStringBuilder(this)
                 .add("name", name)
                 .add("phone", phone)
-                .add("email", email)
-                .add("address", address)
-                .add("tags", tags)
+                .add("level", level)
+                .add("classes", classGroups)
+                .add("assignments", assignments)
                 .toString();
     }
 
+    /**
+     * Returns a new Person with the same attributes as this person but with the given assignments.
+     * @param newAssignments The new set of assignments
+     * @return A new Person instance with updated assignments
+     */
+    public Person withAssignments(Set<Assignment> newAssignments) {
+        return new Person(this.name, this.phone, this.level, this.classGroups, newAssignments);
+    }
+
+    public Person withName(Name name) {
+        return new Person(name, this.phone, this.level, this.classGroups, this.assignments);
+    }
+
+    public Person withPhone(Phone phone) {
+        return new Person(this.name, phone, this.level, this.classGroups, this.assignments);
+    }
 }

@@ -1,11 +1,19 @@
+<<<<<<< HEAD
 ---
   layout: default.md
   title: "John Doe's Project Portfolio Page"
 ---
+=======
+<frontmatter>
+  title: "John Doe's Project Portfolio Page"
+</frontmatter>
+>>>>>>> upstream/master
 
-### Project: AddressBook Level 3
+# John Doe's Project Portfolio Page
 
-AddressBook - Level 3 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+### Project: TutorTrack Level 3
+
+TutorTrack is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
 
 Given below are my contributions to the project.
 

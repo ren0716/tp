@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ---
   layout: default.md
   title: "DevOps guide"
@@ -5,6 +6,18 @@
 ---
 
 # DevOps guide
+=======
+<frontmatter>
+  title: "DevOps Guide"
+</frontmatter>
+
+# DevOps Guide
+
+<div id="toc">
+
+<!-- MarkBind will generate the table of contents here -->
+</div>
+>>>>>>> upstream/master
 
 <!-- * Table of Contents -->
 <page-nav-print />

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <head-bottom>
   <link rel="stylesheet" href="{{baseUrl}}/stylesheets/main.css">
 </head-bottom>
@@ -61,3 +62,14 @@
     <small>[<md>**Powered by**</md> <img src="https://markbind.org/favicon.ico" width="30"> {{MarkBind}}, generated on {{timestamp}}]</small>
   </div>
 </footer>
+=======
+<header>
+<md>
+<include src="../navigation.md" />
+</md>
+</header>
+
+<div id="content">
+{{ content }}
+</div>
+>>>>>>> upstream/master

@@ -1,5 +1,6 @@
 {
   "baseUrl": "",
+<<<<<<< HEAD
   "titlePrefix": "",
   "titleSuffix": "AddressBook Level-3",
   "faviconPath": "images/SeEduLogo.png",
@@ -26,4 +27,87 @@
     "message": "Site Update."
   },
   "timeZone": "Asia/Singapore"
+=======
+  "titlePrefix": "TutorTrack",
+  "titleSuffix": "",
+  "favicon": "images/github-icon.png",
+  "style": {
+    "bootstrapTheme": "none"
+  },
+  "globalOverride": {
+    "header": "_markbind/navigation.md"
+  },
+  "siteNav": "_markbind/sideNav.md",
+  "head": "<link rel=\"stylesheet\" href=\"{{baseUrl}}/stylesheets/main.css\">",
+  "pages": [
+    {
+      "src": "index.md",
+      "title": "TutorTrack",
+      "siteNav": "_markbind/sideNav.md"
+    },
+    {
+      "src": "UserGuide.md",
+      "title": "User Guide",
+      "siteNav": "_markbind/sideNav.md"
+    },
+    {
+      "src": "DeveloperGuide.md",
+      "title": "Developer Guide",
+      "siteNav": "_markbind/sideNav.md"
+    },
+    {
+      "src": "AboutUs.md",
+      "title": "About Us",
+      "siteNav": "_markbind/sideNav.md"
+    },
+    {
+      "src": "Configuration.md",
+      "title": "Configuration Guide"
+    },
+    {
+      "src": "Documentation.md",
+      "title": "Documentation Guide"
+    },
+    {
+      "src": "Testing.md",
+      "title": "Testing Guide"
+    },
+    {
+      "src": "Logging.md",
+      "title": "Logging Guide"
+    },
+    {
+      "src": "SettingUp.md",
+      "title": "Setting Up"
+    },
+    {
+      "src": "DevOps.md",
+      "title": "DevOps Guide"
+    },
+    {
+      "glob": "team/*.md"
+    }
+  ],
+  "ignore": [
+    "_site/*",
+    "*.json",
+    "*.log",
+    ".sass-cache/*",
+    "_includes/*",
+    "_layouts/*",
+    "_sass/*",
+    "_config.yml",
+    "Gemfile*",
+    "_data/*"
+  ],
+  "plugins": [
+    "filterTags"
+  ],
+  "pluginsContext": {
+    "filterTags": {
+      "tags": ["preview"]
+    }
+  },
+  "headingIndexingLevel": 4
+>>>>>>> upstream/master
 }

@@ -1,0 +1,15 @@
+title: "TutorTrack"
+theme: minima
+
+header_pages:
+  - UserGuide.md
+  - DeveloperGuide.md
+  - AboutUs.md
+
+markdown: kramdown
+
+repository: "nus-cs2103-AY2526S1/tp"
+github_icon: "images/github-icon.png"
+
+plugins:
+  - jemoji

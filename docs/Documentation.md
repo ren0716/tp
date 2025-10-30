@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ---
   layout: default.md
   title: "Documentation guide"
@@ -5,6 +6,19 @@
 ---
 
 # Documentation Guide
+=======
+<frontmatter>
+  title: "Documentation Guide"
+</frontmatter>
+
+# Documentation Guide
+
+**Setting up and maintaining the project website:**
+
+* We use [**MarkBind**](https://markbind.org/) to manage documentation.
+* The `docs/` folder is used for documentation.
+* To learn how to set it up and maintain the project website, follow the guide [**MarkBind User Guide**](https://markbind.org/userGuide/index.html).
+>>>>>>> upstream/master
 
 * We use [**MarkBind**](https://markbind.org/) to manage documentation.
 * The `docs/` folder contains the source files for the documentation website.
