@@ -1,0 +1,861 @@
+2025-10-29T16:30:18.862Z - info: Website generation started at 12:30:18 AM
+2025-10-29T16:30:18.868Z - warn: ENOENT: no such file or directory, open '/Users/hninsatphyusin/Desktop/tp/docs/_markbind/variables.md'
+2025-10-29T16:30:18.869Z - info: Building assets...
+2025-10-29T16:30:18.881Z - info: Assets built
+2025-10-29T16:30:18.881Z - info: Generating pages...
+2025-10-29T16:30:18.912Z - error: 'default' layout does not exist
+2025-10-29T16:30:18.912Z - error: 'default' layout does not exist
+2025-10-29T16:30:18.913Z - error: 'default' layout does not exist
+2025-10-29T16:30:18.914Z - error: 'default' layout does not exist
+2025-10-29T16:30:18.952Z - error: 'default' layout does not exist
+2025-10-29T16:30:18.953Z - error: 'default' layout does not exist
+2025-10-29T16:30:18.960Z - error: 'default' layout does not exist
+2025-10-29T16:30:18.960Z - error: 'default' layout does not exist
+2025-10-29T16:30:18.966Z - error: 'default' layout does not exist
+2025-10-29T16:30:18.968Z - error: 'default' layout does not exist
+2025-10-29T16:30:18.972Z - error: 'default' layout does not exist
+2025-10-29T16:30:18.997Z - error: 'default' layout does not exist
+2025-10-29T16:30:19.027Z - error: 'default' layout does not exist
+2025-10-29T16:30:19.037Z - error: 'default' layout does not exist
+2025-10-29T16:30:19.037Z - error: 'default' layout does not exist
+2025-10-29T16:30:19.041Z - error: 'default' layout does not exist
+2025-10-29T16:30:19.046Z - info: Pages built
+2025-10-29T16:30:19.079Z - info: Site data built
+2025-10-29T16:30:19.079Z - info: Website generation complete! Total build time: 0.245s
+2025-10-29T16:30:20.119Z - info: Serving "/Users/hninsatphyusin/Desktop/tp/docs/_site" at http://127.0.0.1:58401
+2025-10-29T16:30:20.119Z - info: Press CTRL+C to stop ...
+2025-10-29T16:30:24.678Z - info: [12:30:24 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/index.md
+2025-10-29T16:30:24.979Z - info: [12:30:24 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/index.md
+2025-10-29T16:30:25.282Z - info: [12:30:25 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/index.md
+2025-10-29T16:30:25.584Z - info: [12:30:25 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/index.md
+2025-10-29T16:30:25.683Z - info: Rebuilding 1 pages
+2025-10-29T16:30:25.690Z - error: 'default' layout does not exist
+2025-10-29T16:30:25.698Z - info: Site data built
+2025-10-29T16:30:25.698Z - info: Pages rebuilt
+2025-10-29T16:30:25.698Z - info: Website regeneration complete! Total build time: 0.016s
+2025-10-29T16:30:31.350Z - info: [12:30:31 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/index.md
+2025-10-29T16:30:31.651Z - info: [12:30:31 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/index.md
+2025-10-29T16:30:32.054Z - info: [12:30:32 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/index.md
+2025-10-29T16:30:32.351Z - info: Rebuilding 1 pages
+2025-10-29T16:30:32.356Z - error: 'default' layout does not exist
+2025-10-29T16:30:32.361Z - info: Site data built
+2025-10-29T16:30:32.361Z - info: Pages rebuilt
+2025-10-29T16:30:32.361Z - info: Website regeneration complete! Total build time: 0.01s
+2025-10-29T16:30:35.750Z - info: Website generation started at 12:30:35 AM
+2025-10-29T16:30:35.755Z - warn: ENOENT: no such file or directory, open '/Users/hninsatphyusin/Desktop/tp/docs/_markbind/variables.md'
+2025-10-29T16:30:35.756Z - info: Building assets...
+2025-10-29T16:30:35.768Z - info: Assets built
+2025-10-29T16:30:35.768Z - info: Generating pages...
+2025-10-29T16:30:35.799Z - error: 'default' layout does not exist
+2025-10-29T16:30:35.799Z - error: 'default' layout does not exist
+2025-10-29T16:30:35.800Z - error: 'default' layout does not exist
+2025-10-29T16:30:35.800Z - error: 'default' layout does not exist
+2025-10-29T16:30:35.841Z - error: 'default' layout does not exist
+2025-10-29T16:30:35.841Z - error: 'default' layout does not exist
+2025-10-29T16:30:35.841Z - error: 'default' layout does not exist
+2025-10-29T16:30:35.849Z - error: 'default' layout does not exist
+2025-10-29T16:30:35.855Z - error: 'default' layout does not exist
+2025-10-29T16:30:35.860Z - error: 'default' layout does not exist
+2025-10-29T16:30:35.860Z - error: 'default' layout does not exist
+2025-10-29T16:30:35.886Z - error: 'default' layout does not exist
+2025-10-29T16:30:35.915Z - error: 'default' layout does not exist
+2025-10-29T16:30:35.925Z - error: 'default' layout does not exist
+2025-10-29T16:30:35.926Z - error: 'default' layout does not exist
+2025-10-29T16:30:35.929Z - error: 'default' layout does not exist
+2025-10-29T16:30:35.935Z - info: Pages built
+2025-10-29T16:30:35.961Z - info: Site data built
+2025-10-29T16:30:35.961Z - info: Website generation complete! Total build time: 0.236s
+2025-10-29T16:30:36.980Z - info: Serving "/Users/hninsatphyusin/Desktop/tp/docs/_site" at http://127.0.0.1:58414
+2025-10-29T16:30:36.981Z - info: Press CTRL+C to stop ...
+2025-10-29T16:31:02.696Z - info: Website generation started at 12:31:02 AM
+2025-10-29T16:31:02.702Z - warn: ENOENT: no such file or directory, open '/Users/hninsatphyusin/Desktop/tp/docs/_markbind/variables.md'
+2025-10-29T16:31:02.703Z - info: Building assets...
+2025-10-29T16:31:02.718Z - info: Assets built
+2025-10-29T16:31:02.719Z - info: Generating pages...
+2025-10-29T16:31:02.749Z - error: 'default' layout does not exist
+2025-10-29T16:31:02.750Z - error: 'default' layout does not exist
+2025-10-29T16:31:02.751Z - error: 'default' layout does not exist
+2025-10-29T16:31:02.751Z - error: 'default' layout does not exist
+2025-10-29T16:31:02.782Z - error: 'default' layout does not exist
+2025-10-29T16:31:02.792Z - error: 'default' layout does not exist
+2025-10-29T16:31:02.797Z - error: 'default' layout does not exist
+2025-10-29T16:31:02.797Z - error: 'default' layout does not exist
+2025-10-29T16:31:02.803Z - error: 'default' layout does not exist
+2025-10-29T16:31:02.805Z - error: 'default' layout does not exist
+2025-10-29T16:31:02.809Z - error: 'default' layout does not exist
+2025-10-29T16:31:02.834Z - error: 'default' layout does not exist
+2025-10-29T16:31:02.862Z - error: 'default' layout does not exist
+2025-10-29T16:31:02.869Z - error: 'default' layout does not exist
+2025-10-29T16:31:02.872Z - error: 'default' layout does not exist
+2025-10-29T16:31:02.877Z - error: 'default' layout does not exist
+2025-10-29T16:31:02.881Z - info: Pages built
+2025-10-29T16:31:02.908Z - info: Site data built
+2025-10-29T16:31:02.908Z - info: Website generation complete! Total build time: 0.223s
+2025-10-29T16:31:02.908Z - info: Build success!
+2025-10-29T16:32:08.765Z - info: Website generation started at 12:32:08 AM
+2025-10-29T16:32:08.774Z - info: Building assets...
+2025-10-29T16:32:08.786Z - info: Assets built
+2025-10-29T16:32:08.787Z - info: Generating pages...
+2025-10-29T16:32:08.816Z - error: 'default' layout does not exist
+2025-10-29T16:32:08.816Z - error: 'default' layout does not exist
+2025-10-29T16:32:08.817Z - error: 'default' layout does not exist
+2025-10-29T16:32:08.817Z - error: 'default' layout does not exist
+2025-10-29T16:32:08.856Z - error: 'default' layout does not exist
+2025-10-29T16:32:08.857Z - error: 'default' layout does not exist
+2025-10-29T16:32:08.863Z - error: 'default' layout does not exist
+2025-10-29T16:32:08.863Z - error: 'default' layout does not exist
+2025-10-29T16:32:08.871Z - error: 'default' layout does not exist
+2025-10-29T16:32:08.871Z - error: 'default' layout does not exist
+2025-10-29T16:32:08.876Z - error: 'default' layout does not exist
+2025-10-29T16:32:08.901Z - error: 'default' layout does not exist
+2025-10-29T16:32:08.931Z - error: 'default' layout does not exist
+2025-10-29T16:32:08.942Z - error: 'default' layout does not exist
+2025-10-29T16:32:08.942Z - error: 'default' layout does not exist
+2025-10-29T16:32:08.946Z - error: 'default' layout does not exist
+2025-10-29T16:32:08.952Z - info: Pages built
+2025-10-29T16:32:08.978Z - info: Site data built
+2025-10-29T16:32:08.979Z - info: Website generation complete! Total build time: 0.239s
+2025-10-29T16:32:08.979Z - info: Build success!
+2025-10-29T16:33:11.145Z - info: Website generation started at 12:33:11 AM
+2025-10-29T16:33:11.156Z - info: Building assets...
+2025-10-29T16:33:11.172Z - info: Assets built
+2025-10-29T16:33:11.172Z - info: Generating pages...
+2025-10-29T16:33:11.203Z - error:  TypeError: Cannot read properties of undefined (reading 'forEach')
+    at transformOldSlotSyntax (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/@markbind/core/src/html/vueSlotSyntaxProcessor.js:58:19)
+    at NodeProcessor.processNode (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/@markbind/core/src/html/NodeProcessor.js:156:65)
+    at NodeProcessor.traverse (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/@markbind/core/src/html/NodeProcessor.js:345:24)
+    at /opt/homebrew/lib/node_modules/markbind-cli/node_modules/@markbind/core/src/html/NodeProcessor.js:349:22
+    at Array.forEach (<anonymous>)
+    at NodeProcessor.traverse (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/@markbind/core/src/html/NodeProcessor.js:348:27)
+    at /opt/homebrew/lib/node_modules/markbind-cli/node_modules/@markbind/core/src/html/NodeProcessor.js:373:42
+    at Array.map (<anonymous>)
+    at DomHandler._callback (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/@markbind/core/src/html/NodeProcessor.js:370:43)
+    at DomHandler._handleCallback.DomHandler.onerror (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/domhandler/index.js:52:8)
+    at DomHandler.onend (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/domhandler/index.js:46:7)
+    at Parser.onend (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/htmlparser2/lib/Parser.js:340:36)
+    at Tokenizer._finish (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/htmlparser2/lib/Tokenizer.js:890:15)
+    at Tokenizer.end (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/htmlparser2/lib/Tokenizer.js:881:29)
+    at Parser.end (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/htmlparser2/lib/Parser.js:367:21)
+    at Parser.parseComplete (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/htmlparser2/lib/Parser.js:359:10)
+2025-10-29T16:33:11.203Z - error:  TypeError: Cannot read properties of undefined (reading 'id')
+Error while rendering '/Users/hninsatphyusin/Desktop/tp/docs/_markbind/layouts/default.md'
+    at addSitePageNavPortal (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/@markbind/core/src/html/siteAndPageNavProcessor.js:135:22)
+    at NodeProcessor.traverse (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/@markbind/core/src/html/NodeProcessor.js:353:60)
+    at /opt/homebrew/lib/node_modules/markbind-cli/node_modules/@markbind/core/src/html/NodeProcessor.js:349:22
+    at Array.forEach (<anonymous>)
+    at NodeProcessor.traverse (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/@markbind/core/src/html/NodeProcessor.js:348:27)
+    at /opt/homebrew/lib/node_modules/markbind-cli/node_modules/@markbind/core/src/html/NodeProcessor.js:373:42
+    at Array.map (<anonymous>)
+    at DomHandler._callback (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/@markbind/core/src/html/NodeProcessor.js:370:43)
+    at DomHandler._handleCallback.DomHandler.onerror (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/domhandler/index.js:52:8)
+    at DomHandler.onend (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/domhandler/index.js:46:7)
+    at Parser.onend (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/htmlparser2/lib/Parser.js:340:36)
+    at Tokenizer._finish (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/htmlparser2/lib/Tokenizer.js:890:15)
+    at Tokenizer.end (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/htmlparser2/lib/Tokenizer.js:881:29)
+    at Parser.end (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/htmlparser2/lib/Parser.js:367:21)
+    at Parser.parseComplete (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/htmlparser2/lib/Parser.js:359:10)
+    at /opt/homebrew/lib/node_modules/markbind-cli/node_modules/@markbind/core/src/html/NodeProcessor.js:393:24
+2025-10-29T16:33:11.298Z - info: Pages built
+2025-10-29T16:33:11.322Z - info: Site data built
+2025-10-29T16:33:11.322Z - info: Website generation complete! Total build time: 0.202s
+2025-10-29T16:33:11.322Z - info: Build success!
+2025-10-29T16:33:37.595Z - info: Website generation started at 12:33:37 AM
+2025-10-29T16:33:37.605Z - info: Building assets...
+2025-10-29T16:33:37.617Z - info: Assets built
+2025-10-29T16:33:37.617Z - info: Generating pages...
+2025-10-29T16:33:37.647Z - error: 'default.md' layout does not exist
+2025-10-29T16:33:37.647Z - error: 'default.md' layout does not exist
+2025-10-29T16:33:37.648Z - error: 'default.md' layout does not exist
+2025-10-29T16:33:37.649Z - error: 'default.md' layout does not exist
+2025-10-29T16:33:37.686Z - error: 'default.md' layout does not exist
+2025-10-29T16:33:37.697Z - error: 'default.md' layout does not exist
+2025-10-29T16:33:37.697Z - error: 'default.md' layout does not exist
+2025-10-29T16:33:37.702Z - error: 'default.md' layout does not exist
+2025-10-29T16:33:37.708Z - error: 'default.md' layout does not exist
+2025-10-29T16:33:37.733Z - error: 'default.md' layout does not exist
+2025-10-29T16:33:37.733Z - error: 'default.md' layout does not exist
+2025-10-29T16:33:37.736Z - error: 'default.md' layout does not exist
+2025-10-29T16:33:37.769Z - error: 'default.md' layout does not exist
+2025-10-29T16:33:37.780Z - error: 'default.md' layout does not exist
+2025-10-29T16:33:37.780Z - error: 'default.md' layout does not exist
+2025-10-29T16:33:37.783Z - error: 'default.md' layout does not exist
+2025-10-29T16:33:37.790Z - info: Pages built
+2025-10-29T16:33:37.828Z - info: Site data built
+2025-10-29T16:33:37.828Z - info: Website generation complete! Total build time: 0.259s
+2025-10-29T16:33:37.828Z - info: Build success!
+2025-10-29T16:36:01.465Z - info: Website generation started at 12:36:01 AM
+2025-10-29T16:36:01.475Z - info: Building assets...
+2025-10-29T16:36:01.489Z - info: Assets built
+2025-10-29T16:36:01.490Z - info: Generating pages...
+2025-10-29T16:36:01.519Z - error: 'default.md' layout does not exist
+2025-10-29T16:36:01.519Z - error: 'default.md' layout does not exist
+2025-10-29T16:36:01.520Z - error: 'default.md' layout does not exist
+2025-10-29T16:36:01.520Z - error: 'default.md' layout does not exist
+2025-10-29T16:36:01.552Z - error: 'default.md' layout does not exist
+2025-10-29T16:36:01.563Z - error: 'default.md' layout does not exist
+2025-10-29T16:36:01.563Z - error: 'default.md' layout does not exist
+2025-10-29T16:36:01.569Z - error: 'default.md' layout does not exist
+2025-10-29T16:36:01.575Z - error: 'default.md' layout does not exist
+2025-10-29T16:36:01.579Z - error: 'default.md' layout does not exist
+2025-10-29T16:36:01.580Z - error: 'default.md' layout does not exist
+2025-10-29T16:36:01.606Z - error: 'default.md' layout does not exist
+2025-10-29T16:36:01.634Z - error: 'default.md' layout does not exist
+2025-10-29T16:36:01.643Z - error: 'default.md' layout does not exist
+2025-10-29T16:36:01.643Z - error: 'default.md' layout does not exist
+2025-10-29T16:36:01.647Z - error: 'default.md' layout does not exist
+2025-10-29T16:36:01.653Z - info: Pages built
+2025-10-29T16:36:01.681Z - info: Site data built
+2025-10-29T16:36:01.681Z - info: Website generation complete! Total build time: 0.245s
+2025-10-29T16:36:01.681Z - info: Build success!
+2025-10-29T16:36:26.450Z - info: Website generation started at 12:36:26 AM
+2025-10-29T16:36:26.459Z - info: Building assets...
+2025-10-29T16:36:26.471Z - info: Assets built
+2025-10-29T16:36:26.471Z - info: Generating pages...
+2025-10-29T16:36:26.501Z - error: 'default.md' layout does not exist
+2025-10-29T16:36:26.502Z - error: 'default.md' layout does not exist
+2025-10-29T16:36:26.502Z - error: 'default.md' layout does not exist
+2025-10-29T16:36:26.503Z - error: 'default.md' layout does not exist
+2025-10-29T16:36:26.542Z - error: 'default.md' layout does not exist
+2025-10-29T16:36:26.542Z - error: 'default.md' layout does not exist
+2025-10-29T16:36:26.548Z - error: 'default.md' layout does not exist
+2025-10-29T16:36:26.550Z - error: 'default.md' layout does not exist
+2025-10-29T16:36:26.556Z - error: 'default.md' layout does not exist
+2025-10-29T16:36:26.557Z - error: 'default.md' layout does not exist
+2025-10-29T16:36:26.561Z - error: 'default.md' layout does not exist
+2025-10-29T16:36:26.586Z - error: 'default.md' layout does not exist
+2025-10-29T16:36:26.616Z - error: 'default.md' layout does not exist
+2025-10-29T16:36:26.616Z - error: 'default.md' layout does not exist
+2025-10-29T16:36:26.626Z - error: 'default.md' layout does not exist
+2025-10-29T16:36:26.629Z - error: 'default.md' layout does not exist
+2025-10-29T16:36:26.635Z - info: Pages built
+2025-10-29T16:36:26.660Z - info: Site data built
+2025-10-29T16:36:26.660Z - info: Website generation complete! Total build time: 0.236s
+2025-10-29T16:36:27.678Z - info: Serving "/Users/hninsatphyusin/Desktop/tp/docs/_site" at http://127.0.0.1:58575
+2025-10-29T16:36:27.678Z - info: Press CTRL+C to stop ...
+2025-10-29T16:38:09.026Z - info: Website generation started at 12:38:09 AM
+2025-10-29T16:38:09.036Z - info: Building assets...
+2025-10-29T16:38:09.051Z - info: Assets built
+2025-10-29T16:38:09.051Z - info: Generating pages...
+2025-10-29T16:38:09.080Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:09.081Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:09.082Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:09.082Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:09.114Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:09.126Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:09.127Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:09.127Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:09.137Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:09.138Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:09.162Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:09.165Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:09.196Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:09.204Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:09.206Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:09.210Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:09.216Z - info: Pages built
+2025-10-29T16:38:09.244Z - info: Site data built
+2025-10-29T16:38:09.244Z - info: Website generation complete! Total build time: 0.242s
+2025-10-29T16:38:09.244Z - info: Build success!
+2025-10-29T16:38:27.267Z - info: Website generation started at 12:38:27 AM
+2025-10-29T16:38:27.276Z - info: Building assets...
+2025-10-29T16:38:27.288Z - info: Assets built
+2025-10-29T16:38:27.289Z - info: Generating pages...
+2025-10-29T16:38:27.318Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:27.319Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:27.319Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:27.320Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:27.362Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:27.363Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:27.369Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:27.369Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:27.376Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:27.377Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:27.381Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:27.406Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:27.437Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:27.448Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:27.448Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:27.452Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:27.458Z - info: Pages built
+2025-10-29T16:38:27.484Z - info: Site data built
+2025-10-29T16:38:27.484Z - info: Website generation complete! Total build time: 0.242s
+2025-10-29T16:38:28.501Z - info: Serving "/Users/hninsatphyusin/Desktop/tp/docs/_site" at http://127.0.0.1:58623
+2025-10-29T16:38:28.501Z - info: Press CTRL+C to stop ...
+2025-10-29T16:38:40.958Z - info: Website generation started at 12:38:40 AM
+2025-10-29T16:38:40.966Z - info: Building assets...
+2025-10-29T16:38:40.978Z - info: Assets built
+2025-10-29T16:38:40.978Z - info: Generating pages...
+2025-10-29T16:38:41.008Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:41.009Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:41.010Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:41.010Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:41.043Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:41.055Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:41.056Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:41.056Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:41.065Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:41.069Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:41.069Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:41.095Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:41.125Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:41.134Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:41.135Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:41.140Z - error: 'default.md' layout does not exist
+2025-10-29T16:38:41.144Z - info: Pages built
+2025-10-29T16:38:41.172Z - info: Site data built
+2025-10-29T16:38:41.172Z - info: Website generation complete! Total build time: 0.239s
+2025-10-29T16:38:42.192Z - info: Serving "/Users/hninsatphyusin/Desktop/tp/docs/_site" at http://127.0.0.1:58636
+2025-10-29T16:38:42.192Z - info: Press CTRL+C to stop ...
+2025-10-29T16:39:04.263Z - info: Website generation started at 12:39:04 AM
+2025-10-29T16:39:04.271Z - info: Building assets...
+2025-10-29T16:39:04.284Z - info: Assets built
+2025-10-29T16:39:04.284Z - info: Generating pages...
+2025-10-29T16:39:04.315Z - error: 'default.md' layout does not exist
+2025-10-29T16:39:04.316Z - error: 'default.md' layout does not exist
+2025-10-29T16:39:04.317Z - error: 'default.md' layout does not exist
+2025-10-29T16:39:04.317Z - error: 'default.md' layout does not exist
+2025-10-29T16:39:04.354Z - error: 'default.md' layout does not exist
+2025-10-29T16:39:04.366Z - error: 'default.md' layout does not exist
+2025-10-29T16:39:04.366Z - error: 'default.md' layout does not exist
+2025-10-29T16:39:04.367Z - error: 'default.md' layout does not exist
+2025-10-29T16:39:04.376Z - error: 'default.md' layout does not exist
+2025-10-29T16:39:04.378Z - error: 'default.md' layout does not exist
+2025-10-29T16:39:04.402Z - error: 'default.md' layout does not exist
+2025-10-29T16:39:04.404Z - error: 'default.md' layout does not exist
+2025-10-29T16:39:04.437Z - error: 'default.md' layout does not exist
+2025-10-29T16:39:04.437Z - error: 'default.md' layout does not exist
+2025-10-29T16:39:04.449Z - error: 'default.md' layout does not exist
+2025-10-29T16:39:04.449Z - error: 'default.md' layout does not exist
+2025-10-29T16:39:04.456Z - info: Pages built
+2025-10-29T16:39:04.483Z - info: Site data built
+2025-10-29T16:39:04.483Z - info: Website generation complete! Total build time: 0.247s
+2025-10-29T16:39:05.495Z - info: Serving "/Users/hninsatphyusin/Desktop/tp/docs/_site" at http://127.0.0.1:58650
+2025-10-29T16:39:05.495Z - info: Press CTRL+C to stop ...
+2025-10-29T16:39:06.910Z - info: [12:39:06 AM] Reload for file add: /Users/hninsatphyusin/Desktop/tp/docs/_markbind/layouts/default.md
+2025-10-29T16:39:07.010Z - info: [12:39:07 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/_markbind/layouts/default.md
+2025-10-29T16:39:07.915Z - info: Assets built
+2025-10-29T16:39:50.116Z - info: Website generation started at 12:39:50 AM
+2025-10-29T16:39:50.126Z - info: Building assets...
+2025-10-29T16:39:50.141Z - info: Assets built
+2025-10-29T16:39:50.142Z - info: Generating pages...
+2025-10-29T16:39:50.304Z - info: Pages built
+2025-10-29T16:39:50.328Z - info: Site data built
+2025-10-29T16:39:50.329Z - info: Website generation complete! Total build time: 0.238s
+2025-10-29T16:39:50.329Z - info: Build success!
+2025-10-29T16:40:15.930Z - info: Website generation started at 12:40:15 AM
+2025-10-29T16:40:15.938Z - info: Building assets...
+2025-10-29T16:40:15.953Z - info: Assets built
+2025-10-29T16:40:15.953Z - info: Generating pages...
+2025-10-29T16:40:16.122Z - info: Pages built
+2025-10-29T16:40:16.160Z - info: Site data built
+2025-10-29T16:40:16.160Z - info: Website generation complete! Total build time: 0.257s
+2025-10-29T16:40:17.183Z - info: Serving "/Users/hninsatphyusin/Desktop/tp/docs/_site" at http://127.0.0.1:58688
+2025-10-29T16:40:17.184Z - info: Press CTRL+C to stop ...
+2025-10-29T16:42:04.740Z - info: Website generation started at 12:42:04 AM
+2025-10-29T16:42:04.749Z - info: Building assets...
+2025-10-29T16:42:04.763Z - info: Assets built
+2025-10-29T16:42:04.763Z - info: Generating pages...
+2025-10-29T16:42:04.934Z - info: Pages built
+2025-10-29T16:42:04.967Z - info: Site data built
+2025-10-29T16:42:04.967Z - info: Website generation complete! Total build time: 0.253s
+2025-10-29T16:42:05.994Z - info: Serving "/Users/hninsatphyusin/Desktop/tp/docs/_site" at http://127.0.0.1:58739
+2025-10-29T16:42:05.994Z - info: Press CTRL+C to stop ...
+2025-10-29T16:45:32.243Z - info: Website generation started at 12:45:32 AM
+2025-10-29T16:45:32.252Z - info: Building assets...
+2025-10-29T16:45:32.266Z - info: Assets built
+2025-10-29T16:45:32.267Z - info: Generating pages...
+2025-10-29T16:45:32.433Z - info: Pages built
+2025-10-29T16:45:32.457Z - info: Site data built
+2025-10-29T16:45:32.457Z - info: Website generation complete! Total build time: 0.24s
+2025-10-29T16:45:32.457Z - info: Build success!
+2025-10-29T16:45:45.499Z - info: Website generation started at 12:45:45 AM
+2025-10-29T16:45:45.509Z - info: Building assets...
+2025-10-29T16:45:45.521Z - info: Assets built
+2025-10-29T16:45:45.521Z - info: Generating pages...
+2025-10-29T16:45:45.687Z - info: Pages built
+2025-10-29T16:45:45.725Z - info: Site data built
+2025-10-29T16:45:45.725Z - info: Website generation complete! Total build time: 0.258s
+2025-10-29T16:45:46.743Z - info: Serving "/Users/hninsatphyusin/Desktop/tp/docs/_site" at http://127.0.0.1:58844
+2025-10-29T16:45:46.744Z - info: Press CTRL+C to stop ...
+2025-10-29T16:47:44.957Z - info: [12:47:44 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/stylesheets/main.css
+2025-10-29T16:47:45.964Z - info: Assets built
+2025-10-29T16:48:07.262Z - info: [12:48:07 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/stylesheets/main.css
+2025-10-29T16:48:08.267Z - info: Assets built
+2025-10-29T16:48:25.721Z - info: Website generation started at 12:48:25 AM
+2025-10-29T16:48:25.730Z - info: Building assets...
+2025-10-29T16:48:25.742Z - info: Assets built
+2025-10-29T16:48:25.743Z - info: Generating pages...
+2025-10-29T16:48:25.909Z - info: Pages built
+2025-10-29T16:48:25.934Z - info: Site data built
+2025-10-29T16:48:25.934Z - info: Website generation complete! Total build time: 0.242s
+2025-10-29T16:48:25.934Z - info: Build success!
+2025-10-29T16:48:32.479Z - info: Website generation started at 12:48:32 AM
+2025-10-29T16:48:32.488Z - info: Building assets...
+2025-10-29T16:48:32.500Z - info: Assets built
+2025-10-29T16:48:32.500Z - info: Generating pages...
+2025-10-29T16:48:32.674Z - info: Pages built
+2025-10-29T16:48:32.712Z - info: Site data built
+2025-10-29T16:48:32.712Z - info: Website generation complete! Total build time: 0.258s
+2025-10-29T16:48:33.722Z - info: Serving "/Users/hninsatphyusin/Desktop/tp/docs/_site" at http://127.0.0.1:58936
+2025-10-29T16:48:33.723Z - info: Press CTRL+C to stop ...
+2025-10-29T16:50:30.158Z - info: Website generation started at 12:50:30 AM
+2025-10-29T16:50:30.167Z - info: Building assets...
+2025-10-29T16:50:30.179Z - info: Assets built
+2025-10-29T16:50:30.179Z - info: Generating pages...
+2025-10-29T16:50:30.343Z - info: Pages built
+2025-10-29T16:50:30.368Z - info: Site data built
+2025-10-29T16:50:30.369Z - info: Website generation complete! Total build time: 0.237s
+2025-10-29T16:50:31.393Z - info: Serving "/Users/hninsatphyusin/Desktop/tp/docs/_site" at http://127.0.0.1:58983
+2025-10-29T16:50:31.394Z - info: Press CTRL+C to stop ...
+2025-10-29T16:52:07.897Z - info: [12:52:07 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/stylesheets/main.css
+2025-10-29T16:52:08.900Z - info: Assets built
+2025-10-29T16:52:24.050Z - info: [12:52:24 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/stylesheets/main.css
+2025-10-29T16:52:24.353Z - info: [12:52:24 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/stylesheets/main.css
+2025-10-29T16:52:24.555Z - info: [12:52:24 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/stylesheets/main.css
+2025-10-29T16:52:25.056Z - info: Assets built
+2025-10-29T16:52:26.372Z - info: [12:52:26 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/stylesheets/main.css
+2025-10-29T16:52:27.373Z - info: Assets built
+2025-10-29T16:52:45.456Z - info: Website generation started at 12:52:45 AM
+2025-10-29T16:52:45.465Z - info: Building assets...
+2025-10-29T16:52:45.480Z - info: Assets built
+2025-10-29T16:52:45.481Z - info: Generating pages...
+2025-10-29T16:52:45.646Z - info: Pages built
+2025-10-29T16:52:45.671Z - info: Site data built
+2025-10-29T16:52:45.671Z - info: Website generation complete! Total build time: 0.24s
+2025-10-29T16:52:46.692Z - info: Serving "/Users/hninsatphyusin/Desktop/tp/docs/_site" at http://127.0.0.1:59072
+2025-10-29T16:52:46.693Z - info: Press CTRL+C to stop ...
+2025-10-29T16:54:34.912Z - info: Website generation started at 12:54:34 AM
+2025-10-29T16:54:34.920Z - info: Building assets...
+2025-10-29T16:54:34.936Z - info: Assets built
+2025-10-29T16:54:34.936Z - info: Generating pages...
+2025-10-29T16:54:35.102Z - info: Pages built
+2025-10-29T16:54:35.126Z - info: Site data built
+2025-10-29T16:54:35.126Z - info: Website generation complete! Total build time: 0.24s
+2025-10-29T16:54:36.140Z - info: Serving "/Users/hninsatphyusin/Desktop/tp/docs/_site" at http://127.0.0.1:59120
+2025-10-29T16:54:36.140Z - info: Press CTRL+C to stop ...
+2025-10-29T16:55:11.310Z - info: Website generation started at 12:55:11 AM
+2025-10-29T16:55:11.319Z - info: Building assets...
+2025-10-29T16:55:11.335Z - info: Assets built
+2025-10-29T16:55:11.335Z - info: Generating pages...
+2025-10-29T16:55:11.501Z - info: Pages built
+2025-10-29T16:55:11.526Z - info: Site data built
+2025-10-29T16:55:11.526Z - info: Website generation complete! Total build time: 0.242s
+2025-10-29T16:55:12.543Z - info: Serving "/Users/hninsatphyusin/Desktop/tp/docs/_site" at http://127.0.0.1:59146
+2025-10-29T16:55:12.543Z - info: Press CTRL+C to stop ...
+2025-10-29T16:56:06.823Z - info: Website generation started at 12:56:06 AM
+2025-10-29T16:56:06.832Z - info: Building assets...
+2025-10-29T16:56:06.844Z - info: Assets built
+2025-10-29T16:56:06.844Z - info: Generating pages...
+2025-10-29T16:56:07.014Z - info: Pages built
+2025-10-29T16:56:07.040Z - info: Site data built
+2025-10-29T16:56:07.040Z - info: Website generation complete! Total build time: 0.228s
+2025-10-29T16:56:08.061Z - info: Serving "/Users/hninsatphyusin/Desktop/tp/docs/_site" at http://127.0.0.1:59172
+2025-10-29T16:56:08.062Z - info: Press CTRL+C to stop ...
+2025-10-29T16:56:53.042Z - info: [12:56:53 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/stylesheets/main.css
+2025-10-29T16:56:54.052Z - info: Assets built
+2025-10-29T16:56:55.872Z - info: [12:56:55 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/stylesheets/main.css
+2025-10-29T16:56:56.176Z - info: [12:56:56 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/stylesheets/main.css
+2025-10-29T16:56:56.479Z - info: [12:56:56 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/stylesheets/main.css
+2025-10-29T16:56:56.879Z - info: Assets built
+2025-10-29T16:59:16.765Z - info: Website generation started at 12:59:16 AM
+2025-10-29T16:59:16.773Z - info: Building assets...
+2025-10-29T16:59:16.786Z - info: Assets built
+2025-10-29T16:59:16.787Z - info: Generating pages...
+2025-10-29T16:59:16.956Z - info: Pages built
+2025-10-29T16:59:16.983Z - info: Site data built
+2025-10-29T16:59:16.984Z - info: Website generation complete! Total build time: 0.243s
+2025-10-29T16:59:18.008Z - info: Serving "/Users/hninsatphyusin/Desktop/tp/docs/_site" at http://127.0.0.1:59254
+2025-10-29T16:59:18.009Z - info: Press CTRL+C to stop ...
+2025-10-29T17:02:27.830Z - info: [1:02:27 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/_markbind/navigation.md
+2025-10-29T17:02:27.916Z - info: [1:02:27 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/_markbind/navigation.md
+2025-10-29T17:02:28.844Z - info: Rebuilding 16 pages
+2025-10-29T17:02:28.924Z - info: Rebuilding 16 pages
+2025-10-29T17:02:29.044Z - info: Site data built
+2025-10-29T17:02:29.045Z - info: Pages rebuilt
+2025-10-29T17:02:29.045Z - info: Website regeneration complete! Total build time: 0.202s
+2025-10-29T17:02:29.097Z - info: Site data built
+2025-10-29T17:02:29.097Z - info: Pages rebuilt
+2025-10-29T17:02:29.097Z - info: Website regeneration complete! Total build time: 0.174s
+2025-10-29T17:02:59.982Z - info: [1:02:59 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/stylesheets/main.css
+2025-10-29T17:03:00.033Z - info: [1:03:00 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/stylesheets/main.css
+2025-10-29T17:03:00.985Z - info: Assets built
+2025-10-29T17:03:01.035Z - info: Assets built
+2025-10-29T17:03:14.631Z - info: [1:03:14 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/site.json
+2025-10-29T17:03:14.674Z - info: [1:03:14 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/site.json
+2025-10-29T17:03:15.637Z - info: Pages or site config modified, updating pages...
+2025-10-29T17:03:15.678Z - info: Pages or site config modified, updating pages...
+2025-10-29T17:03:16.640Z - warn: Rebuilding all pages...
+2025-10-29T17:03:16.640Z - info: Generating pages...
+2025-10-29T17:03:16.679Z - warn: Rebuilding all pages...
+2025-10-29T17:03:16.680Z - info: Generating pages...
+2025-10-29T17:03:16.784Z - info: Pages built
+2025-10-29T17:03:16.785Z - info: Site data built
+2025-10-29T17:03:16.820Z - info: Pages built
+2025-10-29T17:03:16.820Z - info: Site data built
+2025-10-29T17:04:04.025Z - info: Website generation started at 1:04:04 AM
+2025-10-29T17:04:04.035Z - info: Building assets...
+2025-10-29T17:04:04.047Z - info: Assets built
+2025-10-29T17:04:04.047Z - info: Generating pages...
+2025-10-29T17:04:04.211Z - info: Pages built
+2025-10-29T17:04:04.241Z - info: Site data built
+2025-10-29T17:04:04.241Z - info: Website generation complete! Total build time: 0.241s
+2025-10-29T17:04:04.242Z - info: Build success!
+2025-10-29T17:06:07.859Z - info: Website generation started at 1:06:07 AM
+2025-10-29T17:06:07.867Z - info: Building assets...
+2025-10-29T17:06:07.879Z - info: Assets built
+2025-10-29T17:06:07.879Z - info: Generating pages...
+2025-10-29T17:06:08.043Z - info: Pages built
+2025-10-29T17:06:08.068Z - info: Site data built
+2025-10-29T17:06:08.068Z - info: Website generation complete! Total build time: 0.234s
+2025-10-29T17:06:09.089Z - info: Serving "/Users/hninsatphyusin/Desktop/tp/docs/_site" at http://127.0.0.1:59377
+2025-10-29T17:06:09.089Z - info: Press CTRL+C to stop ...
+2025-10-29T17:08:59.906Z - info: [1:08:59 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/stylesheets/main.css
+2025-10-29T17:08:59.972Z - info: [1:08:59 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/stylesheets/main.css
+2025-10-29T17:09:00.915Z - error: ENOENT: no such file or directory, unlink '/Users/hninsatphyusin/Desktop/tp/docs/_site/stylesheets/main.css'
+2025-10-29T17:09:00.975Z - info: Assets built
+2025-10-29T17:09:25.553Z - info: Website generation started at 1:09:25 AM
+2025-10-29T17:09:25.561Z - info: Building assets...
+2025-10-29T17:09:25.575Z - info: Assets built
+2025-10-29T17:09:25.575Z - info: Generating pages...
+2025-10-29T17:09:25.745Z - info: Pages built
+2025-10-29T17:09:25.773Z - info: Site data built
+2025-10-29T17:09:25.773Z - info: Website generation complete! Total build time: 0.247s
+2025-10-29T17:09:25.773Z - info: Build success!
+2025-10-29T17:09:43.890Z - info: Website generation started at 1:09:43 AM
+2025-10-29T17:09:43.899Z - info: Building assets...
+2025-10-29T17:09:43.915Z - info: Assets built
+2025-10-29T17:09:43.916Z - info: Generating pages...
+2025-10-29T17:09:44.076Z - info: Pages built
+2025-10-29T17:09:44.103Z - info: Site data built
+2025-10-29T17:09:44.103Z - info: Website generation complete! Total build time: 0.238s
+2025-10-29T17:09:45.118Z - info: Serving "/Users/hninsatphyusin/Desktop/tp/docs/_site" at http://127.0.0.1:59479
+2025-10-29T17:09:45.118Z - info: Press CTRL+C to stop ...
+2025-10-29T17:11:59.076Z - info: [1:11:59 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/stylesheets/main.css
+2025-10-29T17:11:59.078Z - error: ENOENT: no such file or directory, unlink '/Users/hninsatphyusin/Desktop/tp/docs/_site/stylesheets/main.css'
+2025-10-29T17:11:59.149Z - info: [1:11:59 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/stylesheets/main.css
+2025-10-29T17:12:00.152Z - info: Assets built
+2025-10-29T17:14:56.174Z - info: [1:14:56 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/_markbind/navigation.md
+2025-10-29T17:14:56.201Z - info: [1:14:56 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/_markbind/navigation.md
+2025-10-29T17:14:56.376Z - info: [1:14:56 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/_markbind/navigation.md
+2025-10-29T17:14:56.403Z - info: [1:14:56 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/_markbind/navigation.md
+2025-10-29T17:14:57.188Z - info: Rebuilding 16 pages
+2025-10-29T17:14:57.206Z - info: Rebuilding 16 pages
+2025-10-29T17:14:57.373Z - info: Site data built
+2025-10-29T17:14:57.374Z - info: Pages rebuilt
+2025-10-29T17:14:57.374Z - info: Website regeneration complete! Total build time: 0.187s
+2025-10-29T17:14:57.374Z - info: Site data built
+2025-10-29T17:14:57.374Z - info: Pages rebuilt
+2025-10-29T17:14:57.374Z - info: Website regeneration complete! Total build time: 0.168s
+2025-10-29T17:17:22.928Z - info: [1:17:22 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/_markbind/navigation.md
+2025-10-29T17:17:23.131Z - info: [1:17:23 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/_markbind/navigation.md
+2025-10-29T17:17:23.231Z - info: [1:17:23 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/_markbind/navigation.md
+2025-10-29T17:17:23.933Z - info: Rebuilding 16 pages
+2025-10-29T17:17:24.054Z - info: Site data built
+2025-10-29T17:17:24.054Z - info: Pages rebuilt
+2025-10-29T17:17:24.054Z - info: Website regeneration complete! Total build time: 0.121s
+2025-10-29T17:19:16.507Z - info: [1:19:16 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/_markbind/navigation.md
+2025-10-29T17:19:16.911Z - info: [1:19:16 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/_markbind/navigation.md
+2025-10-29T17:19:17.214Z - info: [1:19:17 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/_markbind/navigation.md
+2025-10-29T17:19:17.518Z - info: Rebuilding 16 pages
+2025-10-29T17:19:17.559Z - info: [1:19:17 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/_markbind/navigation.md
+2025-10-29T17:19:17.677Z - info: Site data built
+2025-10-29T17:19:17.678Z - info: Pages rebuilt
+2025-10-29T17:19:17.678Z - info: Website regeneration complete! Total build time: 0.161s
+2025-10-29T17:19:18.566Z - info: Rebuilding 16 pages
+2025-10-29T17:19:18.675Z - info: Site data built
+2025-10-29T17:19:18.675Z - info: Pages rebuilt
+2025-10-29T17:19:18.675Z - info: Website regeneration complete! Total build time: 0.11s
+2025-10-29T17:19:45.825Z - info: [1:19:45 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/stylesheets/main.css
+2025-10-29T17:19:45.825Z - error: ENOENT: no such file or directory, unlink '/Users/hninsatphyusin/Desktop/tp/docs/_site/stylesheets/main.css'
+2025-10-29T17:20:04.706Z - info: [1:20:04 AM] Reload for file add: /Users/hninsatphyusin/Desktop/tp/docs/_markbind/sideNav.md
+2025-10-29T17:20:04.707Z - error: ENOENT: no such file or directory, unlink '/Users/hninsatphyusin/Desktop/tp/docs/_site/stylesheets/main.css'
+2025-10-29T17:20:04.807Z - info: [1:20:04 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/_markbind/sideNav.md
+2025-10-29T17:20:04.807Z - error: ENOENT: no such file or directory, unlink '/Users/hninsatphyusin/Desktop/tp/docs/_site/stylesheets/main.css'
+2025-10-29T17:20:17.422Z - info: [1:20:17 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/site.json
+2025-10-29T17:20:18.434Z - info: Pages or site config modified, updating pages...
+2025-10-29T17:20:19.437Z - warn: Rebuilding all pages...
+2025-10-29T17:20:19.438Z - info: Generating pages...
+2025-10-29T17:20:19.555Z - info: Pages built
+2025-10-29T17:20:19.555Z - info: Site data built
+2025-10-29T17:20:27.830Z - info: [1:20:27 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/_markbind/navigation.md
+2025-10-29T17:20:28.031Z - info: [1:20:28 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/_markbind/navigation.md
+2025-10-29T17:20:28.838Z - info: Rebuilding 16 pages
+2025-10-29T17:20:28.952Z - info: Site data built
+2025-10-29T17:20:28.952Z - info: Pages rebuilt
+2025-10-29T17:20:28.952Z - info: Website regeneration complete! Total build time: 0.114s
+2025-10-29T17:20:32.270Z - info: Website generation started at 1:20:32 AM
+2025-10-29T17:20:32.278Z - info: Building assets...
+2025-10-29T17:20:32.290Z - info: Assets built
+2025-10-29T17:20:32.290Z - info: Generating pages...
+2025-10-29T17:20:32.455Z - info: Pages built
+2025-10-29T17:20:32.491Z - info: Site data built
+2025-10-29T17:20:32.491Z - info: Website generation complete! Total build time: 0.248s
+2025-10-29T17:20:33.508Z - info: Serving "/Users/hninsatphyusin/Desktop/tp/docs/_site" at http://127.0.0.1:59650
+2025-10-29T17:20:33.509Z - info: Press CTRL+C to stop ...
+2025-10-29T17:22:02.725Z - info: [1:22:02 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/_markbind/navigation.md
+2025-10-29T17:22:02.754Z - info: [1:22:02 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/_markbind/navigation.md
+2025-10-29T17:22:03.433Z - info: [1:22:03 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/_markbind/navigation.md
+2025-10-29T17:22:03.460Z - info: [1:22:03 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/_markbind/navigation.md
+2025-10-29T17:22:03.732Z - info: Rebuilding 16 pages
+2025-10-29T17:22:03.760Z - info: Rebuilding 16 pages
+2025-10-29T17:22:03.868Z - info: Site data built
+2025-10-29T17:22:03.868Z - info: Pages rebuilt
+2025-10-29T17:22:03.868Z - info: Website regeneration complete! Total build time: 0.137s
+2025-10-29T17:22:03.880Z - info: Site data built
+2025-10-29T17:22:03.880Z - info: Pages rebuilt
+2025-10-29T17:22:03.880Z - info: Website regeneration complete! Total build time: 0.121s
+2025-10-29T17:22:16.938Z - info: Website generation started at 1:22:16 AM
+2025-10-29T17:22:16.947Z - info: Building assets...
+2025-10-29T17:22:16.962Z - info: Assets built
+2025-10-29T17:22:16.963Z - info: Generating pages...
+2025-10-29T17:22:17.125Z - info: Pages built
+2025-10-29T17:22:17.149Z - info: Site data built
+2025-10-29T17:22:17.149Z - info: Website generation complete! Total build time: 0.239s
+2025-10-29T17:22:17.149Z - info: Build success!
+2025-10-29T17:22:53.467Z - info: [1:22:53 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/site.json
+2025-10-29T17:22:54.472Z - info: Pages or site config modified, updating pages...
+2025-10-29T17:22:55.477Z - warn: Rebuilding all pages...
+2025-10-29T17:22:55.477Z - info: Generating pages...
+2025-10-29T17:22:55.588Z - info: Pages built
+2025-10-29T17:22:55.589Z - info: Site data built
+2025-10-29T17:24:56.064Z - info: Website generation started at 1:24:56 AM
+2025-10-29T17:24:56.073Z - info: Building assets...
+2025-10-29T17:24:56.086Z - info: Assets built
+2025-10-29T17:24:56.086Z - info: Generating pages...
+2025-10-29T17:24:56.253Z - info: Pages built
+2025-10-29T17:24:56.282Z - info: Site data built
+2025-10-29T17:24:56.283Z - info: Website generation complete! Total build time: 0.245s
+2025-10-29T17:24:56.283Z - info: Build success!
+2025-10-29T17:24:58.319Z - info: [1:24:58 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/_markbind/navigation.md
+2025-10-29T17:24:58.628Z - info: [1:24:58 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/_markbind/navigation.md
+2025-10-29T17:24:58.831Z - info: [1:24:58 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/_markbind/navigation.md
+2025-10-29T17:24:59.329Z - info: Rebuilding 16 pages
+2025-10-29T17:24:59.495Z - info: Site data built
+2025-10-29T17:24:59.495Z - info: Pages rebuilt
+2025-10-29T17:24:59.495Z - info: Website regeneration complete! Total build time: 0.167s
+2025-10-29T17:26:40.014Z - info: [1:26:40 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/site.json
+2025-10-29T17:26:40.017Z - info: Rebuilding 4 pages
+2025-10-29T17:26:40.079Z - info: Site data built
+2025-10-29T17:26:40.079Z - info: Pages rebuilt
+2025-10-29T17:26:40.079Z - info: Website regeneration complete! Total build time: 0.062s
+2025-10-29T17:26:51.223Z - info: Website generation started at 1:26:51 AM
+2025-10-29T17:26:51.231Z - info: Building assets...
+2025-10-29T17:26:51.244Z - info: Assets built
+2025-10-29T17:26:51.244Z - info: Generating pages...
+2025-10-29T17:26:51.417Z - info: Pages built
+2025-10-29T17:26:51.442Z - info: Site data built
+2025-10-29T17:26:51.442Z - info: Website generation complete! Total build time: 0.248s
+2025-10-29T17:26:51.442Z - info: Build success!
+2025-10-29T17:27:54.829Z - info: [1:27:54 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/_markbind/navigation.md
+2025-10-29T17:27:55.837Z - info: Rebuilding 16 pages
+2025-10-29T17:27:55.963Z - info: Site data built
+2025-10-29T17:27:55.963Z - info: Pages rebuilt
+2025-10-29T17:27:55.963Z - info: Website regeneration complete! Total build time: 0.126s
+2025-10-29T17:28:12.789Z - info: [1:28:12 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/stylesheets/main.css
+2025-10-29T17:28:12.790Z - error: ENOENT: no such file or directory, unlink '/Users/hninsatphyusin/Desktop/tp/docs/_site/stylesheets/main.css'
+2025-10-29T17:29:00.762Z - info: Website generation started at 1:29:00 AM
+2025-10-29T17:29:00.771Z - info: Building assets...
+2025-10-29T17:29:00.786Z - info: Assets built
+2025-10-29T17:29:00.787Z - info: Generating pages...
+2025-10-29T17:29:00.970Z - info: Pages built
+2025-10-29T17:29:00.996Z - info: Site data built
+2025-10-29T17:29:00.996Z - info: Website generation complete! Total build time: 0.258s
+2025-10-29T17:29:00.996Z - info: Build success!
+2025-10-29T17:33:48.611Z - info: Website generation started at 1:33:48 AM
+2025-10-29T17:33:48.621Z - info: Building assets...
+2025-10-29T17:33:48.633Z - info: Assets built
+2025-10-29T17:33:48.633Z - info: Generating pages...
+2025-10-29T17:33:48.814Z - info: Pages built
+2025-10-29T17:33:48.848Z - info: Site data built
+2025-10-29T17:33:48.848Z - info: Website generation complete! Total build time: 0.262s
+2025-10-29T17:33:49.876Z - info: Serving "/Users/hninsatphyusin/Desktop/tp/docs/_site" at http://127.0.0.1:59858
+2025-10-29T17:33:49.876Z - info: Press CTRL+C to stop ...
+2025-10-29T17:36:49.041Z - info: [1:36:49 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/_markbind/navigation.md
+2025-10-29T17:36:50.064Z - info: Rebuilding 16 pages
+2025-10-29T17:36:50.236Z - info: Site data built
+2025-10-29T17:36:50.236Z - info: Pages rebuilt
+2025-10-29T17:36:50.236Z - info: Website regeneration complete! Total build time: 0.173s
+2025-10-29T17:37:26.426Z - info: [1:37:26 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/stylesheets/main.css
+2025-10-29T17:37:26.426Z - error: ENOENT: no such file or directory, unlink '/Users/hninsatphyusin/Desktop/tp/docs/_site/stylesheets/main.css'
+2025-10-29T17:37:36.660Z - info: Website generation started at 1:37:36 AM
+2025-10-29T17:37:36.669Z - info: Building assets...
+2025-10-29T17:37:36.681Z - info: Assets built
+2025-10-29T17:37:36.682Z - info: Generating pages...
+2025-10-29T17:37:36.865Z - info: Pages built
+2025-10-29T17:37:36.891Z - info: Site data built
+2025-10-29T17:37:36.891Z - info: Website generation complete! Total build time: 0.257s
+2025-10-29T17:37:36.891Z - info: Build success!
+2025-10-29T17:38:46.320Z - info: Website generation started at 1:38:46 AM
+2025-10-29T17:38:46.328Z - info: Building assets...
+2025-10-29T17:38:46.342Z - info: Assets built
+2025-10-29T17:38:46.343Z - info: Generating pages...
+2025-10-29T17:38:46.523Z - info: Pages built
+2025-10-29T17:38:46.549Z - info: Site data built
+2025-10-29T17:38:46.549Z - info: Website generation complete! Total build time: 0.257s
+2025-10-29T17:38:47.580Z - info: Serving "/Users/hninsatphyusin/Desktop/tp/docs/_site" at http://127.0.0.1:59936
+2025-10-29T17:38:47.580Z - info: Press CTRL+C to stop ...
+2025-10-29T17:41:12.860Z - info: [1:41:12 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/stylesheets/main.css
+2025-10-29T17:41:12.911Z - info: [1:41:12 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/stylesheets/main.css
+2025-10-29T17:41:12.911Z - error: ENOENT: no such file or directory, unlink '/Users/hninsatphyusin/Desktop/tp/docs/_site/stylesheets/main.css'
+2025-10-29T17:41:12.958Z - info: [1:41:12 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/stylesheets/main.css
+2025-10-29T17:41:13.868Z - info: Assets built
+2025-10-29T17:41:26.834Z - info: Website generation started at 1:41:26 AM
+2025-10-29T17:41:26.843Z - info: Building assets...
+2025-10-29T17:41:26.855Z - info: Assets built
+2025-10-29T17:41:26.855Z - info: Generating pages...
+2025-10-29T17:41:27.036Z - info: Pages built
+2025-10-29T17:41:27.064Z - info: Site data built
+2025-10-29T17:41:27.064Z - info: Website generation complete! Total build time: 0.256s
+2025-10-29T17:41:27.064Z - info: Build success!
+2025-10-29T17:42:24.579Z - info: Website generation started at 1:42:24 AM
+2025-10-29T17:42:24.587Z - info: Building assets...
+2025-10-29T17:42:24.599Z - info: Assets built
+2025-10-29T17:42:24.599Z - info: Generating pages...
+2025-10-29T17:42:24.781Z - info: Pages built
+2025-10-29T17:42:24.808Z - info: Site data built
+2025-10-29T17:42:24.808Z - info: Website generation complete! Total build time: 0.254s
+2025-10-29T17:42:25.832Z - info: Serving "/Users/hninsatphyusin/Desktop/tp/docs/_site" at http://127.0.0.1:59984
+2025-10-29T17:42:25.832Z - info: Press CTRL+C to stop ...
+2025-10-29T17:45:16.780Z - info: [1:45:16 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/stylesheets/main.css
+2025-10-29T17:45:16.780Z - error: ENOENT: no such file or directory, unlink '/Users/hninsatphyusin/Desktop/tp/docs/_site/stylesheets/main.css'
+2025-10-29T17:45:16.788Z - info: [1:45:16 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/stylesheets/main.css
+2025-10-29T17:45:17.797Z - info: Assets built
+2025-10-29T17:45:53.948Z - info: Website generation started at 1:45:53 AM
+2025-10-29T17:45:53.957Z - info: Building assets...
+2025-10-29T17:45:53.969Z - info: Assets built
+2025-10-29T17:45:53.969Z - info: Generating pages...
+2025-10-29T17:45:54.152Z - info: Pages built
+2025-10-29T17:45:54.177Z - info: Site data built
+2025-10-29T17:45:54.178Z - info: Website generation complete! Total build time: 0.254s
+2025-10-29T17:45:54.178Z - info: Build success!
+2025-10-29T17:46:31.404Z - info: Website generation started at 1:46:31 AM
+2025-10-29T17:46:31.414Z - info: Building assets...
+2025-10-29T17:46:31.425Z - info: Assets built
+2025-10-29T17:46:31.426Z - info: Generating pages...
+2025-10-29T17:46:31.604Z - info: Pages built
+2025-10-29T17:46:31.637Z - info: Site data built
+2025-10-29T17:46:31.637Z - info: Website generation complete! Total build time: 0.258s
+2025-10-29T17:46:32.662Z - info: Serving "/Users/hninsatphyusin/Desktop/tp/docs/_site" at http://127.0.0.1:60058
+2025-10-29T17:46:32.662Z - info: Press CTRL+C to stop ...
+2025-10-29T17:47:47.859Z - info: [1:47:47 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/_markbind/navigation.md
+2025-10-29T17:47:48.060Z - info: [1:47:48 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/_markbind/navigation.md
+2025-10-29T17:47:48.864Z - info: Rebuilding 16 pages
+2025-10-29T17:47:48.980Z - info: Site data built
+2025-10-29T17:47:48.980Z - info: Pages rebuilt
+2025-10-29T17:47:48.980Z - info: Website regeneration complete! Total build time: 0.117s
+2025-10-29T17:49:54.272Z - info: [1:49:54 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/_markbind/navigation.md
+2025-10-29T17:49:55.286Z - info: Rebuilding 16 pages
+2025-10-29T17:49:55.427Z - info: Site data built
+2025-10-29T17:49:55.427Z - info: Pages rebuilt
+2025-10-29T17:49:55.427Z - info: Website regeneration complete! Total build time: 0.142s
+2025-10-29T17:51:18.997Z - info: [1:51:18 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/stylesheets/main.css
+2025-10-29T17:51:18.997Z - error: ENOENT: no such file or directory, unlink '/Users/hninsatphyusin/Desktop/tp/docs/_site/stylesheets/main.css'
+2025-10-29T18:01:24.686Z - info: Website generation started at 2:01:24 AM
+2025-10-29T18:01:24.696Z - info: Building assets...
+2025-10-29T18:01:24.710Z - info: Assets built
+2025-10-29T18:01:24.711Z - info: Generating pages...
+2025-10-29T18:01:24.903Z - info: Pages built
+2025-10-29T18:01:24.938Z - info: Site data built
+2025-10-29T18:01:24.938Z - info: Website generation complete! Total build time: 0.287s
+2025-10-29T18:01:25.956Z - info: Serving "/Users/hninsatphyusin/Desktop/tp/docs/_site" at http://127.0.0.1:60266
+2025-10-29T18:01:25.957Z - info: Press CTRL+C to stop ...
+2025-10-29T18:07:31.897Z - info: [2:07:31 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/SettingUp.md
+2025-10-29T18:07:31.920Z - info: [2:07:31 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/SettingUp.md
+2025-10-29T18:07:32.900Z - info: Rebuilding 1 pages
+2025-10-29T18:07:32.921Z - info: Site data built
+2025-10-29T18:07:32.921Z - info: Pages rebuilt
+2025-10-29T18:07:32.922Z - info: Website regeneration complete! Total build time: 0.021s
+2025-10-29T18:07:32.923Z - info: Rebuilding 1 pages
+2025-10-29T18:07:32.948Z - info: Site data built
+2025-10-29T18:07:32.948Z - info: Pages rebuilt
+2025-10-29T18:07:32.948Z - info: Website regeneration complete! Total build time: 0.026s
+2025-10-29T18:07:57.401Z - info: Website generation started at 2:07:57 AM
+2025-10-29T18:07:57.410Z - info: Building assets...
+2025-10-29T18:07:57.425Z - info: Assets built
+2025-10-29T18:07:57.426Z - info: Generating pages...
+2025-10-29T18:07:57.606Z - info: Pages built
+2025-10-29T18:07:57.635Z - info: Site data built
+2025-10-29T18:07:57.635Z - info: Website generation complete! Total build time: 0.262s
+2025-10-29T18:07:57.635Z - info: Build success!
+2025-10-29T18:08:22.181Z - info: Website generation started at 2:08:22 AM
+2025-10-29T18:08:22.189Z - info: Building assets...
+2025-10-29T18:08:22.202Z - info: Assets built
+2025-10-29T18:08:22.202Z - info: Generating pages...
+2025-10-29T18:08:22.384Z - info: Pages built
+2025-10-29T18:08:22.440Z - info: Site data built
+2025-10-29T18:08:22.440Z - info: Website generation complete! Total build time: 0.286s
+2025-10-29T18:08:23.466Z - info: Serving "/Users/hninsatphyusin/Desktop/tp/docs/_site" at http://127.0.0.1:60362
+2025-10-29T18:08:23.466Z - info: Press CTRL+C to stop ...
+2025-10-29T18:15:23.943Z - info: [2:15:23 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/UserGuide.md
+2025-10-29T18:15:23.946Z - info: [2:15:23 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/UserGuide.md
+2025-10-29T18:15:24.945Z - info: Rebuilding 1 pages
+2025-10-29T18:15:24.951Z - info: Rebuilding 1 pages
+2025-10-29T18:15:24.996Z - info: Site data built
+2025-10-29T18:15:24.996Z - info: Pages rebuilt
+2025-10-29T18:15:24.996Z - info: Website regeneration complete! Total build time: 0.052s
+2025-10-29T18:15:25.024Z - info: Site data built
+2025-10-29T18:15:25.024Z - info: Pages rebuilt
+2025-10-29T18:15:25.024Z - info: Website regeneration complete! Total build time: 0.074s
+2025-10-29T18:15:40.238Z - info: [2:15:40 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/DeveloperGuide.md
+2025-10-29T18:15:40.259Z - info: [2:15:40 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/DeveloperGuide.md
+2025-10-29T18:15:40.337Z - info: [2:15:40 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/DeveloperGuide.md
+2025-10-29T18:15:41.241Z - info: Rebuilding 1 pages
+2025-10-29T18:15:41.261Z - info: Rebuilding 1 pages
+2025-10-29T18:15:41.311Z - info: Site data built
+2025-10-29T18:15:41.311Z - info: Pages rebuilt
+2025-10-29T18:15:41.311Z - info: Website regeneration complete! Total build time: 0.071s
+2025-10-29T18:15:41.338Z - info: Site data built
+2025-10-29T18:15:41.339Z - info: Pages rebuilt
+2025-10-29T18:15:41.339Z - info: Website regeneration complete! Total build time: 0.078s
+2025-10-29T18:15:56.939Z - info: [2:15:56 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/SettingUp.md
+2025-10-29T18:15:56.971Z - info: [2:15:56 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/SettingUp.md
+2025-10-29T18:15:57.940Z - info: Rebuilding 1 pages
+2025-10-29T18:15:57.951Z - info: Site data built
+2025-10-29T18:15:57.952Z - info: Pages rebuilt
+2025-10-29T18:15:57.952Z - info: Website regeneration complete! Total build time: 0.013s
+2025-10-29T18:15:57.973Z - info: Rebuilding 1 pages
+2025-10-29T18:15:57.982Z - info: Site data built
+2025-10-29T18:15:57.982Z - info: Pages rebuilt
+2025-10-29T18:15:57.983Z - info: Website regeneration complete! Total build time: 0.011s
+2025-10-29T18:16:07.642Z - info: [2:16:07 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/stylesheets/main.css
+2025-10-29T18:16:07.642Z - error: ENOENT: no such file or directory, unlink '/Users/hninsatphyusin/Desktop/tp/docs/_site/stylesheets/main.css'
+2025-10-29T18:16:07.672Z - info: [2:16:07 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/stylesheets/main.css
+2025-10-29T18:16:08.675Z - info: Assets built
+2025-10-29T18:18:35.539Z - info: [2:18:35 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/SettingUp.md
+2025-10-29T18:18:35.572Z - info: [2:18:35 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/SettingUp.md
+2025-10-29T18:18:36.541Z - info: Rebuilding 1 pages
+2025-10-29T18:18:36.560Z - info: Site data built
+2025-10-29T18:18:36.560Z - info: Pages rebuilt
+2025-10-29T18:18:36.560Z - info: Website regeneration complete! Total build time: 0.02s
+2025-10-29T18:18:36.572Z - info: Rebuilding 1 pages
+2025-10-29T18:18:36.584Z - info: Site data built
+2025-10-29T18:18:36.584Z - info: Pages rebuilt
+2025-10-29T18:18:36.584Z - info: Website regeneration complete! Total build time: 0.012s
+2025-10-29T18:19:27.174Z - info: [2:19:27 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/SettingUp.md
+2025-10-29T18:19:27.220Z - info: [2:19:27 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/SettingUp.md
+2025-10-29T18:19:27.422Z - info: [2:19:27 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/SettingUp.md
+2025-10-29T18:19:27.478Z - info: [2:19:27 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/SettingUp.md
+2025-10-29T18:19:27.625Z - info: [2:19:27 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/SettingUp.md
+2025-10-29T18:19:27.679Z - info: [2:19:27 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/SettingUp.md
+2025-10-29T18:19:28.178Z - info: Rebuilding 1 pages
+2025-10-29T18:19:28.203Z - info: Site data built
+2025-10-29T18:19:28.203Z - info: Pages rebuilt
+2025-10-29T18:19:28.203Z - info: Website regeneration complete! Total build time: 0.026s
+2025-10-29T18:19:28.221Z - info: Rebuilding 1 pages
+2025-10-29T18:19:28.230Z - info: Site data built
+2025-10-29T18:19:28.230Z - info: Pages rebuilt
+2025-10-29T18:19:28.230Z - info: Website regeneration complete! Total build time: 0.009s
+2025-10-29T18:19:47.457Z - info: [2:19:47 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/SettingUp.md
+2025-10-29T18:19:47.473Z - info: [2:19:47 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/SettingUp.md
+2025-10-29T18:19:47.861Z - info: [2:19:47 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/SettingUp.md
+2025-10-29T18:19:47.876Z - info: [2:19:47 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/SettingUp.md
+2025-10-29T18:19:48.064Z - info: [2:19:48 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/SettingUp.md
+2025-10-29T18:19:48.078Z - info: [2:19:48 AM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/SettingUp.md
+2025-10-29T18:19:48.460Z - info: Rebuilding 1 pages
+2025-10-29T18:19:48.476Z - info: Rebuilding 1 pages
+2025-10-29T18:19:48.489Z - info: Site data built
+2025-10-29T18:19:48.489Z - info: Pages rebuilt
+2025-10-29T18:19:48.489Z - info: Website regeneration complete! Total build time: 0.031s
+2025-10-29T18:19:48.492Z - info: Site data built
+2025-10-29T18:19:48.492Z - info: Pages rebuilt
+2025-10-29T18:19:48.492Z - info: Website regeneration complete! Total build time: 0.017s

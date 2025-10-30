@@ -1,7 +1,8 @@
----
-layout: page
-title: Logging guide
----
+<frontmatter>
+  title: "Logging Guide"
+</frontmatter>
+
+# Logging Guide
 
 * We are using `java.util.logging` package for logging.
 * The `LogsCenter` class is used to manage the logging levels and logging destinations.

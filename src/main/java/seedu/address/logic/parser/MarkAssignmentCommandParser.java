@@ -48,7 +48,7 @@ public class MarkAssignmentCommandParser implements Parser<MarkAssignmentCommand
         argMultimap.verifyNoInvalidPrefixesFor(PREFIX_PHONE, PREFIX_LEVEL, PREFIX_NAME);
 
         // Parse index or index range
-        List<Index> indices = ParserUtil.parseIndexSpecification(argMultimap.getPreamble());
+        List<Index> indices = ParserUtil.parseMultipleIndex(argMultimap.getPreamble());
         String classGroupName = ParserUtil.parseClassGroupName(argMultimap, MarkAssignmentCommand.MESSAGE_USAGE);
         Assignment assignment = ParserUtil.parseAssignmentValue(argMultimap, classGroupName,
                 MarkAssignmentCommand.MESSAGE_USAGE);

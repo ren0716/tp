@@ -1,10 +1,13 @@
----
-layout: page
-title: Testing guide
----
+<frontmatter>
+  title: "Testing Guide"
+</frontmatter>
 
-* Table of Contents
-{:toc}
+# Testing Guide
+
+<div id="toc">
+
+<!-- MarkBind will generate the table of contents here -->
+</div>
 
 --------------------------------------------------------------------------------------------------------------------
 
