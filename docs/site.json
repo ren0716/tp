@@ -10,7 +10,6 @@
     "header": "_markbind/navigation.md"
   },
   "siteNav": "_markbind/sideNav.md",
-  
   "pages": [
     {
       "src": "index.md",
