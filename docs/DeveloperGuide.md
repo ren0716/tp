@@ -169,7 +169,7 @@ How the parsing works:
 The `Model` component,
 
 * stores the current `AddressBook` data, i.e., all `Person` objects (which are contained in a `UniquePersonList` object).
-* stores a `CommandHistory` object that records executed commands for undo/redo functionality.
+* stores a `CommandHistory` object that records executed commands for command review functionality.
 * stores an `AddressBookVersionManager` object that manages snapshots of past `AddressBook` states.
 * stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be observed; for example, the UI can be bound to this list so that it automatically updates when the data in the list changes.
 
