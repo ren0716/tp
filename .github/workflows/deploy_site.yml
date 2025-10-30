@@ -1,21 +1,21 @@
-name: Deploy MarkBind site to GitHub Pages
-
+name: Deploy MarkBind Site
 on:
   push:
-    branches: [ main ]
+    branches: master
   workflow_dispatch:
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
+    name: test
     permissions:
       contents: write
-      pages: write
-      id-token: write
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v3
-      - uses: MarkBind/markbind-action@v2
+      - uses: actions/setup-node@v3
         with:
-          rootDirectory: ./docs
+          node-version: '18'
+      - run: npm i -g markbind-cli
+      - run: markbind deploy --ci
