@@ -37,12 +37,12 @@ public class EditCommandParser implements Parser<EditCommand> {
 
         Index index = ParserUtil.parseIndexFromPreamble(argMultimap.getPreamble(), EditCommand.MESSAGE_USAGE);
 
-        // 4) Duplicate prefixes detection
+        // Duplicate prefixes detection
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_LEVEL);
 
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
 
-        // 5) Field-specific parsing
+        // Field-specific parsing
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) { // invalid name
             editPersonDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
         }
@@ -53,14 +53,14 @@ public class EditCommandParser implements Parser<EditCommand> {
             editPersonDescriptor.setLevel(ParserUtil.parseLevel(argMultimap.getValue(PREFIX_LEVEL).get()));
         }
 
-        // 6) Disabled edits for class groups and assignments
+        // Disabled edits for class groups and assignments
         parseClassGroupsForEdit(argMultimap.getAllValues(PREFIX_CLASSGROUP))
                 .ifPresent(editPersonDescriptor::setClassGroups);
 
         parseAssignmentsForEdit(argMultimap.getAllValues(PREFIX_ASSIGNMENT))
                 .ifPresent(editPersonDescriptor::setAssignments);
 
-        // 7) No editable fields provided
+        // No editable fields provided
         if (!editPersonDescriptor.isAnyFieldEdited()) {
             throw new ParseException(MESSAGE_NOT_EDITED);
         }
