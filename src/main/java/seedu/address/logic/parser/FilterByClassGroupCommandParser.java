@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSGROUP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LEVEL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.ParserUtil.arePrefixesPresent;
 
 import java.util.Iterator;
 import java.util.Set;
@@ -52,9 +53,5 @@ public class FilterByClassGroupCommandParser implements Parser<FilterByClassGrou
         ClassGroup classGroup = i.next();
         String classGroupName = classGroup.getClassGroupName();
         return new FilterByClassGroupCommand(new StudentInClassGroupPredicate(classGroupName));
-    }
-
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 }

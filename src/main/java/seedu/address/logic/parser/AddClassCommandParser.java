@@ -2,7 +2,6 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_CLASSES_NOT_ADDED;
-import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSGROUP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LEVEL;
@@ -34,14 +33,9 @@ public class AddClassCommandParser implements Parser<AddClassCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args);
 
-        Index index;
-        try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
-            argMultimap.verifyNoInvalidPrefixesFor(PREFIX_ASSIGNMENT, PREFIX_LEVEL, PREFIX_PHONE, PREFIX_NAME);
-        } catch (ParseException pe) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddClassCommand.MESSAGE_USAGE), pe);
-        }
+        Index index = ParserUtil.parseIndexFromPreamble(argMultimap.getPreamble(), AddClassCommand.MESSAGE_USAGE);
+
+        argMultimap.verifyNoInvalidPrefixesFor(PREFIX_ASSIGNMENT, PREFIX_LEVEL, PREFIX_PHONE, PREFIX_NAME);
 
         AddClassDescriptor addClassDescriptor = new AddClassDescriptor();
 
