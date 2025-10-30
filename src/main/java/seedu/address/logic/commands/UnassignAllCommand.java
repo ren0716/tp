@@ -1,6 +1,10 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.Messages.MESSAGE_ASSIGNMENT_NOT_FOUND;
+import static seedu.address.logic.Messages.MESSAGE_CLASS_NOT_EXIST;
+import static seedu.address.logic.Messages.MESSAGE_DUPLICATE_PERSON;
+import static seedu.address.logic.Messages.MESSAGE_UNASSIGNALL_SUCCESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSGROUP;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
@@ -30,18 +34,13 @@ public class UnassignAllCommand extends Command {
     public static final String COMMAND_WORD = "unassignall";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Unassigns an assignment from all students in the specified class group.\n"
+            + ": Unassigns an assignment from all students in the specified class.\n"
             + "Parameters: "
-            + PREFIX_CLASSGROUP + "CLASS_GROUP "
+            + PREFIX_CLASSGROUP + "CLASS "
             + PREFIX_ASSIGNMENT + "ASSIGNMENT\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_CLASSGROUP + "Math 3PM "
             + PREFIX_ASSIGNMENT + "Homework1";
-
-    public static final String MESSAGE_SUCCESS = "Unassigned assignment '%1$s' from %2$d student(s) in class '%3$s'";
-    public static final String MESSAGE_NO_STUDENTS_FOUND = "No students found in class group: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
-    public static final String MESSAGE_ASSIGNMENT_NOT_FOUND = "Assignment '%1$s' not found in class group: %2$s";
 
     private final String classGroupName;
     private final Assignment assignment;
@@ -81,7 +80,7 @@ public class UnassignAllCommand extends Command {
                 .collect(Collectors.toList());
 
         if (studentsInClass.isEmpty()) {
-            throw new CommandException(String.format(MESSAGE_NO_STUDENTS_FOUND,
+            throw new CommandException(String.format(MESSAGE_CLASS_NOT_EXIST,
                     StringUtil.toTitleCase(classGroupName)));
         }
 
@@ -104,11 +103,11 @@ public class UnassignAllCommand extends Command {
         // If no students had the assignment, output error message
         if (unassignedCount == 0) {
             throw new CommandException(String.format(MESSAGE_ASSIGNMENT_NOT_FOUND,
-                    StringUtil.toTitleCase(assignment.getAssignmentName()), StringUtil.toTitleCase(classGroupName)));
+                    assignment.getAssignmentName(), classGroupName));
         }
 
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_SUCCESS,
+        return new CommandResult(String.format(MESSAGE_UNASSIGNALL_SUCCESS,
                 assignment.getAssignmentName(), unassignedCount, classGroupName));
     }
 

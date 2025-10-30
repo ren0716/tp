@@ -7,6 +7,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+/**
+ * Note: We primarily test the main tokenizer methods here.
+ * The overloaded method tokenize(String argsString)
+ * simply delegates to the same internal logic with a fixed prefix array.
+ */
+
 public class ArgumentTokenizerTest {
 
     private final Prefix unknownPrefix = new Prefix("--u");

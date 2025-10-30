@@ -9,12 +9,12 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Name {
 
-    public static final String MESSAGE_CONSTRAINTS =
-            "Names should be alphanumeric characters and may contain spaces or hyphens, and it should not be blank";
-
-    // Allow alphanumeric characters, spaces and hyphens; must contain at least one alphanumeric character
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} \\-]*";
-
+    // Allow alphanumeric characters, spaces, hyphens, periods, slashes, apostrophe;
+    // must contain at least one alphanumeric character
+    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} \\-.'/]*";
+    public static final String MESSAGE_CONSTRAINTS = "Names must start with and contain alphanumeric characters, "
+            + "and it should not be blank.\n"
+            + "Allowed special characters are hyphens (-), apostrophes ('), periods (.), slashes (/), and spaces.";
     public final String fullName;
 
     /**

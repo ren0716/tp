@@ -1,6 +1,10 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.Messages.MESSAGE_CLASS_NOT_DELETED;
+import static seedu.address.logic.Messages.MESSAGE_CLASS_NOT_FOUND;
+import static seedu.address.logic.Messages.MESSAGE_DELETE_CLASS_SUCCESS;
+import static seedu.address.logic.Messages.MESSAGE_DUPLICATE_PERSON;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSGROUP;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
@@ -32,19 +36,14 @@ public class DeleteClassCommand extends Command {
 
     public static final String COMMAND_WORD = "deleteclass";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes class(es) from the person identified "
-            + "by the index number used in the displayed person list. \n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes class(es) from the student identified "
+            + "by the index number used in the displayed student list. \n"
             + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_CLASSGROUP + "CLASS_NAME "
-            + "[" + PREFIX_CLASSGROUP + "CLASS_NAME]...\n"
+            + PREFIX_CLASSGROUP + "CLASS "
+            + "[" + PREFIX_CLASSGROUP + "CLASS]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_CLASSGROUP + "Math2PM "
             + PREFIX_CLASSGROUP + "Physics3PM";
-
-    public static final String MESSAGE_DELETE_CLASS_SUCCESS = "Deleted class(es) from: %1$s";
-    public static final String MESSAGE_CLASS_NOT_PROVIDED = "At least one class to delete must be provided.";
-    public static final String MESSAGE_CLASS_NOT_FOUND = "Cannot delete non-existent class(es): %s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
 
     private final Index index;
     private final DeleteClassDescriptor deleteClassDescriptor;
@@ -82,7 +81,7 @@ public class DeleteClassCommand extends Command {
 
         if (!deleteClassDescriptor.isClassDeleted()
                 || deleteClassDescriptor.getClassGroups().get().isEmpty()) {
-            throw new CommandException(MESSAGE_CLASS_NOT_PROVIDED);
+            throw new CommandException(MESSAGE_CLASS_NOT_DELETED);
         }
 
         Person editedPerson = createEditedPerson(personToEdit, deleteClassDescriptor);

@@ -9,8 +9,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Level {
 
-    public static final String MESSAGE_CONSTRAINTS = "Level must be a number between 1 and 4 inclusive.";
-    public static final String VALIDATION_REGEX = "[1-4]"; // case-insensitive regex for Secondary1–4
+    public static final String MESSAGE_CONSTRAINTS = "Level must be a number between 1 and 5 inclusive, "
+            + "and it should not be blank.";
+    public static final String VALIDATION_REGEX = "[1-5]"; // case-insensitive regex for Secondary1–4
     public final String value;
 
     /**
@@ -25,7 +26,7 @@ public class Level {
     }
 
     /**
-     * Returns true if a given string is a valid level (Secondary1–Secondary4, case-insensitive).
+     * Returns true if a given string is a valid level (Secondary1–Secondary5, case-insensitive).
      *
      * @param test The string to test.
      * @return True if the string is valid; false otherwise.

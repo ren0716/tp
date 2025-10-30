@@ -1,8 +1,12 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.Messages.MESSAGE_CLASSES_NOT_ADDED;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSGROUP;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LEVEL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -27,15 +31,11 @@ public class AddClassCommandParser implements Parser<AddClassCommand> {
      */
     public AddClassCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_CLASSGROUP);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args);
 
-        Index index;
-        try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
-        } catch (ParseException pe) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddClassCommand.MESSAGE_USAGE), pe);
-        }
+        Index index = ParserUtil.parseOneIndex(argMultimap.getPreamble(), AddClassCommand.MESSAGE_USAGE);
+
+        argMultimap.verifyNoInvalidPrefixesFor(PREFIX_ASSIGNMENT, PREFIX_LEVEL, PREFIX_PHONE, PREFIX_NAME);
 
         AddClassDescriptor addClassDescriptor = new AddClassDescriptor();
 
@@ -43,7 +43,7 @@ public class AddClassCommandParser implements Parser<AddClassCommand> {
                 .ifPresent(addClassDescriptor::setClassGroups);
 
         if (!addClassDescriptor.hasClasses()) {
-            throw new ParseException(AddClassCommand.MESSAGE_CLASSES_NOT_ADDED);
+            throw new ParseException(MESSAGE_CLASSES_NOT_ADDED);
         }
 
         return new AddClassCommand(index, addClassDescriptor);

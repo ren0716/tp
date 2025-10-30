@@ -134,4 +134,11 @@ public class Person {
         return new Person(this.name, this.phone, this.level, this.classGroups, newAssignments);
     }
 
+    public Person withName(Name name) {
+        return new Person(name, this.phone, this.level, this.classGroups, this.assignments);
+    }
+
+    public Person withPhone(Phone phone) {
+        return new Person(this.name, phone, this.level, this.classGroups, this.assignments);
+    }
 }

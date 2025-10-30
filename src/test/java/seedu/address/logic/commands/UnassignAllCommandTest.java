@@ -3,6 +3,9 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.Messages.MESSAGE_ASSIGNMENT_NOT_FOUND;
+import static seedu.address.logic.Messages.MESSAGE_CLASS_NOT_EXIST;
+import static seedu.address.logic.Messages.MESSAGE_UNASSIGNALL_SUCCESS;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ASSIGNMENT_MATH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ASSIGNMENT_PHYSICS;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CLASSGROUP_MATH;
@@ -50,7 +53,7 @@ public class UnassignAllCommandTest {
                 VALID_CLASSGROUP_MATH.toLowerCase());
         UnassignAllCommand command = new UnassignAllCommand(VALID_CLASSGROUP_MATH.toLowerCase(), assignment);
 
-        String expectedMessage = String.format(UnassignAllCommand.MESSAGE_SUCCESS,
+        String expectedMessage = String.format(MESSAGE_UNASSIGNALL_SUCCESS,
                 VALID_ASSIGNMENT_MATH.toLowerCase(), 2, VALID_CLASSGROUP_MATH.toLowerCase());
 
         Model expectedModel = new ModelManager(new AddressBook(), new UserPrefs());
@@ -79,7 +82,7 @@ public class UnassignAllCommandTest {
                 VALID_CLASSGROUP_PHYSICS.toLowerCase());
         UnassignAllCommand command = new UnassignAllCommand(VALID_CLASSGROUP_PHYSICS.toLowerCase(), assignment);
 
-        String expectedMessage = String.format(UnassignAllCommand.MESSAGE_SUCCESS,
+        String expectedMessage = String.format(MESSAGE_UNASSIGNALL_SUCCESS,
                 VALID_ASSIGNMENT_PHYSICS.toLowerCase(), 1, VALID_CLASSGROUP_PHYSICS.toLowerCase());
 
         Model expectedModel = new ModelManager(new AddressBook(), new UserPrefs());
@@ -115,7 +118,7 @@ public class UnassignAllCommandTest {
         UnassignAllCommand command = new UnassignAllCommand(VALID_CLASSGROUP_MATH.toLowerCase(), assignment);
 
         // Only Alice and Charlie should have assignment removed (they have Math class)
-        String expectedMessage = String.format(UnassignAllCommand.MESSAGE_SUCCESS,
+        String expectedMessage = String.format(MESSAGE_UNASSIGNALL_SUCCESS,
                 VALID_ASSIGNMENT_MATH.toLowerCase(), 2, VALID_CLASSGROUP_MATH.toLowerCase());
 
         Model expectedModel = new ModelManager(new AddressBook(), new UserPrefs());
@@ -149,7 +152,7 @@ public class UnassignAllCommandTest {
         UnassignAllCommand command = new UnassignAllCommand(VALID_CLASSGROUP_MATH.toLowerCase(), assignment);
 
         // Only Bob should have the assignment removed (Alice doesn't have it)
-        String expectedMessage = String.format(UnassignAllCommand.MESSAGE_SUCCESS,
+        String expectedMessage = String.format(MESSAGE_UNASSIGNALL_SUCCESS,
                 VALID_ASSIGNMENT_MATH.toLowerCase(), 1, VALID_CLASSGROUP_MATH.toLowerCase());
 
         Model expectedModel = new ModelManager(new AddressBook(), new UserPrefs());
@@ -180,9 +183,9 @@ public class UnassignAllCommandTest {
         UnassignAllCommand command = new UnassignAllCommand(VALID_CLASSGROUP_MATH.toLowerCase(), assignment);
 
         assertCommandFailure(command, modelWithoutAssignment,
-                String.format(UnassignAllCommand.MESSAGE_ASSIGNMENT_NOT_FOUND,
-                        StringUtil.toTitleCase(VALID_ASSIGNMENT_MATH.toLowerCase()),
-                        StringUtil.toTitleCase(VALID_CLASSGROUP_MATH.toLowerCase())));
+                String.format(MESSAGE_ASSIGNMENT_NOT_FOUND,
+                        VALID_ASSIGNMENT_MATH.toLowerCase(),
+                        VALID_CLASSGROUP_MATH.toLowerCase()));
     }
 
     /**
@@ -203,7 +206,7 @@ public class UnassignAllCommandTest {
         UnassignAllCommand command = new UnassignAllCommand(VALID_CLASSGROUP_MATH.toLowerCase(), assignment);
 
         assertCommandFailure(command, modelWithoutMathClass,
-                String.format(UnassignAllCommand.MESSAGE_NO_STUDENTS_FOUND,
+                String.format(MESSAGE_CLASS_NOT_EXIST,
                         StringUtil.toTitleCase(VALID_CLASSGROUP_MATH.toLowerCase())));
     }
 
@@ -219,7 +222,7 @@ public class UnassignAllCommandTest {
         UnassignAllCommand command = new UnassignAllCommand(VALID_CLASSGROUP_MATH.toLowerCase(), assignment);
 
         assertCommandFailure(command, emptyModel,
-                String.format(UnassignAllCommand.MESSAGE_NO_STUDENTS_FOUND,
+                String.format(MESSAGE_CLASS_NOT_EXIST,
                         StringUtil.toTitleCase(VALID_CLASSGROUP_MATH.toLowerCase())));
     }
 
@@ -240,7 +243,7 @@ public class UnassignAllCommandTest {
         // Use different case for class group name
         UnassignAllCommand command = new UnassignAllCommand("math 3pm", assignment);
 
-        String expectedMessage = String.format(UnassignAllCommand.MESSAGE_SUCCESS,
+        String expectedMessage = String.format(MESSAGE_UNASSIGNALL_SUCCESS,
                 VALID_ASSIGNMENT_MATH.toLowerCase(), 1, "math 3pm");
 
         Model expectedModel = new ModelManager(new AddressBook(), new UserPrefs());

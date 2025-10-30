@@ -30,6 +30,7 @@ import seedu.address.model.person.Person;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
+import seedu.address.storage.TxtCommandHistoryStorage;
 import seedu.address.testutil.PersonBuilder;
 
 public class LogicManagerTest {
@@ -45,10 +46,12 @@ public class LogicManagerTest {
     @BeforeEach
     public void setUp() {
         JsonAddressBookStorage addressBookStorage =
-                new JsonAddressBookStorage(temporaryFolder.resolve("addressbook.json"));
+                new JsonAddressBookStorage(temporaryFolder.resolve("tutortrack.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        TxtCommandHistoryStorage commandHistoryStorage =
+                new TxtCommandHistoryStorage(temporaryFolder.resolve("history.txt"));
+        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, commandHistoryStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -160,7 +163,11 @@ public class LogicManagerTest {
 
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+
+        TxtCommandHistoryStorage commandHistoryStorage =
+                new TxtCommandHistoryStorage(temporaryFolder.resolve("ExeceptionHistory.json"));
+
+        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, commandHistoryStorage);
 
         logic = new LogicManager(model, storage);
 
@@ -171,5 +178,32 @@ public class LogicManagerTest {
         Model expectedModel = new ModelManager(model.getAddressBook(), model.getUserPrefs());
         expectedModel.addPerson(expectedPerson);
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_commandAddedToHistory_historyUpdated() throws CommandException, ParseException {
+        // Execute first command
+        String addCommand1 = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + LEVEL_DESC_AMY;
+        logic.execute(addCommand1);
+
+        // Execute second command
+        String listCommand = "list";
+        logic.execute(listCommand);
+
+        // Check that the previous command is "list"
+        String previous = logic.getPreviousCommand();
+        assertEquals(listCommand, previous);
+
+        // Check that the previous command again is "add ..."
+        previous = logic.getPreviousCommand();
+        assertEquals(addCommand1, previous);
+
+        // Check that next command moves forward in history
+        String next = logic.getNextCommand();
+        assertEquals(listCommand, next);
+
+        // Check that next command after last is empty string
+        next = logic.getNextCommand();
+        assertEquals("", next);
     }
 }

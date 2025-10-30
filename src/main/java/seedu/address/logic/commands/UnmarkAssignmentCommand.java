@@ -6,10 +6,12 @@ import static seedu.address.logic.Messages.MESSAGE_INVALID_ASSIGNMENT_IN_PERSON;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.logic.Messages.MESSAGE_UNMARK_PERSON_SUCCESS;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
@@ -22,35 +24,41 @@ import seedu.address.model.person.Person;
 
 
 /**
- * Resets a student's assignment status as unmarked
+ * Resets one or more students' assignment status as unmarked
  */
 public class UnmarkAssignmentCommand extends Command {
 
     public static final String COMMAND_WORD = "unmark";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Unmarks the assignment of the student identified by the index number "
-            + "used in the displayed person list and the assignment name.\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + "c/CLASS_GROUP "
-            + "a/ASSIGNMENT_NAME\n"
-            + "Example: " + COMMAND_WORD + " 1 "
+            + ": Unmarks the assignment of student(s) identified by the index number(s) "
+            + "used in the displayed student list and the assignment name.\n"
+            + "Parameters: [INDEX]... [INDEX_RANGE]... (e.g., '1' for single student or '1-5' for multiple students) "
+            + "c/CLASS "
+            + "a/ASSIGNMENT\n"
+            + "Example 1: " + COMMAND_WORD + " 1 "
+            + "c/Math-2000 "
+            + "a/Homework1\n"
+            + "Example 2: " + COMMAND_WORD + " 1-5 "
+            + "c/Math-2000 "
+            + "a/Homework1\n"
+            + "Example 3: " + COMMAND_WORD + " 1 3-5 7 "
             + "c/Math-2000 "
             + "a/Homework1\n";
 
     private static final Logger logger = LogsCenter.getLogger(UnmarkAssignmentCommand.class);
 
-    private final Index targetIndex;
+    private final List<Index> targetIndices;
     private final Assignment assignment;
 
     /**
      * Creates a UnmarkAssignmentCommand.
      *
-     * @param targetIndex index of the student in the displayed list
+     * @param targetIndices list of indices of the students in the displayed list
      * @param assignment assignment to unmark
      */
-    public UnmarkAssignmentCommand(Index targetIndex, Assignment assignment) {
-        this.targetIndex = targetIndex;
+    public UnmarkAssignmentCommand(List<Index> targetIndices, Assignment assignment) {
+        this.targetIndices = targetIndices;
         this.assignment = assignment;
     }
 
@@ -58,46 +66,76 @@ public class UnmarkAssignmentCommand extends Command {
      * Executes the unmark assignment command.
      *
      * Steps:
-     * 1. Validate and fetch the target person from the displayed list.
-     * 2. Retrieve the person's assignment set and validate the requested assignment exists.
+     * 1. Validate and fetch the target persons from the displayed list.
+     * 2. For each person, retrieve their assignment set and validate the requested assignment exists.
      * 3. Find the matching assignment instance, unmark it as not completed, and
      *    return a formatted success message.
      *
      * @param model the model which provides access to the displayed person list and persistence
      * @return a CommandResult containing the success message
-     * @throws CommandException if the target index is invalid or the assignment is not present for the person
+     * @throws CommandException if any target index is invalid or the assignment is not present for any person
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
         List<Person> lastShownList = model.getFilteredPersonList();
-        Person personToUnmark = getPersonToUnmark(lastShownList);
+        List<Person> unmarkedPersons = new ArrayList<>();
+        List<Person> alreadyUnmarkedPersons = new ArrayList<>();
+        List<Person> peopleToUnmark = new ArrayList<>();
 
-        Set<Assignment> personAssignments = getPersonAssignmentSet(personToUnmark);
-        ensureAssignmentExists(personAssignments, personToUnmark);
+        // First validate indices and collect people to unmark
+        for (Index targetIndex : targetIndices) {
+            if (targetIndex.getZeroBased() >= lastShownList.size()) {
+                throw new CommandException(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            }
 
-        // Create a new mutable set with all assignments
-        Set<Assignment> updatedAssignments = createUpdatedAssignmentSet(personAssignments);
-        Assignment markedAssignment = findAndUnmarkAssignment(updatedAssignments);
+            Person personToUnmark = lastShownList.get(targetIndex.getZeroBased());
+            Set<Assignment> personAssignments = getPersonAssignmentSet(personToUnmark);
+            ensureAssignmentExists(personAssignments, personToUnmark);
 
-        // Create updated person with new assignments
-        Person updatedPerson = personToUnmark.withAssignments(updatedAssignments);
-        model.setPerson(personToUnmark, updatedPerson);
+            // Check if the assignment is already unmarked
+            Assignment match = personAssignments.stream()
+                    .filter(a -> a.equals(assignment))
+                    .findAny()
+                    .orElse(null);
 
-        return new CommandResult(formatSuccessMessage(markedAssignment, updatedPerson));
-    }
-
-    /**
-     * Returns the person at the configured index from the provided displayed list.
-     *
-     * @throws CommandException if the index is out of bounds
-     */
-    private Person getPersonToUnmark(List<Person> lastShownList) throws CommandException {
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            if (match != null && !match.isMarked()) {
+                alreadyUnmarkedPersons.add(personToUnmark);
+            } else {
+                peopleToUnmark.add(personToUnmark);
+            }
         }
-        return lastShownList.get(targetIndex.getZeroBased());
+
+        // If all people are already unmarked, throw an error
+        if (peopleToUnmark.isEmpty() && !alreadyUnmarkedPersons.isEmpty()) {
+            throw new CommandException(ALREADY_UNMARKED);
+        }
+
+        // Unmark assignments for people who aren't already unmarked
+        for (Person personToUnmark : peopleToUnmark) {
+            Set<Assignment> personAssignments = getPersonAssignmentSet(personToUnmark);
+            Set<Assignment> updatedAssignments = createUpdatedAssignmentSet(personAssignments);
+
+            // Find and unmark the assignment
+            Assignment match = updatedAssignments.stream()
+                    .filter(a -> a.equals(assignment))
+                    .findAny()
+                    .orElse(null);
+
+            if (match != null && match.isMarked()) {
+                Assignment unmarkedAssignment = match.unmark();
+                updatedAssignments.remove(match);
+                updatedAssignments.add(unmarkedAssignment);
+
+                // Create updated person with new assignments
+                Person updatedPerson = personToUnmark.withAssignments(updatedAssignments);
+                model.setPerson(personToUnmark, updatedPerson);
+                unmarkedPersons.add(updatedPerson);
+            }
+        }
+
+        return new CommandResult(formatSuccessMessage(assignment, unmarkedPersons));
     }
 
     /**
@@ -116,10 +154,12 @@ public class UnmarkAssignmentCommand extends Command {
         if (!assignments.contains(assignment)) {
             // Log helpful debug info to aid troubleshooting
             logger.warning(() -> String.format(
-                    "Person %s (index %d) does not have assignment '%s'. Person assignments: %s",
-                    person.getName(), targetIndex.getZeroBased(), assignment.getAssignmentName(),
+                    "Person %s does not have assignment '%s'. Person assignments: %s",
+                    person.getName(), assignment.toString(),
                     assignmentsToString(assignments)));
-            throw new CommandException(MESSAGE_INVALID_ASSIGNMENT_IN_PERSON);
+            throw new CommandException(String.format(
+                    MESSAGE_INVALID_ASSIGNMENT_IN_PERSON, assignment.getAssignmentName())
+            );
         }
     }
 
@@ -131,7 +171,7 @@ public class UnmarkAssignmentCommand extends Command {
         sb.append('[');
         Iterator<Assignment> it = assignments.iterator();
         while (it.hasNext()) {
-            sb.append(it.next().getAssignmentName());
+            sb.append(it.next().toString());
             if (it.hasNext()) {
                 sb.append(", ");
             }
@@ -156,8 +196,8 @@ public class UnmarkAssignmentCommand extends Command {
      */
     private Assignment findAndUnmarkAssignment(Set<Assignment> assignments) throws CommandException {
         Assignment match = assignments.stream()
-                .filter(a -> a.getAssignmentName().equals(assignment.getAssignmentName()))
-                .findFirst()
+                .filter(a -> a.equals(assignment))
+                .findAny()
                 .orElse(null);
 
         if (match == null) {
@@ -178,10 +218,13 @@ public class UnmarkAssignmentCommand extends Command {
     /**
      * Formats the user-visible success message after unmarking an assignment.
      */
-    private String formatSuccessMessage(Assignment a, Person p) {
+    private String formatSuccessMessage(Assignment a, List<Person> persons) {
         String assignmentNameTitleCase = StringUtil.toTitleCase(a.getAssignmentName());
-        String personNameTitleCase = StringUtil.toTitleCase(p.getName().fullName);
-        return String.format(MESSAGE_UNMARK_PERSON_SUCCESS, assignmentNameTitleCase, personNameTitleCase);
+        List<String> names = persons.stream()
+                .map(p -> StringUtil.toTitleCase(p.getName().fullName))
+                .collect(Collectors.toList());
+        String personNames = String.join(", ", names);
+        return String.format(MESSAGE_UNMARK_PERSON_SUCCESS, assignmentNameTitleCase, personNames);
     }
 
     @Override
@@ -201,13 +244,13 @@ public class UnmarkAssignmentCommand extends Command {
         }
 
         UnmarkAssignmentCommand otherUnmarkAssignmentCommand = (UnmarkAssignmentCommand) other;
-        return targetIndex.equals(otherUnmarkAssignmentCommand.targetIndex);
+        return targetIndices.equals(otherUnmarkAssignmentCommand.targetIndices);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("targetIndex", targetIndex)
+                .add("targetIndices", targetIndices)
                 .add("assignment", assignment)
                 .toString();
     }

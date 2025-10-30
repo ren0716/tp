@@ -1,12 +1,15 @@
----
-layout: page
-title: User Guide
----
+<frontmatter>
+  title: "User Guide"
+</frontmatter>
+
+# User Guide
 
 TutorTrack is a **desktop app for managing contacts, optimized for use via the Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, TutorTrack can help you efficiently track students, organise classes and assignments faster than traditional GUI apps.
 
-* Table of Contents
-{:toc}
+<!-- Removed legacy AB3 description during migration to TutorTrack -->
+
+<!-- * Table of Contents -->
+<page-nav-print />
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -28,7 +31,7 @@ TutorTrack is a **desktop app for managing contacts, optimized for use via the C
 
    * `list` : Lists all contacts.
 
-   * `add n/John Doe p/98765432 l/2 c/Physics-1800 a/Assignment 1` : Adds a student contact named `John Doe` to TutorTrack.
+   * `add n/John Doe p/98765432 l/2 c/Physics-1800` : Adds a student contact named `John Doe` to TutorTrack.
 
    * `delete 3` : Deletes the 3rd contact shown in the current list.
 
@@ -42,9 +45,9 @@ TutorTrack is a **desktop app for managing contacts, optimized for use via the C
 
 ## Features
 
-<div markdown="block" class="alert alert-info">
+<box type="info" seamless>
 
-**:information_source: Notes about the command format:**<br>
+**Notes about the command format:**<br>
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
   e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
@@ -56,12 +59,38 @@ TutorTrack is a **desktop app for managing contacts, optimized for use via the C
   e.g. `[c/CLASS]…​` can be used as ` ` (i.e. 0 times), `c/Physics-1800`, `c/Math-1400 c/Physics-1800` etc.
 
 * Parameters can be in any order.<br>
-  e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+  e.g. if the command specifies `n/NAME p/PHONE`, `p/PHONE n/NAME` is also acceptable.
+
+* Parameters are case-insensitive.<br>
+  e.g. `n/NAME` and `N/NAME` are treated the same.
+
+* Parameter values are case-insensitive.<br>
+  e.g. `n/John Doe` and `n/john doe` are treated as same names.
+
+* `CLASS` and `ASSIGNMENT` parameter values allows only alphanumeric values, spaces and hyphens.<br>
+  e.g. `c/Math-1000`, `c/Computer Science 101`, `a/Project Draft 1` are all acceptable but `c/Math@1000`, `c/Math(1000)` is not.
+
+* `NAME` parameter values allows only alphanumeric values, spaces, hyphens, periods, apostrophes and slashes.<br>
+  e.g. `n/John Doe`, `n/Betsy O'Connor`, `n/Mary-Jane Smith Jr.` are all acceptable but `n/John@Doe`, `n/John#1` is not.
 
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
+</box>
+
+<div markdown="block" class="alert alert-warning">
+
+**:exclamation: Duplicate Checks:**<br>
+
+* Students:
+  * Students are considered duplicates if they have the same name (case-insensitive) AND phone number.
+  * Students with same name but different phone numbers can be added with a _warning_.
+  * Students with same phone number but different names can be added with a _warning_.
+* Assignments:
+  * Assignments are considered duplicates if the student already has an assignment with the assignment name (case-insensitive) from the same class.
+* Classes:
+  * Classes are considered duplicates if the student is already enrolled in a class with the same class name (case-insensitive).
 </div>
 
 ### Viewing help : `help`
@@ -77,15 +106,15 @@ Format: `help`
 
 Adds a student to TutorTrack.
 
-Format: `add n/NAME p/PHONE_NUMBER l/LEVEL [c/CLASS]…​ [a/ASSIGNMENT]…​`
+Format: `add n/NAME p/PHONE l/LEVEL [c/CLASS]…​`
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+<div markdown="span" class="alert alert-primary"><span class="fas fa-lightbulb" aria-hidden="true"></span> <strong>Tip:</strong>
 A student can have any number of classes and assignments (including 0)
 </div>
 
 Examples:
 * `add n/John Doe p/98765432 l/2`
-* `add n/Betsy Crowe a/Assignment 1 p/1234567 c/Chemistry-1400`
+* `add n/Betsy Crowe p/1234567 c/Chemistry-1400 l/3 c/Math-1000`
 
 ### Deleting a student : `delete`
 
@@ -112,18 +141,16 @@ Format: `list`
 
 Edits an existing student in the address book.
 
-Format: `edit INDEX [n/NAME] [p/PHONE_NUMBER] [l/LEVEL] [c/CLASS]…​ [a/ASSIGNMENT]…​`
+Format: `edit INDEX [n/NAME] [p/PHONE] [l/LEVEL]`
 
 * Edits the student at the specified `INDEX`. The index refers to the index number shown in the displayed student list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing classes/assignments, the existing classes/assignments of the student will be removed i.e adding of classes/assignments is not cumulative.
-* You can remove all the student’s classes/assignments by typing `c/`/ `a/` without
-    specifying any classes/assignments after it.
+* Classes and assignments cannot be edited via the `edit` command.
 
 Examples:
-*  `edit 1 p/91234567 ` Edits the phone number of the 1st student to be `91234567`.
-*  `edit 2 n/Betsy Crower a/` Edits the name of the 2nd student to be `Betsy Crower` and clears all existing assignments.
+*  `edit 1 p/91234567` Edits the phone number of the 1st student to be `91234567`.
+*  `edit 2 n/Betsy Crower l/3` Edits the name of the 2nd student to be `Betsy Crower` and the level to `3`.
 
 ### Locating students by name: `find`
 
@@ -147,32 +174,100 @@ Examples:
 
 Adds one or more assignments to the specified student in TutorTrack.
 
-Format: `assign INDEX a/ASSIGNMENT [a/ASSIGNMENT]...`
+Format: `assign INDEX c/CLASS a/ASSIGNMENT [a/ASSIGNMENT]...`
 
-* Adds assignment(s) to the student at the specified `INDEX`.
+* Adds assignment(s) belonging to specified class to the student at the specified `INDEX`.
 * The index refers to the index number shown in the displayed student list.
 * The index **must be a positive integer** 1, 2, 3, …​
 * At least one assignment must be provided.
 * Duplicate assignments will not be added.
 
 Examples:
-* `list` followed by `assign 1 a/MathHW1 a/ScienceTopic2` adds two assignments to the 1st student in the address book.
-* `find John` followed by `assign 2 a/ProjectDraft` adds an assignment to the 2nd student in the results of the `find` command.
+* `list` followed by `assign 1 c/Math-2000 a/MathHW1 a/MathHW2` adds two assignments from class `Math-2000` to the 1st student in the address book.
+* `find John` followed by `assign 2 c/History a/ProjectDraft` adds an assignment from class `History` to the 2nd student in the results of the `find` command.
 
 ### Deleting assignment(s) from a student: `unassign`
 
 Deletes one or more assignments from the specified student in TutorTrack.
 
-Format: `unassign INDEX a/ASSIGNMENT [a/ASSIGNMENT]...`
+Format: `unassign INDEX c/CLASS a/ASSIGNMENT [a/ASSIGNMENT]...`
 
-* Deletes assignment(s) from the student at the specified `INDEX`.
+* Deletes assignment(s) belonging to specified class from the student at the specified `INDEX`.
 * The index refers to the index number shown in the displayed student list.
 * The index **must be a positive integer** 1, 2, 3, …​
 * At least one assignment must be provided.
 
 Examples:
-* `list` followed by `unassign 1 a/MathHW1 a/ScienceTopic2` deletes two assignments from the 1st student in the address book.
-* `find John` followed by `unassign 2 a/ProjectDraft` deletes an assignment from the 2nd student in the results of the `find` command.
+* `list` followed by `unassign 1 c/Math-2000 a/MathHW1 a/MathHW2` deletes two assignments from class `Math-2000` from the 1st student in the address book.
+* `find John` followed by `unassign 2 c/History a/ProjectDraft` deletes an assignment from class `History` from the 2nd student in the results of the `find` command.
+
+### Adding an assignment to all students in a class: `assignall`
+
+Assigns an assignment to all students in the specified class.
+
+Format: `assignall c/CLASS a/ASSIGNMENT`
+
+* Assigns the specified assignment to all students in the specified class.
+* Students who already have the specified assignment in the specified class will be skipped.
+* If all students in the specified class already have the specified assignment, no changes will be made.
+
+Examples:
+* `assignall c/Math-2000 a/MathHW1` assigns the assignment `MathHW1` to all students in the class `Math-2000`.
+* `assignall c/Chemistry-1400 a/ProjectDraft` assigns the assignment `ProjectDraft` to all students in the class `Chemistry-1400`.
+
+### Deleting an assignment from all students in a class: `unassignall`
+
+Unassigns an assignment from all students in the specified class.
+
+Format: `unassignall c/CLASS a/ASSIGNMENT`
+
+* Unassigns the specified assignment from all students in the specified class.
+* Only students who have the specified assignment in the specified class will be affected.
+* If no students in the specified class have the specified assignment, no changes will be made.
+
+Examples:
+* `unassignall c/Math-2000 a/MathHW1` unassigns the assignment `MathHW1` from all students in the class `Math-2000`.
+* `unassignall c/Chemistry-1400 a/ProjectDraft` unassigns the assignment `ProjectDraft` from all students in the class `Chemistry-1400`.
+
+### Marking an assignment as completed: `mark`
+
+Marks the assignment of student(s) identified by the index number(s) used in the displayed student list and the assignment name.
+
+Format: `mark [INDEX]... [INDEX_RANGE]...  c/CLASS a/ASSIGNMENT`
+
+* Marks the assignment belonging to the specified class as completed for the student(s) at the specified `INDEX`(es) or `INDEX_RANGE`(s).
+* The index(es) refers to the index number shown in the displayed student list.
+* The index(es) **must be a positive integer** 1, 2, 3, …​
+* At least one index or index range must be provided.
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+For efficient marking of assignments for a specific class, use the [`filter`](#filtering-students-by-class-filter) command first to display only students in that class, then use `mark` with the filtered list.
+</div>
+
+Examples:
+* `list` followed by `mark 1 3-5 c/Math-2000 a/MathHW1` marks the assignment `MathHW1` from class `Math-100` as completed for the 1st, 3rd, 4th and 5th students in the student list.
+* `find John` followed by `mark 2 c/History a/ProjectDraft` marks the assignment `ProjectDraft` from class `History` as completed for the 2nd student in the results of the `find` command.
+* `filter c/Math-2000` followed by `mark 1-10 c/Math-2000 a/MathHW1` marks the assignment for the first 10 students in the Math-2000 class (recommended workflow).
+
+### Unmarking an assignment as not completed: `unmark`
+
+Unmarks the assignment of student(s) identified by the index number(s) used in the displayed student list and the assignment name.
+
+Format: `unmark [INDEX]... [INDEX_RANGE]...  c/CLASS a/ASSIGNMENT`
+
+* Unmarks the assignment belonging to the specified class as not completed for the student(s) at the specified `INDEX`(es) or `INDEX_RANGE`(s).
+* The index(es) refers to the index number shown in the displayed student list.
+* The index(es) **must be a positive integer** 1, 2, 3, …​
+* At least one index or index range must be provided.
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+Like [`mark`](#marking-an-assignment-as-completed-mark), use [`filter`](#filtering-students-by-class-filter) first for efficient unmarking by class.
+</div>
+
+Examples:
+* `list` followed by `unmark 1 3-5 c/Math-2000 a/MathHW1` unmarks the assignment `MathHW1` from class `Math-100` as not completed for the 1st, 3rd, 4th and 5th students in the student list.
+* `find John` followed by `unmark 2 c/History a/ProjectDraft` unmarks the assignment `ProjectDraft` from class `History` as not completed for the 2nd student in the results of the `find` command.
+* `filter c/Chemistry-1400` followed by `unmark 5-8 c/Chemistry-1400 a/Lab Report` unmarks the assignment for students 5-8 in the Chemistry-1400 class (recommended workflow).
 
 ### Adding class(es) to a student: `addclass`
 
@@ -212,11 +307,11 @@ Examples:
 
 ### Filtering students by class: `filter`
 
-Finds and lists all students who are in the specified class group.
+Finds and lists all students who are in the specified class name.
 
 Format: `filter c/CLASS`
 
-* Filters students by the specified class group.
+* Filters students by the specified class name.
 * The search is case-insensitive. e.g., `math-1000` will match `Math-1000`
 * Only one class can be specified at a time.
 * Only students with an exact match to the class name will be shown.
@@ -246,9 +341,9 @@ TutorTrack data are saved in the hard disk automatically after any command that 
 
 TutorTrack data are saved automatically as a JSON file `[JAR file location]/data/tutortrack.json`. Advanced users are welcome to update data directly by editing that data file.
 
-<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+<div markdown="span" class="alert alert-warning"><span class="fas fa-exclamation-triangle" aria-hidden="true"></span> <strong>Caution:</strong>
 If your changes to the data file makes its format invalid, TutorTrack will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
-Furthermore, certain edits can cause the TutorTrack to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
+Furthermore, certain edits can cause TutorTrack to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </div>
 
 --------------------------------------------------------------------------------------------------------------------
@@ -271,13 +366,17 @@ Furthermore, certain edits can cause the TutorTrack to behave in unexpected ways
 
 Action | Format, Examples
 --------|------------------
-**Add** | `add n/NAME p/PHONE_NUMBER l/LEVEL [c/CLASS]…​ [a/ASSIGNMENT]…​` <br> e.g., `add n/John Doe p/98765432 l/2 c/Chemistry-1400 a/Assignment 1`
+**Add** | `add n/NAME p/PHONE l/LEVEL [c/CLASS]…​` <br> e.g., `add n/John Doe p/98765432 l/2 c/Chemistry-1400`
 **List** | `list`
-**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [l/LEVEL] [c/CLASS]…​ [a/ASSIGNMENT]…​`<br> e.g., `edit 1 p/91234567`
+**Edit** | `edit INDEX [n/NAME] [p/PHONE] [l/LEVEL]`<br> e.g., `edit 1 p/91234567`
 **Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find John`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
-**Assign** | `assign INDEX a/ASSIGNMENT [a/ASSIGNMENT]...`<br> e.g., `assign 1 a/MathHW1 a/ScienceTopic2`
-**Unassign** | `unassign INDEX a/ASSIGNMENT [a/ASSIGNMENT]...`<br> e.g., `unassign 1 a/MathHW1`
+**Assign** | `assign INDEX c/CLASS a/ASSIGNMENT [a/ASSIGNMENT]...`<br> e.g., `assign 1 c/Math-2000 a/MathHW1 a/MathTopic2`
+**Unassign** | `unassign INDEX c/CLASS a/ASSIGNMENT [a/ASSIGNMENT]...`<br> e.g., `unassign 1 c/Math-2000 a/MathHW1`
+**Assign All** | `assignall c/CLASS a/ASSIGNMENT`<br> e.g., `assignall c/Math-2000 a/MathHW1`
+**Unassign All** | `unassignall c/CLASS a/ASSIGNMENT`<br> e.g., `unassignall c/Math-2000 a/MathHW1`
+**Mark** | `mark [INDEX]... [INDEX_RANGE]...  c/CLASS a/ASSIGNMENT`<br> e.g., `mark 1 3-5 c/Math-2000 a/MathHW1`
+**Unmark** | `unmark [INDEX]... [INDEX_RANGE]...  c/CLASS a/ASSIGNMENT`<br> e.g., `unmark 1 3-5 c/Math-2000 a/MathHW1`
 **Add Class** | `addclass INDEX c/CLASS [c/CLASS]...`<br> e.g., `addclass 1 c/Math-1000 c/Physics-2000`
 **Delete Class** | `deleteclass INDEX c/CLASS [c/CLASS]...`<br> e.g., `deleteclass 1 c/Math-1000`
 **Filter** | `filter c/CLASS`<br> e.g., `filter c/Math-1000`

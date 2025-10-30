@@ -1,6 +1,11 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.Messages.MESSAGE_ASSIGNMENT_NOT_ADDED;
+import static seedu.address.logic.Messages.MESSAGE_ASSIGN_SUCCESS;
+import static seedu.address.logic.Messages.MESSAGE_DUPLICATE_ASSIGNMENT;
+import static seedu.address.logic.Messages.MESSAGE_DUPLICATE_PERSON;
+import static seedu.address.logic.Messages.MESSAGE_STUDENT_NOT_IN_CLASS_GROUP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSGROUP;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
@@ -34,10 +39,10 @@ public class AddAssignmentCommand extends Command {
 
     public static final String COMMAND_WORD = "assign";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Add Assignment(s) to the person identified "
-            + "by the index number used in the displayed person list. \n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Add Assignment(s) to the student identified "
+            + "by the index number used in the displayed student list. \n"
             + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_CLASSGROUP + "CLASS_GROUP "
+            + PREFIX_CLASSGROUP + "CLASS "
             + PREFIX_ASSIGNMENT + "ASSIGNMENT "
             + "[" + PREFIX_ASSIGNMENT + "ASSIGNMENT]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
@@ -45,11 +50,6 @@ public class AddAssignmentCommand extends Command {
             + PREFIX_ASSIGNMENT + "ScienceTopic2 "
             + PREFIX_ASSIGNMENT + "MathHW1";
 
-    public static final String MESSAGE_SUCCESS = "Added assignment(s) to: %1$s";
-    public static final String MESSAGE_ASSIGNMENT_NOT_ADDED = "At least one assignment to add must be provided.";
-    public static final String MESSAGE_DUPLICATE_ASSIGNMENT = "Duplicate assignment(s): %s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
-    public static final String MESSAGE_STUDENT_NOT_IN_CLASS_GROUP = "Student does not belong to the class group: %s";
     private final Index index;
     private final AddAssignmentDescriptor addAssignmentDescriptor;
 
@@ -71,23 +71,30 @@ public class AddAssignmentCommand extends Command {
         List<Person> lastShownList = model.getFilteredPersonList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
+            // Index out of bounds
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
 
-        if (addAssignmentDescriptor.getAssignments().isEmpty()
-                || addAssignmentDescriptor.getAssignments().get().isEmpty()) {
-            throw new CommandException(MESSAGE_ASSIGNMENT_NOT_ADDED);
+        // No class provided (missing prefix / present but empty): MESSAGE_CLASSES_NOT_ADDED
+        if (!addAssignmentDescriptor.hasClassGroup()) {
+            throw new CommandException(Messages.MESSAGE_CLASS_NOT_PROVIDED);
         }
 
+        // No assignments provided (missing prefix / present but empty): MESSAGE_ASSIGNMENT_NOT_ADDED
+        if (!addAssignmentDescriptor.isAssignmentAdded()
+                || (addAssignmentDescriptor.getAssignments().isPresent()
+                && addAssignmentDescriptor.getAssignments().get().isEmpty())) {
+            throw new CommandException(MESSAGE_ASSIGNMENT_NOT_ADDED);
+        }
         // Validate that the student belongs to the specified class group(s)
         validateStudentClassGroups(personToEdit, addAssignmentDescriptor);
 
         Set<Assignment> duplicates = findDuplicateAssignments(personToEdit, addAssignmentDescriptor);
         if (!duplicates.isEmpty()) {
             String duplicateNames = duplicates.stream()
-                    .map(Assignment::getAssignmentName)
+                    .map(Assignment::toString)
                     .sorted()
                     .collect(Collectors.joining(", "));
             throw new CommandException(String.format(MESSAGE_DUPLICATE_ASSIGNMENT, duplicateNames));
@@ -102,7 +109,7 @@ public class AddAssignmentCommand extends Command {
 
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(editedPerson)));
+        return new CommandResult(String.format(MESSAGE_ASSIGN_SUCCESS, Messages.format(editedPerson)));
     }
 
     /**
@@ -193,6 +200,7 @@ public class AddAssignmentCommand extends Command {
      */
     public static class AddAssignmentDescriptor {
         private Set<Assignment> assignments;
+        private String classGroupName;
 
         public AddAssignmentDescriptor() {}
 
@@ -202,6 +210,7 @@ public class AddAssignmentCommand extends Command {
          */
         public AddAssignmentDescriptor(AddAssignmentDescriptor toCopy) {
             setAssignments(toCopy.assignments);
+            setClassGroupName(toCopy.classGroupName);
         }
 
         /**
@@ -209,6 +218,21 @@ public class AddAssignmentCommand extends Command {
          */
         public boolean isAssignmentAdded() {
             return CollectionUtil.isAnyNonNull(assignments);
+        }
+
+        /**
+         * Returns true if a class group was provided (non-null and non-empty after trimming).
+         */
+        public boolean hasClassGroup() {
+            return classGroupName != null && !classGroupName.trim().isEmpty();
+        }
+
+        public void setClassGroupName(String classGroupName) {
+            this.classGroupName = classGroupName;
+        }
+
+        public Optional<String> getClassGroupName() {
+            return (classGroupName != null) ? Optional.of(classGroupName) : Optional.empty();
         }
 
         /**
@@ -240,12 +264,14 @@ public class AddAssignmentCommand extends Command {
             }
 
             AddAssignmentDescriptor otherAddAssignmentDescriptor = (AddAssignmentDescriptor) other;
-            return Objects.equals(assignments, otherAddAssignmentDescriptor.assignments);
+            return Objects.equals(assignments, otherAddAssignmentDescriptor.assignments)
+                    && Objects.equals(classGroupName, otherAddAssignmentDescriptor.classGroupName);
         }
 
         @Override
         public String toString() {
             return new ToStringBuilder(this)
+                    .add("classGroupName", classGroupName)
                     .add("assignments", assignments)
                     .toString();
         }

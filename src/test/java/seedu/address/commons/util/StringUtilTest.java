@@ -200,4 +200,17 @@ public class StringUtilTest {
         assertTrue(StringUtil.toTitleCase("trailing space ").equals("Trailing Space "));
     }
 
+    @Test
+    public void correctCapitalization_variousInputs_correctResult() {
+        // Apostrophes
+        assertTrue(StringUtil.correctCapitalization("o'kelly").equals("O'Kelly"));
+        // Hyphens
+        assertTrue(StringUtil.correctCapitalization("mother-in-law").equals("Mother-In-Law"));
+        // Slashes
+        assertTrue(StringUtil.correctCapitalization("s/o").equals("S/O"));
+        // Periods
+        assertTrue(StringUtil.correctCapitalization("s.o.").equals("S.O."));
+        // Mixed special characters
+        assertTrue(StringUtil.correctCapitalization("d'artagnan-mc/o'neil").equals("D'Artagnan-Mc/O'Neil"));
+    }
 }

@@ -88,7 +88,7 @@ public class StringUtil {
 
     /**
      * Converts a lowercase string to title case (first letter of each word capitalized).
-     * Words are separated by spaces or hyphens.
+     * Words are separated by spaces, hyphens, or parentheses.
      *
      * @param input The string to convert to title case
      * @return The input string with the first letter of each word capitalized
@@ -102,7 +102,7 @@ public class StringUtil {
         boolean capitalizeNext = true;
 
         for (char c : input.toCharArray()) {
-            if (Character.isWhitespace(c) || c == '-') {
+            if (Character.isWhitespace(c) || c == '-' || c == '(' || c == ')' || c == '[' || c == ']') {
                 titleCase.append(c);
                 capitalizeNext = true;
             } else if (capitalizeNext) {
@@ -114,6 +114,36 @@ public class StringUtil {
         }
 
         return titleCase.toString();
+    }
+
+    /**
+     * Converts letters that come after apostrophes, dashes, slashes, periods to uppercase.
+     * E.g. "o'kelly" -> "O'Kelly", "mother-in-law" -> "Mother-In-Law", "s.o." -> "S.O."
+     *
+     * @param input The string to correct capitalization
+     * @return The input string with corrected capitalization
+     */
+    public static String correctCapitalization(String input) {
+        if (input == null || input.isEmpty()) {
+            return input;
+        }
+
+        StringBuilder corrected = new StringBuilder();
+        boolean capitalizeNext = true;
+
+        for (char c : input.toCharArray()) {
+            if (c == '\'' || c == '-' || c == '/' || c == '.') {
+                corrected.append(c);
+                capitalizeNext = true;
+            } else if (capitalizeNext) {
+                corrected.append(Character.toUpperCase(c));
+                capitalizeNext = false;
+            } else {
+                corrected.append(c);
+            }
+        }
+
+        return corrected.toString();
     }
 
     private static void requireNonNull(Object obj) {

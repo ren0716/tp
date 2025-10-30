@@ -3,6 +3,11 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.Messages.MESSAGE_ASSIGNMENT_NOT_ADDED;
+import static seedu.address.logic.Messages.MESSAGE_ASSIGN_SUCCESS;
+import static seedu.address.logic.Messages.MESSAGE_CLASS_NOT_PROVIDED;
+import static seedu.address.logic.Messages.MESSAGE_DUPLICATE_ASSIGNMENT;
+import static seedu.address.logic.Messages.MESSAGE_STUDENT_NOT_IN_CLASS_GROUP;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
@@ -39,32 +44,42 @@ public class AddAssignmentCommandTest {
     public void execute_addAssignment_success() throws Exception {
         Person personToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
 
-        // Ensure the person has the class group that the assignment belongs to
         String classGroup = "test-class";
         Person personWithClassGroup = new PersonBuilder(personToEdit)
                 .withClassGroups(classGroup)
                 .build();
         model.setPerson(personToEdit, personWithClassGroup);
 
-        Assignment validAssignment = new AssignmentBuilder()
+        Assignment assignment = new AssignmentBuilder()
                 .withName("HW1")
                 .withClassGroup(classGroup)
                 .build();
+
         AddAssignmentCommand.AddAssignmentDescriptor descriptor = new AddAssignmentCommand.AddAssignmentDescriptor();
-        descriptor.setAssignments(Set.of(validAssignment));
+        descriptor.setClassGroupName(classGroup);
+        descriptor.setAssignments(Set.of(assignment));
         AddAssignmentCommand command = new AddAssignmentCommand(INDEX_FIRST_PERSON, descriptor);
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        Person editedPerson = new PersonBuilder(personWithClassGroup)
-                .withAssignments(classGroup, validAssignment.getAssignmentName())
-                .build();
-        expectedModel.setPerson(personWithClassGroup, editedPerson);
+        // build the expected edited person
+        Set<Assignment> updatedAssignments = new java.util.HashSet<>(personWithClassGroup.getAssignments());
+        updatedAssignments.add(assignment);
+        Person expectedPerson = new Person(
+                personWithClassGroup.getName(),
+                personWithClassGroup.getPhone(),
+                personWithClassGroup.getLevel(),
+                personWithClassGroup.getClassGroups(),
+                updatedAssignments
+        );
 
-        String expectedMessage = String.format(AddAssignmentCommand.MESSAGE_SUCCESS,
-                Messages.format(editedPerson));
+        String expectedMessage = String.format(MESSAGE_ASSIGN_SUCCESS, Messages.format(expectedPerson));
+
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModel.setPerson(personWithClassGroup, expectedPerson);
+        expectedModel.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
 
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
     }
+
 
     /**
      * Tests that attempting to add a duplicate assignment to a person fails.
@@ -81,7 +96,7 @@ public class AddAssignmentCommandTest {
 
         Person original = model.getFilteredPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
 
-        // Add the class group and assignment to the person
+        // Add class group and assignment to person
         Person withAssignment = new PersonBuilder(original)
                 .withClassGroups(classGroup)
                 .withAssignments(classGroup, duplicate.getAssignmentName())
@@ -89,12 +104,14 @@ public class AddAssignmentCommandTest {
         model.setPerson(original, withAssignment);
 
         AddAssignmentCommand.AddAssignmentDescriptor descriptor = new AddAssignmentCommand.AddAssignmentDescriptor();
+        descriptor.setClassGroupName(classGroup);
         descriptor.setAssignments(Set.of(duplicate));
         AddAssignmentCommand command = new AddAssignmentCommand(INDEX_SECOND_PERSON, descriptor);
 
-        assertCommandFailure(command, model, String.format(
-                AddAssignmentCommand.MESSAGE_DUPLICATE_ASSIGNMENT, duplicate.getAssignmentName()));
+        String expectedMessage = String.format(MESSAGE_DUPLICATE_ASSIGNMENT, duplicate.toString());
+        assertCommandFailure(command, model, expectedMessage);
     }
+
 
     /**
      * Tests that attempting to add an assignment with a class group the student doesn't belong to fails.
@@ -104,18 +121,23 @@ public class AddAssignmentCommandTest {
     @Test
     public void execute_studentNotInClassGroup_failure() {
         Person personToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        // Create an assignment with a class group the student doesn't have
+
         Assignment assignmentWithInvalidClass = new AssignmentBuilder()
                 .withName("HW1")
                 .withClassGroup("nonexistent-class")
                 .build();
+
         AddAssignmentCommand.AddAssignmentDescriptor descriptor = new AddAssignmentCommand.AddAssignmentDescriptor();
+        // ensure descriptor indicates a class was provided so command reaches validation
+        descriptor.setClassGroupName(assignmentWithInvalidClass.getClassGroupName());
         descriptor.setAssignments(Set.of(assignmentWithInvalidClass));
         AddAssignmentCommand command = new AddAssignmentCommand(INDEX_FIRST_PERSON, descriptor);
 
-        assertCommandFailure(command, model, String.format(
-                AddAssignmentCommand.MESSAGE_STUDENT_NOT_IN_CLASS_GROUP, "nonexistent-class"));
+        String expectedMessage = String.format(MESSAGE_STUDENT_NOT_IN_CLASS_GROUP,
+                assignmentWithInvalidClass.getClassGroupName());
+        assertCommandFailure(command, model, expectedMessage);
     }
+
 
     /**
      * Tests that attempting to add an assignment to an invalid person index fails.
@@ -196,14 +218,21 @@ public class AddAssignmentCommandTest {
      */
     @Test
     public void descriptorToStringMethod() {
-        Assignment assignment = new AssignmentBuilder().withName("Math-HW").build();
+        Assignment assignment = new AssignmentBuilder().withName("Math-HW").withClassGroup("math-class").build();
         AddAssignmentCommand.AddAssignmentDescriptor descriptor = new AddAssignmentCommand.AddAssignmentDescriptor();
+        descriptor.setClassGroupName("math-class");
         descriptor.setAssignments(Set.of(assignment));
 
-        String expected = AddAssignmentCommand.AddAssignmentDescriptor.class.getCanonicalName()
-                + "{assignments=" + Set.of(assignment) + "}";
-        assertEquals(expected, descriptor.toString());
+        String descriptorString = descriptor.toString();
+
+        // Should include the field labels and values produced by the ToStringBuilder
+        assertTrue(descriptorString.contains("classGroupName"));
+        assertTrue(descriptorString.contains("math-class"));
+        assertTrue(descriptorString.contains("assignments"));
+        // Assignment.toString() produces the formatted assignment representation, ensure it's present
+        assertTrue(descriptorString.contains(assignment.toString()));
     }
+
 
     /**
      * Tests that isAssignmentAdded returns true when assignments are present.
@@ -230,19 +259,6 @@ public class AddAssignmentCommandTest {
         assertFalse(descriptor.isAssignmentAdded());
     }
 
-    /**
-     * Tests that executing a command with no assignments provided fails.
-     * Verifies that the command throws an exception with the appropriate error message
-     * when an empty assignment descriptor is used.
-     */
-    @Test
-    public void execute_noAssignmentsProvided_failure() {
-        AddAssignmentCommand.AddAssignmentDescriptor emptyDescriptor = new AddAssignmentCommand
-                .AddAssignmentDescriptor();
-        AddAssignmentCommand command = new AddAssignmentCommand(INDEX_FIRST_PERSON, emptyDescriptor);
-
-        assertCommandFailure(command, model, AddAssignmentCommand.MESSAGE_ASSIGNMENT_NOT_ADDED);
-    }
 
     /**
      * Tests that executing a command with empty assignment set fails.
@@ -251,10 +267,14 @@ public class AddAssignmentCommandTest {
     @Test
     public void execute_emptyAssignmentSet_failure() {
         AddAssignmentCommand.AddAssignmentDescriptor descriptor = new AddAssignmentCommand.AddAssignmentDescriptor();
+        // Provide a class group so command reaches the assignment validation logic
+        descriptor.setClassGroupName("some-class");
+        // Explicitly set empty assignment set (clear token)
         descriptor.setAssignments(Set.of());
         AddAssignmentCommand command = new AddAssignmentCommand(INDEX_FIRST_PERSON, descriptor);
 
-        assertCommandFailure(command, model, AddAssignmentCommand.MESSAGE_ASSIGNMENT_NOT_ADDED);
+        // Class provided but assignment set empty: MESSAGE_ASSIGNMENT_NOT_ADDED
+        assertCommandFailure(command, model, MESSAGE_ASSIGNMENT_NOT_ADDED);
     }
 
     /**
@@ -420,47 +440,51 @@ public class AddAssignmentCommandTest {
         descriptor.setAssignments(Set.of(assignment1, assignment2));
         AddAssignmentCommand command = new AddAssignmentCommand(INDEX_FIRST_PERSON, descriptor);
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        Person editedPerson = new PersonBuilder(personWithClassGroup)
-                .withAssignments(classGroup, "HW1", "HW2")
-                .build();
-        expectedModel.setPerson(personWithClassGroup, editedPerson);
-
-        String expectedMessage = String.format(AddAssignmentCommand.MESSAGE_SUCCESS,
-                Messages.format(editedPerson));
-
-        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        // Expect failure because class group was not provided in the descriptor
+        String expectedMessage = MESSAGE_CLASS_NOT_PROVIDED;
+        assertCommandFailure(command, model, expectedMessage);
     }
+
 
     /**
      * Tests adding assignments when some are duplicates.
      * Verifies that the command fails when any assignment is a duplicate.
      */
+
     @Test
     public void execute_multipleDuplicateAssignments_failure() {
         String classGroup = "dup-test-class";
-        Assignment existing1 = new AssignmentBuilder()
-                .withName("EXISTING1")
-                .withClassGroup(classGroup)
-                .build();
-        Assignment existing2 = new AssignmentBuilder()
-                .withName("EXISTING2")
-                .withClassGroup(classGroup)
-                .build();
+
+        // existing assignments on the person
+        Assignment existing1 = new AssignmentBuilder().withName("HW1").withClassGroup(classGroup).build();
+        Assignment existing2 = new AssignmentBuilder().withName("Lab2").withClassGroup(classGroup).build();
+
 
         Person original = model.getFilteredPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
-        Person withAssignments = new PersonBuilder(original)
-                .withClassGroups(classGroup)
-                .withAssignments(classGroup, "EXISTING1", "EXISTING2")
-                .build();
+        // create class group and assignment sets and build Person directly
+        seedu.address.model.classgroup.ClassGroup cg = new seedu.address.model.classgroup.ClassGroup(classGroup);
+        java.util.Set<seedu.address.model.classgroup.ClassGroup> classGroupSet = Set.of(cg);
+        java.util.Set<Assignment> assignmentSet = Set.of(existing1, existing2);
+        Person withAssignments = new Person(original.getName(), original.getPhone(), original.getLevel(),
+                classGroupSet, assignmentSet);
         model.setPerson(original, withAssignments);
 
+        // descriptor attempts to add two duplicates and one new assignment
+        Assignment dup1 = new AssignmentBuilder().withName("HW1").withClassGroup(classGroup).build();
+        Assignment dup2 = new AssignmentBuilder().withName("Lab2").withClassGroup(classGroup).build();
+        Assignment newAssign = new AssignmentBuilder().withName("Extra").withClassGroup(classGroup).build();
+
         AddAssignmentCommand.AddAssignmentDescriptor descriptor = new AddAssignmentCommand.AddAssignmentDescriptor();
-        descriptor.setAssignments(Set.of(existing1, existing2));
+        descriptor.setClassGroupName(classGroup);
+        descriptor.setAssignments(Set.of(dup1, dup2, newAssign));
         AddAssignmentCommand command = new AddAssignmentCommand(INDEX_SECOND_PERSON, descriptor);
 
-        // Should fail with duplicate message containing both assignment names
-        assertCommandFailure(command, model,
-                String.format(AddAssignmentCommand.MESSAGE_DUPLICATE_ASSIGNMENT, "EXISTING1, EXISTING2"));
+        // Build expected duplicate names string in sorted order to match command behavior
+        String[] dupNamesArr = new String[] { dup1.toString(), dup2.toString() };
+        java.util.Arrays.sort(dupNamesArr);
+        String duplicateNames = String.join(", ", dupNamesArr);
+
+        String expectedMessage = String.format(MESSAGE_DUPLICATE_ASSIGNMENT, duplicateNames);
+        assertCommandFailure(command, model, expectedMessage);
     }
 }

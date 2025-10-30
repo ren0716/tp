@@ -1,6 +1,10 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.Messages.MESSAGE_ALREADY_ASSIGNED;
+import static seedu.address.logic.Messages.MESSAGE_ASSIGNALL_SUCCESS;
+import static seedu.address.logic.Messages.MESSAGE_CLASS_NOT_EXIST;
+import static seedu.address.logic.Messages.MESSAGE_DUPLICATE_PERSON;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSGROUP;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
@@ -31,19 +35,13 @@ public class AssignAllCommand extends Command {
     public static final String COMMAND_WORD = "assignall";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Assigns an assignment to all students in the specified class group.\n"
+            + ": Assigns an assignment to all students in the specified class.\n"
             + "Parameters: "
-            + PREFIX_CLASSGROUP + "CLASS_GROUP "
+            + PREFIX_CLASSGROUP + "CLASS "
             + PREFIX_ASSIGNMENT + "ASSIGNMENT\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_CLASSGROUP + "Math 3PM "
             + PREFIX_ASSIGNMENT + "Homework1";
-
-    public static final String MESSAGE_SUCCESS = "Assigned assignment '%1$s' to %2$d student(s) in class '%3$s'";
-    public static final String MESSAGE_NO_STUDENTS_FOUND = "No students found in class group: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
-    public static final String MESSAGE_ALREADY_ASSIGNED =
-            "All students in class '%1$s' already have the assignment '%2$s' assigned";
 
     private static final Logger logger = LogsCenter.getLogger(AssignAllCommand.class);
 
@@ -81,8 +79,8 @@ public class AssignAllCommand extends Command {
                 studentsInClass.size(), classGroupName));
 
         if (studentsInClass.isEmpty()) {
-            logger.warning("No students found in class group: " + classGroupName);
-            throw new CommandException(String.format(MESSAGE_NO_STUDENTS_FOUND,
+            logger.warning(String.format("Class group '%s' does not exist", classGroupName));
+            throw new CommandException(String.format(MESSAGE_CLASS_NOT_EXIST,
                     StringUtil.toTitleCase(classGroupName)));
         }
 
@@ -102,10 +100,10 @@ public class AssignAllCommand extends Command {
                 model.setPerson(person, editedPerson);
                 assignedCount++;
                 logger.fine(() -> String.format("Assigned '%s' to %s",
-                        assignment.getAssignmentName(), person.getName()));
+                        assignment, person.getName()));
             } else {
                 logger.fine(() -> String.format("%s already has assignment '%s'",
-                        person.getName(), assignment.getAssignmentName()));
+                        person.getName(), assignment));
             }
         }
 
@@ -113,9 +111,10 @@ public class AssignAllCommand extends Command {
         if (assignedCount == 0) {
             logger.warning(() -> String.format(
                     "All students in class '%s' already have assignment '%s'",
-                    classGroupName, assignment.getAssignmentName()));
+                    classGroupName, assignment));
             throw new CommandException(String.format(MESSAGE_ALREADY_ASSIGNED,
-                    StringUtil.toTitleCase(classGroupName), StringUtil.toTitleCase(assignment.getAssignmentName())));
+                    classGroupName.toLowerCase(),
+                    assignment.getAssignmentName().toLowerCase()));
         }
 
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
@@ -124,7 +123,7 @@ public class AssignAllCommand extends Command {
         logger.info(() -> String.format("Successfully assigned '%s' to %d student(s) in class '%s'",
                 assignment.getAssignmentName(), finalAssignedCount, classGroupName));
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS,
+        return new CommandResult(String.format(MESSAGE_ASSIGNALL_SUCCESS,
                 assignment.getAssignmentName(), assignedCount, classGroupName));
     }
 

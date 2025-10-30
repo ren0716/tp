@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
@@ -41,20 +42,46 @@ public class AddressBookParserTest {
     public void parseCommand_mark() throws Exception {
         Assignment assignment = new AssignmentBuilder().withName("Assignment1")
                 .withClassGroup("Math-2000").build();
-        MarkAssignmentCommand command = (MarkAssignmentCommand) parser.parseCommand(
+
+        // Test single index
+        MarkAssignmentCommand singleCommand = (MarkAssignmentCommand) parser.parseCommand(
                 MarkAssignmentCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased()
                         + " c/Math-2000 a/Assignment1");
-        assertEquals(new MarkAssignmentCommand(INDEX_FIRST_PERSON, assignment), command);
+        assertEquals(new MarkAssignmentCommand(Arrays.asList(INDEX_FIRST_PERSON), assignment), singleCommand);
+
+        // Test index range
+        MarkAssignmentCommand rangeCommand = (MarkAssignmentCommand) parser.parseCommand(
+                MarkAssignmentCommand.COMMAND_WORD + " 1-3"
+                        + " c/Math-2000 a/Assignment1");
+        List<Index> expectedRange = Arrays.asList(
+                Index.fromOneBased(1),
+                Index.fromOneBased(2),
+                Index.fromOneBased(3)
+        );
+        assertEquals(new MarkAssignmentCommand(expectedRange, assignment), rangeCommand);
     }
 
     @Test
     public void parseCommand_unmark() throws Exception {
         Assignment assignment = new AssignmentBuilder().withName("Assignment1")
                 .withClassGroup("Math-2000").build();
-        UnmarkAssignmentCommand command = (UnmarkAssignmentCommand) parser.parseCommand(
+
+        // Test single index
+        UnmarkAssignmentCommand singleCommand = (UnmarkAssignmentCommand) parser.parseCommand(
                 UnmarkAssignmentCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased()
                         + " c/Math-2000 a/Assignment1");
-        assertEquals(new UnmarkAssignmentCommand(INDEX_FIRST_PERSON, assignment), command);
+        assertEquals(new UnmarkAssignmentCommand(Arrays.asList(INDEX_FIRST_PERSON), assignment), singleCommand);
+
+        // Test index range
+        UnmarkAssignmentCommand rangeCommand = (UnmarkAssignmentCommand) parser.parseCommand(
+                UnmarkAssignmentCommand.COMMAND_WORD + " 1-3"
+                        + " c/Math-2000 a/Assignment1");
+        List<Index> expectedRange = Arrays.asList(
+                Index.fromOneBased(1),
+                Index.fromOneBased(2),
+                Index.fromOneBased(3)
+        );
+        assertEquals(new UnmarkAssignmentCommand(expectedRange, assignment), rangeCommand);
     }
 
     @Test

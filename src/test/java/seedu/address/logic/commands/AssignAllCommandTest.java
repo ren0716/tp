@@ -3,6 +3,9 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.Messages.MESSAGE_ALREADY_ASSIGNED;
+import static seedu.address.logic.Messages.MESSAGE_ASSIGNALL_SUCCESS;
+import static seedu.address.logic.Messages.MESSAGE_CLASS_NOT_EXIST;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ASSIGNMENT_MATH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ASSIGNMENT_PHYSICS;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CLASSGROUP_MATH;
@@ -14,6 +17,7 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -48,7 +52,7 @@ public class AssignAllCommandTest {
                 VALID_CLASSGROUP_MATH.toLowerCase());
         AssignAllCommand command = new AssignAllCommand(VALID_CLASSGROUP_MATH.toLowerCase(), assignment);
 
-        String expectedMessage = String.format(AssignAllCommand.MESSAGE_SUCCESS,
+        String expectedMessage = String.format(MESSAGE_ASSIGNALL_SUCCESS,
                 VALID_ASSIGNMENT_MATH.toLowerCase(), 2, VALID_CLASSGROUP_MATH.toLowerCase());
 
         Model expectedModel = new ModelManager(new AddressBook(), new UserPrefs());
@@ -78,7 +82,7 @@ public class AssignAllCommandTest {
                 VALID_CLASSGROUP_PHYSICS.toLowerCase());
         AssignAllCommand command = new AssignAllCommand(VALID_CLASSGROUP_PHYSICS.toLowerCase(), assignment);
 
-        String expectedMessage = String.format(AssignAllCommand.MESSAGE_SUCCESS,
+        String expectedMessage = String.format(MESSAGE_ASSIGNALL_SUCCESS,
                 VALID_ASSIGNMENT_PHYSICS.toLowerCase(), 1, VALID_CLASSGROUP_PHYSICS.toLowerCase());
 
         Model expectedModel = new ModelManager(new AddressBook(), new UserPrefs());
@@ -113,7 +117,7 @@ public class AssignAllCommandTest {
         AssignAllCommand command = new AssignAllCommand(VALID_CLASSGROUP_MATH.toLowerCase(), assignment);
 
         // Only Alice and Charlie should get the assignment (they have Math class)
-        String expectedMessage = String.format(AssignAllCommand.MESSAGE_SUCCESS,
+        String expectedMessage = String.format(MESSAGE_ASSIGNALL_SUCCESS,
                 VALID_ASSIGNMENT_MATH.toLowerCase(), 2, VALID_CLASSGROUP_MATH.toLowerCase());
 
         Model expectedModel = new ModelManager(new AddressBook(), new UserPrefs());
@@ -149,7 +153,7 @@ public class AssignAllCommandTest {
         AssignAllCommand command = new AssignAllCommand(VALID_CLASSGROUP_MATH.toLowerCase(), assignment);
 
         // Only Bob should get the assignment (Alice already has it)
-        String expectedMessage = String.format(AssignAllCommand.MESSAGE_SUCCESS,
+        String expectedMessage = String.format(MESSAGE_ASSIGNALL_SUCCESS,
                 VALID_ASSIGNMENT_MATH.toLowerCase(), 1, VALID_CLASSGROUP_MATH.toLowerCase());
 
         Model expectedModel = new ModelManager(new AddressBook(), new UserPrefs());
@@ -167,26 +171,27 @@ public class AssignAllCommandTest {
      */
     @Test
     public void execute_assignmentsAlreadyAssignedToAllStudents_throwsCommandException() {
-        // Setup: Add students with Math class who already have the assignment
-        Model modelAllHaveAssignment = new ModelManager(new AddressBook(), new UserPrefs());
+        Model model = new ModelManager(new AddressBook(), new UserPrefs());
+
         Person alice = new PersonBuilder().withName("Alice").withPhone("91234567")
                 .withLevel("1").withClassGroups(VALID_CLASSGROUP_MATH)
                 .withAssignments(VALID_CLASSGROUP_MATH, VALID_ASSIGNMENT_MATH).build();
         Person bob = new PersonBuilder().withName("Bob").withPhone("92345678")
                 .withLevel("2").withClassGroups(VALID_CLASSGROUP_MATH)
                 .withAssignments(VALID_CLASSGROUP_MATH, VALID_ASSIGNMENT_MATH).build();
-        modelAllHaveAssignment.addPerson(alice);
-        modelAllHaveAssignment.addPerson(bob);
 
-        Assignment assignment = new Assignment(VALID_ASSIGNMENT_MATH.toLowerCase(),
-                VALID_CLASSGROUP_MATH.toLowerCase());
-        AssignAllCommand command = new AssignAllCommand(VALID_CLASSGROUP_MATH.toLowerCase(), assignment);
+        model.addPerson(alice);
+        model.addPerson(bob);
 
-        assertCommandFailure(command, modelAllHaveAssignment,
-                String.format(AssignAllCommand.MESSAGE_ALREADY_ASSIGNED,
-                        StringUtil.toTitleCase(VALID_CLASSGROUP_MATH.toLowerCase()),
-                        StringUtil.toTitleCase(VALID_ASSIGNMENT_MATH.toLowerCase())));
+        String classGroup = VALID_CLASSGROUP_MATH.toLowerCase();
+        String assignmentName = VALID_ASSIGNMENT_MATH.toLowerCase();
+        Assignment assignment = new Assignment(assignmentName, classGroup);
+        AssignAllCommand command = new AssignAllCommand(classGroup, assignment);
+
+        String expectedMessage = String.format(MESSAGE_ALREADY_ASSIGNED, classGroup, assignment.getAssignmentName());
+        assertCommandFailure(command, model, expectedMessage);
     }
+
 
     /**
      * Tests that unassigning from a non-existent class group throws a CommandException.
@@ -205,7 +210,7 @@ public class AssignAllCommandTest {
         AssignAllCommand command = new AssignAllCommand(VALID_CLASSGROUP_MATH.toLowerCase(), assignment);
 
         assertCommandFailure(command, emptyModel,
-                String.format(AssignAllCommand.MESSAGE_NO_STUDENTS_FOUND,
+                String.format(MESSAGE_CLASS_NOT_EXIST,
                         StringUtil.toTitleCase(VALID_CLASSGROUP_MATH.toLowerCase())));
     }
 
@@ -221,7 +226,7 @@ public class AssignAllCommandTest {
         AssignAllCommand command = new AssignAllCommand(VALID_CLASSGROUP_MATH.toLowerCase(), assignment);
 
         assertCommandFailure(command, emptyModel,
-                String.format(AssignAllCommand.MESSAGE_NO_STUDENTS_FOUND,
+                String.format(MESSAGE_CLASS_NOT_EXIST,
                         StringUtil.toTitleCase(VALID_CLASSGROUP_MATH.toLowerCase())));
     }
 
@@ -241,7 +246,7 @@ public class AssignAllCommandTest {
         // Use different case for class group name
         AssignAllCommand command = new AssignAllCommand("math 3pm", assignment);
 
-        String expectedMessage = String.format(AssignAllCommand.MESSAGE_SUCCESS,
+        String expectedMessage = String.format(MESSAGE_ASSIGNALL_SUCCESS,
                 VALID_ASSIGNMENT_MATH.toLowerCase(), 1, "math 3pm");
 
         Model expectedModel = new ModelManager(new AddressBook(), new UserPrefs());
@@ -299,5 +304,324 @@ public class AssignAllCommandTest {
                 + "{classGroupName=" + VALID_CLASSGROUP_MATH
                 + ", assignment=" + assignment + "}";
         assertEquals(expected, command.toString());
+    }
+
+    /**
+     * Tests that getCommandWord returns the correct command word.
+     */
+    @Test
+    public void getCommandWord_returnsCorrectWord() {
+        Assignment assignment = new Assignment(VALID_ASSIGNMENT_MATH, VALID_CLASSGROUP_MATH);
+        AssignAllCommand command = new AssignAllCommand(VALID_CLASSGROUP_MATH, assignment);
+        assertEquals("assignall", command.getCommandWord());
+    }
+
+    /**
+     * Tests that assigning to students with multiple class groups works correctly.
+     * Only students with the matching class group should receive the assignment.
+     */
+    @Test
+    public void execute_studentsWithMultipleClassGroups_success() {
+        Model model = new ModelManager(new AddressBook(), new UserPrefs());
+        // Alice has both Math and Physics classes
+        Person alice = new PersonBuilder().withName("Alice").withPhone("91234567")
+                .withLevel("1").withClassGroups(VALID_CLASSGROUP_MATH, VALID_CLASSGROUP_PHYSICS).build();
+        // Bob has only Physics class
+        Person bob = new PersonBuilder().withName("Bob").withPhone("92345678")
+                .withLevel("2").withClassGroups(VALID_CLASSGROUP_PHYSICS).build();
+        model.addPerson(alice);
+        model.addPerson(bob);
+
+        Assignment assignment = new Assignment(VALID_ASSIGNMENT_MATH.toLowerCase(),
+                VALID_CLASSGROUP_MATH.toLowerCase());
+        AssignAllCommand command = new AssignAllCommand(VALID_CLASSGROUP_MATH.toLowerCase(), assignment);
+
+        String expectedMessage = String.format(MESSAGE_ASSIGNALL_SUCCESS,
+                VALID_ASSIGNMENT_MATH.toLowerCase(), 1, VALID_CLASSGROUP_MATH.toLowerCase());
+
+        Model expectedModel = new ModelManager(new AddressBook(), new UserPrefs());
+        Person aliceWithAssignment = new PersonBuilder(alice)
+                .withAssignments(VALID_CLASSGROUP_MATH.toLowerCase(), VALID_ASSIGNMENT_MATH.toLowerCase()).build();
+        expectedModel.addPerson(aliceWithAssignment);
+        expectedModel.addPerson(bob);
+
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+    }
+
+    /**
+     * Tests that assigning works with class group names that have special characters.
+     */
+    @Test
+    public void execute_classGroupWithSpecialCharacters_success() {
+        Model model = new ModelManager(new AddressBook(), new UserPrefs());
+        String specialClassGroup = "math-2024";
+        Person alice = new PersonBuilder().withName("Alice").withPhone("91234567")
+                .withLevel("1").withClassGroups(specialClassGroup).build();
+        model.addPerson(alice);
+
+        Assignment assignment = new Assignment(VALID_ASSIGNMENT_MATH.toLowerCase(), specialClassGroup);
+        AssignAllCommand command = new AssignAllCommand(specialClassGroup, assignment);
+
+        String expectedMessage = String.format(MESSAGE_ASSIGNALL_SUCCESS,
+                VALID_ASSIGNMENT_MATH.toLowerCase(), 1, specialClassGroup);
+
+        Model expectedModel = new ModelManager(new AddressBook(), new UserPrefs());
+        Person aliceWithAssignment = new PersonBuilder(alice)
+                .withAssignments(specialClassGroup, VALID_ASSIGNMENT_MATH.toLowerCase()).build();
+        expectedModel.addPerson(aliceWithAssignment);
+
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+    }
+
+    /**
+     * Tests that assigning to a large number of students works correctly.
+     */
+    @Test
+    public void execute_assignToManyStudents_success() {
+        Model model = new ModelManager(new AddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(new AddressBook(), new UserPrefs());
+
+        // Create 10 students in the same class
+        for (int i = 1; i <= 10; i++) {
+            Person student = new PersonBuilder()
+                    .withName("Student" + i)
+                    .withPhone("9000000" + i)
+                    .withLevel(String.valueOf(i % 4 + 1))
+                    .withClassGroups(VALID_CLASSGROUP_MATH).build();
+            model.addPerson(student);
+
+            Person studentWithAssignment = new PersonBuilder(student)
+                    .withAssignments(VALID_CLASSGROUP_MATH.toLowerCase(),
+                            VALID_ASSIGNMENT_MATH.toLowerCase()).build();
+            expectedModel.addPerson(studentWithAssignment);
+        }
+
+        Assignment assignment = new Assignment(VALID_ASSIGNMENT_MATH.toLowerCase(),
+                VALID_CLASSGROUP_MATH.toLowerCase());
+        AssignAllCommand command = new AssignAllCommand(VALID_CLASSGROUP_MATH.toLowerCase(), assignment);
+
+        String expectedMessage = String.format(MESSAGE_ASSIGNALL_SUCCESS,
+                VALID_ASSIGNMENT_MATH.toLowerCase(), 10, VALID_CLASSGROUP_MATH.toLowerCase());
+
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+    }
+
+    /**
+     * Tests that partial assignment (some students already have it) counts correctly.
+     */
+    @Test
+    public void execute_partialAssignment_countsOnlyNewAssignments() {
+        Model model = new ModelManager(new AddressBook(), new UserPrefs());
+        // Create 5 students, 3 already have the assignment
+        Person alice = new PersonBuilder().withName("Alice").withPhone("91234567")
+                .withLevel("1").withClassGroups(VALID_CLASSGROUP_MATH)
+                .withAssignments(VALID_CLASSGROUP_MATH, VALID_ASSIGNMENT_MATH).build();
+        Person bob = new PersonBuilder().withName("Bob").withPhone("92345678")
+                .withLevel("2").withClassGroups(VALID_CLASSGROUP_MATH).build();
+        Person charlie = new PersonBuilder().withName("Charlie").withPhone("93456789")
+                .withLevel("3").withClassGroups(VALID_CLASSGROUP_MATH)
+                .withAssignments(VALID_CLASSGROUP_MATH, VALID_ASSIGNMENT_MATH).build();
+        Person david = new PersonBuilder().withName("David").withPhone("94567890")
+                .withLevel("1").withClassGroups(VALID_CLASSGROUP_MATH).build();
+        Person eve = new PersonBuilder().withName("Eve").withPhone("95678901")
+                .withLevel("2").withClassGroups(VALID_CLASSGROUP_MATH)
+                .withAssignments(VALID_CLASSGROUP_MATH, VALID_ASSIGNMENT_MATH).build();
+
+        model.addPerson(alice);
+        model.addPerson(bob);
+        model.addPerson(charlie);
+        model.addPerson(david);
+        model.addPerson(eve);
+
+        Assignment assignment = new Assignment(VALID_ASSIGNMENT_MATH.toLowerCase(),
+                VALID_CLASSGROUP_MATH.toLowerCase());
+        AssignAllCommand command = new AssignAllCommand(VALID_CLASSGROUP_MATH.toLowerCase(), assignment);
+
+        // Should only count Bob and David (2 students)
+        String expectedMessage = String.format(MESSAGE_ASSIGNALL_SUCCESS,
+                VALID_ASSIGNMENT_MATH.toLowerCase(), 2, VALID_CLASSGROUP_MATH.toLowerCase());
+
+        Model expectedModel = new ModelManager(new AddressBook(), new UserPrefs());
+        Person bobWithAssignment = new PersonBuilder(bob)
+                .withAssignments(VALID_CLASSGROUP_MATH.toLowerCase(), VALID_ASSIGNMENT_MATH.toLowerCase()).build();
+        Person davidWithAssignment = new PersonBuilder(david)
+                .withAssignments(VALID_CLASSGROUP_MATH.toLowerCase(), VALID_ASSIGNMENT_MATH.toLowerCase()).build();
+
+        expectedModel.addPerson(alice);
+        expectedModel.addPerson(bobWithAssignment);
+        expectedModel.addPerson(charlie);
+        expectedModel.addPerson(davidWithAssignment);
+        expectedModel.addPerson(eve);
+
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+    }
+
+    /**
+     * Tests equals method with null assignment.
+     */
+    @Test
+    public void equals_nullAssignment_returnsFalse() {
+        Assignment assignment = new Assignment(VALID_ASSIGNMENT_MATH, VALID_CLASSGROUP_MATH);
+        AssignAllCommand command = new AssignAllCommand(VALID_CLASSGROUP_MATH, assignment);
+
+        assertFalse(command.equals(null));
+    }
+
+    /**
+     * Tests equals method with different class object.
+     */
+    @Test
+    public void equals_differentClass_returnsFalse() {
+        Assignment assignment = new Assignment(VALID_ASSIGNMENT_MATH, VALID_CLASSGROUP_MATH);
+        AssignAllCommand command = new AssignAllCommand(VALID_CLASSGROUP_MATH, assignment);
+
+        assertFalse(command.equals("not a command"));
+    }
+
+    /**
+     * Tests that assignment name is properly formatted in success message.
+     */
+    @Test
+    public void execute_successMessage_containsCorrectAssignmentName() {
+        Model model = new ModelManager(new AddressBook(), new UserPrefs());
+        Person alice = new PersonBuilder().withName("Alice").withPhone("91234567")
+                .withLevel("1").withClassGroups(VALID_CLASSGROUP_MATH).build();
+        model.addPerson(alice);
+
+        String customAssignment = "quiz-1-chapter-3";
+        Assignment assignment = new Assignment(customAssignment, VALID_CLASSGROUP_MATH.toLowerCase());
+        AssignAllCommand command = new AssignAllCommand(VALID_CLASSGROUP_MATH.toLowerCase(), assignment);
+
+        try {
+            CommandResult result = command.execute(model);
+            String message = result.getFeedbackToUser();
+            assertTrue(message.contains(customAssignment));
+        } catch (CommandException e) {
+            throw new AssertionError("Command should not fail", e);
+        }
+    }
+
+    /**
+     * Tests logging when assignment is successfully assigned to students.
+     * Verifies that the assignment toString representation is used in logging.
+     */
+    @Test
+    public void execute_loggingAssignmentSuccess_usesToString() {
+        Model model = new ModelManager(new AddressBook(), new UserPrefs());
+        Person alice = new PersonBuilder().withName("Alice").withPhone("91234567")
+                .withLevel("1").withClassGroups(VALID_CLASSGROUP_MATH).build();
+        model.addPerson(alice);
+
+        Assignment assignment = new Assignment(VALID_ASSIGNMENT_MATH.toLowerCase(),
+                VALID_CLASSGROUP_MATH.toLowerCase());
+        AssignAllCommand command = new AssignAllCommand(VALID_CLASSGROUP_MATH.toLowerCase(), assignment);
+
+        try {
+            command.execute(model);
+            // Verify that the assignment was added successfully
+            Person updatedPerson = model.getFilteredPersonList().get(0);
+            assertTrue(updatedPerson.getAssignments().contains(assignment));
+        } catch (CommandException e) {
+            throw new AssertionError("Command should not fail", e);
+        }
+    }
+
+    /**
+     * Tests logging when students already have the assignment.
+     * Verifies that the assignment toString representation is used in logging for skipped students.
+     */
+    @Test
+    public void execute_loggingAlreadyHasAssignment_usesToString() {
+        Model model = new ModelManager(new AddressBook(), new UserPrefs());
+        Person alice = new PersonBuilder().withName("Alice").withPhone("91234567")
+                .withLevel("1").withClassGroups(VALID_CLASSGROUP_MATH)
+                .withAssignments(VALID_CLASSGROUP_MATH, VALID_ASSIGNMENT_MATH).build();
+        Person bob = new PersonBuilder().withName("Bob").withPhone("92345678")
+                .withLevel("2").withClassGroups(VALID_CLASSGROUP_MATH).build();
+        model.addPerson(alice);
+        model.addPerson(bob);
+
+        Assignment assignment = new Assignment(VALID_ASSIGNMENT_MATH.toLowerCase(),
+                VALID_CLASSGROUP_MATH.toLowerCase());
+        AssignAllCommand command = new AssignAllCommand(VALID_CLASSGROUP_MATH.toLowerCase(), assignment);
+
+        try {
+            CommandResult result = command.execute(model);
+            // Verify that only Bob got the assignment (Alice already had it)
+            assertTrue(result.getFeedbackToUser().contains("1 student"));
+        } catch (CommandException e) {
+            throw new AssertionError("Command should not fail", e);
+        }
+    }
+
+    /**
+     * Tests that assignment with different class group toString format is handled correctly.
+     * Verifies the full assignment representation [name (classgroup)] in logs.
+     */
+    @Test
+    public void execute_assignmentToStringFormat_correctlyFormatted() {
+        Model model = new ModelManager(new AddressBook(), new UserPrefs());
+        String classGroup = "physics-2024";
+        String assignmentName = "lab-report-1";
+
+        Person alice = new PersonBuilder().withName("Alice").withPhone("91234567")
+                .withLevel("1").withClassGroups(classGroup).build();
+        model.addPerson(alice);
+
+        Assignment assignment = new Assignment(assignmentName, classGroup);
+        AssignAllCommand command = new AssignAllCommand(classGroup, assignment);
+
+        try {
+            CommandResult result = command.execute(model);
+            // Verify successful assignment
+            String message = result.getFeedbackToUser();
+            assertTrue(message.contains(assignmentName));
+            assertTrue(message.contains(classGroup));
+
+            // Verify the person now has the assignment
+            Person updatedPerson = model.getFilteredPersonList().get(0);
+            assertTrue(updatedPerson.getAssignments().contains(assignment));
+        } catch (CommandException e) {
+            throw new AssertionError("Command should not fail", e);
+        }
+    }
+
+    /**
+     * Tests the assignedCount incrementing when assignment is successfully added.
+     * This directly tests the code path: model.setPerson(person, editedPerson); assignedCount++;
+     */
+    @Test
+    public void execute_assignedCountIncrement_correctCount() {
+        Model model = new ModelManager(new AddressBook(), new UserPrefs());
+
+        // Create 3 students, 1 already has the assignment
+        Person alice = new PersonBuilder().withName("Alice").withPhone("91234567")
+                .withLevel("1").withClassGroups(VALID_CLASSGROUP_MATH).build();
+        Person bob = new PersonBuilder().withName("Bob").withPhone("92345678")
+                .withLevel("2").withClassGroups(VALID_CLASSGROUP_MATH)
+                .withAssignments(VALID_CLASSGROUP_MATH, VALID_ASSIGNMENT_MATH).build();
+        Person charlie = new PersonBuilder().withName("Charlie").withPhone("93456789")
+                .withLevel("3").withClassGroups(VALID_CLASSGROUP_MATH).build();
+
+        model.addPerson(alice);
+        model.addPerson(bob);
+        model.addPerson(charlie);
+
+        Assignment assignment = new Assignment(VALID_ASSIGNMENT_MATH.toLowerCase(),
+                VALID_CLASSGROUP_MATH.toLowerCase());
+        AssignAllCommand command = new AssignAllCommand(VALID_CLASSGROUP_MATH.toLowerCase(), assignment);
+
+        try {
+            CommandResult result = command.execute(model);
+            // Should report 2 students (Alice and Charlie), Bob already had it
+            assertTrue(result.getFeedbackToUser().contains("2 student"));
+
+            // Verify all three now have the assignment
+            for (Person person : model.getFilteredPersonList()) {
+                assertTrue(person.getAssignments().contains(assignment));
+            }
+        } catch (CommandException e) {
+            throw new AssertionError("Command should not fail", e);
+        }
     }
 }
