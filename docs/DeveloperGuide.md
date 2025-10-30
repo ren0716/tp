@@ -9,26 +9,66 @@
 <!-- MarkBind will generate the table of contents here -->
 </div>
 
---------------------------------------------------------------------------------------------------------------------
+----
 
-## **Acknowledgements**
+## Acknowledgements
 
-_{ list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well }_
-
---------------------------------------------------------------------------------------------------------------------
-
-## **Setting up, getting started**
-
-Refer to the guide [_Setting up and getting started_](SettingUp.md).
+* Libraries used: [JavaFX](https://openjfx.io/), [Jackson](https://github.com/FasterXML/jackson), [JUnit5](https://github.com/junit-team/junit5)
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Design**
+## Setting Up
 
-<div markdown="span" class="alert alert-primary">
+### Setting up the project in your computer
 
-<span class="fas fa-lightbulb" aria-hidden="true"></span> <strong>Tip:</strong> The `.puml` files used to create diagrams are in this document `docs/diagrams` folder. Refer to the [_PlantUML Tutorial_ at se-edu/guides](https://se-education.org/guides/tutorials/plantUml.html) to learn how to create and edit diagrams.
+<div markdown="span" class="alert alert-warning"><span class="fas fa-exclamation-triangle" aria-hidden="true"></span> <strong>Caution:</strong>
+Follow the steps in the following guide precisely. Things will not work out if you deviate in some steps.
 </div>
+
+First, **fork** this repo, and **clone** the fork into your computer.
+
+If you plan to use Intellij IDEA (highly recommended):
+
+1. **Configure the JDK**: Follow the guide [_[se-edu/guides] IDEA: Configuring the JDK_](https://se-education.org/guides/tutorials/intellijJdk.html) to ensure Intellij is configured to use **JDK 17**.
+1. **Import the project as a Gradle project**: Follow the guide [_[se-edu/guides] IDEA: Importing a Gradle project_](https://se-education.org/guides/tutorials/intellijImportGradleProject.html) to import the project into IDEA.<br>
+   ⚠️ Note: Importing a Gradle project is slightly different from importing a normal Java project.
+1. **Verify the setup**:
+   1. Run the `seedu.address.Main` and try a few commands.
+   1. [Run the tests](Testing.md) to ensure they all pass.
+
+### Before writing code
+
+1. **Configure the coding style**
+
+   If using IDEA, follow the guide [_[se-edu/guides] IDEA: Configuring the code style_](https://se-education.org/guides/tutorials/intellijCodeStyle.html) to set up IDEA's coding style to match ours.
+
+   <div markdown="span" class="alert alert-primary"><span class="fas fa-lightbulb" aria-hidden="true"></span> <strong>Tip:</strong>
+   Optionally, you can follow the guide [_[se-edu/guides] Using Checkstyle_](https://se-education.org/guides/tutorials/checkstyle.html) to find how to use the CheckStyle within IDEA e.g., to report problems _as_ you write code.
+   </div>
+
+1. **Set up CI**
+
+   This project comes with a GitHub Actions config files (in `.github/workflows` folder). When GitHub detects those files, it will run the CI for your project automatically at each push to the `master` branch or to any PR. No set up required.
+
+1. **Learn the design**
+
+   When you are ready to start coding, we recommend that you get some sense of the overall design by reading about [TutorTrack's architecture](DeveloperGuide.md#architecture).
+
+1. **Do the tutorials**
+   These tutorials will help you get acquainted with the codebase.
+
+   * [Tracing code](https://se-education.org/guides/tutorials/ab3TracingCode.html)
+   * [Adding a new command](https://se-education.org/guides/tutorials/ab3AddRemark.html)
+   * [Removing fields](https://se-education.org/guides/tutorials/ab3RemovingFields.html)
+
+--------------------------------------------------------------------------------------------------------------------
+
+## Design
+
+<box type="info" seamless>
+
+**Tip:** The `.puml` files used to create diagrams are in this document `docs/diagrams` folder. Refer to the [_PlantUML Tutorial_ at se-edu/guides](https://se-education.org/guides/tutorials/plantUml.html) to learn how to create and edit diagrams.
+</box>
 
 ### Architecture
 
@@ -159,7 +199,7 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Implementation**
+## Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
 
@@ -263,17 +303,139 @@ _{Explain here how the data archiving feature will be implemented}_
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Documentation, logging, testing, configuration, dev-ops**
+## Documentation, logging, testing, configuration, dev-ops
 
-* [Documentation guide](Documentation.md)
-* [Testing guide](Testing.md)
-* [Logging guide](Logging.md)
-* [Configuration guide](Configuration.md)
-* [DevOps guide](DevOps.md)
+### Testing
+
+#### Running tests
+
+There are two ways to run tests.
+
+* **Method 1: Using IntelliJ JUnit test runner**
+  * To run all tests, right-click on the `src/test/java` folder and choose `Run 'All Tests'`
+  * To run a subset of tests, you can right-click on a test package,
+    test class, or a test and choose `Run 'ABC'`
+* **Method 2: Using Gradle**
+  * Open a console and run the command `gradlew clean test` (Mac/Linux: `./gradlew clean test`)
+
+<box type="info" seamless>
+
+**Link**: Read [this Gradle Tutorial from the se-edu/guides](https://se-education.org/guides/tutorials/gradle.html) to learn more about using Gradle.
+</box>
+
+#### Types of tests
+
+This project has three types of tests:
+
+1. *Unit tests* targeting the lowest level methods/classes.<br>
+   e.g. `seedu.address.commons.StringUtilTest`
+1. *Integration tests* that are checking the integration of multiple code units (those code units are assumed to be working).<br>
+   e.g. `seedu.address.storage.StorageManagerTest`
+1. Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together.<br>
+   e.g. `seedu.address.logic.LogicManagerTest`
+
+### DevOps
+
+#### Build automation
+
+This project uses Gradle for **build automation and dependency management**. **You are recommended to read [this Gradle Tutorial from the se-edu/guides](https://se-education.org/guides/tutorials/gradle.html)**.
+
+
+Given below are how to use Gradle for some important project tasks.
+
+
+* **`clean`**: Deletes the files created during the previous build tasks (e.g. files in the `build` folder).<br>
+  e.g. `./gradlew clean`
+
+* **`shadowJar`**: Uses the ShadowJar plugin to create a fat JAR file in the `build/lib` folder, *if the current file is outdated*.<br>
+  e.g. `./gradlew shadowJar`.
+
+* **`run`**: Builds and runs the application.<br>
+  **`runShadow`**: Builds the application as a fat JAR, and then runs it.
+
+* **`checkstyleMain`**: Runs the code style check for the main code base.<br>
+  **`checkstyleTest`**: Runs the code style check for the test code base.
+
+* **`test`**: Runs all tests.
+  * `./gradlew test` — Runs all tests
+  * `./gradlew clean test` — Cleans the project and runs tests
+
+#### Continuous integration (CI)
+
+This project uses GitHub Actions for CI. The project comes with the necessary GitHub Actions configurations files (in the `.github/workflows` folder). No further setting up required.
+
+##### Code coverage
+
+As part of CI, this project uses Codecov to generate coverage reports. When CI runs, it will generate code coverage data (based on the tests run by CI) and upload that data to the CodeCov website, which in turn can provide you more info about the coverage of your tests.
+
+However, because Codecov is known to run into intermittent problems (e.g., report upload fails) due to issues on the Codecov service side, the CI is configured to pass even if the Codecov task failed. Therefore, developers are advised to check the code coverage levels periodically and take corrective actions if the coverage level falls below desired levels.
+
+To enable Codecov for forks of this project, follow the steps given in [this se-edu guide](https://se-education.org/guides/tutorials/codecov.html).
+
+##### Repository-wide checks
+
+In addition to running Gradle checks, CI includes some repository-wide checks. Unlike the Gradle checks which only cover files used in the build process, these repository-wide checks cover all files in the repository. They check for repository rules which are hard to enforce on development machines such as line ending requirements.
+
+These checks are implemented as POSIX shell scripts, and thus can only be run on POSIX-compliant operating systems such as macOS and Linux. To run all checks locally on these operating systems, execute the following in the repository root directory:
+
+`./config/travis/run-checks.sh`
+
+Any warnings or errors will be printed out to the console.
+
+**If adding new checks:**
+
+* Checks are implemented as executable `check-*` scripts within the `.github` directory. The `run-checks.sh` script will automatically pick up and run files named as such. That is, you can add more such files if you need and the CI will do the rest.
+
+* Check scripts should print out errors in the format `SEVERITY:FILENAME:LINE: MESSAGE`
+  * SEVERITY is either ERROR or WARN.
+  * FILENAME is the path to the file relative to the current directory.
+  * LINE is the line of the file where the error occurred and MESSAGE is the message explaining the error.
+
+* Check scripts must exit with a non-zero exit code if any errors occur.
+
+#### Making a release
+
+Here are the steps to create a new release.
+
+1. Update the version number in [`MainApp.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/MainApp.java).
+1. Generate a fat JAR file using Gradle (i.e., `gradlew shadowJar`).
+1. Tag the repo with the version number. e.g. `v0.1`
+1. [Create a new release using GitHub](https://help.github.com/articles/creating-releases/). Upload the JAR file you created.
+
+### Logging
+
+* We are using `java.util.logging` package for logging.
+* The `LogsCenter` class is used to manage the logging levels and logging destinations.
+*  The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level.
+*  Log messages are output through the console and to a `.log` file.
+*  The output logging level can be controlled using the `logLevel` setting in the configuration file (See the [Configuration guide](#configuration) section).
+* **When choosing a level for a log message**, follow the conventions given in [_[se-edu/guides] Java: Logging conventions_](https://se-education.org/guides/conventions/java/logging.html).
+
+### Documentation
+
+**Setting up and maintaining the project website:**
+
+* We use [**MarkBind**](https://markbind.org/) to manage documentation.
+* The `docs/` folder contains the source files for the documentation website.
+* To learn how to set it up and maintain the project website, follow the guide [[se-edu/guides] Working with Forked MarkBind sites](https://se-education.org/guides/tutorials/markbind-forked-sites.html).
+
+**Style guidance:**
+
+* Follow the [**_Google developer documentation style guide_**](https://developers.google.com/style).
+* Also relevant is the [_se-edu/guides **Markdown coding standard**_](https://se-education.org/guides/conventions/markdown.html).
+
+
+**Converting to PDF**
+
+* See the guide [_se-edu/guides **Saving web documents as PDF files**_](https://se-education.org/guides/tutorials/savingPdf.html).
+
+### Configuration
+
+Certain properties of the application can be controlled (e.g user preferences file location, logging level) through the configuration file (default: `config.json`).
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Appendix: Requirements**
+## Appendix: Requirements
 
 ### Product scope
 
@@ -339,12 +501,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Use case: Add a person**
 
-**Primary Actor:** Private Tutor
-**Goal:** Add a new student to track lessons and assignments.
+**Primary Actor:** Secondary School Tutor \
+**Goal:** Add a new student to track classes and assignments.
 
 **Preconditions**
 * TutorTrack is running
-* The tutor has the student’s name, phone number (SG format), and level.
+* The tutor has the student’s name, phone number, and level.
 
 **Minimal Guarantees**
 * No partial/unknown student is created.
@@ -371,19 +533,19 @@ Use case ends.
   * 1a1. System shows specific validation errors and requests corrections.
   * 1a2. Tutor corrects input.
 
-    Use case resumes at step 2
+    Use case resumes at step 2.
 
-* 2a. Duplicate (same name + same phone)
-  * 2a1. System rejects and shows “student already exists”.
+* 2a. Duplicate (same name and phone)
+  * 2a1. System shows an error and keeps the list unchanged. \
     Use case ends.
 
 * 3a. Storage write fails
-  * 3a1. System rolls back creation and shows a failure message.
+  * 3a1. System rolls back creation and shows a failure message. \
     Use case ends.
 
 **Use case: Delete a person**
 
-**Primary Actor:** Private Tutor
+**Primary Actor:** Secondary School Tutor \
 **Goal:** Remove a student who is no longer being taught.
 
 **Preconditions**
@@ -405,7 +567,7 @@ Use case ends.
 
 **Extensions**
 
-* 1a. Invalid selection (index out of bounds or no item)
+* 1a. Invalid selection (invalid index or no item)
   * 1a1. System shows an error and keeps list unchanged. \
     Use case ends.
 
@@ -415,7 +577,7 @@ Use case ends.
 
 **Use case: Add Class to Student**
 
-**Primary Actor:** Private Tutor
+**Primary Actor:** Secondary School Tutor \
 **Goal:** Add a class for a specific student.
 
 **Preconditions:**
@@ -437,17 +599,23 @@ Use case ends.
 
 **Extensions:**
 
-* 3a. Duplicate class (same class name)
-  * 3a1. System shows an error and keeps the list unchanged.
+* 1a. Missing/invalid class details
+  * 1a1. System shows specific validation errors and requests corrections.
+  * 1a2. Tutor corrects input.
+
+    Use case resumes at step 2.
+
+* 2a. Duplicate class (same class name)
+  * 2a1. System shows an error and keeps the list unchanged. \
     Use case ends.
 
-* 4a. Storage write fails:
-  * 4a1. System removes class from the student and shows a failure message.
+* 3a. Storage write fails:
+  * 3a1. System removes class from the student and shows a failure message. \
     Use case ends.
 
 **Use Case: Delete Class from Student**
 
-**Primary Actor:** Private Tutor
+**Primary Actor:** Secondary School Tutor \
 **Goal:** Remove a class from a student.
 
 **Preconditions:**
@@ -468,21 +636,97 @@ Use case ends.
 Use case ends.
 
 **Extensions:**
-* 2a. Missing/invalid class identification
-  * 2a1. System shows an error and keeps the list unchanged.
-    Use case ends
+* 1a. Missing/invalid class details
+    * 1a1. System shows specific validation errors and requests corrections.
+    * 1a2. Tutor corrects input.
 
-* 2b. Student not enrolled in the specified class
-  * 2b1. System shows an error and keeps the list unchanged.
+      Use case resumes at step 2.
+
+* 2a. Student not enrolled in the specified class
+  * 2a1. System shows an error and keeps the list unchanged. \
     Use case ends.
 
 * 3a. Storage write fails
-  * 3a1. System adds back class from the student and shows a failure message.
+  * 3a1. System adds back class from the student and shows a failure message. \
+    Use case ends.
+
+**Use Case: Assign Assignment to Student**
+
+**Primary Actor:** Secondary School Tutor \
+**Goal:** Assign an assignment to a student in a class.
+
+**Preconditions**
+* The student exists and is enrolled in the specified class.
+
+**Minimal Guarantees**
+* Assignment is added to the student.
+
+**Success Guarantees**
+* Assignment appears in the student’s assignment list and data is saved.
+
+**MSS**
+1. Tutor initiates “assign” to student in class.
+2. System validates details and checks for duplicate assignments.
+3. System adds the assignment to the student and saves data.
+4. System shows success and updates the student’s details.
+
+Use case ends.
+
+**Extensions**
+* 1a. Missing/invalid assignment details
+  * 1a1. System shows specific validation errors and requests corrections.
+  * 1a2. Tutor corrects input.
+
+    Use case resumes at step 2.
+
+* 2a. Duplicate assignment (same assignment belonging to same class)
+  * 2a1. System shows an error and keeps the list unchanged. \
+    Use case ends.
+
+* 3a. Storage write fails
+  * 3a1. System removes assignment from the student and shows a failure message. \
+    Use case ends.
+
+**Use Case: Delete Assignment from Student**
+
+**Primary Actor:** Secondary School Tutor \
+**Goal:** Remove an assignment from a student.
+
+**Preconditions**
+* The student exists and has the specified assignment.
+
+**Minimal Guarantees**
+* No data corruption; other assignments remain.
+
+**Success Guarantees**
+* The specific assignment is removed and the change is saved.
+
+**MSS**
+1. Tutor initiates “unassign” from student.
+2. System validates the selected entry and checks whether the student has the specified assignment to delete.
+3. System removes the assignment and saves data.
+4. System shows success and updates the student’s details.
+
+Use case ends.
+
+**Extensions**
+* 1a. Missing/invalid assignment details
+  * 1a1. System shows specific validation errors and requests corrections.
+  * 1a2. Tutor corrects input.
+
+    Use case resumes at step 2.
+
+* 2a. Student does not have the specified assignment
+  * 2a1. System shows an error and keeps the list unchanged. \
+    Use case ends.
+
+* 3a. Storage write fails
+  * 3a1. System adds back assignment to the student and shows a failure message. \
     Use case ends.
 
 **Use Case: View All Active Students**
 
-**Primary Actor:** Private Tutor
+**Primary Actor:** Secondary School Tutor \
 **Goal:** See the complete list of currently stored students.
 
 **Preconditions**
@@ -504,7 +748,7 @@ Use case ends.
 * 2a. No students exist
   * 2a1. System shows “no records” message.
 
-    Use Case Ends
+    Use case ends.
 
 
 *{More to be added}*
@@ -534,21 +778,22 @@ Use case ends.
 ### Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
-* **Student**: A core entity in TutorTrack representing an **individual learner**, with an academic level, parent contact, classes, and assignments.
-* **Assignment**: A **task linked to a student**, containing a title, description, subject, due date, and completion status.
-* **Class**: A **scheduled lesson** that groups students and assignments, associated with a subject and a time.
-* **Level**: The **academic year** of a student, limited to **Secondary 1 – 4**.
-* **PhoneNumber** : The parent’s **contact number** associated with a student, restricted to **Singapore format (+65XXXXXXXX)**.
-* **Subject**: The **academic subject** linked to a class or assignment (e.g. _Physics_, _English_).
+* **Student**: A core entity in TutorTrack representing an **individual learner**, with a name, academic level, phone number, classes, and assignments.
+* **Assignment**: A **task linked to a student**, containing a name and completion status.
+* **Class**: A **scheduled lesson** that groups students and assignments.
+* **Level**: The **academic year** of a student, limited to **Secondary 1 – 5**.
+* **Phone Number** : The student’s **contact number**, restricted to **at least 3 digits**.
 * **Duplicate student**: A student with the **same name and phone number** as an existing student.
-* **Filtered list**: A **subset of the student list** shown after running commands such as `find` or `class`.
-* **Command format**: The **syntax** a user must follow when entering commands (e.g., `add n/NAME p/PHONE_NUMBER l/LEVEL`).
+* **Filtered list**: A **subset of the student list** shown after running commands such as `find` or `filter`.
+* **Index**: A **1-based position** of a student in the currently displayed list.
+* **Status message**: A **text message** displayed in the app’s status bar to inform the user about the result of their last action.
+* **Command format**: The **syntax** a user must follow when entering commands (e.g., `add n/NAME p/PHONE l/LEVEL`).
 * **Valid command format error**: An **error message** displayed when the command syntax does not follow the required format (e.g., missing parameters).
 * **Storage file**: The file **`data/tutortrack.json`**, where TutorTrack **saves and loads all data**.
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Appendix: Instructions for manual testing**
+## **Appendix: Instructions for Manual Testing**
 
 Given below are instructions to test the app manually.
 
@@ -600,3 +845,29 @@ testers are expected to do more *exploratory* testing.
    1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
 
 1. _{ more test cases …​ }_
+
+--------------------------------------------------------------------------------------------------------------------
+
+## **Appendix: Planned Enhancements**
+
+Team size: 5
+
+1. **Make accepted phone number formats more flexible and accurate:**
+Currently, we accept phone numbers that contain only numbers
+and are at least 3 digits long.
+We plan to make phone numbers be at least 8 digits long (in Singapore context) and accept formats with
+spaces, dashes, or plus signs (e.g., "9123 4567", "912-34567", "+65 91234567").
+2. **Make error messages for assign & unassign more cohesive:**
+Currently, if we try to assign to a student an assignment belonging to a class
+they are not in, we get error message
+`Student does not belong to the class group: {class}` but if we do the same for unassign,
+we get `Cannot delete non-existent assignment(s): [{assignment} ({class})]`.
+We plan to make both error messages follow a similar format, where we check if
+the student at INDEX has that class first and show
+`Student does not belong to the class group: {class}` straightaway if they do not.
+3. **Improve name input validation to detect invalid prefix:**
+Currently, we only throw error when user inputs invalid prefixes behind `n/`
+prefix with a space between them, e.g., `add n/John Doe a/hw1`, but allow invalid
+prefixes when there is no space, e.g., `add n/John Doea/hw1`.
+We plan to allow such cases but with an additional warning message to inform
+the user of possible invalid prefix if this was unintentional to avoid confusion.
