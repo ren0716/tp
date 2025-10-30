@@ -36,26 +36,6 @@ public class ParserUtilTest {
     private static final String WHITESPACE = " \t\r\n";
 
     @Test
-    public void parseIndex_invalidInput_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseIndex("10 a"));
-    }
-
-    @Test
-    public void parseIndex_outOfRangeInput_throwsParseException() {
-        assertThrows(ParseException.class, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, ()
-            -> ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1)));
-    }
-
-    @Test
-    public void parseIndex_validInput_success() throws Exception {
-        // No whitespaces
-        assertEquals(INDEX_FIRST_PERSON, ParserUtil.parseIndex("1"));
-
-        // Leading and trailing whitespaces
-        assertEquals(INDEX_FIRST_PERSON, ParserUtil.parseIndex("  1  "));
-    }
-
-    @Test
     public void parseMultipleIndex_singleIndex_success() throws Exception {
         // Single index without whitespace
         List<Index> expected = Arrays.asList(INDEX_FIRST_PERSON);
@@ -171,29 +151,29 @@ public class ParserUtilTest {
 
 
     @Test
-    public void parseIndexFromPreamble_nullPreamble_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseIndexFromPreamble(null, "usage"));
+    public void parseIndexFromPreamble_nullPreamble_throwsParseOneException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseOneIndex(null, "usage"));
     }
 
     @Test
-    public void parseIndexFromPreamble_blankPreamble_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseIndexFromPreamble("   ", "usage"));
+    public void parseIndexFromPreamble_blankPreamble_throwsParseOneException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseOneIndex("   ", "usage"));
     }
 
     @Test
-    public void parseIndexFromPreamble_multipleTokens_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseIndexFromPreamble("1 2", "usage"));
+    public void parseIndexFromPreamble_multipleTokens_throwsParseOneException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseOneIndex("1 2", "usage"));
     }
 
     @Test
-    public void parseIndexFromPreamble_invalidIndex_passesThroughIndexMessage() {
+    public void parseIndexFromPreamble_invalidIndex_passesThroughOneIndexMessage() {
         assertThrows(ParseException.class, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, ()
-                -> ParserUtil.parseIndexFromPreamble("abc", "usage"));
+                -> ParserUtil.parseOneIndex("abc", "usage"));
     }
 
     @Test
-    public void parseIndexFromPreamble_validIndex_success() throws Exception {
-        assertEquals(INDEX_FIRST_PERSON, ParserUtil.parseIndexFromPreamble(" 1 ", "usage"));
+    public void parseIndexFromPreamble_validOneIndex_success() throws Exception {
+        assertEquals(INDEX_FIRST_PERSON, ParserUtil.parseOneIndex(" 1 ", "usage"));
     }
 
     @Test
