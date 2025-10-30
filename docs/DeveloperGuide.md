@@ -710,21 +710,6 @@ testers are expected to do more *exploratory* testing.
     1. Other incorrect edit commands to try: `unassignall c/`, `unassignall c/x a/y`, `...` (where all students in class x do not have assignment y)<br>
        Expected: Similar to previous.
 
-### Marking an assignment
-
-1. Deleting an assignment from all students in a class
-
-    1. Prerequisites: List all students using the `list` command. Multiple students in the list have the specified class and specified assignment in that class.
-
-    1. Test case: `unassignall c/CLASS a/ASSIGNMENT`<br>
-       Expected: Assignment `ASSIGNMENT` is deleted from all contacts in the list who have class `CLASS`. Success message shown with the number of students the assignment was deleted from.
-
-    1. Test case: `unassignall `<br>
-       Expected: No assignment is deleted. Error details shown in the status message. Status bar remains the same.
-
-    1. Other incorrect edit commands to try: `unassignall c/`, `unassignall c/x a/y`, `...` (where all students in class x do not have assignment y)<br>
-       Expected: Similar to previous.
-
 ### Saving data
 
 1. Dealing with missing/corrupted data files
