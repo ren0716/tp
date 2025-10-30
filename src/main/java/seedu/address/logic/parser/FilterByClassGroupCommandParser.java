@@ -2,7 +2,11 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSGROUP;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LEVEL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.ParserUtil.arePrefixesPresent;
 
 import java.util.Iterator;
@@ -26,12 +30,16 @@ public class FilterByClassGroupCommandParser implements Parser<FilterByClassGrou
      */
     public FilterByClassGroupCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_CLASSGROUP);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args);
+
         if (!arePrefixesPresent(argMultimap, PREFIX_CLASSGROUP) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     FilterByClassGroupCommand.MESSAGE_USAGE));
         }
+
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CLASSGROUP);
+        argMultimap.verifyNoInvalidPrefixesFor(PREFIX_ASSIGNMENT, PREFIX_NAME, PREFIX_LEVEL, PREFIX_PHONE);
 
         Set<ClassGroup> classGroups = ParserUtil
             .parseClassGroups(argMultimap.getAllValues(PREFIX_CLASSGROUP));
@@ -46,5 +54,4 @@ public class FilterByClassGroupCommandParser implements Parser<FilterByClassGrou
         String classGroupName = classGroup.getClassGroupName();
         return new FilterByClassGroupCommand(new StudentInClassGroupPredicate(classGroupName));
     }
-
 }

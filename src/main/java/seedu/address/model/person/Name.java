@@ -13,8 +13,8 @@ public class Name {
     // must contain at least one alphanumeric character
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} \\-.'/]*";
     public static final String MESSAGE_CONSTRAINTS = "Names must start with and contain alphanumeric characters, "
-            + "and it should not be blank\n"
-            + "Allowed special characters are hyphens (-), apostrophes ('), periods (.), slashes (/), and spaces";
+            + "and it should not be blank.\n"
+            + "Allowed special characters are hyphens (-), apostrophes ('), periods (.), slashes (/), and spaces.";
     public final String fullName;
 
     /**

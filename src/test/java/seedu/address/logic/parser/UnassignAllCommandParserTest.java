@@ -7,6 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_ASSIGNMENT_MATH
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CLASSGROUP_MATH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSGROUP;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
@@ -239,5 +240,15 @@ public class UnassignAllCommandParserTest {
         assertParseSuccess(parser,
                 " " + PREFIX_CLASSGROUP + classGroupName + " " + PREFIX_ASSIGNMENT + assignmentName,
                 new UnassignAllCommand(classGroupName.toLowerCase(), assignment));
+    }
+
+    @Test
+    public void parse_invalidPrefix_failure() {
+        // duplicate assignment prefix
+        assertParseFailure(parser,
+                " " + PREFIX_CLASSGROUP + VALID_CLASSGROUP_MATH
+                        + " " + PREFIX_ASSIGNMENT + VALID_ASSIGNMENT_MATH
+                        + " " + PREFIX_NAME,
+                Messages.getErrorMessageForInvalidPrefixes(PREFIX_NAME));
     }
 }

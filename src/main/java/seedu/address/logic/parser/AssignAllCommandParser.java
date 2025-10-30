@@ -5,6 +5,9 @@ import static seedu.address.logic.Messages.MESSAGE_CLASS_NOT_PROVIDED;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSGROUP;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LEVEL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -24,8 +27,7 @@ public class AssignAllCommandParser implements Parser<AssignAllCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public AssignAllCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_CLASSGROUP, PREFIX_ASSIGNMENT);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args);
 
         // keep preamble check as invalid format
         if (!argMultimap.getPreamble().isEmpty()) {
@@ -33,6 +35,7 @@ public class AssignAllCommandParser implements Parser<AssignAllCommand> {
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CLASSGROUP, PREFIX_ASSIGNMENT);
+        argMultimap.verifyNoInvalidPrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_LEVEL);
 
         Optional<Prefix> missingOrEmpty = firstMissingOrEmptyPrefix(argMultimap, PREFIX_CLASSGROUP, PREFIX_ASSIGNMENT);
         if (missingOrEmpty.isPresent()) { // There is a missing or empty prefix
