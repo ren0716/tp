@@ -1,6 +1,3 @@
-<!-- Ensure custom site styles are loaded on every page -->
-<link rel="stylesheet" href="{{baseUrl}}/stylesheets/main.css">
-
 <div class="top-nav">
   <a class="brand" href="{{baseUrl}}/index.html">TutorTrack</a>
   <div class="nav-links">

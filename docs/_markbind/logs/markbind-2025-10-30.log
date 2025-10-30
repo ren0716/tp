@@ -859,3 +859,744 @@ Error while rendering '/Users/hninsatphyusin/Desktop/tp/docs/_markbind/layouts/d
 2025-10-29T18:19:48.492Z - info: Site data built
 2025-10-29T18:19:48.492Z - info: Pages rebuilt
 2025-10-29T18:19:48.492Z - info: Website regeneration complete! Total build time: 0.017s
+2025-10-30T07:35:08.256Z - info: Website generation started at 3:35:08 PM
+2025-10-30T07:35:08.265Z - info: Building assets...
+2025-10-30T07:35:08.275Z - info: Assets built
+2025-10-30T07:35:08.275Z - info: Generating pages...
+2025-10-30T07:35:08.418Z - error: Layout /Users/hninsatphyusin/Desktop/tp/docs/_markbind/layouts/default.md uses more than one {{ content }} variable.
+2025-10-30T07:35:12.096Z - debug:  
+2025-10-30T07:35:12.273Z - debug:  
+2025-10-30T07:35:12.537Z - debug:  
+2025-10-30T07:35:12.585Z - debug:  
+2025-10-30T07:35:12.703Z - debug:  
+2025-10-30T07:35:12.778Z - debug:  
+2025-10-30T07:35:12.780Z - debug:  
+2025-10-30T07:35:12.799Z - debug:  
+2025-10-30T07:35:12.833Z - debug:  
+2025-10-30T07:35:12.888Z - debug:  
+2025-10-30T07:35:12.889Z - debug:  
+2025-10-30T07:35:12.925Z - debug:  
+2025-10-30T07:35:12.951Z - debug:  
+2025-10-30T07:35:13.024Z - debug:  
+2025-10-30T07:35:13.024Z - debug:  
+2025-10-30T07:35:13.026Z - debug:  
+2025-10-30T07:35:13.043Z - debug:  
+2025-10-30T07:35:13.070Z - debug:  
+2025-10-30T07:35:13.071Z - debug:  
+2025-10-30T07:35:13.075Z - error:  SyntaxError: Invalid or unexpected token
+    at new Function (<anonymous>)
+    at Object.<anonymous> (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/@markbind/core/src/Page/PageVueServerRenderer.js:122:24)
+    at Generator.next (<anonymous>)
+    at /opt/homebrew/lib/node_modules/markbind-cli/node_modules/@markbind/core/src/Page/PageVueServerRenderer.js:31:71
+    at new Promise (<anonymous>)
+    at __awaiter (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/@markbind/core/src/Page/PageVueServerRenderer.js:27:12)
+    at Object.renderVuePage (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/@markbind/core/src/Page/PageVueServerRenderer.js:117:12)
+    at Page.<anonymous> (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/@markbind/core/src/Page/index.js:519:84)
+    at Generator.next (<anonymous>)
+    at fulfilled (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/@markbind/core/src/Page/index.js:28:58)
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:569:9)
+    at process.processTimers (node:internal/timers:543:7)
+2025-10-30T07:35:13.076Z - warn:  Error: Error while generating /Users/hninsatphyusin/Desktop/tp/docs/Configuration.md
+    at Site.<anonymous> (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/@markbind/core/src/Site/index.js:970:28)
+    at Generator.throw (<anonymous>)
+    at rejected (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/@markbind/core/src/Site/index.js:29:65)
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:569:9)
+    at process.processTimers (node:internal/timers:543:7)
+2025-10-30T07:35:13.076Z - error:  SyntaxError: Invalid or unexpected token
+    at new Function (<anonymous>)
+    at Object.<anonymous> (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/@markbind/core/src/Page/PageVueServerRenderer.js:122:24)
+    at Generator.next (<anonymous>)
+    at /opt/homebrew/lib/node_modules/markbind-cli/node_modules/@markbind/core/src/Page/PageVueServerRenderer.js:31:71
+    at new Promise (<anonymous>)
+    at __awaiter (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/@markbind/core/src/Page/PageVueServerRenderer.js:27:12)
+    at Object.renderVuePage (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/@markbind/core/src/Page/PageVueServerRenderer.js:117:12)
+    at Page.<anonymous> (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/@markbind/core/src/Page/index.js:519:84)
+    at Generator.next (<anonymous>)
+    at fulfilled (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/@markbind/core/src/Page/index.js:28:58)
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:569:9)
+    at process.processTimers (node:internal/timers:543:7)
+2025-10-30T07:35:13.077Z - error:  SyntaxError: Invalid or unexpected token
+    at new Function (<anonymous>)
+    at Object.<anonymous> (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/@markbind/core/src/Page/PageVueServerRenderer.js:122:24)
+    at Generator.next (<anonymous>)
+    at /opt/homebrew/lib/node_modules/markbind-cli/node_modules/@markbind/core/src/Page/PageVueServerRenderer.js:31:71
+    at new Promise (<anonymous>)
+    at __awaiter (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/@markbind/core/src/Page/PageVueServerRenderer.js:27:12)
+    at Object.renderVuePage (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/@markbind/core/src/Page/PageVueServerRenderer.js:117:12)
+    at Page.<anonymous> (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/@markbind/core/src/Page/index.js:519:84)
+    at Generator.next (<anonymous>)
+    at fulfilled (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/@markbind/core/src/Page/index.js:28:58)
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:569:9)
+    at process.processTimers (node:internal/timers:543:7)
+2025-10-30T07:35:13.078Z - error:  SyntaxError: Invalid or unexpected token
+    at new Function (<anonymous>)
+    at Object.<anonymous> (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/@markbind/core/src/Page/PageVueServerRenderer.js:122:24)
+    at Generator.next (<anonymous>)
+    at /opt/homebrew/lib/node_modules/markbind-cli/node_modules/@markbind/core/src/Page/PageVueServerRenderer.js:31:71
+    at new Promise (<anonymous>)
+    at __awaiter (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/@markbind/core/src/Page/PageVueServerRenderer.js:27:12)
+    at Object.renderVuePage (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/@markbind/core/src/Page/PageVueServerRenderer.js:117:12)
+    at Page.<anonymous> (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/@markbind/core/src/Page/index.js:519:84)
+    at Generator.next (<anonymous>)
+    at fulfilled (/opt/homebrew/lib/node_modules/markbind-cli/node_modules/@markbind/core/src/Page/index.js:28:58)
+2025-10-30T07:35:13.125Z - info: Site data built
+2025-10-30T07:35:13.125Z - info: Website generation complete! Total build time: 4.881s
+2025-10-30T07:35:13.125Z - info: Build success!
+2025-10-30T07:38:23.125Z - info: Website generation started at 3:38:23 PM
+2025-10-30T07:38:23.134Z - info: Building assets...
+2025-10-30T07:38:23.145Z - info: Assets built
+2025-10-30T07:38:23.145Z - info: Generating pages...
+2025-10-30T07:38:27.264Z - debug:  
+2025-10-30T07:38:27.354Z - debug:  
+2025-10-30T07:38:27.392Z - debug:  
+2025-10-30T07:38:27.441Z - debug:  
+2025-10-30T07:38:27.448Z - debug:  
+2025-10-30T07:38:27.483Z - debug:  
+2025-10-30T07:38:27.511Z - debug:  
+2025-10-30T07:38:27.511Z - debug:  
+2025-10-30T07:38:27.680Z - debug:  
+2025-10-30T07:38:27.684Z - debug:  
+2025-10-30T07:38:27.696Z - debug:  
+2025-10-30T07:38:27.699Z - debug:  
+2025-10-30T07:38:27.742Z - debug:  
+2025-10-30T07:38:27.764Z - debug:  
+2025-10-30T07:38:27.764Z - debug:  
+2025-10-30T07:38:27.802Z - debug:  
+2025-10-30T07:38:27.802Z - debug:  
+2025-10-30T07:38:27.834Z - debug:  
+2025-10-30T07:38:27.838Z - debug:  
+2025-10-30T07:38:27.954Z - info: Pages built
+2025-10-30T07:38:27.987Z - info: Site data built
+2025-10-30T07:38:27.988Z - info: Website generation complete! Total build time: 4.875s
+2025-10-30T07:38:27.988Z - info: Build success!
+2025-10-30T07:40:01.054Z - info: Website generation started at 3:40:01 PM
+2025-10-30T07:40:01.063Z - info: Building assets...
+2025-10-30T07:40:01.077Z - info: Assets built
+2025-10-30T07:40:01.077Z - info: Generating pages...
+2025-10-30T07:40:05.584Z - debug:  
+2025-10-30T07:40:05.624Z - debug:  
+2025-10-30T07:40:05.950Z - debug:  
+2025-10-30T07:40:05.971Z - debug:  
+2025-10-30T07:40:06.053Z - debug:  
+2025-10-30T07:40:06.054Z - debug:  
+2025-10-30T07:40:06.055Z - debug:  
+2025-10-30T07:40:06.056Z - debug:  
+2025-10-30T07:40:06.057Z - debug:  
+2025-10-30T07:40:06.059Z - debug:  
+2025-10-30T07:40:06.059Z - debug:  
+2025-10-30T07:40:06.059Z - debug:  
+2025-10-30T07:40:06.062Z - debug:  
+2025-10-30T07:40:06.062Z - debug:  
+2025-10-30T07:40:06.066Z - debug:  
+2025-10-30T07:40:06.067Z - debug:  
+2025-10-30T07:40:06.067Z - debug:  
+2025-10-30T07:40:06.068Z - debug:  
+2025-10-30T07:40:06.068Z - debug:  
+2025-10-30T07:40:06.222Z - info: Pages built
+2025-10-30T07:40:06.355Z - info: Site data built
+2025-10-30T07:40:06.355Z - info: Website generation complete! Total build time: 5.328s
+2025-10-30T07:40:07.383Z - info: Serving "/Users/hninsatphyusin/Desktop/tp/docs/_site" at http://127.0.0.1:49479
+2025-10-30T07:40:07.384Z - info: Press CTRL+C to stop ...
+2025-10-30T08:07:35.371Z - info: Website generation started at 4:07:35 PM
+2025-10-30T08:07:35.381Z - info: Building assets...
+2025-10-30T08:07:35.395Z - info: Assets built
+2025-10-30T08:07:35.396Z - info: Generating pages...
+2025-10-30T08:07:39.440Z - debug:  
+2025-10-30T08:07:39.594Z - debug:  
+2025-10-30T08:07:39.676Z - debug:  
+2025-10-30T08:07:39.682Z - debug:  
+2025-10-30T08:07:39.705Z - debug:  
+2025-10-30T08:07:39.717Z - debug:  
+2025-10-30T08:07:39.717Z - debug:  
+2025-10-30T08:07:39.720Z - debug:  
+2025-10-30T08:07:39.741Z - debug:  
+2025-10-30T08:07:39.775Z - debug:  
+2025-10-30T08:07:39.776Z - debug:  
+2025-10-30T08:07:39.877Z - debug:  
+2025-10-30T08:07:39.919Z - debug:  
+2025-10-30T08:07:39.919Z - debug:  
+2025-10-30T08:07:39.946Z - debug:  
+2025-10-30T08:07:39.999Z - debug:  
+2025-10-30T08:07:40.005Z - debug:  
+2025-10-30T08:07:40.013Z - debug:  
+2025-10-30T08:07:40.051Z - debug:  
+2025-10-30T08:07:40.180Z - info: Pages built
+2025-10-30T08:07:40.250Z - info: Site data built
+2025-10-30T08:07:40.250Z - info: Website generation complete! Total build time: 4.906s
+2025-10-30T08:07:40.250Z - info: Build success!
+2025-10-30T08:08:03.622Z - info: Website generation started at 4:08:03 PM
+2025-10-30T08:08:03.630Z - info: Building assets...
+2025-10-30T08:08:03.641Z - info: Assets built
+2025-10-30T08:08:03.641Z - info: Generating pages...
+2025-10-30T08:08:08.388Z - debug:  
+2025-10-30T08:08:08.500Z - debug:  
+2025-10-30T08:08:08.558Z - debug:  
+2025-10-30T08:08:08.558Z - debug:  
+2025-10-30T08:08:08.564Z - debug:  
+2025-10-30T08:08:08.565Z - debug:  
+2025-10-30T08:08:08.565Z - debug:  
+2025-10-30T08:08:08.565Z - debug:  
+2025-10-30T08:08:08.566Z - debug:  
+2025-10-30T08:08:08.573Z - debug:  
+2025-10-30T08:08:08.573Z - debug:  
+2025-10-30T08:08:08.573Z - debug:  
+2025-10-30T08:08:08.573Z - debug:  
+2025-10-30T08:08:08.573Z - debug:  
+2025-10-30T08:08:08.574Z - debug:  
+2025-10-30T08:08:08.575Z - debug:  
+2025-10-30T08:08:08.576Z - debug:  
+2025-10-30T08:08:08.577Z - debug:  
+2025-10-30T08:08:08.577Z - debug:  
+2025-10-30T08:08:08.725Z - info: Pages built
+2025-10-30T08:08:08.798Z - info: Site data built
+2025-10-30T08:08:08.798Z - info: Website generation complete! Total build time: 5.203s
+2025-10-30T08:08:09.823Z - info: Serving "/Users/hninsatphyusin/Desktop/tp/docs/_site" at http://127.0.0.1:49992
+2025-10-30T08:08:09.824Z - info: Press CTRL+C to stop ...
+2025-10-30T08:10:51.149Z - info: Website generation started at 4:10:51 PM
+2025-10-30T08:10:51.158Z - info: Building assets...
+2025-10-30T08:10:51.168Z - info: Assets built
+2025-10-30T08:10:51.169Z - info: Generating pages...
+2025-10-30T08:10:55.341Z - debug:  
+2025-10-30T08:10:55.444Z - debug:  
+2025-10-30T08:10:55.444Z - debug:  
+2025-10-30T08:10:55.445Z - debug:  
+2025-10-30T08:10:55.884Z - debug:  
+2025-10-30T08:10:55.906Z - debug:  
+2025-10-30T08:10:55.921Z - debug:  
+2025-10-30T08:10:55.927Z - debug:  
+2025-10-30T08:10:55.934Z - debug:  
+2025-10-30T08:10:55.938Z - debug:  
+2025-10-30T08:10:55.950Z - debug:  
+2025-10-30T08:10:55.972Z - debug:  
+2025-10-30T08:10:55.994Z - debug:  
+2025-10-30T08:10:55.998Z - debug:  
+2025-10-30T08:10:56.006Z - debug:  
+2025-10-30T08:10:56.030Z - debug:  
+2025-10-30T08:10:56.038Z - debug:  
+2025-10-30T08:10:56.039Z - debug:  
+2025-10-30T08:10:56.042Z - debug:  
+2025-10-30T08:10:56.142Z - info: Pages built
+2025-10-30T08:10:56.173Z - info: Site data built
+2025-10-30T08:10:56.173Z - info: Website generation complete! Total build time: 5.051s
+2025-10-30T08:10:56.173Z - info: Build success!
+2025-10-30T08:12:01.211Z - info: Website generation started at 4:12:01 PM
+2025-10-30T08:12:01.219Z - info: Building assets...
+2025-10-30T08:12:01.234Z - info: Assets built
+2025-10-30T08:12:01.234Z - info: Generating pages...
+2025-10-30T08:12:05.216Z - debug:  
+2025-10-30T08:12:05.305Z - debug:  
+2025-10-30T08:12:05.366Z - debug:  
+2025-10-30T08:12:05.398Z - debug:  
+2025-10-30T08:12:05.451Z - debug:  
+2025-10-30T08:12:05.501Z - debug:  
+2025-10-30T08:12:05.512Z - debug:  
+2025-10-30T08:12:05.512Z - debug:  
+2025-10-30T08:12:05.525Z - debug:  
+2025-10-30T08:12:05.583Z - debug:  
+2025-10-30T08:12:05.626Z - debug:  
+2025-10-30T08:12:05.644Z - debug:  
+2025-10-30T08:12:05.645Z - debug:  
+2025-10-30T08:12:05.654Z - debug:  
+2025-10-30T08:12:05.662Z - debug:  
+2025-10-30T08:12:05.664Z - debug:  
+2025-10-30T08:12:05.680Z - debug:  
+2025-10-30T08:12:05.716Z - debug:  
+2025-10-30T08:12:05.716Z - debug:  
+2025-10-30T08:12:05.798Z - info: Pages built
+2025-10-30T08:12:05.874Z - info: Site data built
+2025-10-30T08:12:05.874Z - info: Website generation complete! Total build time: 4.689s
+2025-10-30T08:12:06.897Z - info: Serving "/Users/hninsatphyusin/Desktop/tp/docs/_site" at http://127.0.0.1:50166
+2025-10-30T08:12:06.898Z - info: Press CTRL+C to stop ...
+2025-10-30T08:14:41.699Z - info: [4:14:41 PM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/DeveloperGuide.md
+2025-10-30T08:14:41.998Z - info: [4:14:41 PM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/DeveloperGuide.md
+2025-10-30T08:14:42.502Z - info: [4:14:42 PM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/DeveloperGuide.md
+2025-10-30T08:14:42.705Z - info: Rebuilding 1 pages
+2025-10-30T08:14:42.790Z - info: Site data built
+2025-10-30T08:14:42.791Z - info: Pages rebuilt
+2025-10-30T08:14:42.791Z - info: Website regeneration complete! Total build time: 0.087s
+2025-10-30T08:14:51.865Z - info: [4:14:51 PM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/DeveloperGuide.md
+2025-10-30T08:14:52.867Z - info: Rebuilding 1 pages
+2025-10-30T08:14:52.948Z - info: Site data built
+2025-10-30T08:14:52.948Z - info: Pages rebuilt
+2025-10-30T08:14:52.948Z - info: Website regeneration complete! Total build time: 0.082s
+2025-10-30T08:16:01.367Z - info: [4:16:01 PM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/_markbind/layouts/default.md
+2025-10-30T08:16:02.372Z - info: Rebuilding 16 pages
+2025-10-30T08:16:02.680Z - info: Site data built
+2025-10-30T08:16:02.680Z - info: Pages rebuilt
+2025-10-30T08:16:02.680Z - info: Website regeneration complete! Total build time: 0.308s
+2025-10-30T08:16:26.153Z - info: [4:16:26 PM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/_markbind/navigation.md
+2025-10-30T08:16:27.159Z - info: Rebuilding 16 pages
+2025-10-30T08:16:27.327Z - info: Site data built
+2025-10-30T08:16:27.327Z - info: Pages rebuilt
+2025-10-30T08:16:27.327Z - info: Website regeneration complete! Total build time: 0.168s
+2025-10-30T08:16:34.740Z - info: [4:16:34 PM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/site.json
+2025-10-30T08:16:34.744Z - info: No pages needed to be rebuilt
+2025-10-30T08:16:57.909Z - info: Website generation started at 4:16:57 PM
+2025-10-30T08:16:57.919Z - info: Building assets...
+2025-10-30T08:16:57.929Z - info: Assets built
+2025-10-30T08:16:57.930Z - info: Generating pages...
+2025-10-30T08:17:02.115Z - debug:  
+2025-10-30T08:17:02.570Z - debug:  
+2025-10-30T08:17:02.573Z - debug:  
+2025-10-30T08:17:02.580Z - debug:  
+2025-10-30T08:17:02.981Z - debug:  
+2025-10-30T08:17:02.989Z - debug:  
+2025-10-30T08:17:02.990Z - debug:  
+2025-10-30T08:17:03.026Z - debug:  
+2025-10-30T08:17:03.034Z - debug:  
+2025-10-30T08:17:03.073Z - debug:  
+2025-10-30T08:17:03.094Z - debug:  
+2025-10-30T08:17:03.102Z - debug:  
+2025-10-30T08:17:03.109Z - debug:  
+2025-10-30T08:17:03.177Z - debug:  
+2025-10-30T08:17:03.179Z - debug:  
+2025-10-30T08:17:03.179Z - debug:  
+2025-10-30T08:17:03.183Z - debug:  
+2025-10-30T08:17:03.184Z - debug:  
+2025-10-30T08:17:03.184Z - debug:  
+2025-10-30T08:17:03.362Z - info: Pages built
+2025-10-30T08:17:03.392Z - info: Site data built
+2025-10-30T08:17:03.392Z - info: Website generation complete! Total build time: 5.512s
+2025-10-30T08:17:03.392Z - info: Build success!
+2025-10-30T08:17:07.692Z - info: Website generation started at 4:17:07 PM
+2025-10-30T08:17:07.701Z - info: Building assets...
+2025-10-30T08:17:07.716Z - info: Assets built
+2025-10-30T08:17:07.716Z - info: Generating pages...
+2025-10-30T08:17:12.512Z - debug:  
+2025-10-30T08:17:12.804Z - debug:  
+2025-10-30T08:17:12.849Z - debug:  
+2025-10-30T08:17:12.862Z - debug:  
+2025-10-30T08:17:12.877Z - debug:  
+2025-10-30T08:17:12.905Z - debug:  
+2025-10-30T08:17:12.921Z - debug:  
+2025-10-30T08:17:12.928Z - debug:  
+2025-10-30T08:17:12.934Z - debug:  
+2025-10-30T08:17:12.974Z - debug:  
+2025-10-30T08:17:13.025Z - debug:  
+2025-10-30T08:17:13.032Z - debug:  
+2025-10-30T08:17:13.055Z - debug:  
+2025-10-30T08:17:13.055Z - debug:  
+2025-10-30T08:17:13.080Z - debug:  
+2025-10-30T08:17:13.087Z - debug:  
+2025-10-30T08:17:13.088Z - debug:  
+2025-10-30T08:17:13.103Z - debug:  
+2025-10-30T08:17:13.122Z - debug:  
+2025-10-30T08:17:13.216Z - info: Pages built
+2025-10-30T08:17:13.245Z - info: Site data built
+2025-10-30T08:17:13.245Z - info: Website generation complete! Total build time: 5.582s
+2025-10-30T08:17:14.260Z - info: Serving "/Users/hninsatphyusin/Desktop/tp/docs/_site" at http://127.0.0.1:50428
+2025-10-30T08:17:14.261Z - info: Press CTRL+C to stop ...
+2025-10-30T08:20:28.110Z - info: Website generation started at 4:20:28 PM
+2025-10-30T08:20:28.119Z - info: Building assets...
+2025-10-30T08:20:28.133Z - info: Assets built
+2025-10-30T08:20:28.133Z - info: Generating pages...
+2025-10-30T08:20:32.491Z - debug:  
+2025-10-30T08:20:32.550Z - debug:  
+2025-10-30T08:20:32.627Z - debug:  
+2025-10-30T08:20:32.705Z - debug:  
+2025-10-30T08:20:32.777Z - debug:  
+2025-10-30T08:20:32.793Z - debug:  
+2025-10-30T08:20:32.818Z - debug:  
+2025-10-30T08:20:32.883Z - debug:  
+2025-10-30T08:20:32.936Z - debug:  
+2025-10-30T08:20:32.986Z - debug:  
+2025-10-30T08:20:33.019Z - debug:  
+2025-10-30T08:20:33.027Z - debug:  
+2025-10-30T08:20:33.032Z - debug:  
+2025-10-30T08:20:33.054Z - debug:  
+2025-10-30T08:20:33.069Z - debug:  
+2025-10-30T08:20:33.079Z - debug:  
+2025-10-30T08:20:33.111Z - debug:  
+2025-10-30T08:20:33.149Z - debug:  
+2025-10-30T08:20:33.176Z - debug:  
+2025-10-30T08:20:33.293Z - info: Pages built
+2025-10-30T08:20:33.330Z - info: Site data built
+2025-10-30T08:20:33.330Z - info: Website generation complete! Total build time: 5.232s
+2025-10-30T08:20:33.330Z - info: Build success!
+2025-10-30T08:20:50.079Z - info: Website generation started at 4:20:50 PM
+2025-10-30T08:20:50.088Z - info: Building assets...
+2025-10-30T08:20:50.098Z - info: Assets built
+2025-10-30T08:20:50.099Z - info: Generating pages...
+2025-10-30T08:20:54.345Z - debug:  
+2025-10-30T08:20:54.475Z - debug:  
+2025-10-30T08:20:54.604Z - debug:  
+2025-10-30T08:20:54.656Z - debug:  
+2025-10-30T08:20:54.707Z - debug:  
+2025-10-30T08:20:54.779Z - debug:  
+2025-10-30T08:20:54.809Z - debug:  
+2025-10-30T08:20:54.870Z - debug:  
+2025-10-30T08:20:54.871Z - debug:  
+2025-10-30T08:20:54.882Z - debug:  
+2025-10-30T08:20:54.883Z - debug:  
+2025-10-30T08:20:54.890Z - debug:  
+2025-10-30T08:20:54.893Z - debug:  
+2025-10-30T08:20:54.900Z - debug:  
+2025-10-30T08:20:54.901Z - debug:  
+2025-10-30T08:20:54.941Z - debug:  
+2025-10-30T08:20:54.953Z - debug:  
+2025-10-30T08:20:54.958Z - debug:  
+2025-10-30T08:20:55.032Z - debug:  
+2025-10-30T08:20:55.122Z - info: Pages built
+2025-10-30T08:20:55.153Z - info: Site data built
+2025-10-30T08:20:55.153Z - info: Website generation complete! Total build time: 5.101s
+2025-10-30T08:20:56.176Z - info: Serving "/Users/hninsatphyusin/Desktop/tp/docs/_site" at http://127.0.0.1:50579
+2025-10-30T08:20:56.177Z - info: Press CTRL+C to stop ...
+2025-10-30T08:21:38.451Z - info: Website generation started at 4:21:38 PM
+2025-10-30T08:21:38.460Z - info: Building assets...
+2025-10-30T08:21:38.470Z - info: Assets built
+2025-10-30T08:21:38.471Z - info: Generating pages...
+2025-10-30T08:21:42.610Z - debug:  
+2025-10-30T08:21:43.166Z - debug:  
+2025-10-30T08:21:43.167Z - debug:  
+2025-10-30T08:21:43.167Z - debug:  
+2025-10-30T08:21:43.168Z - debug:  
+2025-10-30T08:21:43.170Z - debug:  
+2025-10-30T08:21:43.171Z - debug:  
+2025-10-30T08:21:43.171Z - debug:  
+2025-10-30T08:21:43.171Z - debug:  
+2025-10-30T08:21:43.171Z - debug:  
+2025-10-30T08:21:43.171Z - debug:  
+2025-10-30T08:21:43.171Z - debug:  
+2025-10-30T08:21:43.171Z - debug:  
+2025-10-30T08:21:43.171Z - debug:  
+2025-10-30T08:21:43.171Z - debug:  
+2025-10-30T08:21:43.171Z - debug:  
+2025-10-30T08:21:43.171Z - debug:  
+2025-10-30T08:21:43.171Z - debug:  
+2025-10-30T08:21:43.174Z - debug:  
+2025-10-30T08:21:43.271Z - info: Pages built
+2025-10-30T08:21:43.300Z - info: Site data built
+2025-10-30T08:21:43.300Z - info: Website generation complete! Total build time: 4.86s
+2025-10-30T08:21:43.300Z - info: Build success!
+2025-10-30T08:22:03.599Z - info: Website generation started at 4:22:03 PM
+2025-10-30T08:22:03.608Z - info: Building assets...
+2025-10-30T08:22:03.619Z - info: Assets built
+2025-10-30T08:22:03.619Z - info: Generating pages...
+2025-10-30T08:22:08.017Z - debug:  
+2025-10-30T08:22:08.145Z - debug:  
+2025-10-30T08:22:08.212Z - debug:  
+2025-10-30T08:22:08.230Z - debug:  
+2025-10-30T08:22:08.239Z - debug:  
+2025-10-30T08:22:08.270Z - debug:  
+2025-10-30T08:22:08.272Z - debug:  
+2025-10-30T08:22:08.277Z - debug:  
+2025-10-30T08:22:08.286Z - debug:  
+2025-10-30T08:22:08.299Z - debug:  
+2025-10-30T08:22:08.317Z - debug:  
+2025-10-30T08:22:08.332Z - debug:  
+2025-10-30T08:22:08.361Z - debug:  
+2025-10-30T08:22:08.362Z - debug:  
+2025-10-30T08:22:08.363Z - debug:  
+2025-10-30T08:22:08.371Z - debug:  
+2025-10-30T08:22:08.383Z - debug:  
+2025-10-30T08:22:08.408Z - debug:  
+2025-10-30T08:22:08.493Z - debug:  
+2025-10-30T08:22:08.606Z - info: Pages built
+2025-10-30T08:22:08.638Z - info: Site data built
+2025-10-30T08:22:08.638Z - info: Website generation complete! Total build time: 5.066s
+2025-10-30T08:22:09.657Z - info: Serving "/Users/hninsatphyusin/Desktop/tp/docs/_site" at http://127.0.0.1:50622
+2025-10-30T08:22:09.657Z - info: Press CTRL+C to stop ...
+2025-10-30T08:25:19.423Z - info: Website generation started at 4:25:19 PM
+2025-10-30T08:25:19.432Z - info: Building assets...
+2025-10-30T08:25:19.447Z - info: Assets built
+2025-10-30T08:25:19.447Z - info: Generating pages...
+2025-10-30T08:25:23.770Z - debug:  
+2025-10-30T08:25:23.938Z - debug:  
+2025-10-30T08:25:24.034Z - debug:  
+2025-10-30T08:25:24.034Z - debug:  
+2025-10-30T08:25:24.034Z - debug:  
+2025-10-30T08:25:24.034Z - debug:  
+2025-10-30T08:25:24.036Z - debug:  
+2025-10-30T08:25:24.036Z - debug:  
+2025-10-30T08:25:24.036Z - debug:  
+2025-10-30T08:25:24.038Z - debug:  
+2025-10-30T08:25:24.040Z - debug:  
+2025-10-30T08:25:24.040Z - debug:  
+2025-10-30T08:25:24.040Z - debug:  
+2025-10-30T08:25:24.043Z - debug:  
+2025-10-30T08:25:24.043Z - debug:  
+2025-10-30T08:25:24.043Z - debug:  
+2025-10-30T08:25:24.044Z - debug:  
+2025-10-30T08:25:24.044Z - debug:  
+2025-10-30T08:25:24.045Z - debug:  
+2025-10-30T08:25:24.205Z - info: Pages built
+2025-10-30T08:25:24.235Z - info: Site data built
+2025-10-30T08:25:24.235Z - info: Website generation complete! Total build time: 4.839s
+2025-10-30T08:25:24.235Z - info: Build success!
+2025-10-30T08:25:27.956Z - info: Website generation started at 4:25:27 PM
+2025-10-30T08:25:27.965Z - info: Building assets...
+2025-10-30T08:25:27.976Z - info: Assets built
+2025-10-30T08:25:27.977Z - info: Generating pages...
+2025-10-30T08:25:32.247Z - debug:  
+2025-10-30T08:25:32.251Z - debug:  
+2025-10-30T08:25:32.361Z - debug:  
+2025-10-30T08:25:32.415Z - debug:  
+2025-10-30T08:25:32.470Z - debug:  
+2025-10-30T08:25:32.544Z - debug:  
+2025-10-30T08:25:32.599Z - debug:  
+2025-10-30T08:25:32.629Z - debug:  
+2025-10-30T08:25:32.639Z - debug:  
+2025-10-30T08:25:32.666Z - debug:  
+2025-10-30T08:25:32.677Z - debug:  
+2025-10-30T08:25:32.683Z - debug:  
+2025-10-30T08:25:32.690Z - debug:  
+2025-10-30T08:25:32.700Z - debug:  
+2025-10-30T08:25:32.723Z - debug:  
+2025-10-30T08:25:32.725Z - debug:  
+2025-10-30T08:25:32.735Z - debug:  
+2025-10-30T08:25:32.750Z - debug:  
+2025-10-30T08:25:32.760Z - debug:  
+2025-10-30T08:25:32.886Z - info: Pages built
+2025-10-30T08:25:32.913Z - info: Site data built
+2025-10-30T08:25:32.913Z - info: Website generation complete! Total build time: 4.983s
+2025-10-30T08:25:33.923Z - info: Serving "/Users/hninsatphyusin/Desktop/tp/docs/_site" at http://127.0.0.1:50709
+2025-10-30T08:25:33.923Z - info: Press CTRL+C to stop ...
+2025-10-30T08:27:31.107Z - info: Website generation started at 4:27:31 PM
+2025-10-30T08:27:31.115Z - info: Building assets...
+2025-10-30T08:27:31.130Z - info: Assets built
+2025-10-30T08:27:31.130Z - info: Generating pages...
+2025-10-30T08:28:01.496Z - info: Website generation started at 4:28:01 PM
+2025-10-30T08:28:01.504Z - info: Building assets...
+2025-10-30T08:28:01.517Z - info: Assets built
+2025-10-30T08:28:01.518Z - info: Generating pages...
+2025-10-30T08:28:05.675Z - debug:  
+2025-10-30T08:28:05.680Z - debug:  
+2025-10-30T08:28:05.788Z - debug:  
+2025-10-30T08:28:06.174Z - debug:  
+2025-10-30T08:28:06.176Z - debug:  
+2025-10-30T08:28:06.177Z - debug:  
+2025-10-30T08:28:06.216Z - debug:  
+2025-10-30T08:28:06.287Z - debug:  
+2025-10-30T08:28:06.287Z - debug:  
+2025-10-30T08:28:06.288Z - debug:  
+2025-10-30T08:28:06.288Z - debug:  
+2025-10-30T08:28:06.289Z - debug:  
+2025-10-30T08:28:06.290Z - debug:  
+2025-10-30T08:28:06.290Z - debug:  
+2025-10-30T08:28:06.309Z - debug:  
+2025-10-30T08:28:06.341Z - debug:  
+2025-10-30T08:28:06.353Z - debug:  
+2025-10-30T08:28:06.353Z - debug:  
+2025-10-30T08:28:06.361Z - debug:  
+2025-10-30T08:28:06.428Z - info: Pages built
+2025-10-30T08:28:06.456Z - info: Site data built
+2025-10-30T08:28:06.456Z - info: Website generation complete! Total build time: 4.978s
+2025-10-30T08:28:07.472Z - info: Serving "/Users/hninsatphyusin/Desktop/tp/docs/_site" at http://127.0.0.1:50761
+2025-10-30T08:28:07.472Z - info: Press CTRL+C to stop ...
+2025-10-30T08:29:43.391Z - info: Website generation started at 4:29:43 PM
+2025-10-30T08:29:43.400Z - info: Building assets...
+2025-10-30T08:29:43.411Z - info: Assets built
+2025-10-30T08:29:43.412Z - info: Generating pages...
+2025-10-30T08:29:47.896Z - debug:  
+2025-10-30T08:29:47.982Z - debug:  
+2025-10-30T08:29:48.015Z - debug:  
+2025-10-30T08:29:48.021Z - debug:  
+2025-10-30T08:29:48.030Z - debug:  
+2025-10-30T08:29:48.082Z - debug:  
+2025-10-30T08:29:48.113Z - debug:  
+2025-10-30T08:29:48.142Z - debug:  
+2025-10-30T08:29:48.181Z - debug:  
+2025-10-30T08:29:48.203Z - debug:  
+2025-10-30T08:29:48.208Z - debug:  
+2025-10-30T08:29:48.208Z - debug:  
+2025-10-30T08:29:48.216Z - debug:  
+2025-10-30T08:29:48.245Z - debug:  
+2025-10-30T08:29:48.245Z - debug:  
+2025-10-30T08:29:48.247Z - debug:  
+2025-10-30T08:29:48.259Z - debug:  
+2025-10-30T08:29:48.277Z - debug:  
+2025-10-30T08:29:48.296Z - debug:  
+2025-10-30T08:29:48.421Z - info: Pages built
+2025-10-30T08:29:48.451Z - info: Site data built
+2025-10-30T08:29:48.451Z - info: Website generation complete! Total build time: 5.07s
+2025-10-30T08:29:48.451Z - info: Build success!
+2025-10-30T08:32:15.651Z - info: Website generation started at 4:32:15 PM
+2025-10-30T08:32:15.660Z - info: Building assets...
+2025-10-30T08:32:15.671Z - info: Assets built
+2025-10-30T08:32:15.671Z - info: Generating pages...
+2025-10-30T08:32:19.973Z - debug:  
+2025-10-30T08:32:20.321Z - debug:  
+2025-10-30T08:32:20.387Z - debug:  
+2025-10-30T08:32:20.387Z - debug:  
+2025-10-30T08:32:20.397Z - debug:  
+2025-10-30T08:32:20.475Z - debug:  
+2025-10-30T08:32:20.481Z - debug:  
+2025-10-30T08:32:20.483Z - debug:  
+2025-10-30T08:32:20.491Z - debug:  
+2025-10-30T08:32:20.496Z - debug:  
+2025-10-30T08:32:20.519Z - debug:  
+2025-10-30T08:32:20.523Z - debug:  
+2025-10-30T08:32:20.523Z - debug:  
+2025-10-30T08:32:20.551Z - debug:  
+2025-10-30T08:32:20.558Z - debug:  
+2025-10-30T08:32:20.564Z - debug:  
+2025-10-30T08:32:20.580Z - debug:  
+2025-10-30T08:32:20.586Z - debug:  
+2025-10-30T08:32:20.597Z - debug:  
+2025-10-30T08:32:20.720Z - info: Pages built
+2025-10-30T08:32:20.751Z - info: Site data built
+2025-10-30T08:32:20.751Z - info: Website generation complete! Total build time: 5.111s
+2025-10-30T08:32:20.751Z - info: Build success!
+2025-10-30T08:33:00.971Z - info: Website generation started at 4:33:00 PM
+2025-10-30T08:33:00.980Z - info: Building assets...
+2025-10-30T08:33:00.991Z - info: Assets built
+2025-10-30T08:33:00.992Z - info: Generating pages...
+2025-10-30T08:33:05.226Z - debug:  
+2025-10-30T08:33:05.277Z - debug:  
+2025-10-30T08:33:05.408Z - debug:  
+2025-10-30T08:33:05.458Z - debug:  
+2025-10-30T08:33:05.483Z - debug:  
+2025-10-30T08:33:05.689Z - debug:  
+2025-10-30T08:33:05.708Z - debug:  
+2025-10-30T08:33:05.719Z - debug:  
+2025-10-30T08:33:05.779Z - debug:  
+2025-10-30T08:33:05.779Z - debug:  
+2025-10-30T08:33:05.850Z - debug:  
+2025-10-30T08:33:05.850Z - debug:  
+2025-10-30T08:33:05.887Z - debug:  
+2025-10-30T08:33:05.888Z - debug:  
+2025-10-30T08:33:05.926Z - debug:  
+2025-10-30T08:33:05.926Z - debug:  
+2025-10-30T08:33:05.927Z - debug:  
+2025-10-30T08:33:05.928Z - debug:  
+2025-10-30T08:33:05.988Z - debug:  
+2025-10-30T08:33:06.129Z - info: Pages built
+2025-10-30T08:33:06.160Z - info: Site data built
+2025-10-30T08:33:06.160Z - info: Website generation complete! Total build time: 5.216s
+2025-10-30T08:33:07.175Z - info: Serving "/Users/hninsatphyusin/Desktop/tp/docs/_site" at http://127.0.0.1:50924
+2025-10-30T08:33:07.176Z - info: Press CTRL+C to stop ...
+2025-10-30T08:35:17.017Z - info: Website generation started at 4:35:17 PM
+2025-10-30T08:35:17.028Z - info: Building assets...
+2025-10-30T08:35:17.043Z - info: Assets built
+2025-10-30T08:35:17.043Z - info: Generating pages...
+2025-10-30T08:35:21.243Z - debug:  
+2025-10-30T08:35:21.363Z - debug:  
+2025-10-30T08:35:21.373Z - debug:  
+2025-10-30T08:35:21.482Z - debug:  
+2025-10-30T08:35:21.508Z - debug:  
+2025-10-30T08:35:21.554Z - debug:  
+2025-10-30T08:35:21.597Z - debug:  
+2025-10-30T08:35:21.643Z - debug:  
+2025-10-30T08:35:21.660Z - debug:  
+2025-10-30T08:35:21.680Z - debug:  
+2025-10-30T08:35:21.687Z - debug:  
+2025-10-30T08:35:21.702Z - debug:  
+2025-10-30T08:35:21.703Z - debug:  
+2025-10-30T08:35:21.715Z - debug:  
+2025-10-30T08:35:21.715Z - debug:  
+2025-10-30T08:35:21.724Z - debug:  
+2025-10-30T08:35:21.745Z - debug:  
+2025-10-30T08:35:21.777Z - debug:  
+2025-10-30T08:35:21.778Z - debug:  
+2025-10-30T08:35:21.867Z - info: Pages built
+2025-10-30T08:35:21.900Z - info: Site data built
+2025-10-30T08:35:21.900Z - info: Website generation complete! Total build time: 4.894s
+2025-10-30T08:35:21.900Z - info: Build success!
+2025-10-30T08:36:49.465Z - info: Website generation started at 4:36:49 PM
+2025-10-30T08:36:49.474Z - info: Building assets...
+2025-10-30T08:36:49.485Z - info: Assets built
+2025-10-30T08:36:49.485Z - info: Generating pages...
+2025-10-30T08:36:53.913Z - debug:  
+2025-10-30T08:36:54.022Z - debug:  
+2025-10-30T08:36:54.075Z - debug:  
+2025-10-30T08:36:54.084Z - debug:  
+2025-10-30T08:36:54.096Z - debug:  
+2025-10-30T08:36:54.137Z - debug:  
+2025-10-30T08:36:54.137Z - debug:  
+2025-10-30T08:36:54.159Z - debug:  
+2025-10-30T08:36:54.187Z - debug:  
+2025-10-30T08:36:54.188Z - debug:  
+2025-10-30T08:36:54.196Z - debug:  
+2025-10-30T08:36:54.196Z - debug:  
+2025-10-30T08:36:54.204Z - debug:  
+2025-10-30T08:36:54.207Z - debug:  
+2025-10-30T08:36:54.207Z - debug:  
+2025-10-30T08:36:54.218Z - debug:  
+2025-10-30T08:36:54.254Z - debug:  
+2025-10-30T08:36:54.270Z - debug:  
+2025-10-30T08:36:54.294Z - debug:  
+2025-10-30T08:36:54.451Z - info: Pages built
+2025-10-30T08:36:54.487Z - info: Site data built
+2025-10-30T08:36:54.487Z - info: Website generation complete! Total build time: 5.047s
+2025-10-30T08:36:55.516Z - info: Serving "/Users/hninsatphyusin/Desktop/tp/docs/_site" at http://127.0.0.1:51026
+2025-10-30T08:36:55.517Z - info: Press CTRL+C to stop ...
+2025-10-30T08:37:41.166Z - info: [4:37:41 PM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/DevOps.md
+2025-10-30T08:37:42.170Z - info: Rebuilding 1 pages
+2025-10-30T08:37:42.190Z - info: Site data built
+2025-10-30T08:37:42.191Z - info: Pages rebuilt
+2025-10-30T08:37:42.191Z - info: Website regeneration complete! Total build time: 0.022s
+2025-10-30T08:37:42.490Z - info: [4:37:42 PM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/Testing.md
+2025-10-30T08:37:43.492Z - info: Rebuilding 1 pages
+2025-10-30T08:37:43.501Z - info: Site data built
+2025-10-30T08:37:43.501Z - info: Pages rebuilt
+2025-10-30T08:37:43.501Z - info: Website regeneration complete! Total build time: 0.009s
+2025-10-30T08:37:44.710Z - info: [4:37:44 PM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/Logging.md
+2025-10-30T08:37:45.713Z - info: Rebuilding 1 pages
+2025-10-30T08:37:45.727Z - info: Site data built
+2025-10-30T08:37:45.727Z - info: Pages rebuilt
+2025-10-30T08:37:45.727Z - info: Website regeneration complete! Total build time: 0.015s
+2025-10-30T08:37:53.594Z - info: [4:37:53 PM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/package.json
+2025-10-30T08:37:54.596Z - info: Assets built
+2025-10-30T08:38:10.656Z - info: [4:38:10 PM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/package.json
+2025-10-30T08:38:10.858Z - info: [4:38:10 PM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/package.json
+2025-10-30T08:38:11.060Z - info: [4:38:11 PM] Reload for file change: /Users/hninsatphyusin/Desktop/tp/docs/package.json
+2025-10-30T08:38:11.658Z - info: Assets built
+2025-10-30T08:39:03.169Z - info: Website generation started at 4:39:03 PM
+2025-10-30T08:39:03.179Z - info: Building assets...
+2025-10-30T08:39:03.193Z - info: Assets built
+2025-10-30T08:39:03.193Z - info: Generating pages...
+2025-10-30T08:39:07.302Z - debug:  
+2025-10-30T08:39:07.618Z - debug:  
+2025-10-30T08:39:07.645Z - debug:  
+2025-10-30T08:39:07.736Z - debug:  
+2025-10-30T08:39:07.748Z - debug:  
+2025-10-30T08:39:07.749Z - debug:  
+2025-10-30T08:39:07.850Z - debug:  
+2025-10-30T08:39:07.854Z - debug:  
+2025-10-30T08:39:07.857Z - debug:  
+2025-10-30T08:39:07.861Z - debug:  
+2025-10-30T08:39:07.862Z - debug:  
+2025-10-30T08:39:07.920Z - debug:  
+2025-10-30T08:39:07.927Z - debug:  
+2025-10-30T08:39:07.943Z - debug:  
+2025-10-30T08:39:07.978Z - debug:  
+2025-10-30T08:39:07.979Z - debug:  
+2025-10-30T08:39:07.994Z - debug:  
+2025-10-30T08:39:08.005Z - debug:  
+2025-10-30T08:39:08.135Z - debug:  
+2025-10-30T08:39:08.249Z - info: Pages built
+2025-10-30T08:39:08.282Z - info: Site data built
+2025-10-30T08:39:08.282Z - info: Website generation complete! Total build time: 5.124s
+2025-10-30T08:39:08.282Z - info: Build success!
+2025-10-30T08:39:32.947Z - info: Website generation started at 4:39:32 PM
+2025-10-30T08:39:32.956Z - info: Building assets...
+2025-10-30T08:39:32.967Z - info: Assets built
+2025-10-30T08:39:32.967Z - info: Generating pages...
+2025-10-30T08:39:37.135Z - debug:  
+2025-10-30T08:39:37.274Z - debug:  
+2025-10-30T08:39:37.275Z - debug:  
+2025-10-30T08:39:37.280Z - debug:  
+2025-10-30T08:39:37.282Z - debug:  
+2025-10-30T08:39:37.310Z - debug:  
+2025-10-30T08:39:37.763Z - debug:  
+2025-10-30T08:39:37.767Z - debug:  
+2025-10-30T08:39:37.809Z - debug:  
+2025-10-30T08:39:37.809Z - debug:  
+2025-10-30T08:39:37.838Z - debug:  
+2025-10-30T08:39:37.838Z - debug:  
+2025-10-30T08:39:37.846Z - debug:  
+2025-10-30T08:39:37.853Z - debug:  
+2025-10-30T08:39:37.869Z - debug:  
+2025-10-30T08:39:37.870Z - debug:  
+2025-10-30T08:39:37.881Z - debug:  
+2025-10-30T08:39:37.884Z - debug:  
+2025-10-30T08:39:37.886Z - debug:  
+2025-10-30T08:39:37.961Z - info: Pages built
+2025-10-30T08:39:37.992Z - info: Site data built
+2025-10-30T08:39:37.992Z - info: Website generation complete! Total build time: 5.072s
+2025-10-30T08:39:39.016Z - info: Serving "/Users/hninsatphyusin/Desktop/tp/docs/_site" at http://127.0.0.1:51112
+2025-10-30T08:39:39.017Z - info: Press CTRL+C to stop ...

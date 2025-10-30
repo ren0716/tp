@@ -1,15 +1,8 @@
-<<<<<<< HEAD
----
-  layout: default.md
-  title: "Logging guide"
----
-=======
 <frontmatter>
   title: "Logging Guide"
 </frontmatter>
 
 # Logging Guide
->>>>>>> upstream/master
 
 # Logging guide
 
