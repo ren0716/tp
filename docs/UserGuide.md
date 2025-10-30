@@ -167,8 +167,8 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 
 Examples:
 * `find John` returns `john` and `John Doe`
-* `find alex john` returns `alex`, `john`<br>
-  ![result for 'find alex john'](images/findAlexJohnResult.png)
+* `find alex roy` returns `alex`, `roy`<br>
+  ![result for 'find alex roy'](images/findAlexRoyResult.png)
 
 ### Adding assignment(s) to a student: `assign`
 
