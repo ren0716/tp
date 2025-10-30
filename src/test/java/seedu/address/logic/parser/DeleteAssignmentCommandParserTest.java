@@ -2,6 +2,11 @@ package seedu.address.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.Messages.MESSAGE_ASSIGNMENT_NOT_DELETED;
+import static seedu.address.logic.Messages.MESSAGE_STUDENT_NOT_IN_CLASS_GROUP;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.Set;
 
@@ -11,7 +16,11 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeleteAssignmentCommand;
 import seedu.address.logic.commands.DeleteAssignmentCommand.DeleteAssignmentDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.UserPrefs;
 import seedu.address.model.assignment.Assignment;
+import seedu.address.testutil.AssignmentBuilder;
 
 /**
  * Unit tests for DeleteAssignmentCommandParser.
@@ -19,6 +28,7 @@ import seedu.address.model.assignment.Assignment;
 public class DeleteAssignmentCommandParserTest {
 
     private final DeleteAssignmentCommandParser parser = new DeleteAssignmentCommandParser();
+    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
     public void parseValidSingleAssignmentThrowsParseException() throws ParseException {
@@ -117,7 +127,6 @@ public class DeleteAssignmentCommandParserTest {
         }
     }
 
-    // language: java
     @Test
     public void parseClassOnlyNoAssignmentsThrowsParseException() throws ParseException {
         String input = "1 c/Math";
@@ -178,5 +187,39 @@ public class DeleteAssignmentCommandParserTest {
         } catch (ParseException pe) {
             assertTrue(pe.getMessage() != null && !pe.getMessage().isEmpty());
         }
+    }
+
+    @Test
+    public void execute_studentNotInClassGroup_failure() {
+        // pick a class the typical first person does not belong to
+        Assignment assignmentWithInvalidClass = new AssignmentBuilder()
+                .withName("HW1")
+                .withClassGroup("nonexistent-class")
+                .build();
+
+        DeleteAssignmentCommand.DeleteAssignmentDescriptor descriptor =
+                new DeleteAssignmentCommand.DeleteAssignmentDescriptor();
+        // ensure descriptor indicates a class was provided so command reaches validation
+        descriptor.setClassGroupName(assignmentWithInvalidClass.getClassGroupName());
+        descriptor.setAssignments(Set.of(assignmentWithInvalidClass));
+        DeleteAssignmentCommand command = new DeleteAssignmentCommand(INDEX_FIRST_PERSON, descriptor);
+
+        String expectedMessage = String.format(MESSAGE_STUDENT_NOT_IN_CLASS_GROUP,
+                assignmentWithInvalidClass.getClassGroupName());
+        assertCommandFailure(command, model, expectedMessage);
+    }
+
+    @Test
+    public void execute_emptyAssignmentSet_failure() {
+        DeleteAssignmentCommand.DeleteAssignmentDescriptor descriptor =
+                new DeleteAssignmentCommand.DeleteAssignmentDescriptor();
+        // Provide a class group so command reaches the assignment validation logic
+        descriptor.setClassGroupName("some-class");
+        // Explicitly set empty assignment
+        descriptor.setAssignments(Set.of());
+        DeleteAssignmentCommand command = new DeleteAssignmentCommand(INDEX_FIRST_PERSON, descriptor);
+
+        // Class provided but assignment set empty: MESSAGE_ASSIGNMENT_NOT_DELETED
+        assertCommandFailure(command, model, MESSAGE_ASSIGNMENT_NOT_DELETED);
     }
 }
