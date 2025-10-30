@@ -7,14 +7,6 @@ package seedu.address.logic.commands;
  * This is used to check whether a command modifies the model and therefore
  * requires committing to the versioned history for undo/redo functionality.
  * </p>
- * <p>
- * Example usage:
- * <pre>
- * if (MutatingCommandWords.contains(commandWord)) {
- *     model.commit();
- * }
- * </pre>
- * </p>
  */
 public enum MutatingCommandWords {
     ADD("add"),

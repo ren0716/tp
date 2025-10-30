@@ -11,7 +11,6 @@ import static seedu.address.logic.parser.ParserUtil.arePrefixesPresent;
 
 import java.util.Iterator;
 import java.util.Set;
-import java.util.stream.Stream;
 
 import seedu.address.logic.commands.FilterByClassGroupCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
