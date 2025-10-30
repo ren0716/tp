@@ -240,7 +240,8 @@ Format: `mark [INDEX]... [INDEX_RANGE]...  c/CLASS a/ASSIGNMENT`
 * The index(es) **must be a positive integer** 1, 2, 3, …​
 * At least one index or index range must be provided.
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+<div markdown="span" class="alert alert-primary"><span class="fas fa-lightbulb" aria-hidden="true"></span> <strong>Tip:</strong>
+
 For efficient marking of assignments for a specific class, use the [`filter`](#filtering-students-by-class-filter) command first to display only students in that class, then use `mark` with the filtered list.
 </div>
 
@@ -260,8 +261,9 @@ Format: `unmark [INDEX]... [INDEX_RANGE]...  c/CLASS a/ASSIGNMENT`
 * The index(es) **must be a positive integer** 1, 2, 3, …​
 * At least one index or index range must be provided.
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-Like [`mark`](#marking-an-assignment-as-completed-mark), use [`filter`](#filtering-students-by-class-filter) first for efficient unmarking by class.
+<div markdown="span" class="alert alert-primary"><span class="fas fa-lightbulb" aria-hidden="true"></span> <strong>Tip:</strong>
+
+Like [`mark`]( #marking-an-assignment-as-completed-mark ), use [`filter`](#filtering-students-by-class-filter) first for efficient unmarking by class.
 </div>
 
 Examples:
