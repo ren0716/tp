@@ -24,6 +24,3 @@ jobs:
           rootDirectory: './docs'
           baseUrl: '/tp' # assuming your repo name is tp
           version: '^6.0.2'
-          git commit -m "Add .nojekyll file" || echo "No changes to commit"
-          git push origin gh-pages
-        working-directory: ${{ github.workspace}}
