@@ -30,6 +30,7 @@ import seedu.address.model.person.Person;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
+import seedu.address.storage.TxtCommandHistoryStorage;
 import seedu.address.testutil.PersonBuilder;
 
 public class LogicManagerTest {
@@ -45,9 +46,12 @@ public class LogicManagerTest {
     @BeforeEach
     public void setUp() {
         JsonAddressBookStorage addressBookStorage =
-                new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
-        JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+                new JsonAddressBookStorage(temporaryFolder.resolve("tutortrack.json"));
+        JsonUserPrefsStorage userPrefsStorage =
+                new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
+        TxtCommandHistoryStorage commandHistoryStorage =
+                new TxtCommandHistoryStorage(temporaryFolder.resolve("history.txt"));
+        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, commandHistoryStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -94,7 +98,7 @@ public class LogicManagerTest {
      * @see #assertCommandFailure(String, Class, String, Model)
      */
     private void assertCommandSuccess(String inputCommand, String expectedMessage,
-            Model expectedModel) throws CommandException, ParseException {
+                                      Model expectedModel) throws CommandException, ParseException {
         CommandResult result = logic.execute(inputCommand);
         assertEquals(expectedMessage, result.getFeedbackToUser());
         assertEquals(expectedModel, model);
@@ -121,7 +125,7 @@ public class LogicManagerTest {
      * @see #assertCommandFailure(String, Class, String, Model)
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
-            String expectedMessage) {
+                                      String expectedMessage) {
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
@@ -134,7 +138,7 @@ public class LogicManagerTest {
      * @see #assertCommandSuccess(String, String, Model)
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
-            String expectedMessage, Model expectedModel) {
+                                      String expectedMessage, Model expectedModel) {
         assertThrows(expectedException, expectedMessage, () -> logic.execute(inputCommand));
         assertEquals(expectedModel, model);
     }
@@ -159,16 +163,47 @@ public class LogicManagerTest {
 
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+
+        TxtCommandHistoryStorage commandHistoryStorage =
+                new TxtCommandHistoryStorage(temporaryFolder.resolve("ExeceptionHistory.json"));
+
+        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, commandHistoryStorage);
 
         logic = new LogicManager(model, storage);
 
         // Triggers the saveAddressBook method by executing an add command
         String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY
-                 + LEVEL_DESC_AMY;
-        Person expectedPerson = new PersonBuilder(AMY).withClassGroups().build();
-        ModelManager expectedModel = new ModelManager();
+                + LEVEL_DESC_AMY;
+        Person expectedPerson = new PersonBuilder(AMY).withClassGroups().withoutAssignments().build();
+        Model expectedModel = new ModelManager(model.getAddressBook(), model.getUserPrefs());
         expectedModel.addPerson(expectedPerson);
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_commandAddedToHistory_historyUpdated() throws CommandException, ParseException {
+        // Execute first command
+        String addCommand1 = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + LEVEL_DESC_AMY;
+        logic.execute(addCommand1);
+
+        // Execute second command
+        String listCommand = "list";
+        logic.execute(listCommand);
+
+        // Check that the previous command is "list"
+        String previous = logic.getPreviousCommand();
+        assertEquals(listCommand, previous);
+
+        // Check that the previous command again is "add ..."
+        previous = logic.getPreviousCommand();
+        assertEquals(addCommand1, previous);
+
+        // Check that next command moves forward in history
+        String next = logic.getNextCommand();
+        assertEquals(listCommand, next);
+
+        // Check that next command after last is empty string
+        next = logic.getNextCommand();
+        assertEquals("", next);
     }
 }

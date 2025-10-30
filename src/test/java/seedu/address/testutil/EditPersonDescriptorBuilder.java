@@ -5,6 +5,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.model.assignment.Assignment;
+import seedu.address.model.classgroup.ClassGroup;
 import seedu.address.model.person.Level;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -61,11 +63,35 @@ public class EditPersonDescriptorBuilder {
     }
 
     /**
+     * Parses the {@code assignments} into a {@code Set<Assignment>} and set it to the {@code EditPersonDescriptor}
+     * that we are building.
+     */
+    public EditPersonDescriptorBuilder withAssignment(String... assignments) {
+        Set<Assignment> assignmentSet = Stream.of(assignments)
+                .map(a -> new Assignment(a, "default-class"))
+                .collect(Collectors.toSet());
+        descriptor.setAssignments(assignmentSet);
+        return this;
+    }
+
+    /**
+     * Parses the {@code assignments} into a {@code Set<Assignment>} with the specified class group
+     * and set it to the {@code EditPersonDescriptor} that we are building.
+     */
+    public EditPersonDescriptorBuilder withAssignment(String classGroup, String... assignments) {
+        Set<Assignment> assignmentSet = Stream.of(assignments)
+                .map(a -> new Assignment(a, classGroup))
+                .collect(Collectors.toSet());
+        descriptor.setAssignments(assignmentSet);
+        return this;
+    }
+
+    /**
      * Parses the {@code classGroups} into a {@code Set<String>} and set it to the {@code EditPersonDescriptor}
      * that we are building.
      */
     public EditPersonDescriptorBuilder withClassGroups(String... classGroups) {
-        Set<String> classes = Stream.of(classGroups).collect(Collectors.toSet());
+        Set<ClassGroup> classes = Stream.of(classGroups).map(ClassGroup::new).collect(Collectors.toSet());
         descriptor.setClassGroups(classes);
         return this;
     }

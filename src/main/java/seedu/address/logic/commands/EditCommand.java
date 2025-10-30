@@ -1,8 +1,8 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSGROUP;
+import static seedu.address.logic.Messages.MESSAGE_DUPLICATE_PERSON;
+import static seedu.address.logic.Messages.MESSAGE_EDIT_PERSON_SUCCESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LEVEL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -22,6 +22,7 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.assignment.Assignment;
+import seedu.address.model.classgroup.ClassGroup;
 import seedu.address.model.person.Level;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -34,21 +35,16 @@ public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
-            + "by the index number used in the displayed person list. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the student identified "
+            + "by the index number used in the displayed student list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
-            + "[" + PREFIX_LEVEL + "LEVEL] "
-            + "[" + PREFIX_CLASSGROUP + "CLASSES]..."
-            + "[" + PREFIX_ASSIGNMENT + "ASSIGNMENT]...\n"
+            + "[" + PREFIX_LEVEL + "LEVEL]\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_PHONE + "91234567 ";
-
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+            + PREFIX_PHONE + "91234567 "
+            + PREFIX_LEVEL + "Secondary 3";
 
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
@@ -81,6 +77,20 @@ public class EditCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
+        // Check for duplicate name only
+        if (!personToEdit.getName().equals(editedPerson.getName()) && model.hasName(editedPerson.getName())) {
+            model.setPerson(personToEdit, editedPerson);
+            return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson))
+                    + "\n" + String.format(Messages.MESSAGE_NAME_ALREADY_EXISTS, editedPerson.getName()));
+        }
+
+        // Check for duplicate phone only
+        if (!personToEdit.getPhone().equals(editedPerson.getPhone()) && model.hasPhone(editedPerson.getPhone())) {
+            model.setPerson(personToEdit, editedPerson);
+            return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson))
+                    + "\n" + String.format(Messages.MESSAGE_PHONE_ALREADY_EXISTS, editedPerson.getPhone()));
+        }
+
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson)));
@@ -97,7 +107,7 @@ public class EditCommand extends Command {
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Level updatedLevel = editPersonDescriptor.getLevel().orElse(personToEdit.getLevel());
 
-        Set<String> updatedClassGroups = editPersonDescriptor
+        Set<ClassGroup> updatedClassGroups = editPersonDescriptor
                 .getClassGroups()
                 .orElse(personToEdit.getClassGroups());
 
@@ -106,6 +116,11 @@ public class EditCommand extends Command {
                 .orElse(personToEdit.getAssignments());
 
         return new Person(updatedName, updatedPhone, updatedLevel, updatedClassGroups, updatedAssignments);
+    }
+
+    @Override
+    public String getCommandWord() {
+        return COMMAND_WORD;
     }
 
     @Override
@@ -140,7 +155,7 @@ public class EditCommand extends Command {
         private Name name;
         private Phone phone;
         private Level level;
-        private Set<String> classGroups;
+        private Set<ClassGroup> classGroups;
         private Set<Assignment> assignments;
 
         public EditPersonDescriptor() {}
@@ -192,7 +207,7 @@ public class EditCommand extends Command {
          * Sets {@code classGroups} to this object's {@code classGroups}.
          * A defensive copy of {@code classGroups} is used internally.
          */
-        public void setClassGroups(Set<String> classGroups) {
+        public void setClassGroups(Set<ClassGroup> classGroups) {
             this.classGroups = (classGroups != null) ? new HashSet<>(classGroups) : null;
         }
 
@@ -201,7 +216,7 @@ public class EditCommand extends Command {
          * if modification is attempted.
          * Returns {@code Optional#empty()} if {@code classGroup} is null.
          */
-        public Optional<Set<String>> getClassGroups() {
+        public Optional<Set<ClassGroup>> getClassGroups() {
             return (classGroups != null) ? Optional.of(Collections.unmodifiableSet(classGroups)) : Optional.empty();
         }
 

@@ -1,19 +1,15 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSGROUP;
 
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Optional;
-import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddAssignmentCommand;
 import seedu.address.logic.commands.AddAssignmentCommand.AddAssignmentDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.assignment.Assignment;
 
 /**
  * Parses input arguments and creates a new AddAssignmentCommand object
@@ -27,35 +23,27 @@ public class AddAssignmentCommandParser implements Parser<AddAssignmentCommand> 
      */
     public AddAssignmentCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_ASSIGNMENT);
-        Index index;
-        try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
-        } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddAssignmentCommand.MESSAGE_USAGE),
-                    pe);
-        }
-        AddAssignmentDescriptor addAssignmentDescriptor = new AddAssignmentDescriptor();
-        parseAssignmentsForEdit(argMultimap.getAllValues(PREFIX_ASSIGNMENT)).ifPresent(
-                addAssignmentDescriptor::setAssignments);
-        if (!addAssignmentDescriptor.isAssignmentAdded()) {
-            throw new ParseException(AddAssignmentCommand.MESSAGE_ASSIGNMENT_NOT_ADDED);
-        }
-        return new AddAssignmentCommand(index, addAssignmentDescriptor);
-    }
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_ASSIGNMENT, PREFIX_CLASSGROUP);
 
-    /**
-     * Parses {@code Collection<String> assignments} into a {@code Set<Assignment>} if {@code assignments} is non-empty.
-     * If {@code assignments} contain only one element which is an empty string, it will be parsed into a
-     * {@code Set<Assignment>} containing zero assignments.
-     */
-    private Optional<Set<Assignment>> parseAssignmentsForEdit(Collection<String> assignments) throws ParseException {
-        assert assignments != null;
-        if (assignments.isEmpty()) {
-            return Optional.empty();
+        Index index = ParserUtil.parseIndexFromPreamble(argMultimap.getPreamble(), AddAssignmentCommand.MESSAGE_USAGE);
+
+        // allow missing / empty c/ to be represented in the descriptor (parser-side duplication check still useful)
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CLASSGROUP);
+
+        AddAssignmentDescriptor addAssignmentDescriptor = new AddAssignmentDescriptor();
+
+        // set classGroupName in descriptor (may be null if missing, may be empty if c/ provided with empty token)
+        Optional<String> rawClassValueOpt = argMultimap.getValue(PREFIX_CLASSGROUP);
+        String rawClassValue = rawClassValueOpt.orElse(null);
+        addAssignmentDescriptor.setClassGroupName(rawClassValue);
+
+        // Only parse Assignment objects if a non-empty class group name is provided.
+        if (rawClassValue != null && !rawClassValue.trim().isEmpty()) {
+            String classGroupName = rawClassValue.trim().toLowerCase();
+            ParserUtil.parseOptionalAssignments(argMultimap.getAllValues(PREFIX_ASSIGNMENT), classGroupName)
+                    .ifPresent(addAssignmentDescriptor::setAssignments);
         }
-        Collection<String> assignmentSet = assignments.size() == 1 && assignments.contains(
-                "") ? Collections.emptySet() : assignments;
-        return Optional.of(ParserUtil.parseAssignments(assignmentSet));
+
+        return new AddAssignmentCommand(index, addAssignmentDescriptor);
     }
 }

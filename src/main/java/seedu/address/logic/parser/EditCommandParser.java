@@ -1,7 +1,7 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.Messages.MESSAGE_NOT_EDITED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSGROUP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LEVEL;
@@ -9,7 +9,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
 
@@ -18,6 +17,7 @@ import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.assignment.Assignment;
+import seedu.address.model.classgroup.ClassGroup;
 
 
 /**
@@ -32,66 +32,70 @@ public class EditCommandParser implements Parser<EditCommand> {
      */
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(
-                        args, PREFIX_NAME, PREFIX_PHONE, PREFIX_LEVEL, PREFIX_CLASSGROUP, PREFIX_ASSIGNMENT);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(
+                args, PREFIX_NAME, PREFIX_PHONE, PREFIX_LEVEL, PREFIX_CLASSGROUP, PREFIX_ASSIGNMENT);
 
-        Index index;
+        Index index = ParserUtil.parseIndexFromPreamble(argMultimap.getPreamble(), EditCommand.MESSAGE_USAGE);
 
-        try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
-        } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
-        }
-
+        // 4) Duplicate prefixes detection
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_LEVEL);
 
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
 
-        if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
+        // 5) Field-specific parsing
+        if (argMultimap.getValue(PREFIX_NAME).isPresent()) { // invalid name
             editPersonDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
         }
-        if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
+        if (argMultimap.getValue(PREFIX_PHONE).isPresent()) { // invalid phone
             editPersonDescriptor.setPhone(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get()));
         }
-        if (argMultimap.getValue(PREFIX_LEVEL).isPresent()) {
+        if (argMultimap.getValue(PREFIX_LEVEL).isPresent()) { // invalid level
             editPersonDescriptor.setLevel(ParserUtil.parseLevel(argMultimap.getValue(PREFIX_LEVEL).get()));
         }
 
+        // 6) Disabled edits for class groups and assignments
         parseClassGroupsForEdit(argMultimap.getAllValues(PREFIX_CLASSGROUP))
                 .ifPresent(editPersonDescriptor::setClassGroups);
 
         parseAssignmentsForEdit(argMultimap.getAllValues(PREFIX_ASSIGNMENT))
                 .ifPresent(editPersonDescriptor::setAssignments);
 
+        // 7) No editable fields provided
         if (!editPersonDescriptor.isAnyFieldEdited()) {
-            throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
+            throw new ParseException(MESSAGE_NOT_EDITED);
         }
 
         return new EditCommand(index, editPersonDescriptor);
     }
 
     /**
-     * Parses {@code Collection<String> classGroups} into a {@code Set<String>} if {@code classGroups} is non-empty.
+     * Parses {@code Collection<String> classGroups} into a {@code Set<ClassGroup>} if {@code classGroups} is non-empty.
      * If {@code classGroup} contain only one element which is an empty string, it will be parsed into a
-     * {@code Set<String>} containing zero class groups.
+     * {@code Set<ClassGroup>} containing zero class groups.
+     *
+     * Note: This method is disabled as editing class groups could create inconsistencies with existing assignments.
+     * Assignments contain a classGroupName field, and removing a class group while assignments reference it
+     * would create an invalid state. Use dedicated commands to manage class groups and assignments together.
      */
-    private Optional<Set<String>> parseClassGroupsForEdit(Collection<String> classGroups) throws ParseException {
+    private Optional<Set<ClassGroup>> parseClassGroupsForEdit(Collection<String> classGroups) throws ParseException {
         assert classGroups != null;
 
         if (classGroups.isEmpty()) {
             return Optional.empty();
         }
-        Collection<String> classSet = classGroups.size() == 1 && classGroups.contains("")
-                ? Collections.emptySet()
-                : classGroups;
-        return Optional.of(ParserUtil.parseClassGroups(classSet));
+        // Class groups can no longer be edited via the edit command to prevent inconsistencies
+        // with assignments that reference class group names
+        throw new ParseException("Class groups cannot be edited via the edit command to maintain consistency "
+                + "with assignments. Use dedicated commands to manage class groups and assignments.");
     }
 
     /**
      * Parses {@code Collection<String> assignments} into a {@code Set<Assignment>} if {@code assignments} is non-empty.
      * If {@code assignments} contain only one element which is an empty string, it will be parsed into a
-     * {@code Set<Assignment>} containing zero tags.
+     * {@code Set<Assignment>} containing zero assignments.
+     *
+     * Note: This method is disabled as assignments now require a class group.
+     * Use the assign command to add assignments to a person.
      */
     private Optional<Set<Assignment>> parseAssignmentsForEdit(Collection<String> assignments) throws ParseException {
         assert assignments != null;
@@ -99,9 +103,10 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (assignments.isEmpty()) {
             return Optional.empty();
         }
-        Collection<String> assignmentSet = assignments.size() == 1
-                && assignments.contains("") ? Collections.emptySet() : assignments;
-        return Optional.of(ParserUtil.parseAssignments(assignmentSet));
+        // Assignments can no longer be edited via the edit command since they require a class group
+        // Use assign/unassign commands instead
+        throw new ParseException("Assignments cannot be edited via the edit command. "
+                + "Use dedicated commands to manage class groups and assignments.");
     }
 
 }

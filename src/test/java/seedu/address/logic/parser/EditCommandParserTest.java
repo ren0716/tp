@@ -1,8 +1,8 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.CLASSGROUP_DESC_MATH;
-import static seedu.address.logic.commands.CommandTestUtil.CLASSGROUP_DESC_PHYSICS;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+import static seedu.address.logic.Messages.MESSAGE_NOT_EDITED;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_LEVEL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
@@ -11,8 +11,6 @@ import static seedu.address.logic.commands.CommandTestUtil.LEVEL_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_CLASSGROUP_MATH;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_CLASSGROUP_PHYSICS;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_LEVEL_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
@@ -50,7 +48,7 @@ public class EditCommandParserTest {
         assertParseFailure(parser, VALID_NAME_AMY, MESSAGE_INVALID_FORMAT);
 
         // no field specified
-        assertParseFailure(parser, "1", EditCommand.MESSAGE_NOT_EDITED);
+        assertParseFailure(parser, "1", MESSAGE_NOT_EDITED);
 
         // no index and no field specified
         assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
@@ -59,10 +57,10 @@ public class EditCommandParserTest {
     @Test
     public void parse_invalidPreamble_failure() {
         // negative index
-        assertParseFailure(parser, "-5" + NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "-5" + NAME_DESC_AMY, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
         // zero index
-        assertParseFailure(parser, "0" + NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "0" + NAME_DESC_AMY, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
         // invalid arguments being parsed as preamble
         assertParseFailure(parser, "1 some random string", MESSAGE_INVALID_FORMAT);
@@ -85,12 +83,11 @@ public class EditCommandParserTest {
     @Test
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND_PERSON;
-        String userInput = targetIndex.getOneBased() + PHONE_DESC_BOB + CLASSGROUP_DESC_PHYSICS
-                 + LEVEL_DESC_AMY + NAME_DESC_AMY + CLASSGROUP_DESC_MATH;
+        String userInput = targetIndex.getOneBased() + PHONE_DESC_BOB
+                 + LEVEL_DESC_AMY + NAME_DESC_AMY;
 
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withPhone(VALID_PHONE_BOB).withLevel(VALID_LEVEL_AMY)
-                .withClassGroups(VALID_CLASSGROUP_PHYSICS, VALID_CLASSGROUP_MATH).build();
+                .withPhone(VALID_PHONE_BOB).withLevel(VALID_LEVEL_AMY).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -123,15 +120,9 @@ public class EditCommandParserTest {
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
-        // address
+        // level
         userInput = targetIndex.getOneBased() + LEVEL_DESC_AMY;
         descriptor = new EditPersonDescriptorBuilder().withLevel(VALID_LEVEL_AMY).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
-        assertParseSuccess(parser, userInput, expectedCommand);
-
-        // tags
-        userInput = targetIndex.getOneBased() + CLASSGROUP_DESC_MATH;
-        descriptor = new EditPersonDescriptorBuilder().withClassGroups(VALID_CLASSGROUP_MATH).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -154,8 +145,7 @@ public class EditCommandParserTest {
 
         // mulltiple valid fields repeated
         userInput = targetIndex.getOneBased() + PHONE_DESC_AMY + LEVEL_DESC_AMY
-                + CLASSGROUP_DESC_MATH + PHONE_DESC_AMY + LEVEL_DESC_AMY + CLASSGROUP_DESC_MATH
-                + PHONE_DESC_BOB + LEVEL_DESC_BOB + CLASSGROUP_DESC_PHYSICS;
+                + PHONE_DESC_AMY + LEVEL_DESC_AMY + PHONE_DESC_BOB + LEVEL_DESC_BOB;
 
         assertParseFailure(parser, userInput,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_PHONE, PREFIX_LEVEL));

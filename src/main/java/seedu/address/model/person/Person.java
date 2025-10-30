@@ -9,6 +9,7 @@ import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.assignment.Assignment;
+import seedu.address.model.classgroup.ClassGroup;
 
 /**
  * Represents a Person in the address book.
@@ -22,13 +23,13 @@ public class Person {
 
     // Data fields
     private final Level level;
-    private final Set<String> classGroups = new HashSet<>();
+    private final Set<ClassGroup> classGroups = new HashSet<>();
     private final Set<Assignment> assignments = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Level level, Set<String> classGroups, Set<Assignment> assignments) {
+    public Person(Name name, Phone phone, Level level, Set<ClassGroup> classGroups, Set<Assignment> assignments) {
         requireAllNonNull(name, phone, level, classGroups);
         this.name = name;
         this.phone = phone;
@@ -54,7 +55,7 @@ public class Person {
      * Returns an immutable classGroup set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
-    public Set<String> getClassGroups() {
+    public Set<ClassGroup> getClassGroups() {
         return Collections.unmodifiableSet(classGroups);
     }
 
@@ -75,8 +76,13 @@ public class Person {
             return true;
         }
 
-        return otherPerson != null
-                && otherPerson.getName().equals(getName());
+        // instanceof handles nulls
+        if (otherPerson == null) {
+            return false;
+        }
+
+        return name.equals(otherPerson.name)
+                && phone.equals(otherPerson.phone);
     }
 
     /**
@@ -119,4 +125,20 @@ public class Person {
                 .toString();
     }
 
+    /**
+     * Returns a new Person with the same attributes as this person but with the given assignments.
+     * @param newAssignments The new set of assignments
+     * @return A new Person instance with updated assignments
+     */
+    public Person withAssignments(Set<Assignment> newAssignments) {
+        return new Person(this.name, this.phone, this.level, this.classGroups, newAssignments);
+    }
+
+    public Person withName(Name name) {
+        return new Person(name, this.phone, this.level, this.classGroups, this.assignments);
+    }
+
+    public Person withPhone(Phone phone) {
+        return new Person(this.name, phone, this.level, this.classGroups, this.assignments);
+    }
 }

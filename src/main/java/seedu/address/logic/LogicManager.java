@@ -10,6 +10,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.MutatingCommandWords;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -52,10 +53,22 @@ public class LogicManager implements Logic {
 
         try {
             storage.saveAddressBook(model.getAddressBook());
+
+            //add user input into Command History
+            model.addCommandToHistory(commandText);
+            storage.saveCommandHistory(model.getHistory());
+
         } catch (AccessDeniedException e) {
             throw new CommandException(String.format(FILE_OPS_PERMISSION_ERROR_FORMAT, e.getMessage()), e);
         } catch (IOException ioe) {
             throw new CommandException(String.format(FILE_OPS_ERROR_FORMAT, ioe.getMessage()), ioe);
+        }
+
+        // If the executed command is a mutating command,
+        // commit the current state of the address book to the versioned history.
+        // This ensures that undo/redo operations will work correctly
+        if (MutatingCommandWords.contains(command.getCommandWord())) {
+            model.commit();
         }
 
         return commandResult;
@@ -84,5 +97,15 @@ public class LogicManager implements Logic {
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
+    }
+
+    @Override
+    public String getPreviousCommand() {
+        return model.previousCommand();
+    }
+
+    @Override
+    public String getNextCommand() {
+        return model.nextCommand();
     }
 }

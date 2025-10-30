@@ -1,6 +1,10 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.Messages.MESSAGE_ADD_CLASS_SUCCESS;
+import static seedu.address.logic.Messages.MESSAGE_CLASSES_NOT_ADDED;
+import static seedu.address.logic.Messages.MESSAGE_DUPLICATE_CLASSES;
+import static seedu.address.logic.Messages.MESSAGE_DUPLICATE_PERSON;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSGROUP;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
@@ -19,6 +23,8 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.assignment.Assignment;
+import seedu.address.model.classgroup.ClassGroup;
 import seedu.address.model.person.Level;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -31,19 +37,14 @@ public class AddClassCommand extends Command {
 
     public static final String COMMAND_WORD = "addclass";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds class(es) to the person identified "
-            + "by the index number used in the displayed person list.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds class(es) to the student identified "
+            + "by the index number used in the displayed student list.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_CLASSGROUP + "CLASS_NAME "
-            + "[" + PREFIX_CLASSGROUP + "CLASS_NAME]...\n"
+            + PREFIX_CLASSGROUP + "CLASS "
+            + "[" + PREFIX_CLASSGROUP + "CLASS]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_CLASSGROUP + "Math-1000 "
             + PREFIX_CLASSGROUP + "Physics-2000";
-
-    public static final String MESSAGE_ADD_CLASS_SUCCESS = "Added class(es) to: %1$s";
-    public static final String MESSAGE_CLASSES_NOT_ADDED = "At least one class to add must be provided.";
-    public static final String MESSAGE_DUPLICATE_CLASSES = "Duplicate class(es): %s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
 
     private final Index index;
     private final AddClassDescriptor addClassDescriptor;
@@ -76,9 +77,12 @@ public class AddClassCommand extends Command {
             throw new CommandException(MESSAGE_CLASSES_NOT_ADDED);
         }
 
-        Set<String> duplicates = findDuplicateClasses(personToEdit, addClassDescriptor);
+        Set<ClassGroup> duplicates = findDuplicateClasses(personToEdit, addClassDescriptor);
         if (!duplicates.isEmpty()) {
-            String duplicateNames = duplicates.stream().sorted().collect(Collectors.joining(", "));
+            String duplicateNames = duplicates.stream()
+                    .map(ClassGroup::getClassGroupName)
+                    .sorted()
+                    .collect(Collectors.joining(", "));
             throw new CommandException(String.format(MESSAGE_DUPLICATE_CLASSES, duplicateNames));
         }
 
@@ -93,8 +97,8 @@ public class AddClassCommand extends Command {
         return new CommandResult(String.format(MESSAGE_ADD_CLASS_SUCCESS, Messages.format(editedPerson)));
     }
 
-    private static Set<String> findDuplicateClasses(Person person, AddClassDescriptor desc) {
-        Set<String> newClasses = desc.getClassGroups().orElse(Set.of());
+    private static Set<ClassGroup> findDuplicateClasses(Person person, AddClassDescriptor desc) {
+        Set<ClassGroup> newClasses = desc.getClassGroups().orElse(Set.of());
         return person.getClassGroups().stream()
                 .filter(newClasses::contains)
                 .collect(Collectors.toSet());
@@ -106,14 +110,19 @@ public class AddClassCommand extends Command {
         Name updatedName = personToEdit.getName();
         Phone updatedPhone = personToEdit.getPhone();
         Level updatedLevel = personToEdit.getLevel();
+        Set<Assignment> updatedAssignments = personToEdit.getAssignments();
 
-        Set<String> updatedClasses = Stream.concat(
+        Set<ClassGroup> updatedClasses = Stream.concat(
                 personToEdit.getClassGroups().stream(),
                 addClassDescriptor.getClassGroups().orElse(Set.of()).stream()
         ).collect(Collectors.toSet());
 
-        return new Person(updatedName, updatedPhone, updatedLevel , updatedClasses,
-                personToEdit.getAssignments());
+        return new Person(updatedName, updatedPhone, updatedLevel , updatedClasses, updatedAssignments);
+    }
+
+    @Override
+    public String getCommandWord() {
+        return COMMAND_WORD;
     }
 
     @Override
@@ -143,7 +152,7 @@ public class AddClassCommand extends Command {
      * Stores the details to add class(es) to a person. All other fields will remain unchanged.
      */
     public static class AddClassDescriptor {
-        private Set<String> classGroups;
+        private Set<ClassGroup> classGroups;
 
         public AddClassDescriptor() {}
 
@@ -155,11 +164,11 @@ public class AddClassCommand extends Command {
             return CollectionUtil.isAnyNonNull(classGroups) && !classGroups.isEmpty();
         }
 
-        public void setClassGroups(Set<String> classGroups) {
+        public void setClassGroups(Set<ClassGroup> classGroups) {
             this.classGroups = (classGroups != null) ? new HashSet<>(classGroups) : null;
         }
 
-        public Optional<Set<String>> getClassGroups() {
+        public Optional<Set<ClassGroup>> getClassGroups() {
             return (classGroups != null)
                     ? Optional.of(Collections.unmodifiableSet(classGroups))
                     : Optional.empty();

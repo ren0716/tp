@@ -27,10 +27,9 @@
         </Label>
         <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
       </HBox>
-      <FlowPane fx:id="classGroups" />
-      <FlowPane fx:id="assignments" />
-      <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
+        <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
       <Label fx:id="level" styleClass="cell_small_label" text="\$level" />
+      <VBox fx:id="classGroupAssignmentContainer" />
     </VBox>
   </GridPane>
 </HBox>

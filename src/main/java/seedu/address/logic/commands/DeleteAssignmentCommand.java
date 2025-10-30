@@ -1,7 +1,13 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.Messages.MESSAGE_ASSIGNMENT_NOT_DELETED;
+import static seedu.address.logic.Messages.MESSAGE_ASSIGNMENT_NOT_EXIST;
+import static seedu.address.logic.Messages.MESSAGE_CLASS_NOT_PROVIDED;
+import static seedu.address.logic.Messages.MESSAGE_DELETE_ASSIGNMENT_SUCCESS;
+import static seedu.address.logic.Messages.MESSAGE_DUPLICATE_PERSON;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSGROUP;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.Collections;
@@ -19,6 +25,7 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.assignment.Assignment;
+import seedu.address.model.classgroup.ClassGroup;
 import seedu.address.model.person.Level;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -31,19 +38,16 @@ public class DeleteAssignmentCommand extends Command {
 
     public static final String COMMAND_WORD = "unassign";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Delete assignment(s) from the person identified "
-            + "by the index number used in the displayed person list. \n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Delete assignment(s) from the student identified "
+            + "by the index number used in the displayed student list. \n"
             + "Parameters: INDEX (must be a positive integer) "
+            + PREFIX_CLASSGROUP + "CLASS "
             + PREFIX_ASSIGNMENT + "ASSIGNMENT "
             + "[" + PREFIX_ASSIGNMENT + "ASSIGNMENT]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
+            + PREFIX_CLASSGROUP + "Math 3PM "
             + PREFIX_ASSIGNMENT + "ScienceTopic2 "
             + PREFIX_ASSIGNMENT + "MathHW1";
-
-    public static final String MESSAGE_DELETE_ASSIGNMENT_SUCCESS = "Deleted assignment(s) from: %1$s";
-    public static final String MESSAGE_ASSIGNMENT_NOT_DELETED = "At least one assignment to delete must be provided.";
-    public static final String MESSAGE_ASSIGNMENT_NOT_EXIST = "Cannot delete non-existent assignment(s): %s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
 
     private final Index index;
     private final DeleteAssignmentDescriptor deleteAssignmentDescriptor;
@@ -71,8 +75,15 @@ public class DeleteAssignmentCommand extends Command {
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
 
+        // No class provided (missing prefix / present but empty):
+        if (!deleteAssignmentDescriptor.hasClassGroup()) {
+            throw new CommandException(MESSAGE_CLASS_NOT_PROVIDED);
+        }
+
+        // No assignments provided (missing prefix / present but empty): MESSAGE_ASSIGNMENT_NOT_DELETED
         if (!deleteAssignmentDescriptor.isAssignmentDeleted()
-                || deleteAssignmentDescriptor.getAssignments().get().isEmpty()) {
+                || (deleteAssignmentDescriptor.getAssignments().isPresent()
+                && deleteAssignmentDescriptor.getAssignments().get().isEmpty())) {
             throw new CommandException(MESSAGE_ASSIGNMENT_NOT_DELETED);
         }
 
@@ -120,14 +131,14 @@ public class DeleteAssignmentCommand extends Command {
         Name updatedName = personToEdit.getName();
         Phone updatedPhone = personToEdit.getPhone();
         Level updatedLevel = personToEdit.getLevel();
-        Set<String> updatedClassGroup = personToEdit.getClassGroups();
+        Set<ClassGroup> updatedClassGroup = personToEdit.getClassGroups();
         Set<Assignment> allAssignments = new HashSet<>(personToEdit.getAssignments());
         Set<Assignment> toDelete = findDeletableAssignments(personToEdit, deleteAssignmentDescriptor);
         Set<Assignment> nonExistent = findNonExistentAssignments(personToEdit, deleteAssignmentDescriptor);
 
         if (!nonExistent.isEmpty()) {
             String missingNames = nonExistent.stream()
-                    .map(Assignment::getAssignmentName)
+                    .map(Assignment::toString)
                     .sorted()
                     .collect(Collectors.joining(", "));
             throw new CommandException(String.format(MESSAGE_ASSIGNMENT_NOT_EXIST, missingNames));
@@ -137,6 +148,11 @@ public class DeleteAssignmentCommand extends Command {
         updatedAssignments.removeAll(toDelete);
 
         return new Person(updatedName, updatedPhone, updatedLevel, updatedClassGroup, updatedAssignments);
+    }
+
+    @Override
+    public String getCommandWord() {
+        return COMMAND_WORD;
     }
 
     @Override
@@ -168,6 +184,7 @@ public class DeleteAssignmentCommand extends Command {
      */
     public static class DeleteAssignmentDescriptor {
         private Set<Assignment> assignments;
+        private String classGroupName;
 
         public DeleteAssignmentDescriptor() {}
 
@@ -177,6 +194,7 @@ public class DeleteAssignmentCommand extends Command {
          */
         public DeleteAssignmentDescriptor(DeleteAssignmentDescriptor toCopy) {
             setAssignments(toCopy.assignments);
+            setClassGroupName(toCopy.classGroupName);
         }
 
         /**
@@ -184,6 +202,21 @@ public class DeleteAssignmentCommand extends Command {
          */
         public boolean isAssignmentDeleted() {
             return CollectionUtil.isAnyNonNull(assignments);
+        }
+
+        /**
+         * Returns true if a class group was provided (non-null and non-empty after trimming).
+         */
+        public boolean hasClassGroup() {
+            return classGroupName != null && !classGroupName.trim().isEmpty();
+        }
+
+        public void setClassGroupName(String classGroupName) {
+            this.classGroupName = classGroupName;
+        }
+
+        public Optional<String> getClassGroupName() {
+            return (classGroupName != null) ? Optional.of(classGroupName) : Optional.empty();
         }
 
         /**
@@ -215,7 +248,8 @@ public class DeleteAssignmentCommand extends Command {
             }
 
             DeleteAssignmentDescriptor otherDeleteAssignmentDescriptor = (DeleteAssignmentDescriptor) other;
-            return Objects.equals(assignments, otherDeleteAssignmentDescriptor.assignments);
+            return Objects.equals(assignments, otherDeleteAssignmentDescriptor.assignments)
+                    && Objects.equals(classGroupName, otherDeleteAssignmentDescriptor.classGroupName);
         }
 
         @Override
