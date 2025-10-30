@@ -856,22 +856,22 @@ testers are expected to do more *exploratory* testing.
 
 Team size: 5
 
-1. **Make accepted phone number formats more flexible and accurate:** 
-Currently, we accept phone numbers that contain only numbers 
-and are at least 3 digits long. 
-We plan to make phone numbers be at least 8 digits long (in Singapore context) and accept formats with 
+1. **Make accepted phone number formats more flexible and accurate:**
+Currently, we accept phone numbers that contain only numbers
+and are at least 3 digits long.
+We plan to make phone numbers be at least 8 digits long (in Singapore context) and accept formats with
 spaces, dashes, or plus signs (e.g., "9123 4567", "912-34567", "+65 91234567").
-2. **Make error messages for assign & unassign more cohesive:** 
-Currently, if we try to assign to a student an assignment belonging to a class 
-they are not in, we get error message 
+2. **Make error messages for assign & unassign more cohesive:**
+Currently, if we try to assign to a student an assignment belonging to a class
+they are not in, we get error message
 `Student does not belong to the class group: {class}` but if we do the same for unassign,
-we get `Cannot delete non-existent assignment(s): [{assignment} ({class})]`. 
+we get `Cannot delete non-existent assignment(s): [{assignment} ({class})]`.
 We plan to make both error messages follow a similar format, where we check if
-the student at INDEX has that class first and show 
+the student at INDEX has that class first and show
 `Student does not belong to the class group: {class}` straightaway if they do not.
 3. **Improve name input validation to detect invalid prefix:**
 Currently, we only throw error when user inputs invalid prefixes behind `n/`
-prefix with a space between them, e.g., `add n/John Doe a/hw1`, but allow invalid 
+prefix with a space between them, e.g., `add n/John Doe a/hw1`, but allow invalid
 prefixes when there is no space, e.g., `add n/John Doea/hw1`.
 We plan to allow such cases but with an additional warning message to inform
 the user of possible invalid prefix if this was unintentional to avoid confusion.
