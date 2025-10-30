@@ -33,7 +33,7 @@ public class DeleteAssignmentCommandParser implements Parser<DeleteAssignmentCom
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args);
 
-        Index index = ParserUtil.parseIndexFromPreamble(
+        Index index = ParserUtil.parseOneIndex(
                 argMultimap.getPreamble(), DeleteAssignmentCommand.MESSAGE_USAGE);
 
         // allow missing / empty c/ to be represented in the descriptor

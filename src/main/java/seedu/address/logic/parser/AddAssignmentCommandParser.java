@@ -28,7 +28,7 @@ public class AddAssignmentCommandParser implements Parser<AddAssignmentCommand> 
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args);
 
-        Index index = ParserUtil.parseIndexFromPreamble(argMultimap.getPreamble(), AddAssignmentCommand.MESSAGE_USAGE);
+        Index index = ParserUtil.parseOneIndex(argMultimap.getPreamble(), AddAssignmentCommand.MESSAGE_USAGE);
 
         // allow missing / empty c/ to be represented in the descriptor (parser-side duplication check still useful)
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CLASSGROUP);

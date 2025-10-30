@@ -33,7 +33,7 @@ public class AddClassCommandParser implements Parser<AddClassCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args);
 
-        Index index = ParserUtil.parseIndexFromPreamble(argMultimap.getPreamble(), AddClassCommand.MESSAGE_USAGE);
+        Index index = ParserUtil.parseOneIndex(argMultimap.getPreamble(), AddClassCommand.MESSAGE_USAGE);
 
         argMultimap.verifyNoInvalidPrefixesFor(PREFIX_ASSIGNMENT, PREFIX_LEVEL, PREFIX_PHONE, PREFIX_NAME);
 

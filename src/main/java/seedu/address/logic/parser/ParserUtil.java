@@ -46,6 +46,7 @@ public class ParserUtil {
 
     /**
      * Parses a single index and returns it as a singleton list.
+     * Wraps parseIndex for parseMultipleIndex
      */
     private static List<Index> parseSingleIndex(String indexString) throws ParseException {
         List<Index> indices = new ArrayList<>();
@@ -93,7 +94,7 @@ public class ParserUtil {
      * @return the parsed {@link seedu.address.commons.core.index.Index} corresponding to the preamble
      * @throws ParseException if the preamble is missing, contains extra tokens, or the index is invalid
      */
-    public static Index parseIndexFromPreamble(String preamble, String usageMessage) throws ParseException {
+    public static Index parseOneIndex(String preamble, String usageMessage) throws ParseException {
         // 1) Missing preamble: invalid command format with usage
         if (preamble == null || preamble.trim().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, usageMessage));

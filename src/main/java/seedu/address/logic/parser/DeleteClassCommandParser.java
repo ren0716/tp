@@ -28,7 +28,7 @@ public class DeleteClassCommandParser implements Parser<DeleteClassCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args);
 
-        Index index = ParserUtil.parseIndexFromPreamble(argMultimap.getPreamble(), DeleteClassCommand.MESSAGE_USAGE);
+        Index index = ParserUtil.parseOneIndex(argMultimap.getPreamble(), DeleteClassCommand.MESSAGE_USAGE);
 
         argMultimap.verifyNoInvalidPrefixesFor(PREFIX_LEVEL, PREFIX_ASSIGNMENT, PREFIX_PHONE, PREFIX_NAME);
 
