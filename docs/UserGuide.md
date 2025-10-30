@@ -1,22 +1,10 @@
-<<<<<<< HEAD
----
-  layout: default.md
-  title: "User Guide"
-  pageNav: 3
----
-
-# AB-3 User Guide
-=======
 <frontmatter>
   title: "User Guide"
 </frontmatter>
 
 # User Guide
 
-TutorTrack is a **desktop app for managing contacts, optimized for use via the Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, TutorTrack can help you efficiently track students, organise classes and assignments faster than traditional GUI apps.
->>>>>>> upstream/master
-
-AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized for use via a  Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps.
+TutorTrack is a **desktop app** designed to help **Secondary School tutors** keep track of their **students, classes and assignments.** Unlike conventional contact management systems, TutorTrack is optimized for **rapid keyboard operation**, catering to tutors who favor typing-based workflows over mouse-driven ones.
 
 <!-- * Table of Contents -->
 <page-nav-print />
@@ -28,15 +16,15 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 1. Ensure you have Java `17` or above installed in your Computer.<br>
    **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
 
-1. Download the latest `.jar` file from [here](https://github.com/AY2526S1-CS2103T-F14b-3/tp/releases).
+2. Download the latest `.jar` file from [here](https://github.com/AY2526S1-CS2103T-F14b-3/tp/releases).
 
-1. Copy the file to the folder you want to use as the _home folder_ for TutorTrack.
+3. Copy the file to the folder you want to use as the _home folder_ for TutorTrack.
 
-1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar tutortrack.jar` command to run the application.<br>
+4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar tutortrack.jar` command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
-   ![Ui](images/Ui.png)
+   ![Ui](images/Ui_updated.png)
 
-1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
    * `list` : Lists all contacts.
@@ -118,16 +106,9 @@ Adds a student to TutorTrack.
 
 Format: `add n/NAME p/PHONE l/LEVEL [c/CLASS]…​`
 
-<<<<<<< HEAD
-<box type="tip" seamless>
-
-**Tip:** A person can have any number of tags (including 0)
-</box>
-=======
 <div markdown="span" class="alert alert-primary"><span class="fas fa-lightbulb" aria-hidden="true"></span> <strong>Tip:</strong>
 A student can have any number of classes and assignments (including 0)
 </div>
->>>>>>> upstream/master
 
 Examples:
 * `add n/John Doe p/98765432 l/2`
@@ -144,19 +125,19 @@ Format: `delete INDEX`
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
-* `list` followed by `delete 2` deletes the 2nd student in the address book.
+* `list` followed by `delete 2` deletes the 2nd student in the student list.
 * `find Betsy` followed by `delete 1` deletes the 1st student in the results of the `find` command.
 
 
 ### Listing all students : `list`
 
-Shows a list of all students in the address book.
+Shows a list of all students in TutorTrack.
 
 Format: `list`
 
 ### Editing a student : `edit`
 
-Edits an existing student in the address book.
+Edits an existing student in TutorTrack.
 
 Format: `edit INDEX [n/NAME] [p/PHONE] [l/LEVEL]`
 
@@ -184,8 +165,8 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 
 Examples:
 * `find John` returns `john` and `John Doe`
-* `find alex john` returns `alex`, `john`<br>
-  ![result for 'find alex john'](images/findAlexJohnResult.png)
+* `find alex roy` returns `alex`, `roy`<br>
+  ![result for 'find alex roy'](images/findAlexRoyResult.png)
 
 ### Adding assignment(s) to a student: `assign`
 
@@ -200,7 +181,7 @@ Format: `assign INDEX c/CLASS a/ASSIGNMENT [a/ASSIGNMENT]...`
 * Duplicate assignments will not be added.
 
 Examples:
-* `list` followed by `assign 1 c/Math-2000 a/MathHW1 a/MathHW2` adds two assignments from class `Math-2000` to the 1st student in the address book.
+* `list` followed by `assign 1 c/Math-2000 a/MathHW1 a/MathHW2` adds two assignments from class `Math-2000` to the 1st student in the student list.
 * `find John` followed by `assign 2 c/History a/ProjectDraft` adds an assignment from class `History` to the 2nd student in the results of the `find` command.
 
 ### Deleting assignment(s) from a student: `unassign`
@@ -215,7 +196,7 @@ Format: `unassign INDEX c/CLASS a/ASSIGNMENT [a/ASSIGNMENT]...`
 * At least one assignment must be provided.
 
 Examples:
-* `list` followed by `unassign 1 c/Math-2000 a/MathHW1 a/MathHW2` deletes two assignments from class `Math-2000` from the 1st student in the address book.
+* `list` followed by `unassign 1 c/Math-2000 a/MathHW1 a/MathHW2` deletes two assignments from class `Math-2000` from the 1st student in the student list.
 * `find John` followed by `unassign 2 c/History a/ProjectDraft` deletes an assignment from class `History` from the 2nd student in the results of the `find` command.
 
 ### Adding an assignment to all students in a class: `assignall`
@@ -252,12 +233,13 @@ Marks the assignment of student(s) identified by the index number(s) used in the
 
 Format: `mark [INDEX]... [INDEX_RANGE]...  c/CLASS a/ASSIGNMENT`
 
-* Marks the assignment belonging to the specified class as completed for the student(s) at the specified `INDEX`(es) or `INDEX_RANGE`(s).
+* Marks the assignment belonging to the specified class as completed for the student(s) at the specified `INDEX`(es) and/or `INDEX_RANGE`(s).
 * The index(es) refers to the index number shown in the displayed student list.
 * The index(es) **must be a positive integer** 1, 2, 3, …​
 * At least one index or index range must be provided.
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+<div markdown="span" class="alert alert-primary"><span class="fas fa-lightbulb" aria-hidden="true"></span> <strong>Tip:</strong>
+
 For efficient marking of assignments for a specific class, use the [`filter`](#filtering-students-by-class-filter) command first to display only students in that class, then use `mark` with the filtered list.
 </div>
 
@@ -272,13 +254,14 @@ Unmarks the assignment of student(s) identified by the index number(s) used in t
 
 Format: `unmark [INDEX]... [INDEX_RANGE]...  c/CLASS a/ASSIGNMENT`
 
-* Unmarks the assignment belonging to the specified class as not completed for the student(s) at the specified `INDEX`(es) or `INDEX_RANGE`(s).
+* Unmarks the assignment belonging to the specified class as not completed for the student(s) at the specified `INDEX`(es) and/or `INDEX_RANGE`(s).
 * The index(es) refers to the index number shown in the displayed student list.
 * The index(es) **must be a positive integer** 1, 2, 3, …​
 * At least one index or index range must be provided.
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-Like [`mark`](#marking-an-assignment-as-completed-mark), use [`filter`](#filtering-students-by-class-filter) first for efficient unmarking by class.
+<div markdown="span" class="alert alert-primary"><span class="fas fa-lightbulb" aria-hidden="true"></span> <strong>Tip:</strong>
+
+Like [`mark`]( #marking-an-assignment-as-completed-mark ), use [`filter`](#filtering-students-by-class-filter) first for efficient unmarking by class.
 </div>
 
 Examples:
@@ -301,7 +284,7 @@ Format: `addclass INDEX c/CLASS [c/CLASS]...`
 * Duplicate classes will not be added.
 
 Examples:
-* `list` followed by `addclass 1 c/Math-1000 c/Physics-2000` adds two classes to the 1st student in the address book.
+* `list` followed by `addclass 1 c/Math-1000 c/Physics-2000` adds two classes to the 1st student in the student list.
 * `find John` followed by `addclass 2 c/Chemistry-1400` adds a class to the 2nd student in the results of the `find` command.
 
 ### Deleting class(es) from a student: `deleteclass`
@@ -319,7 +302,7 @@ Format: `deleteclass INDEX c/CLASS [c/CLASS]...`
 * Only classes that exist for the student can be deleted.
 
 Examples:
-* `list` followed by `deleteclass 1 c/Math-1000 c/Physics-2000` deletes two classes from the 1st student in the address book.
+* `list` followed by `deleteclass 1 c/Math-1000 c/Physics-2000` deletes two classes from the 1st student in the student list.
 * `find John` followed by `deleteclass 2 c/Chemistry-1400` deletes a class from the 2nd student in the results of the `find` command.
 
 ### Filtering students by class: `filter`
@@ -337,12 +320,46 @@ Examples:
 * `filter c/Math-1000` displays all students enrolled in the Math-1000 class.
 * `filter c/Chemistry-1400` displays all students enrolled in the Chemistry-1400 class.
 
-
 ### Clearing all entries : `clear`
 
-Clears all entries from the address book.
+Clears all entries from TutorTrack.
 
 Format: `clear`
+
+### Undoing previous command : `undo`
+
+Undoes the previous command that modified the data.
+
+Format: `undo`
+
+* Restores TutorTrack to the state before the last command that changed the data.
+* Only commands that modify data (e.g., `add`, `delete`, `edit`, `assign`, `mark`) can be undone.
+* Commands that do not modify data (e.g., `list`, `find`, `help`) cannot be undone.
+
+<div markdown="span" class="alert alert-primary"><span class="fas fa-lightbulb" aria-hidden="true"></span> <strong>Tip:</strong>
+
+If you accidentally deleted a student or made an unwanted change, use `undo` to quickly restore the previous state.
+</div>
+
+<div markdown="span" class="alert alert-warning"><span class="fas fa-exclamation-triangle" aria-hidden="true"></span> <strong>Caution:</strong>
+
+Undo/Redo only works for actions made in the **current session**. Once you leave or refresh, previous changes cannot be restored.
+</div>
+
+Examples:
+* `delete 1` followed by `undo` adds the deleted student back.
+
+### Redoing previously undone command : `redo`
+
+Redoes a command that was previously undone.
+
+Format: `redo`
+
+* Redo only works if no new commands have been issued after the undo.
+* After using `undo` multiple times, you can use `redo` multiple times to reapply those changes.
+
+Examples:
+* `delete 1` followed by `undo` followed by `redo` deletes the student again.
 
 ### Exiting the program : `exit`
 
@@ -358,19 +375,25 @@ TutorTrack data are saved in the hard disk automatically after any command that 
 
 TutorTrack data are saved automatically as a JSON file `[JAR file location]/data/tutortrack.json`. Advanced users are welcome to update data directly by editing that data file.
 
-<<<<<<< HEAD
-<box type="warning" seamless>
-
-**Caution:**
-If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.<br>
-Furthermore, certain edits can cause the AddressBook to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
-</box>
-=======
 <div markdown="span" class="alert alert-warning"><span class="fas fa-exclamation-triangle" aria-hidden="true"></span> <strong>Caution:</strong>
 If your changes to the data file makes its format invalid, TutorTrack will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
-Furthermore, certain edits can cause the TutorTrack to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
+Furthermore, certain edits can cause TutorTrack to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </div>
->>>>>>> upstream/master
+
+--------------------------------------------------------------------------------------------------------------------
+
+## Keyboard Shortcuts
+
+#### Navigating command history
+
+Navigate through 50 previously executed commands using keyboard shortcuts.
+
+* **Up Arrow Key (↑)**: Retrieves the previous command from history
+* **Down Arrow Key (↓)**: Retrieves the next command from history
+
+#### Other shortcuts
+
+* **F1**: Opens the help window
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -378,6 +401,21 @@ Furthermore, certain edits can cause the TutorTrack to behave in unexpected ways
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous TutorTrack home folder.
+
+**Q**: Can I use TutorTrack on multiple computers?<br>
+**A**: Yes, but TutorTrack does not support real-time synchronization. You will need to manually transfer the `tutortrack.json` data file between computers to keep data consistent.
+
+**Q**: What if the data file becomes corrupted?<br>
+**A**: Restore from your backup. If no backup exists, the app will create a fresh `tutortrack.json` and you may lose previous data.
+
+**Q**: How do I back up my data?<br>
+**A**: Regularly copy `data/tutortrack.json` (and optionally `preferences.json`) to a secure location, such as an external hard drive or cloud storage service.
+
+**Q**: Can I edit `data/tutortrack.json` manually?<br>
+**A**: Yes, but only if you know the expected JSON structure. Always make a backup first; invalid edits may cause the app to discard data on next run.
+
+**Q**: Will data work across app versions?<br>
+**A**: Minor patch updates are generally compatible. For major version changes, check release notes for migration instructions before copying files.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -390,17 +428,6 @@ Furthermore, certain edits can cause the TutorTrack to behave in unexpected ways
 
 ## Command summary
 
-<<<<<<< HEAD
-Action     | Format, Examples
------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-**Add**    | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-**Clear**  | `clear`
-**Delete** | `delete INDEX`<br> e.g., `delete 3`
-**Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
-**Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
-**List**   | `list`
-**Help**   | `help`
-=======
 Action | Format, Examples
 --------|------------------
 **Add** | `add n/NAME p/PHONE l/LEVEL [c/CLASS]…​` <br> e.g., `add n/John Doe p/98765432 l/2 c/Chemistry-1400`
@@ -418,6 +445,7 @@ Action | Format, Examples
 **Delete Class** | `deleteclass INDEX c/CLASS [c/CLASS]...`<br> e.g., `deleteclass 1 c/Math-1000`
 **Filter** | `filter c/CLASS`<br> e.g., `filter c/Math-1000`
 **Clear** | `clear`
+**Undo** | `undo`
+**Redo** | `redo`
 **Help** | `help`
 **Exit** | `exit`
->>>>>>> upstream/master

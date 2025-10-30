@@ -1,5 +1,7 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.logic.parser.CliSyntax.ALL_PREFIXES;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -25,6 +27,21 @@ public class ArgumentTokenizer {
      */
     public static ArgumentMultimap tokenize(String argsString, Prefix... prefixes) {
         List<PrefixPosition> positions = findAllPrefixPositions(argsString, prefixes);
+        return extractArguments(argsString, positions);
+    }
+
+    /**
+     * Tokenizes an arguments string using all registered prefixes and returns an {@code ArgumentMultimap} object
+     * that maps each prefix to its respective argument values.
+     *
+     * <p>This method recognizes all prefixes defined in {@link CliSyntax#ALL_PREFIXES} and is equivalent to calling
+     * {@link #tokenize(String, Prefix...)} with {@code ALL_PREFIXES}.</p>
+     *
+     * @param argsString Arguments string of the form: {@code preamble <prefix>value <prefix>value ...}
+     * @return           ArgumentMultimap object that maps all known prefixes to their arguments
+     */
+    public static ArgumentMultimap tokenize(String argsString) {
+        List<PrefixPosition> positions = findAllPrefixPositions(argsString, ALL_PREFIXES);
         return extractArguments(argsString, positions);
     }
 

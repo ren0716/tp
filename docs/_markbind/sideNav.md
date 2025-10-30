@@ -15,12 +15,13 @@
     <li class="site-nav-list-item-0">Developer Guide
       <ul>
         <li class="site-nav-default-list-item"><a href="{{baseUrl}}/DeveloperGuide.html">Overview</a></li>
-        <li class="site-nav-default-list-item"><a href="{{baseUrl}}/SettingUp.html">Setting Up</a></li>
-        <li class="site-nav-default-list-item"><a href="{{baseUrl}}/Testing.html">Testing</a></li>
-        <li class="site-nav-default-list-item"><a href="{{baseUrl}}/DevOps.html">DevOps</a></li>
-        <li class="site-nav-default-list-item"><a href="{{baseUrl}}/Logging.html">Logging</a></li>
-        <li class="site-nav-default-list-item"><a href="{{baseUrl}}/Documentation.html">Documentation</a></li>
-        <li class="site-nav-default-list-item"><a href="{{baseUrl}}/Configuration.html">Configuration</a></li>
+        <li class="site-nav-default-list-item"><a href="{{baseUrl}}/DeveloperGuide.html#acknowledgements">Acknowledgements</a></li>
+        <li class="site-nav-default-list-item"><a href="{{baseUrl}}/DeveloperGuide.html#setting-up">Setting Up</a></li>
+        <li class="site-nav-default-list-item"><a href="{{baseUrl}}/DeveloperGuide.html#design">Design</a></li>
+        <li class="site-nav-default-list-item"><a href="{{baseUrl}}/DeveloperGuide.html#implementation">Implementation</a></li>
+        <li class="site-nav-default-list-item"><a href="{{baseUrl}}/DeveloperGuide.html#documentation-logging-testing-configuration-dev-ops">Documentation, logging, testing, configuration, dev-ops</a></li>
+        <li class="site-nav-default-list-item"><a href="{{baseUrl}}/DeveloperGuide.html#appendix-requirements">Appendix: Requirements</a></li>
+        <li class="site-nav-default-list-item"><a href="{{baseUrl}}/DeveloperGuide.html#appendix-instructions-for-manual-testing">Appendix: Instructions for manual testing</a></li>
       </ul>
     </li>
 

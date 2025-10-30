@@ -19,7 +19,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
     public DeleteCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args);
-        Index index = ParserUtil.parseIndexFromPreamble(argMultimap.getPreamble(), DeleteCommand.MESSAGE_USAGE);
+        Index index = ParserUtil.parseOneIndex(argMultimap.getPreamble(), DeleteCommand.MESSAGE_USAGE);
         return new DeleteCommand(index);
     }
 }

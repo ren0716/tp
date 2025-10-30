@@ -106,4 +106,15 @@ public class DeleteAssignmentCommandParserTest {
             assertTrue(pe.getMessage() != null && !pe.getMessage().isEmpty());
         }
     }
+
+    @Test
+    public void parse_invalidPrefix_throwsParseException() {
+        String input = "1 c/Math a/HW1 p/john";
+        try {
+            parser.parse(input);
+            assertTrue(false, "Expected ParseException for invalid name prefix");
+        } catch (ParseException pe) {
+            assertTrue(pe.getMessage() != null && !pe.getMessage().isEmpty());
+        }
+    }
 }

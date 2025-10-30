@@ -1,6 +1,3 @@
-<!-- Ensure custom site styles are loaded on every page -->
-<link rel="stylesheet" href="{{baseUrl}}/stylesheets/main.css">
-
 <div class="top-nav">
   <a class="brand" href="{{baseUrl}}/index.html">TutorTrack</a>
   <div class="nav-links">
@@ -11,13 +8,4 @@
       <img src="{{baseUrl}}/images/github-icon.png" alt="GitHub" width="24">
     </a>
   </div>
-</div>
-
-<!-- Custom fixed sidebar (desktop) -->
-<div id="custom-sidebar">
-  <include src="sideNav.md"/>
-
-  <!-- Spacer to avoid overlap with sticky top bar -->
-  <div class="sidebar-spacer" aria-hidden="true"></div>
-
 </div>
