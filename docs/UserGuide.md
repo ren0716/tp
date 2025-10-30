@@ -6,8 +6,6 @@
 
 TutorTrack is a **desktop app** designed to help **Secondary School tutors** keep track of their **students, classes and assignments.** Unlike conventional contact management systems, TutorTrack is optimized for **rapid keyboard operation**, catering to tutors who favor typing-based workflows over mouse-driven ones.
 
-<!-- Removed legacy AB3 description during migration to TutorTrack -->
-
 <!-- * Table of Contents -->
 <page-nav-print />
 
