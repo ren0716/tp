@@ -128,8 +128,9 @@ public class Assignment {
     /**
      * Format state as text for viewing.
      */
+    @Override
     public String toString() {
-        return '[' + assignmentName + " (" + classGroupName + ")]";
+        return assignmentName + " (" + classGroupName + ")";
     }
 
 }
