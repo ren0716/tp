@@ -87,6 +87,6 @@ public class AssignmentTest {
     @Test
     public void toString_validAssignment_returnsCorrectString() {
         Assignment assignment = new Assignment("Physics", DEFAULT_CLASS_GROUP);
-        assertEquals("[Physics (test-class)]", assignment.toString());
+        assertEquals("Physics (test-class)", assignment.toString());
     }
 }
