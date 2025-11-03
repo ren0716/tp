@@ -7,8 +7,8 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Name;
@@ -24,9 +24,10 @@ public class ModelManager implements Model {
 
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
+    private final ObservableList<Person> visiblePersons;
     private final AddressBookVersionManager versions;
     private final CommandHistory history = new CommandHistory();
+    private Predicate<Person> currentPredicate = PREDICATE_SHOW_ALL_PERSONS;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -39,7 +40,7 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.versions = new AddressBookVersionManager(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        this.visiblePersons = FXCollections.observableArrayList(this.addressBook.getPersonList());
     }
 
     public ModelManager() {
@@ -86,6 +87,7 @@ public class ModelManager implements Model {
     @Override
     public void setAddressBook(ReadOnlyAddressBook addressBook) {
         this.addressBook.resetData(addressBook);
+        updateVisiblePersonList();
     }
 
     @Override
@@ -113,14 +115,17 @@ public class ModelManager implements Model {
 
     @Override
     public void deletePerson(Person target) {
-
         addressBook.removePerson(target);
+        visiblePersons.remove(target);
     }
 
     @Override
     public void addPerson(Person person) {
         addressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        // Always add the new person to visible list
+        if (!visiblePersons.contains(person)) {
+            visiblePersons.add(person);
+        }
     }
 
     @Override
@@ -128,23 +133,57 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedPerson);
 
         addressBook.setPerson(target, editedPerson);
+        // Update visible list: replace target with editedPerson if target was visible
+        int index = visiblePersons.indexOf(target);
+        if (index != -1) {
+            visiblePersons.set(index, editedPerson);
+        }
     }
 
     //=========== Filtered Person List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code AddressBookVersionManager}
+     * Returns an unmodifiable view of the visible person list.
      */
     @Override
     public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
+        return FXCollections.unmodifiableObservableList(visiblePersons);
     }
 
     @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+        currentPredicate = predicate;
+
+        if (predicate == PREDICATE_SHOW_ALL_PERSONS) {
+            // Reset to show all persons from the full address book
+            visiblePersons.setAll(addressBook.getPersonList());
+        } else {
+            // Filter the current visible list
+            visiblePersons.removeIf(person -> !predicate.test(person));
+        }
+    }
+
+    /**
+     * Updates the visible person list based on the full address book.
+     * Used when the address book is reset (e.g., undo/redo).
+     */
+    private void updateVisiblePersonList() {
+        if (currentPredicate == PREDICATE_SHOW_ALL_PERSONS) {
+            visiblePersons.setAll(addressBook.getPersonList());
+        } else {
+            visiblePersons.clear();
+            for (Person person : addressBook.getPersonList()) {
+                if (currentPredicate.test(person)) {
+                    visiblePersons.add(person);
+                }
+            }
+        }
+    }
+
+    @Override
+    public Predicate<Person> getCurrentPredicate() {
+        return currentPredicate;
     }
 
     @Override
@@ -161,7 +200,7 @@ public class ModelManager implements Model {
         ModelManager otherModelManager = (ModelManager) other;
         return addressBook.equals(otherModelManager.addressBook)
                 && userPrefs.equals(otherModelManager.userPrefs)
-                && filteredPersons.equals(otherModelManager.filteredPersons);
+                && visiblePersons.equals(otherModelManager.visiblePersons);
     }
 
     //=========== AddressBookVersionManager =======================================================================

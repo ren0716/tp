@@ -98,6 +98,11 @@ public interface Model {
     void updateFilteredPersonList(Predicate<Person> predicate);
 
     /**
+     * Returns the current predicate being used to filter the person list.
+     */
+    Predicate<Person> getCurrentPredicate();
+
+    /**
      * Replaces current address book data with the data prior to the latest command
      */
     void undo();

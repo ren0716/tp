@@ -7,7 +7,6 @@ import static seedu.address.logic.Messages.MESSAGE_DUPLICATE_PERSON;
 import static seedu.address.logic.Messages.MESSAGE_UNASSIGNALL_SUCCESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSGROUP;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
 import java.util.Set;
@@ -106,7 +105,6 @@ public class UnassignAllCommand extends Command {
                     assignment.getAssignmentName(), classGroupName));
         }
 
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_UNASSIGNALL_SUCCESS,
                 assignment.getAssignmentName(), unassignedCount, classGroupName));
     }
