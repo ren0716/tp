@@ -71,7 +71,7 @@ TutorTrack is a **desktop app** designed to help **Secondary School tutors** kee
 * `NAME` parameter values allows only alphanumeric values, spaces, hyphens, periods, apostrophes and slashes.<br>
   e.g. `n/John Doe`, `n/Betsy O'Connor`, `n/Mary-Jane Smith Jr.` are all acceptable but `n/John@Doe`, `n/John#1` is not.
 
-* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
+* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit`, `clear`, `undo` and `redo`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
@@ -141,7 +141,9 @@ Edits an existing student in TutorTrack.
 
 Format: `edit INDEX [n/NAME] [p/PHONE] [l/LEVEL]`
 
-* Edits the student at the specified `INDEX`. The index refers to the index number shown in the displayed student list. The index **must be a positive integer** 1, 2, 3, …​
+* Edits the student at the specified `INDEX`. 
+* The index refers to the index number shown in the displayed student list. 
+* The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * Classes and assignments cannot be edited via the `edit` command.
@@ -206,7 +208,7 @@ Assigns an assignment to all students in the specified class.
 Format: `assignall c/CLASS a/ASSIGNMENT`
 
 * Assigns the specified assignment to all students in the specified class.
-* Students who already have the specified assignment in the specified class will be skipped.
+* No changes are made to students who already have the specified assignment in the specified class.
 * If all students in the specified class already have the specified assignment, no changes will be made.
 
 Examples:
@@ -215,12 +217,12 @@ Examples:
 
 ### Deleting an assignment from all students in a class: `unassignall`
 
-Unassigns an assignment from all students in the specified class.
+Deletes an assignment from all students in the specified class.
 
 Format: `unassignall c/CLASS a/ASSIGNMENT`
 
-* Unassigns the specified assignment from all students in the specified class.
-* Only students who have the specified assignment in the specified class will be affected.
+* Deletes the specified assignment from all students in the specified class.
+* No changes are made to students who do not have the specified assignment in the specified class.
 * If no students in the specified class have the specified assignment, no changes will be made.
 
 Examples:
@@ -233,12 +235,13 @@ Marks the assignment of student(s) identified by the index number(s) used in the
 
 Format: `mark [INDEX]... [INDEX_RANGE]...  c/CLASS a/ASSIGNMENT`
 
-* Marks the assignment belonging to the specified class as completed for the student(s) at the specified `INDEX`(es) or `INDEX_RANGE`(s).
+* Marks the assignment belonging to the specified class as completed for the student(s) at the specified `INDEX`(es) and/or `INDEX_RANGE`(s).
 * The index(es) refers to the index number shown in the displayed student list.
 * The index(es) **must be a positive integer** 1, 2, 3, …​
 * At least one index or index range must be provided.
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+<div markdown="span" class="alert alert-primary"><span class="fas fa-lightbulb" aria-hidden="true"></span> <strong>Tip:</strong>
+
 For efficient marking of assignments for a specific class, use the [`filter`](#filtering-students-by-class-filter) command first to display only students in that class, then use `mark` with the filtered list.
 </div>
 
@@ -253,13 +256,14 @@ Unmarks the assignment of student(s) identified by the index number(s) used in t
 
 Format: `unmark [INDEX]... [INDEX_RANGE]...  c/CLASS a/ASSIGNMENT`
 
-* Unmarks the assignment belonging to the specified class as not completed for the student(s) at the specified `INDEX`(es) or `INDEX_RANGE`(s).
+* Unmarks the assignment belonging to the specified class as not completed for the student(s) at the specified `INDEX`(es) and/or `INDEX_RANGE`(s).
 * The index(es) refers to the index number shown in the displayed student list.
 * The index(es) **must be a positive integer** 1, 2, 3, …​
 * At least one index or index range must be provided.
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-Like [`mark`](#marking-an-assignment-as-completed-mark), use [`filter`](#filtering-students-by-class-filter) first for efficient unmarking by class.
+<div markdown="span" class="alert alert-primary"><span class="fas fa-lightbulb" aria-hidden="true"></span> <strong>Tip:</strong>
+
+Like [`mark`]( #marking-an-assignment-as-completed-mark ), use [`filter`](#filtering-students-by-class-filter) first for efficient unmarking by class.
 </div>
 
 Examples:
@@ -318,12 +322,46 @@ Examples:
 * `filter c/Math-1000` displays all students enrolled in the Math-1000 class.
 * `filter c/Chemistry-1400` displays all students enrolled in the Chemistry-1400 class.
 
-
 ### Clearing all entries : `clear`
 
 Clears all entries from TutorTrack.
 
 Format: `clear`
+
+### Undoing previous command : `undo`
+
+Undoes the previous command that modified the data.
+
+Format: `undo`
+
+* Restores TutorTrack to the state before the last command that changed the data.
+* Only commands that modify data (e.g., `add`, `delete`, `edit`, `assign`, `mark`) can be undone.
+* Commands that do not modify data (e.g., `list`, `find`, `help`) cannot be undone.
+
+<div markdown="span" class="alert alert-primary"><span class="fas fa-lightbulb" aria-hidden="true"></span> <strong>Tip:</strong>
+
+If you accidentally deleted a student or made an unwanted change, use `undo` to quickly restore the previous state.
+</div>
+
+<div markdown="span" class="alert alert-warning"><span class="fas fa-exclamation-triangle" aria-hidden="true"></span> <strong>Caution:</strong>
+
+Undo/Redo only works for actions made in the **current session**. Once you leave or refresh, previous changes cannot be restored.
+</div>
+
+Examples:
+* `delete 1` followed by `undo` adds the deleted student back.
+
+### Redoing previously undone command : `redo`
+
+Redoes a command that was previously undone.
+
+Format: `redo`
+
+* Redo only works if no new commands have been issued after the undo.
+* After using `undo` multiple times, you can use `redo` multiple times to reapply those changes.
+
+Examples:
+* `delete 1` followed by `undo` followed by `redo` deletes the student again.
 
 ### Exiting the program : `exit`
 
@@ -346,10 +384,40 @@ Furthermore, certain edits can cause TutorTrack to behave in unexpected ways (e.
 
 --------------------------------------------------------------------------------------------------------------------
 
+## Keyboard Shortcuts
+
+#### Navigating command history
+
+Navigate through 50 previously inputted commands using keyboard shortcuts.
+
+* **Up Arrow Key (↑)**: Retrieves the previous command from history
+* **Down Arrow Key (↓)**: Retrieves the next command from history
+
+#### Other shortcuts
+
+* **F1**: Opens the help window
+
+--------------------------------------------------------------------------------------------------------------------
+
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous TutorTrack home folder.
+
+**Q**: Can I use TutorTrack on multiple computers?<br>
+**A**: Yes, but TutorTrack does not support real-time synchronization. You will need to manually transfer the `tutortrack.json` data file between computers to keep data consistent.
+
+**Q**: What if the data file becomes corrupted?<br>
+**A**: Restore from your backup. If no backup exists, the app will create a fresh `tutortrack.json` and you may lose previous data.
+
+**Q**: How do I back up my data?<br>
+**A**: Regularly copy `data/tutortrack.json` (and optionally `preferences.json`) to a secure location, such as an external hard drive or cloud storage service.
+
+**Q**: Can I edit `data/tutortrack.json` manually?<br>
+**A**: Yes, but only if you know the expected JSON structure. Always make a backup first; invalid edits may cause the app to discard data on next run.
+
+**Q**: Will data work across app versions?<br>
+**A**: Minor patch updates are generally compatible. For major version changes, check release notes for migration instructions before copying files.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -379,5 +447,7 @@ Action | Format, Examples
 **Delete Class** | `deleteclass INDEX c/CLASS [c/CLASS]...`<br> e.g., `deleteclass 1 c/Math-1000`
 **Filter** | `filter c/CLASS`<br> e.g., `filter c/Math-1000`
 **Clear** | `clear`
+**Undo** | `undo`
+**Redo** | `redo`
 **Help** | `help`
 **Exit** | `exit`
