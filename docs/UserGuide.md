@@ -388,7 +388,7 @@ Furthermore, certain edits can cause TutorTrack to behave in unexpected ways (e.
 
 #### Navigating command history
 
-Navigate through 50 previously executed commands using keyboard shortcuts.
+Navigate through 50 previously inputted commands using keyboard shortcuts.
 
 * **Up Arrow Key (↑)**: Retrieves the previous command from history
 * **Down Arrow Key (↓)**: Retrieves the next command from history
