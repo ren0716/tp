@@ -96,10 +96,6 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
-
-    /**
-     * Returns the current predicate being used to filter the person list.
-     */
     Predicate<Person> getCurrentPredicate();
 
     /**

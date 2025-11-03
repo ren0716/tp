@@ -122,7 +122,6 @@ public class ModelManager implements Model {
     @Override
     public void addPerson(Person person) {
         addressBook.addPerson(person);
-        // Always add the new person to visible list
         if (!visiblePersons.contains(person)) {
             visiblePersons.add(person);
         }
@@ -133,7 +132,6 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedPerson);
 
         addressBook.setPerson(target, editedPerson);
-        // Update visible list: replace target with editedPerson if target was visible
         int index = visiblePersons.indexOf(target);
         if (index != -1) {
             visiblePersons.set(index, editedPerson);
@@ -154,20 +152,13 @@ public class ModelManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         currentPredicate = predicate;
-
         if (predicate == PREDICATE_SHOW_ALL_PERSONS) {
-            // Reset to show all persons from the full address book
             visiblePersons.setAll(addressBook.getPersonList());
         } else {
-            // Filter the current visible list
             visiblePersons.removeIf(person -> !predicate.test(person));
         }
     }
 
-    /**
-     * Updates the visible person list based on the full address book.
-     * Used when the address book is reset (e.g., undo/redo).
-     */
     private void updateVisiblePersonList() {
         if (currentPredicate == PREDICATE_SHOW_ALL_PERSONS) {
             visiblePersons.setAll(addressBook.getPersonList());
