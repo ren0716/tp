@@ -347,6 +347,9 @@
 .classgroup-row {
     -fx-alignment: center-left;
     -fx-spacing: 5;
+    -fx-border-color: grey;
+    -fx-border-width: 1;
+    -fx-padding: 2;
 }
 
 /* Label for class group name */
