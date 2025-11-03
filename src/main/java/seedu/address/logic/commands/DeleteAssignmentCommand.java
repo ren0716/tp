@@ -6,9 +6,9 @@ import static seedu.address.logic.Messages.MESSAGE_ASSIGNMENT_NOT_EXIST;
 import static seedu.address.logic.Messages.MESSAGE_CLASS_NOT_PROVIDED;
 import static seedu.address.logic.Messages.MESSAGE_DELETE_ASSIGNMENT_SUCCESS;
 import static seedu.address.logic.Messages.MESSAGE_DUPLICATE_PERSON;
+import static seedu.address.logic.Messages.MESSAGE_STUDENT_NOT_IN_CLASS_GROUP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSGROUP;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -87,6 +87,9 @@ public class DeleteAssignmentCommand extends Command {
             throw new CommandException(MESSAGE_ASSIGNMENT_NOT_DELETED);
         }
 
+        // Validate that the student belongs to the specified class group(s)
+        validateStudentClassGroups(personToEdit, deleteAssignmentDescriptor);
+
         Person editedPerson = createEditedPerson(personToEdit, deleteAssignmentDescriptor);
 
         if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
@@ -94,8 +97,29 @@ public class DeleteAssignmentCommand extends Command {
         }
 
         model.setPerson(personToEdit, editedPerson);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_DELETE_ASSIGNMENT_SUCCESS, Messages.format(editedPerson)));
+    }
+
+    /**
+     * Validates that the student belongs to all class groups specified in the assignments.
+     *
+     * @param person The person to validate
+     * @param desc The descriptor containing the assignments to add
+     * @throws CommandException if the student does not belong to any of the specified class groups
+     */
+    private static void validateStudentClassGroups(Person person, DeleteAssignmentDescriptor desc)
+            throws CommandException {
+        Set<Assignment> newAssignments = desc.getAssignments().orElse(Set.of());
+        Set<String> personClassGroupNames = person.getClassGroups().stream()
+                .map(ClassGroup::getClassGroupName)
+                .collect(Collectors.toSet());
+
+        for (Assignment assignment : newAssignments) {
+            if (!personClassGroupNames.contains(assignment.classGroupName)) {
+                throw new CommandException(String.format(MESSAGE_STUDENT_NOT_IN_CLASS_GROUP,
+                        assignment.classGroupName));
+            }
+        }
     }
 
     /**

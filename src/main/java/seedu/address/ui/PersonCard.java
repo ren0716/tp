@@ -7,6 +7,7 @@ import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -81,6 +82,9 @@ public class PersonCard extends UiPart<Region> {
 
                     FlowPane assignmentPane = new FlowPane(3, 3);
                     assignmentPane.getStyleClass().add("assignment-flow");
+
+                    HBox.setHgrow(assignmentPane, Priority.ALWAYS);
+                    assignmentPane.setMaxWidth(Double.MAX_VALUE);
 
                     // Filter only assignments that belong to this class group
                     person.getAssignments().stream()

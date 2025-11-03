@@ -7,7 +7,6 @@ import static seedu.address.logic.Messages.MESSAGE_CLASS_NOT_EXIST;
 import static seedu.address.logic.Messages.MESSAGE_DUPLICATE_PERSON;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSGROUP;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
 import java.util.Set;
@@ -116,8 +115,6 @@ public class AssignAllCommand extends Command {
                     classGroupName.toLowerCase(),
                     assignment.getAssignmentName().toLowerCase()));
         }
-
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
         final int finalAssignedCount = assignedCount;
         logger.info(() -> String.format("Successfully assigned '%s' to %d student(s) in class '%s'",

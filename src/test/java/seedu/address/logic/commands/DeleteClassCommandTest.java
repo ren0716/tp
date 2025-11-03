@@ -149,6 +149,7 @@ public class DeleteClassCommandTest {
                 Messages.format(editedPerson));
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        showPersonAtIndex(expectedModel, INDEX_FIRST_PERSON);
         expectedModel.setPerson(personWithClass, editedPerson);
 
         assertCommandSuccess(deleteClassCommand, model, expectedMessage, expectedModel);
