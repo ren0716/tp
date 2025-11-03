@@ -6,7 +6,6 @@ import static seedu.address.logic.Messages.MESSAGE_CLASS_NOT_FOUND;
 import static seedu.address.logic.Messages.MESSAGE_DELETE_CLASS_SUCCESS;
 import static seedu.address.logic.Messages.MESSAGE_DUPLICATE_PERSON;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSGROUP;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -91,7 +90,6 @@ public class DeleteClassCommand extends Command {
         }
 
         model.setPerson(personToEdit, editedPerson);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_DELETE_CLASS_SUCCESS, Messages.format(editedPerson)));
     }
 

@@ -96,6 +96,7 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+    Predicate<Person> getCurrentPredicate();
 
     /**
      * Replaces current address book data with the data prior to the latest command
