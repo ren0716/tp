@@ -47,15 +47,15 @@ public class LogicManager implements Logic {
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
+        //add user input into Command History
+        model.addCommandToHistory(commandText);
+
         CommandResult commandResult;
         Command command = addressBookParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
         try {
             storage.saveAddressBook(model.getAddressBook());
-
-            //add user input into Command History
-            model.addCommandToHistory(commandText);
             storage.saveCommandHistory(model.getHistory());
 
         } catch (AccessDeniedException e) {
