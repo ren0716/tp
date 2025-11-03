@@ -1,14 +1,14 @@
----
-layout: page
-title: TutorTrack
----
+<frontmatter>
+  title: "TutorTrack"
+</frontmatter>
 
-[![CI Status](https://github.com/se-edu/addressbook-level3/workflows/Java%20CI/badge.svg)](https://github.com/se-edu/addressbook-level3/actions)
-[![codecov](https://codecov.io/gh/se-edu/addressbook-level3/branch/master/graph/badge.svg)](https://codecov.io/gh/se-edu/addressbook-level3)
+# TutorTrack
 
-![Ui](images/Ui.png)
+<img src="images/Ui_updated.png" width="100%" alt="Ui">
 
-**TutorTrack is a desktop application for managing your contact details.** While it has a GUI, most of the user interactions happen using a CLI (Command Line Interface).
+**TutorTrack is a desktop application designed to help Secondary School tutors manage important student contact details.** While it provides a Graphical User Interface (GUI), most interactions are optimized for the Command Line Interface (CLI) to enable faster and more efficient use.
+
+TutorTrack allows tutors to conveniently store and manage student information, manage classes and keep track of assignments.
 
 * If you are interested in using TutorTrack, head over to the [_Quick Start_ section of the **User Guide**](UserGuide.html#quick-start).
 * If you are interested about developing TutorTrack, the [**Developer Guide**](DeveloperGuide.html) is a good place to start.

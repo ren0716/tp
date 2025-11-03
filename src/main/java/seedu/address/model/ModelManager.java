@@ -14,7 +14,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
-import seedu.address.model.versionedaddressbook.VersionedAddressBook;
+import seedu.address.model.versionmanager.AddressBookVersionManager;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -25,7 +25,7 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
-    private final VersionedAddressBook versions;
+    private final AddressBookVersionManager versions;
     private final CommandHistory history = new CommandHistory();
 
     /**
@@ -37,7 +37,7 @@ public class ModelManager implements Model {
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         this.addressBook = new AddressBook(addressBook);
-        this.versions = new VersionedAddressBook(addressBook);
+        this.versions = new AddressBookVersionManager(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
     }
@@ -134,7 +134,7 @@ public class ModelManager implements Model {
 
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code AddressBookVersionManager}
      */
     @Override
     public ObservableList<Person> getFilteredPersonList() {
@@ -164,7 +164,7 @@ public class ModelManager implements Model {
                 && filteredPersons.equals(otherModelManager.filteredPersons);
     }
 
-    //=========== VersionedAddressBook =======================================================================
+    //=========== AddressBookVersionManager =======================================================================
     @Override
     public void undo() {
         ReadOnlyAddressBook previous = this.versions.undo();

@@ -1,12 +1,6 @@
----
-layout: page
-title: DevOps guide
----
-
-* Table of Contents
-{:toc}
-
---------------------------------------------------------------------------------------------------------------------
+<frontmatter>
+  title: "DevOps Guide"
+</frontmatter>
 
 ## Build automation
 

@@ -9,10 +9,11 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Assignment {
 
-    public static final String MESSAGE_CONSTRAINTS =
-            "Assignment names should be alphanumeric and may contain spaces or hyphens";
+    public static final String MESSAGE_CONSTRAINTS = "Assignment names should start with and "
+            + "contain alphanumeric characters, and it should not be blank.\n"
+            + "Allowed special characters are hyphens (-) and spaces.";
     public static final String MESSAGE_CLASSGROUP_CONSTRAINTS =
-            "Class group name cannot be empty";
+            "Class name cannot be empty.";
     // Allow alphanumeric characters, spaces and hyphens; must contain at least one alphanumeric character
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} \\-]*";
 
@@ -127,8 +128,9 @@ public class Assignment {
     /**
      * Format state as text for viewing.
      */
+    @Override
     public String toString() {
-        return '[' + assignmentName + " (" + classGroupName + ")]";
+        return assignmentName + " (" + classGroupName + ")";
     }
 
 }

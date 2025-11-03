@@ -45,7 +45,7 @@ public class MainAppTest {
     @Test
     public void initModelManager_withValidStorage_loadsDataSuccessfully() throws IOException {
         // Create temporary storage files
-        Path addressBookFile = tempDir.resolve("addressbook.json");
+        Path addressBookFile = tempDir.resolve("tutortrack.json");
         Path userPrefsFile = tempDir.resolve("userprefs.json");
         Path historyFile = tempDir.resolve("history.txt");
 

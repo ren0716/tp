@@ -103,7 +103,7 @@ public class UnassignAllCommand extends Command {
         // If no students had the assignment, output error message
         if (unassignedCount == 0) {
             throw new CommandException(String.format(MESSAGE_ASSIGNMENT_NOT_FOUND,
-                    StringUtil.toTitleCase(assignment.getAssignmentName()), StringUtil.toTitleCase(classGroupName)));
+                    assignment.getAssignmentName(), classGroupName));
         }
 
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);

@@ -3,8 +3,10 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_ASSIGNMENT_NOT_DELETED;
 import static seedu.address.logic.Messages.MESSAGE_ASSIGNMENT_NOT_EXIST;
+import static seedu.address.logic.Messages.MESSAGE_CLASS_NOT_PROVIDED;
 import static seedu.address.logic.Messages.MESSAGE_DELETE_ASSIGNMENT_SUCCESS;
 import static seedu.address.logic.Messages.MESSAGE_DUPLICATE_PERSON;
+import static seedu.address.logic.Messages.MESSAGE_STUDENT_NOT_IN_CLASS_GROUP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSGROUP;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
@@ -74,10 +76,20 @@ public class DeleteAssignmentCommand extends Command {
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
 
+        // No class provided (missing prefix / present but empty):
+        if (!deleteAssignmentDescriptor.hasClassGroup()) {
+            throw new CommandException(MESSAGE_CLASS_NOT_PROVIDED);
+        }
+
+        // No assignments provided (missing prefix / present but empty): MESSAGE_ASSIGNMENT_NOT_DELETED
         if (!deleteAssignmentDescriptor.isAssignmentDeleted()
-                || deleteAssignmentDescriptor.getAssignments().get().isEmpty()) {
+                || (deleteAssignmentDescriptor.getAssignments().isPresent()
+                && deleteAssignmentDescriptor.getAssignments().get().isEmpty())) {
             throw new CommandException(MESSAGE_ASSIGNMENT_NOT_DELETED);
         }
+
+        // Validate that the student belongs to the specified class group(s)
+        validateStudentClassGroups(personToEdit, deleteAssignmentDescriptor);
 
         Person editedPerson = createEditedPerson(personToEdit, deleteAssignmentDescriptor);
 
@@ -88,6 +100,28 @@ public class DeleteAssignmentCommand extends Command {
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_DELETE_ASSIGNMENT_SUCCESS, Messages.format(editedPerson)));
+    }
+
+    /**
+     * Validates that the student belongs to all class groups specified in the assignments.
+     *
+     * @param person The person to validate
+     * @param desc The descriptor containing the assignments to add
+     * @throws CommandException if the student does not belong to any of the specified class groups
+     */
+    private static void validateStudentClassGroups(Person person, DeleteAssignmentDescriptor desc)
+            throws CommandException {
+        Set<Assignment> newAssignments = desc.getAssignments().orElse(Set.of());
+        Set<String> personClassGroupNames = person.getClassGroups().stream()
+                .map(ClassGroup::getClassGroupName)
+                .collect(Collectors.toSet());
+
+        for (Assignment assignment : newAssignments) {
+            if (!personClassGroupNames.contains(assignment.classGroupName)) {
+                throw new CommandException(String.format(MESSAGE_STUDENT_NOT_IN_CLASS_GROUP,
+                        assignment.classGroupName));
+            }
+        }
     }
 
     /**
@@ -176,6 +210,7 @@ public class DeleteAssignmentCommand extends Command {
      */
     public static class DeleteAssignmentDescriptor {
         private Set<Assignment> assignments;
+        private String classGroupName;
 
         public DeleteAssignmentDescriptor() {}
 
@@ -185,6 +220,7 @@ public class DeleteAssignmentCommand extends Command {
          */
         public DeleteAssignmentDescriptor(DeleteAssignmentDescriptor toCopy) {
             setAssignments(toCopy.assignments);
+            setClassGroupName(toCopy.classGroupName);
         }
 
         /**
@@ -192,6 +228,21 @@ public class DeleteAssignmentCommand extends Command {
          */
         public boolean isAssignmentDeleted() {
             return CollectionUtil.isAnyNonNull(assignments);
+        }
+
+        /**
+         * Returns true if a class group was provided (non-null and non-empty after trimming).
+         */
+        public boolean hasClassGroup() {
+            return classGroupName != null && !classGroupName.trim().isEmpty();
+        }
+
+        public void setClassGroupName(String classGroupName) {
+            this.classGroupName = classGroupName;
+        }
+
+        public Optional<String> getClassGroupName() {
+            return (classGroupName != null) ? Optional.of(classGroupName) : Optional.empty();
         }
 
         /**
@@ -223,7 +274,8 @@ public class DeleteAssignmentCommand extends Command {
             }
 
             DeleteAssignmentDescriptor otherDeleteAssignmentDescriptor = (DeleteAssignmentDescriptor) other;
-            return Objects.equals(assignments, otherDeleteAssignmentDescriptor.assignments);
+            return Objects.equals(assignments, otherDeleteAssignmentDescriptor.assignments)
+                    && Objects.equals(classGroupName, otherDeleteAssignmentDescriptor.classGroupName);
         }
 
         @Override

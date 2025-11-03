@@ -1,8 +1,8 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.Messages.MESSAGE_CLASS_NOT_DELETED;
 import static seedu.address.logic.Messages.MESSAGE_CLASS_NOT_FOUND;
-import static seedu.address.logic.Messages.MESSAGE_CLASS_NOT_PROVIDED;
 import static seedu.address.logic.Messages.MESSAGE_DELETE_CLASS_SUCCESS;
 import static seedu.address.logic.Messages.MESSAGE_DUPLICATE_PERSON;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSGROUP;
@@ -81,7 +81,7 @@ public class DeleteClassCommand extends Command {
 
         if (!deleteClassDescriptor.isClassDeleted()
                 || deleteClassDescriptor.getClassGroups().get().isEmpty()) {
-            throw new CommandException(MESSAGE_CLASS_NOT_PROVIDED);
+            throw new CommandException(MESSAGE_CLASS_NOT_DELETED);
         }
 
         Person editedPerson = createEditedPerson(personToEdit, deleteClassDescriptor);

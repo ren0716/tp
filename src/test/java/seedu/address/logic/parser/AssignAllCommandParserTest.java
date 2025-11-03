@@ -1,5 +1,6 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.logic.Messages.MESSAGE_CLASS_NOT_PROVIDED;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ASSIGNMENT_MATH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ASSIGNMENT_PHYSICS;
@@ -7,6 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_CLASSGROUP_MATH
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CLASSGROUP_PHYSICS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSGROUP;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
@@ -14,6 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.AssignAllCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.assignment.Assignment;
 
 /**
@@ -84,9 +87,9 @@ public class AssignAllCommandParserTest {
 
     @Test
     public void parse_missingAssignmentPrefix_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AssignAllCommand.MESSAGE_USAGE);
+        String expectedMessage = Messages.MESSAGE_ASSIGNMENT_NOT_ADDED;
 
-        // missing assignment prefix
+        // class prefix present, assignment provided without its prefix
         assertParseFailure(parser,
                 " " + PREFIX_CLASSGROUP + VALID_CLASSGROUP_MATH + " " + VALID_ASSIGNMENT_MATH,
                 expectedMessage);
@@ -104,32 +107,21 @@ public class AssignAllCommandParserTest {
 
     @Test
     public void parse_emptyClassGroup_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AssignAllCommand.MESSAGE_USAGE);
-
-        // empty class group after prefix
+        // class prefix present but empty, assignment prefix present with value
         assertParseFailure(parser,
                 " " + PREFIX_CLASSGROUP + " " + PREFIX_ASSIGNMENT + VALID_ASSIGNMENT_MATH,
-                expectedMessage);
-
-        // only whitespace after class group prefix
-        assertParseFailure(parser,
-                " " + PREFIX_CLASSGROUP + "   " + PREFIX_ASSIGNMENT + VALID_ASSIGNMENT_MATH,
-                expectedMessage);
+                MESSAGE_CLASS_NOT_PROVIDED);
     }
 
     @Test
     public void parse_emptyAssignment_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AssignAllCommand.MESSAGE_USAGE);
-
-        // empty assignment after prefix
-        assertParseFailure(parser,
-                " " + PREFIX_CLASSGROUP + VALID_CLASSGROUP_MATH + " " + PREFIX_ASSIGNMENT,
-                expectedMessage);
-
-        // only whitespace after assignment prefix
-        assertParseFailure(parser,
-                " " + PREFIX_CLASSGROUP + VALID_CLASSGROUP_MATH + " " + PREFIX_ASSIGNMENT + "   ",
-                expectedMessage);
+        AssignAllCommandParser parser = new AssignAllCommandParser();
+        // class group provided, assignment prefix present but empty
+        String userInput = " c/math a/";
+        ParseException pe = org.junit.jupiter.api.Assertions.assertThrows(ParseException.class, (
+        ) -> parser.parse(userInput));
+        org.junit.jupiter.api.Assertions.assertEquals(seedu.address.logic.Messages.MESSAGE_ASSIGNMENT_NOT_ADDED,
+                pe.getMessage());
     }
 
     @Test
@@ -203,5 +195,15 @@ public class AssignAllCommandParserTest {
         assertParseSuccess(parser,
                 "   " + PREFIX_CLASSGROUP + classGroup + " " + PREFIX_ASSIGNMENT + assignmentName,
                 new AssignAllCommand(classGroup.toLowerCase(), expectedAssignment));
+    }
+
+    @Test
+    public void parse_invalidPrefix_failure() {
+        // duplicate assignment prefix
+        assertParseFailure(parser,
+                " " + PREFIX_CLASSGROUP + VALID_CLASSGROUP_MATH
+                        + " " + PREFIX_ASSIGNMENT + VALID_ASSIGNMENT_MATH
+                        + " " + PREFIX_NAME,
+                Messages.getErrorMessageForInvalidPrefixes(PREFIX_NAME));
     }
 }

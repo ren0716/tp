@@ -3,8 +3,8 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.Messages.MESSAGE_CLASS_NOT_DELETED;
 import static seedu.address.logic.Messages.MESSAGE_CLASS_NOT_FOUND;
-import static seedu.address.logic.Messages.MESSAGE_CLASS_NOT_PROVIDED;
 import static seedu.address.logic.Messages.MESSAGE_DELETE_CLASS_SUCCESS;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CLASSGROUP_MATH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CLASSGROUP_PHYSICS;
@@ -224,7 +224,7 @@ public class DeleteClassCommandTest {
         descriptor.setClassGroups(new HashSet<>());
         DeleteClassCommand deleteClassCommand = new DeleteClassCommand(INDEX_FIRST_PERSON, descriptor);
 
-        assertCommandFailure(deleteClassCommand, model, MESSAGE_CLASS_NOT_PROVIDED);
+        assertCommandFailure(deleteClassCommand, model, MESSAGE_CLASS_NOT_DELETED);
     }
 
     @Test
@@ -232,7 +232,7 @@ public class DeleteClassCommandTest {
         DeleteClassDescriptor descriptor = new DeleteClassDescriptor();
         DeleteClassCommand deleteClassCommand = new DeleteClassCommand(INDEX_FIRST_PERSON, descriptor);
 
-        assertCommandFailure(deleteClassCommand, model, MESSAGE_CLASS_NOT_PROVIDED);
+        assertCommandFailure(deleteClassCommand, model, MESSAGE_CLASS_NOT_DELETED);
     }
 
     @Test

@@ -75,4 +75,17 @@ public class ArgumentMultimap {
             throw new ParseException(Messages.getErrorMessageForDuplicatePrefixes(duplicatedPrefixes));
         }
     }
+
+    /**
+     * Throws a {@code ParseException} if any of the prefixes given in {@code prefixes} appears among the arguments.
+     */
+    public void verifyNoInvalidPrefixesFor(Prefix... prefixes) throws ParseException {
+        Prefix[] invalidPrefixes = Stream.of(prefixes)
+                .filter(argMultimap::containsKey)
+                .toArray(Prefix[]::new);
+
+        if (invalidPrefixes.length > 0) {
+            throw new ParseException(Messages.getErrorMessageForInvalidPrefixes(invalidPrefixes));
+        }
+    }
 }

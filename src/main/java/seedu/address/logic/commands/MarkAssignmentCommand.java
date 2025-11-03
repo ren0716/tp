@@ -31,7 +31,7 @@ public class MarkAssignmentCommand extends Command {
     public static final String COMMAND_WORD = "mark";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Marks the assignment of one or more students identified by the index number(s) "
+            + ": Marks the assignment of student(s) identified by the index number(s) "
             + "used in the displayed student list and the assignment name.\n"
             + "Parameters: [INDEX]... [INDEX_RANGE]... (e.g., '1' for single student or '1-5' for multiple students) "
             + "c/CLASS "
@@ -42,7 +42,7 @@ public class MarkAssignmentCommand extends Command {
             + "Example 2: " + COMMAND_WORD + " 1-5 "
             + "c/Math-2000 "
             + "a/Homework1\n"
-            + "Example 3: " + COMMAND_WORD + " 1 3-5 7"
+            + "Example 3: " + COMMAND_WORD + " 1 3-5 7 "
             + "c/Math-2000 "
             + "a/Homework1\n";
 
